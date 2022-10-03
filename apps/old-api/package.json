@@ -1,10 +1,9 @@
 {
-  "name": "wwww",
+  "name": "old-api",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "PORT=3000 craco start",
-    "build": "craco build"
+    "old-dev": "ts-node index.ts"
   },
   "dependencies": {
     "@alch/alchemy-web3": "^1.1.9",
@@ -64,7 +63,7 @@
     "web3": "1.7.1",
     "web3-eth-contract": "1.7.1",
     "web3-utils": "1.7.1",
-    "ws": "^8.5.0"
+    "ws": "^8.9.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -84,24 +83,5 @@
     "prettier": "^2.5.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^4.8.4"
-  },
-  "homepage": ".",
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   }
 }
