@@ -7,6 +7,13 @@ export default function Gnar() {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { gnarId } = context.params
   return {
-    props: {}, // will be passed to the page component as props
+    props: {},
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
   }
 }
