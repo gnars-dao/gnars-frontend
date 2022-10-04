@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Shadeerah";
+  src: url("/fonts/Shadeerah.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PT Root UI";
+  src: url("/fonts/PT-Root-UI_Medium.ttf") format("truetype");
+  font-weight: 100 600;
+}
+
+@font-face {
+  font-family: "PT Root UI";
+  src: url("/fonts/PT-Root-UI_Bold.ttf") format("truetype");
+  font-weight: 700 900;
+}
+
+@font-face {
+  font-family: "Londrina Solid";
+  src: url("/fonts/londrina.solid-regular.otf") format("opentype");
+}

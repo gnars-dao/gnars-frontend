@@ -15,9 +15,12 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
+    "@fastify/cors": "^8.1.0",
     "@fastify/sensible": "^5.1.1",
     "@fastify/type-provider-typebox": "^2.3.0",
     "@prisma/client": "^4.4.0",
+    "@sinclair/typebox": "^0.24.44",
+    "dotenv": "^16.0.3",
     "ethers": "^5.7.1",
     "fastify": "^4.6.0",
     "prisma": "^4.4.0"
