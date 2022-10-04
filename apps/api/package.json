@@ -6,7 +6,7 @@
     "dev": "nodemon",
     "build": "yarn typechain && yarn generate && tsc",
     "start": "node dist/index.js",
-    "generate": "prisma generate --schema=./src/prisma/schema.prisma",
+    "generate": "prisma migrate deploy --schema=./src/prisma/schema.prisma",
     "migrate": "prisma migrate dev --schema=./src/prisma/schema.prisma",
     "typechain": "typechain --target=ethers-v5 'abis/*.json' --out-dir src/types/contracts",
     "backfill": "ts-node ./src/scripts/backfill.ts"
