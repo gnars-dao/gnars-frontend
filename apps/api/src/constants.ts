@@ -1,8 +1,12 @@
-import { PrismaClient } from "@prisma/client"
+// This setup is needed for using Prisma with pnpm
+// https://github.com/prisma/prisma/issues/6603
+import Prisma1, * as Prisma2 from "@prisma/client"
 import { providers } from "ethers"
 import { SkateContractV2AuctionHouse__factory } from "./types/contracts"
 
-export const prisma = new PrismaClient()
+const Prisma = Prisma1 || Prisma2
+
+export const prisma = new Prisma.PrismaClient()
 export const provider = new providers.AlchemyProvider(
   1,
   process.env["ALCHEMY_API_KEY"]
