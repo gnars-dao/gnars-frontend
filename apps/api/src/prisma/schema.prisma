@@ -22,8 +22,8 @@ model Bid {
   amount          String
   timestamp       DateTime
   transactionHash String   @unique
-  auction         Auction  @relation(fields: [auctionId], references: [gnarId])
-  auctionId       Int
+  auction         Auction?  @relation(fields: [auctionId], references: [gnarId])
+  auctionId       Int?
 
   @@index([gnarId])
 }
@@ -33,6 +33,6 @@ model Winner {
   amount    String
   sender    String
   timestamp DateTime
-  auction   Auction  @relation(fields: [auctionId], references: [gnarId])
-  auctionId Int      @unique
+  auction   Auction?  @relation(fields: [auctionId], references: [gnarId])
+  auctionId Int?      @unique
 }
