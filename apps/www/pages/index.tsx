@@ -1,10 +1,12 @@
 import Explainer from "components/Explainer"
-import LatestAuction from "components/LatestAuction"
+import Auction from "components/Auction"
+import useLatestGnar from "hooks/useLatestGnar"
 
 export default function Home() {
+  const { isLoading: isAuctionLoading, data: gnarData } = useLatestGnar(10000)
   return (
     <>
-      <LatestAuction />
+      <Auction gnarId={gnarData?.gnarId} />
       <Explainer />
     </>
   )

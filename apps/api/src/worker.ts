@@ -1,13 +1,25 @@
-import { prisma, v2AuctionHouse } from "./constants"
+import { prisma, v2AuctionHouse, v2Gnar } from "./constants"
 import { toDatetime } from "./utils"
 
 export const startWorker = () => {
   console.log("Worker Starting")
+
+  v2Gnar.on(v2Gnar.filters.GnarCreated(), async (gnarId) => {
+    console.log("Gnar Created")
+    const gnarCreateRes = await prisma.gnar.create({
+      data: {
+        gnarId: gnarId.toNumber(),
+      },
+    })
+
+    console.log(gnarCreateRes)
+  })
+
   v2AuctionHouse.on(
     v2AuctionHouse.filters.AuctionCreated(),
     async (gnarId, startTimestamp, endTimestamp) => {
       console.log("Auction Created")
-      const auctionCreateRes = await prisma.auction.create({
+      const auctionCreateRes = await prisma.gnar.create({
         data: {
           gnarId: gnarId.toNumber(),
           startTimestamp: toDatetime(startTimestamp.toNumber()),
@@ -30,7 +42,6 @@ export const startWorker = () => {
           amount: value.toString(),
           timestamp: toDatetime(timestamp.toNumber()),
           transactionHash: event.transactionHash,
-          auctionId: gnarId.toNumber(),
         },
       })
 
@@ -48,7 +59,6 @@ export const startWorker = () => {
           sender: winner,
           amount: amount.toString(),
           timestamp: toDatetime(timestamp.toNumber()),
-          auctionId: gnarId.toNumber(),
         },
       })
 

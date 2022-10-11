@@ -9,6 +9,7 @@
     "generate": "prisma generate --schema=./src/prisma/schema.prisma",
     "migrate:prod": "prisma migrate deploy --schema=./src/prisma/schema.prisma",
     "migrate:dev": "prisma migrate dev --schema=./src/prisma/schema.prisma",
+    "migrate:reset": "prisma migrate reset --schema=./src/prisma/schema.prisma",
     "typechain": "typechain --target=ethers-v5 '../../abis/*.json' --out-dir src/types/contracts",
     "backfill": "ts-node ./src/scripts/backfill.ts"
   },

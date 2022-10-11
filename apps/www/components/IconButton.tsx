@@ -1,29 +1,24 @@
 import clsx from "clsx"
-import { ButtonHTMLAttributes, FC, useMemo } from "react"
+import { ButtonHTMLAttributes } from "react"
 import Svg from "react-inlinesvg"
-import { BaseButton } from "../baseButton/baseButton"
 
-type IIconType = "bids" | "book" | "people" | "play" | "tick"
+import Button from "./Button"
 
-const Icon = styled(Svg)`
-  width: 20px;
-  max-height: 17px;
-  max-width: 20px;
-`
+type IconType = "bids" | "book" | "people" | "play" | "tick"
 
-interface IIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string
-  icon: IIconType
+  icon: IconType
   design: "transparent" | "primary"
 }
 
-export const IconButton: FC<IIconButtonProps> = ({
+export const IconButton = ({
   text,
   icon,
   design,
   ...props
-}) => {
-  const iconData = useMemo(() => {
+}: IconButtonProps) => {
+  const iconData = () => {
     switch (icon) {
       case "bids":
         return "/images/bids.svg"
@@ -36,10 +31,10 @@ export const IconButton: FC<IIconButtonProps> = ({
       case "tick":
         return "/images/tick.svg"
     }
-  }, [icon])
+  }
 
   return (
-    <BaseButton
+    <Button
       className={clsx(
         design === "primary" ? "bg-primary" : "border border-borderColor",
         "text-primaryText hover:bg-hoverLight w-full lg:w-auto"
@@ -47,21 +42,24 @@ export const IconButton: FC<IIconButtonProps> = ({
       {...props}
     >
       <div className="flex flex-row items-center gap-1 max-w-20px">
-        <Icon
+        <Svg
           className={clsx(
-            design === "transparent" && "opacity-50 dark:text-white"
+            design === "transparent" && "opacity-50 dark:text-white",
+            "w-5",
+            "max-h-4",
+            "max-w-[20px]"
           )}
-          src={iconData}
+          src={iconData()}
         />
         <div
           className={clsx(
-            "flex font-bold",
+            "flex font-medium",
             design === "transparent" && "dark:text-white"
           )}
         >
           {text}
         </div>
       </div>
-    </BaseButton>
+    </Button>
   )
 }

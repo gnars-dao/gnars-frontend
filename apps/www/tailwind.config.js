@@ -2,6 +2,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -9,11 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Shadeerah: ["Shadeerah"],
         primary: "PT Root UI",
         secondary: "Londrina Solid",
-        // This sets the html font-family in tailwind
-        sans: ["PT Root UI", ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         "15px": "15px",

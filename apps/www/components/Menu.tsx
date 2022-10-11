@@ -3,14 +3,20 @@ import Link from "next/link"
 import { useState } from "react"
 import { useBalance } from "wagmi"
 import Svg from "react-inlinesvg"
+import { ConnectKitButton } from "connectkit"
 
 import { nFormatter } from "utils"
-
-const TREASURY_ADDRESS = "0x0658f4eD17289144717713ADfFC2539eF7c2EF8e"
+import { TREASURY_ADDRESS } from "utils/contracts"
 
 import Button from "./Button"
+import { IconButton } from "./IconButton"
 
-export default function Menu() {
+interface MenuProps {
+  hasDarkBg: boolean
+}
+
+export default function Menu(props: MenuProps) {
+  const { hasDarkBg } = props
   const [showMenu, setShowMenu] = useState(false)
   const { data: balanceData, isSuccess: isSuccessBalance } = useBalance({
     addressOrName: TREASURY_ADDRESS,
@@ -25,9 +31,9 @@ export default function Menu() {
               <img
                 className="hidden sm:flex max-h-40px min-w-190px"
                 src={
-                  true
-                    ? "/images/gnar-logo-black.svg"
-                    : "/images/gnar-logo-white.svg"
+                  hasDarkBg
+                    ? "/images/logo-white.png"
+                    : "/images/logo-black.png"
                 }
               />
               <img
@@ -42,7 +48,7 @@ export default function Menu() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button className="gap-3 hover:bg-hoverLight font-bold w-full lg:w-auto border border-borderColor">
+              <Button className="gap-3 hover:bg-hoverLight font-medium w-full lg:w-auto border border-borderColor">
                 <div className="text-secondaryText dark:text-white">
                   Treasury
                 </div>
@@ -70,7 +76,7 @@ export default function Menu() {
           "lg:flex flex-col lg:flex-row lg:justify-end w-full text-lg gap-3"
         )}
       >
-        {/* <div className="flex flex-col lg:flex-row gap-3">
+        <div className="flex flex-col lg:flex-row gap-3">
           <a
             href="https://snapshot.org/#/gnars.eth"
             target="_blank"
@@ -81,11 +87,13 @@ export default function Menu() {
           <a href="https://gnars.com" target="_blank" rel="noopener noreferrer">
             <IconButton design="transparent" icon="book" text="About" />
           </a>
-          <Link to="/playground">
-            <IconButton design="transparent" icon="play" text="Playground" />
+          <Link href="/playground">
+            <a>
+              <IconButton design="transparent" icon="play" text="Playground" />
+            </a>
           </Link>
-          <ConnectButton />
-        </div> */}
+          <ConnectKitButton />
+        </div>
       </div>
     </div>
   )

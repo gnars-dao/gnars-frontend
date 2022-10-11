@@ -31,7 +31,7 @@ fastify.get<{ Params: GnarIdParamsType }>(
   async (req, rep) => {
     const { gnarId } = req.params
     const res = await prisma.bid.findMany({
-      where: { auctionId: gnarId },
+      where: { gnarId: gnarId },
       select: {
         sender: true,
         amount: true,
@@ -52,7 +52,7 @@ fastify.get<{ Params: GnarIdParamsType }>(
   async (req, rep) => {
     const { gnarId } = req.params
     const res = await prisma.winner.findUnique({
-      where: { auctionId: gnarId },
+      where: { gnarId: gnarId },
       select: {
         sender: true,
         amount: true,
@@ -66,11 +66,12 @@ fastify.get<{ Params: GnarIdParamsType }>(
 )
 
 fastify.get<{ Params: GnarIdParamsType }>(
-  "/auction/:gnarId",
+  "/gnar/:gnarId",
   { schema: { params: GnarIdParams } },
   async (req, rep) => {
     const { gnarId } = req.params
-    const res = await prisma.auction.findUnique({
+
+    const res = await prisma.gnar.findUnique({
       where: { gnarId: gnarId },
       select: {
         startTimestamp: true,
@@ -87,13 +88,20 @@ fastify.get<{ Params: GnarIdParamsType }>(
       },
     })
 
+    const nextGnarRes = await prisma.gnar.findUnique({
+      where: { gnarId: gnarId + 1 },
+      select: { gnarId: true },
+    })
+
+    const isLatestGnar = !nextGnarRes
+
     if (!res) return rep.send(null)
-    return rep.send(res)
+    return rep.send({ ...res, isLatestGnar })
   }
 )
 
-fastify.get("/latest-auction", async (req, rep) => {
-  const res = await prisma.auction.findFirst({
+fastify.get("/latest-gnar", async (req, rep) => {
+  const res = await prisma.gnar.findFirst({
     orderBy: { gnarId: "desc" },
     select: {
       gnarId: true,
@@ -129,4 +137,4 @@ const startServer = async () => {
   }
 }
 startServer()
-startWorker()
+// startWorker()

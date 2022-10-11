@@ -1,11 +1,12 @@
 import "../styles/global.css"
 import type { AppProps } from "next/app"
 import Footer from "components/Footer"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { QueryClientProvider } from "@tanstack/react-query"
 import { createClient, WagmiConfig } from "wagmi"
 import { ConnectKitProvider, getDefaultClient } from "connectkit"
 
-const queryClient = new QueryClient()
+import { queryClient } from "utils"
+
 const client = createClient({
   ...getDefaultClient({
     appName: "Gnars",

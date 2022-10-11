@@ -18,42 +18,41 @@ export default function Explainer() {
 
       <div id="wtf" className="flex justify-center pt-32 container">
         <div className="w-full sm:w-2/3">
-          <div className="px-4 sm:px-0">
-            <div className="text-6xl font-secondary">WTF?</div>
-            <div className="flex flex-col gap-8 text-xl sm:text-20px pt-16 pb-16 leading-8 sm:leading-10">
-              <p>
-                <TextLink href="https://gnars.com"> Gnars</TextLink> are a new
-                way to fund extreme athletes. We prefer a world where kids
-                aren’t shilled energy drinks by their heroes. So as a community
-                of action sports enthusiasts, we’ve formed a DAO to rethink how
-                extreme sports people get sponsored.
-              </p>
+          <div className="text-6xl font-secondary">WTF?</div>
+          <div className="flex flex-col gap-8 pt-8 pb-10 mb-10 border-b-2 border-borderColor">
+            <p>
+              <TextLink href="https://gnars.com"> Gnars</TextLink> are a new way
+              to fund extreme athletes. We prefer a world where kids aren’t
+              shilled energy drinks by their heroes. So as a community of action
+              sports enthusiasts, we’ve formed a DAO to rethink how extreme
+              sports people get sponsored.
+            </p>
 
-              <p>
-                Based on Nouns open source code and CC0 artwork, they’re stored
-                fully on-chain on Ethereum with no external dependencies (not
-                even IPFS), and each one represents a DAO vote. We’re changing
-                the way extreme sport is funded as stewards of{" "}
-                <TextLink href="https://gnars.com/riders">
-                  Nouns Athletes
-                </TextLink>{" "}
-                with{" "}
-                <TextLink href="https://nouns.wtf/vote/51">
-                  backing from Nouns DAO
-                </TextLink>
-                .
-              </p>
+            <p>
+              Based on Nouns open source code and CC0 artwork, they’re stored
+              fully on-chain on Ethereum with no external dependencies (not even
+              IPFS), and each one represents a DAO vote. We’re changing the way
+              extreme sport is funded as stewards of{" "}
+              <TextLink href="https://gnars.com/riders">
+                Nouns Athletes
+              </TextLink>{" "}
+              with{" "}
+              <TextLink href="https://nouns.wtf/vote/51">
+                backing from Nouns DAO
+              </TextLink>
+              .
+            </p>
 
-              <p>
-                Start creating Gnars off-chain using the Playground (soon) or
-                learn more at{" "}
-                <TextLink href="https://gnars.com">gnars.com</TextLink>.
-              </p>
-            </div>
+            <p>
+              Start creating Gnars off-chain using the Playground (soon) or
+              learn more at{" "}
+              <TextLink href="https://gnars.com">gnars.com</TextLink>.
+            </p>
           </div>
+
           <div className="pb-12">
             <h2 className="text-4xl font-secondary">Summary</h2>
-            <div className="pt-8 pb-10 mb-10 leading-8 sm:leading-10 border-b-2 border-borderColor">
+            <div className="pt-8 pb-10 mb-10 border-b-2 border-borderColor">
               <ul className="list-disc list-inside">
                 <li>Gnars artwork is in the public domain.</li>
                 <li>

@@ -7,10 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Auction {
+model Gnar {
   gnarId         Int      @id
-  startTimestamp DateTime
-  endTimestamp   DateTime
+  startTimestamp DateTime?
+  endTimestamp   DateTime?
   bids           Bid[]
   winner         Winner?
 }
@@ -22,8 +22,7 @@ model Bid {
   amount          String
   timestamp       DateTime
   transactionHash String   @unique
-  auction         Auction?  @relation(fields: [auctionId], references: [gnarId])
-  auctionId       Int?
+  gnar         Gnar?  @relation(fields: [gnarId], references: [gnarId])
 
   @@index([gnarId])
 }
@@ -33,6 +32,5 @@ model Winner {
   amount    String
   sender    String
   timestamp DateTime
-  auction   Auction?  @relation(fields: [auctionId], references: [gnarId])
-  auctionId Int?      @unique
+  gnar   Gnar?  @relation(fields: [gnarId], references: [gnarId])
 }
