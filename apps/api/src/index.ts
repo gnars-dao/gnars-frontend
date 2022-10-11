@@ -137,4 +137,7 @@ const startServer = async () => {
   }
 }
 startServer()
-// startWorker()
+
+if (process.env["NODE_ENV"] !== "development") {
+  startWorker()
+}
