@@ -1,8 +1,10 @@
 import useGnar from "hooks/useGnar"
 
 import Link from "next/link"
+import { is10thGnar } from "utils"
 import { V2_START_ID } from "utils/contracts"
 import RoundButton from "./RoundButton"
+import TimeCounter from "./TimeCounter"
 
 interface AuctionDetailsProps {
   gnarId: number
@@ -43,10 +45,12 @@ export default function AuctionDetails(props: AuctionDetailsProps) {
         </div>
         <div className="font-secondary text-5xl sm:text-7xl">Gnar {gnarId}</div>
       </div>
-      <div className="pt-6">{/* <TimeCounter winner={winnerInfo} /> */}</div>
+      <div className="pt-6">
+        <TimeCounter gnarId={gnarId} />
+      </div>
       {gnarData?.isLatestGnar ? (
         <div>{/* <BidWallet /> */}</div>
-      ) : (gnarId - V2_START_ID) % 10 === 0 ? (
+      ) : is10thGnar(gnarId) ? (
         <div className="text-16px mt-10 pb-4 border-b border-secondaryText lg:dark:border-white">
           To pay homage and show our respect as a Nouns extension, every 10th
           Gnar for the first 5 years of the project is sent to the Nouns

@@ -22,7 +22,7 @@ model Bid {
   amount          String
   timestamp       DateTime
   transactionHash String   @unique
-  gnar         Gnar?  @relation(fields: [gnarId], references: [gnarId])
+  gnar            Gnar?    @relation(fields: [gnarId], references: [gnarId])
 
   @@index([gnarId])
 }
@@ -32,5 +32,5 @@ model Winner {
   amount    String
   sender    String
   timestamp DateTime
-  gnar   Gnar?  @relation(fields: [gnarId], references: [gnarId])
+  gnar      Gnar?    @relation(fields: [gnarId], references: [gnarId])
 }

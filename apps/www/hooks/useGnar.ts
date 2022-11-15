@@ -12,6 +12,10 @@ interface GnarData {
   endTimestamp: string
   bids: Bid[]
   isLatestGnar: boolean
+  winner: {
+    sender: string
+    amount: string
+  }
 }
 
 export default function useGnar(gnarId: number) {

@@ -85,6 +85,12 @@ fastify.get<{ Params: GnarIdParamsType }>(
           },
           orderBy: [{ timestamp: "desc" }],
         },
+        winner: {
+          select: {
+            amount: true,
+            sender: true,
+          },
+        },
       },
     })
 

@@ -1,6 +1,9 @@
 import { QueryClient } from "@tanstack/react-query"
+import { BigNumberish } from "ethers"
+import { formatEther, parseEther } from "ethers/lib/utils"
 import { GnarSeed } from "types"
 import gnarDataV2 from "../data/image-data-V2.json"
+import { V2_START_ID } from "./contracts"
 
 export const queryClient = new QueryClient()
 
@@ -26,6 +29,10 @@ export const nFormatter = (num: number, digits: number = 2) => {
   return item
     ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol
     : "0"
+}
+
+export const truncatedAmount = (amount: string) => {
+  return Number(formatEther(amount)).toFixed(3)
 }
 
 export const getGnarDataV2 = (seed: GnarSeed) => {
@@ -71,3 +78,8 @@ export const isBgDark = (color: string) => {
       return false
   }
 }
+
+export const is10thGnar = (gnarId) => (gnarId - V2_START_ID) % 10 === 0
+
+export const shortAddress = (address: string) =>
+  [address.substring(0, 6), address.substring(38, 4)].join("…")
