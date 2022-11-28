@@ -19,14 +19,20 @@ interface GnarData {
 }
 
 export default function useGnar(gnarId: number) {
-  return useQuery(["gnar", gnarId], async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/gnar/${gnarId}`)
+  return useQuery(
+    ["gnar", gnarId],
+    async () => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/gnar/${gnarId}`
+      )
 
-    if (res.ok) {
-      const data = (await res.json()) as GnarData
-      return data
-    }
+      if (res.ok) {
+        const data = (await res.json()) as GnarData
+        return data
+      }
 
-    throw Error("Fetching gnar failed")
-  })
+      throw Error("Fetching gnar failed")
+    },
+    { enabled: Boolean(gnarId) }
+  )
 }

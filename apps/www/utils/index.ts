@@ -82,4 +82,7 @@ export const isBgDark = (color: string) => {
 export const is10thGnar = (gnarId) => (gnarId - V2_START_ID) % 10 === 0
 
 export const shortAddress = (address: string) =>
-  [address.substring(0, 6), address.substring(38, 4)].join("…")
+  [address.substring(0, 6), address.substring(38)].join("…")
+
+export const ensOrShortAddress = (address: string, ens: string) =>
+  ens ? ens : shortAddress(address)

@@ -1,29 +1,31 @@
 import { useEffect, useState } from "react"
+import { intervalToDuration, isPast } from "date-fns"
 
 export default function useAuctionTimeLeft(endTimestamp: string) {
   const [auctionTimeLeft, setAuctionTimeLeft] = useState<string>()
 
   useEffect(() => {
+    if (!endTimestamp) {
+      return setAuctionTimeLeft(null)
+    }
     const interval = setInterval(() => {
       const now = Date.now()
-      const endDate = new Date(endTimestamp).getTime()
-      let difference = endDate - now
+      const endDate = new Date(endTimestamp)
 
-      if (difference > 0) {
-        const hours = difference / (60 * 60)
-        difference -= hours * (60 * 60)
-        const minutes = difference / 60
-        const seconds = difference - minutes * 60
-        let newAuctionTimeLeft = ""
-        if (hours > 0) {
-          newAuctionTimeLeft = `${hours}h `
-        }
-        if (hours > 0 || minutes > 0) {
-          newAuctionTimeLeft = `${minutes}m `
-        }
-        newAuctionTimeLeft += `${seconds}s`
-        setAuctionTimeLeft(newAuctionTimeLeft)
+      if (isPast(endDate)) {
+        return setAuctionTimeLeft(null)
       }
+      const duration = intervalToDuration({ start: now, end: endDate })
+
+      let newAuctionTimeLeft = ""
+      if (duration.hours > 0) {
+        newAuctionTimeLeft = `${duration.hours}h `
+      }
+      if (duration.hours > 0 || duration.minutes > 0) {
+        newAuctionTimeLeft = `${duration.minutes}m `
+      }
+      newAuctionTimeLeft += `${duration.seconds}s`
+      setAuctionTimeLeft(newAuctionTimeLeft)
     }, 1000)
 
     return () => clearInterval(interval)

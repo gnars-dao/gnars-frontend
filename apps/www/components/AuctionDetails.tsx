@@ -3,6 +3,7 @@ import useGnar from "hooks/useGnar"
 import Link from "next/link"
 import { is10thGnar } from "utils"
 import { V2_START_ID } from "utils/contracts"
+import AuctionInput from "./AuctionInput"
 import RoundButton from "./RoundButton"
 import TimeCounter from "./TimeCounter"
 
@@ -49,7 +50,10 @@ export default function AuctionDetails(props: AuctionDetailsProps) {
         <TimeCounter gnarId={gnarId} />
       </div>
       {gnarData?.isLatestGnar ? (
-        <div>{/* <BidWallet /> */}</div>
+        <div>
+          {" "}
+          <AuctionInput />
+        </div>
       ) : is10thGnar(gnarId) ? (
         <div className="text-16px mt-10 pb-4 border-b border-secondaryText lg:dark:border-white">
           To pay homage and show our respect as a Nouns extension, every 10th

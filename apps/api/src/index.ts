@@ -38,7 +38,7 @@ fastify.get<{ Params: GnarIdParamsType }>(
         timestamp: true,
         transactionHash: true,
       },
-      orderBy: [{ timestamp: "desc" }],
+      orderBy: [{ timestamp: "desc" }, { id: "desc" }],
     })
 
     if (!res) return rep.send(null)
@@ -83,7 +83,7 @@ fastify.get<{ Params: GnarIdParamsType }>(
             timestamp: true,
             transactionHash: true,
           },
-          orderBy: [{ timestamp: "desc" }],
+          orderBy: [{ timestamp: "desc" }, { id: "desc" }],
         },
         winner: {
           select: {
@@ -120,7 +120,7 @@ fastify.get("/latest-gnar", async (req, rep) => {
           timestamp: true,
           transactionHash: true,
         },
-        orderBy: [{ timestamp: "desc" }],
+        orderBy: [{ timestamp: "desc" }, { id: "desc" }],
       },
     },
   })
