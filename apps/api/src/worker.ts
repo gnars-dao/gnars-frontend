@@ -6,10 +6,10 @@ export const startWorker = () => {
 
   v2Gnar.on(v2Gnar.filters.GnarCreated(), async (gnarId) => {
     console.log("Gnar Created")
-    const gnarCreateRes = await prisma.gnar.create({
-      data: {
-        gnarId: gnarId.toNumber(),
-      },
+    const gnarCreateRes = await prisma.gnar.upsert({
+      where: { gnarId: gnarId.toNumber() },
+      update: { gnarId: gnarId.toNumber() },
+      create: { gnarId: gnarId.toNumber() },
     })
 
     console.log(gnarCreateRes)
@@ -19,8 +19,14 @@ export const startWorker = () => {
     v2AuctionHouse.filters.AuctionCreated(),
     async (gnarId, startTimestamp, endTimestamp) => {
       console.log("Auction Created")
-      const auctionCreateRes = await prisma.gnar.create({
-        data: {
+      const auctionCreateRes = await prisma.gnar.upsert({
+        where: { gnarId: gnarId.toNumber() },
+        update: {
+          gnarId: gnarId.toNumber(),
+          startTimestamp: toDatetime(startTimestamp.toNumber()),
+          endTimestamp: toDatetime(endTimestamp.toNumber()),
+        },
+        create: {
           gnarId: gnarId.toNumber(),
           startTimestamp: toDatetime(startTimestamp.toNumber()),
           endTimestamp: toDatetime(endTimestamp.toNumber()),
