@@ -9,7 +9,7 @@ import { Static, Type } from "@sinclair/typebox"
 import { startWorker } from "./worker"
 import { prisma } from "./constants"
 
-const PORT = process.env["PORT"] ?? 3001
+const PORT = process.env["PORT"] ?? 3003
 const fastify = Fastify()
 fastify.register(fastifySensible)
 fastify.register(cors)
