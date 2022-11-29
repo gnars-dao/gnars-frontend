@@ -59,8 +59,15 @@ export const startWorker = () => {
     v2AuctionHouse.filters.AuctionSettled(),
     async (gnarId, winner, amount, timestamp, event) => {
       console.log("Settled")
-      const winnerRes = await prisma.winner.create({
-        data: {
+      const winnerRes = await prisma.winner.upsert({
+        where: { gnarId: gnarId.toNumber() },
+        update: {
+          gnarId: gnarId.toNumber(),
+          sender: winner,
+          amount: amount.toString(),
+          timestamp: toDatetime(timestamp.toNumber()),
+        },
+        create: {
           gnarId: gnarId.toNumber(),
           sender: winner,
           amount: amount.toString(),
