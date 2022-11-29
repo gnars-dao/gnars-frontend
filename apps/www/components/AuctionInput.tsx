@@ -1,3 +1,3 @@
 export default function AuctionInput() {
-  return <div>Stub of auction input logic</div>
+  return <div>Stub of auction input component</div>
 }
