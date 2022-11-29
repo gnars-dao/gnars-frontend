@@ -8,7 +8,7 @@ export const startWorker = () => {
     console.log("Gnar Created")
     const gnarCreateRes = await prisma.gnar.upsert({
       where: { gnarId: gnarId.toNumber() },
-      update: { gnarId: gnarId.toNumber() },
+      update: {},
       create: { gnarId: gnarId.toNumber() },
     })
 
@@ -22,7 +22,6 @@ export const startWorker = () => {
       const auctionCreateRes = await prisma.gnar.upsert({
         where: { gnarId: gnarId.toNumber() },
         update: {
-          gnarId: gnarId.toNumber(),
           startTimestamp: toDatetime(startTimestamp.toNumber()),
           endTimestamp: toDatetime(endTimestamp.toNumber()),
         },
@@ -62,7 +61,6 @@ export const startWorker = () => {
       const winnerRes = await prisma.winner.upsert({
         where: { gnarId: gnarId.toNumber() },
         update: {
-          gnarId: gnarId.toNumber(),
           sender: winner,
           amount: amount.toString(),
           timestamp: toDatetime(timestamp.toNumber()),
