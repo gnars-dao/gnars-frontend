@@ -1,12 +1,28 @@
-import { extendTheme } from "@chakra-ui/react"
+import { defineStyle, defineStyleConfig, extendTheme } from "@chakra-ui/react"
 
-// 2. Add your color mode config
 const config = {
   initialColorMode: "dark",
   useSystemColorMode: false,
 }
 
-// 3. extend the theme
-const theme = extendTheme({ config })
+const outline = defineStyle({
+  borderColor: "blackAlpha.300",
+  _dark: {
+    borderColor: "whiteAlpha.300",
+  },
+})
+
+const solid = defineStyle({
+  bg: "whiteAlpha.800",
+  _dark: {
+    bg: "whiteAlpha.300",
+  },
+})
+
+export const buttonTheme = defineStyleConfig({
+  variants: { outline, solid },
+})
+
+const theme = extendTheme({ ...config, components: { Button: buttonTheme } })
 
 export default theme

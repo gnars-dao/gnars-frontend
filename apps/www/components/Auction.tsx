@@ -8,9 +8,11 @@ import Menu from "./Menu"
 import useGnarInfo from "../hooks/useGnarInfo"
 import {
   Box,
+  ColorMode,
   ColorModeProvider,
   DarkMode,
   Text,
+  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react"
 
@@ -33,6 +35,10 @@ export default function Auction(props: AuctionProps) {
   console.log({ data, parts })
 
   const hasDarkBg = isBgDark(parts?.background)
+  const auctionDetailsColorMode = useBreakpointValue<ColorMode>({
+    base: "dark",
+    lg: hasDarkBg ? "dark" : "light",
+  })
   const gnarBgColor = parts?.background ? `#${parts.background}` : "#d5d7e1"
 
   return (
@@ -40,7 +46,6 @@ export default function Auction(props: AuctionProps) {
       <Box
         color={"chakra-body-text"}
         className={"flex flex-col w-full items-center"}
-        style={{}}
       >
         <Menu bgColor={gnarBgColor} />
         <Box className="flex flex-col lg:flex-row w-full ">
@@ -54,14 +59,16 @@ export default function Auction(props: AuctionProps) {
               </div>
             </div>
           </Box>
-          <VStack
-            flex={1}
-            bgColor={{ base: undefined, lg: gnarBgColor }}
-            justifyContent={"start"}
-            // className="flex flex-1 lg:bg-inherit justify-center lg:justify-start"
-          >
-            <AuctionDetails desiredGnarId={gnarId} />
-          </VStack>
+          <ColorModeProvider value={auctionDetailsColorMode}>
+            <VStack
+              color={"chakra-body-text"}
+              flex={1}
+              bgColor={{ base: undefined, lg: gnarBgColor }}
+              justifyContent={"start"}
+            >
+              <AuctionDetails desiredGnarId={gnarId} />
+            </VStack>
+          </ColorModeProvider>
         </Box>
       </Box>
     </ColorModeProvider>

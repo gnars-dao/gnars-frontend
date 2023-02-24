@@ -2,12 +2,10 @@ import clsx from "clsx"
 import Link from "next/link"
 import { useState } from "react"
 import { useAccount, useBalance, useEnsAvatar } from "wagmi"
-import Svg from "react-inlinesvg"
 import { ConnectKitButton } from "connectkit"
 
 import { nFormatter } from "utils"
 import { TREASURY_ADDRESS } from "utils/contracts"
-import { IconButton } from "./IconButton"
 import {
   Avatar,
   Box,
@@ -21,14 +19,17 @@ import {
   StackProps,
   Text,
   useColorMode,
+  Link as ExternalLink,
+  IconButton,
 } from "@chakra-ui/react"
+import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
 
 export type MenuProps = CenterProps
 
 export default function Menu(props: MenuProps) {
   const { colorMode } = useColorMode()
   const [showMenu, setShowMenu] = useState(false)
-  const { address } = useAccount()
+  const { address, isConnected } = useAccount()
   const {
     isLoading: isLoadingEnsAvatar,
     isSuccess: isSuccessEnsAvatar,
@@ -70,12 +71,12 @@ export default function Menu(props: MenuProps) {
               </a>
             </Link>
             {isSuccessBalance && (
-              <a
+              <ExternalLink
                 href={`https://etherscan.io/address/${TREASURY_ADDRESS}`}
-                target="_blank"
+                isExternal
                 rel="noopener noreferrer"
               >
-                <Button>
+                <Button variant={"outline"}>
                   <HStack>
                     <div>Treasury</div>
                     <div className="whitespace-nowrap">
@@ -83,16 +84,19 @@ export default function Menu(props: MenuProps) {
                     </div>
                   </HStack>
                 </Button>
-              </a>
+              </ExternalLink>
             )}
           </div>
-          <Button
-            variant={"solid"}
+          <IconButton
+            variant={"outline"}
+            icon={
+              <FaBars style={{ marginLeft: "auto", marginRight: "auto" }} />
+            }
+            fontSize="20px"
+            aria-label="Show menu"
             display={{ base: undefined, lg: "none" }}
             onClick={() => setShowMenu(!showMenu)}
-          >
-            <Svg src="/images/bars-solid.svg" width={24} />
-          </Button>
+          />
         </div>
         <div
           className={clsx(
@@ -100,29 +104,34 @@ export default function Menu(props: MenuProps) {
             "lg:flex flex-col lg:flex-row lg:justify-end w-full text-lg gap-3"
           )}
         >
-          <div className="flex flex-col lg:flex-row gap-3">
-            <a
+          <Stack spacing={3} direction={{ base: "column", lg: "row" }}>
+            <ExternalLink
               href="https://snapshot.org/#/gnars.eth"
-              target="_blank"
+              isExternal
               rel="noopener noreferrer"
             >
-              <IconButton design="transparent" icon="people" text="DAO" />
-            </a>
-            <a
+              <Button
+                w={"full"}
+                variant={"outline"}
+                verticalAlign={"center"}
+                leftIcon={<FaUsers size={"1em"} />}
+              >
+                DAO
+              </Button>
+            </ExternalLink>
+            <ExternalLink
               href="https://gnars.com"
-              target="_blank"
+              isExternal
               rel="noopener noreferrer"
             >
-              <IconButton design="transparent" icon="book" text="About" />
-            </a>
+              <Button w={"full"} variant={"outline"} leftIcon={<FaBookOpen />}>
+                About
+              </Button>
+            </ExternalLink>
             <Link href="/playground">
-              <a>
-                <IconButton
-                  design="transparent"
-                  icon="play"
-                  text="Playground"
-                />
-              </a>
+              <Button variant={"outline"} leftIcon={<FaPlay />}>
+                Playground
+              </Button>
             </Link>
 
             <ConnectKitButton.Custom>
@@ -141,7 +150,7 @@ export default function Menu(props: MenuProps) {
                   >
                     <HStack>
                       {isLoadingEnsAvatar && <Spinner boxSize={6} p={2} />}
-                      {isSuccessEnsAvatar && (
+                      {isConnected && isSuccessEnsAvatar && (
                         <Avatar
                           src={ensAvatar}
                           ignoreFallback
@@ -159,7 +168,7 @@ export default function Menu(props: MenuProps) {
                 )
               }}
             </ConnectKitButton.Custom>
-          </div>
+          </Stack>
         </div>
       </Stack>
     </Center>
