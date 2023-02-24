@@ -9,14 +9,17 @@ import useGnarInfo from "../hooks/useGnarInfo"
 import { Box, ColorModeProvider, DarkMode, Text } from "@chakra-ui/react"
 
 interface AuctionProps {
-  gnarId?: number
+  desiredGnarId?: number
 }
 
 export default function Auction(props: AuctionProps) {
-  const { gnarId } = props
+  const { desiredGnarId } = props
 
-  const { isLoading, data } = useGnarInfo(gnarId)
+  const { isLoading, data } = useGnarInfo(desiredGnarId)
 
+  const gnarId = data?.gnar?.gnarId
+    ? parseInt(data?.gnar?.gnarId)
+    : desiredGnarId
   const seed = data?.gnar?.seed
   const isOg = data?.gnar?.isOg
   const parts = getGnarData(gnarId, seed)

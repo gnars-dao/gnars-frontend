@@ -22,8 +22,9 @@ export const AuctionDetails: FC<AuctionDetailsProps> = ({ desiredGnarId }) => {
   const { latestGnarId, gnar } = data
   const gnarId = gnar?.gnarId || desiredGnarId
   const isOg = gnar?.isOg
-  const isLatestGnar = gnarId ? gnar.gnarId === latestGnarId : undefined
   const numericGnarId = gnar ? parseInt(gnar.gnarId) : undefined
+  const isLatestGnar = `${gnarId}` === latestGnarId
+  console.log({ desiredGnarId, gnarId, latestGnarId, isLatestGnar })
 
   return (
     <div className="w-full px-4 sm:px-10 lg:px-0 lg:max-w-450px">
@@ -31,20 +32,20 @@ export const AuctionDetails: FC<AuctionDetailsProps> = ({ desiredGnarId }) => {
         <HStack spacing={1}>
           <RoundButton
             px={0}
-            disabled={gnarId <= 0}
+            isDisabled={gnarId <= 0}
             onClick={() => push(`/gnar/${numericGnarId - 1}`)}
           >
             ←
           </RoundButton>
           <RoundButton
             px={0}
-            disabled={isLatestGnar}
+            isDisabled={isLatestGnar}
             onClick={() => push(`/gnar/${numericGnarId + 1}`)}
           >
             →
           </RoundButton>
           <RoundButton
-            disabled={isLatestGnar}
+            isDisabled={isLatestGnar}
             onClick={() => push(`/gnar/${latestGnarId}`)}
           >
             Latest

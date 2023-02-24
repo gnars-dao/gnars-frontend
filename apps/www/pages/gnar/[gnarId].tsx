@@ -8,7 +8,7 @@ export default function Gnar(props) {
 
   return (
     <>
-      <Auction gnarId={Number(gnarId)} />
+      <Auction desiredGnarId={Number(gnarId)} />
       <Explainer />
     </>
   )
