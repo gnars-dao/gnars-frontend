@@ -7,6 +7,7 @@ import { ConnectKitProvider, getDefaultClient } from "connectkit"
 import { ChakraProvider, DarkMode } from "@chakra-ui/react"
 
 import { queryClient } from "utils"
+import theme from "../theme"
 
 const client = createClient({
   ...getDefaultClient({
@@ -18,7 +19,7 @@ const client = createClient({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider colorModeManager={undefined}>
+    <ChakraProvider theme={theme}>
       <WagmiConfig client={client}>
         <ConnectKitProvider>
           <QueryClientProvider client={queryClient}>
