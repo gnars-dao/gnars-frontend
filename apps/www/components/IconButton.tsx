@@ -37,7 +37,7 @@ export const IconButton = ({
     <Button
       className={clsx(
         design === "primary" ? "bg-primary" : "border border-borderColor",
-        "text-primaryText hover:bg-hoverLight w-full lg:w-auto"
+        "hover:bg-hoverLight w-full lg:w-auto"
       )}
       {...props}
     >

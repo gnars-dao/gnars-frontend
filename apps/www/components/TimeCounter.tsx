@@ -2,39 +2,41 @@ import Jazzicon, { jsNumberForAddress } from "react-jazzicon"
 import { useEnsName } from "wagmi"
 
 import useAuctionTimeLeft from "hooks/useAuctionTimeLeft"
-import useGnar from "hooks/useGnar"
+import useGnarInfo from "hooks/useGnarInfo"
 import { ensOrShortAddress, is10thGnar, truncatedAmount } from "utils"
 import { TREASURY_ADDRESS } from "utils/contracts"
+import { FC } from "react"
 
 interface TimeCounterProps {
-  gnarId: number
-  winner?: { amount: string; address: string }
+  desiredGnarId?: number
 }
 
-export default function TimeCounter(props: TimeCounterProps) {
-  const { gnarId } = props
-  const { isLoading: isGnarLoading, data: gnarData } = useGnar(gnarId)
-  const auctionTimeLeft = useAuctionTimeLeft(gnarData?.endTimestamp)
+export const TimeCounter: FC<TimeCounterProps> = ({ desiredGnarId }) => {
+  const {
+    isLoading,
+    data: {
+      gnar: { auction, gnarId, isLatestGnar, isOg },
+    },
+  } = useGnarInfo(desiredGnarId)
 
-  console.log(gnarData, auctionTimeLeft)
+  const { endTimestamp, latestBidder, latestBid } = { ...auction }
+  const auctionTimeLeft = useAuctionTimeLeft(endTimestamp)
 
-  const latestBid = gnarData?.bids[0]
-
-  const winner = gnarData?.winner
+  const winner = latestBidder
 
   const { data: winnerEnsName, isLoading: isEnsLoading } = useEnsName({
-    address: winner?.sender,
+    address: latestBidder,
   })
   const { data: latestBidEnsName, isLoading: isLatestBidEnsLoading } =
     useEnsName({
-      address: latestBid?.sender,
+      address: latestBidder,
     })
 
   const { data: treasuryEns, isLoading: isTreasuryEnsLoading } = useEnsName({
     address: TREASURY_ADDRESS,
   })
 
-  if (isGnarLoading)
+  if (isLoading)
     return (
       <div className="text-lg text-secondaryText lg:dark:text-white font-bold whitespace-nowrap">
         Loading…
@@ -51,16 +53,14 @@ export default function TimeCounter(props: TimeCounterProps) {
           {/* If 10th Noun no winner */}
           {is10thGnar(gnarId) && "N/A"}
           {/* If time left and has a bid return value */}
-          {auctionTimeLeft &&
-            latestBid &&
-            `Ξ ${truncatedAmount(latestBid.amount)}`}
+          {auctionTimeLeft && latestBid && `Ξ ${truncatedAmount(latestBid)}`}
           {/* If no time left but has bid show amount */}
           {!winner &&
             latestBid &&
             !auctionTimeLeft &&
-            `Ξ ${truncatedAmount(latestBid.amount)}`}
+            `Ξ ${truncatedAmount(latestBid)}`}
           {/* If a winner show amount */}
-          {winner && `Ξ ${truncatedAmount(winner.amount)}`}
+          {winner && `Ξ ${truncatedAmount(latestBid)}`}
           {/* If no time left and no winner and no bids and not 10th Gnar show 0 */}
           {!auctionTimeLeft &&
             !winner &&
@@ -74,7 +74,7 @@ export default function TimeCounter(props: TimeCounterProps) {
           {auctionTimeLeft ? "Auction ends in" : "Winner"}
         </div>
         <div className="text-32px font-medium pt-1 text-right lg:text-left">
-          {gnarData?.isLatestGnar ? (
+          {isLatestGnar ? (
             <>
               {/* If has time remaining, show countdown */}
               {auctionTimeLeft && auctionTimeLeft}
@@ -88,10 +88,10 @@ export default function TimeCounter(props: TimeCounterProps) {
                 <div className="flex flex-row gap-3 items-center">
                   <Jazzicon
                     diameter={40}
-                    seed={jsNumberForAddress(latestBid.sender)}
+                    seed={jsNumberForAddress(latestBidder)}
                   />
                   <span className="whitespace-nowrap">
-                    {ensOrShortAddress(latestBid.sender, latestBidEnsName)}
+                    {ensOrShortAddress(latestBidder, latestBidEnsName)}
                   </span>
                 </div>
               )}
@@ -117,10 +117,10 @@ export default function TimeCounter(props: TimeCounterProps) {
                 <div className="flex flex-row gap-3 items-center">
                   <Jazzicon
                     diameter={40}
-                    seed={jsNumberForAddress(latestBid.sender)}
+                    seed={jsNumberForAddress(latestBidder)}
                   />
                   <span className="whitespace-nowrap">
-                    {ensOrShortAddress(latestBid.sender, latestBidEnsName)}
+                    {ensOrShortAddress(latestBidder, latestBidEnsName)}
                   </span>
                 </div>
               )}

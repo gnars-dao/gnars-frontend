@@ -1,0 +1,7 @@
+sources:
+  - name: gnars
+    handler:
+      graphql:
+        endpoint: https://api.studio.thegraph.com/query/12901/gnars-subgraph/v0.3.2
+documents:
+  - './queries/**/*.graphql'

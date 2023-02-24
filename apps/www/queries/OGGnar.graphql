@@ -1,0 +1,27 @@
+query OGGnar ($gnarId: ID!) {
+    ogAuction(id: $gnarId) {
+        amount
+        bidder
+        startTimestamp
+        endTimestamp
+        bids(orderBy: amount, orderDirection: desc) {
+            amount
+            bidder
+            blockTimestamp
+            id
+        }
+        gnar {
+            accessory
+            background
+            body
+            glasses
+            head
+            owner
+        }
+        id
+    }
+
+    latestGnar: gnars(first: 1, orderBy: creationTimestamp, orderDirection: desc) {
+        id
+    }
+}

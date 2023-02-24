@@ -1,8 +1,9 @@
 import TextLink from "./TextLink"
+import { Box, DarkMode, Image, LightMode, Text } from "@chakra-ui/react"
 
 export default function Explainer() {
   return (
-    <div className="flex flex-col justify-center items-center">
+    <Box color={"chakra-body-text"} bgColor={"chakra-body-bg"}>
       <div className="flex flex-col pt-10 sm:pt-32 w-full">
         <div className="flex flex-col xl:flex-row gap-10 sm:gap-32 xl:gap-48 pb-10 justify-center items-center">
           <div className="font-secondary text-4xl sm:text-8xl flex justify-center">
@@ -12,7 +13,7 @@ export default function Explainer() {
             <br />
             FOREVER.
           </div>
-          <img src="/images/auction-chart.jpg" className="max-w-xl" />
+          <Image src="/images/auction-chart.jpg" maxWidth={["full", "xl"]} />
         </div>
       </div>
 
@@ -255,6 +256,6 @@ export default function Explainer() {
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   )
 }

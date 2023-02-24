@@ -3,6 +3,7 @@ import { BigNumberish } from "ethers"
 import { formatEther, parseEther } from "ethers/lib/utils"
 import { GnarSeed } from "types"
 import gnarDataV2 from "../data/image-data-V2.json"
+import ogGnarData from "../data/image-data.json"
 import { V2_START_ID } from "./contracts"
 
 export const queryClient = new QueryClient()
@@ -35,9 +36,10 @@ export const truncatedAmount = (amount: string) => {
   return Number(formatEther(amount)).toFixed(3)
 }
 
-export const getGnarDataV2 = (seed: GnarSeed) => {
-  if (!seed) return
-  const { bodies, accessories, heads, glasses } = gnarDataV2.images
+export const getGnarData = (gnarId?: number, seed?: GnarSeed) => {
+  if (!gnarId || !seed) return
+  const gnarData = gnarId < V2_START_ID ? ogGnarData : gnarDataV2
+  const { bodies, accessories, heads, glasses } = gnarData.images
   return {
     parts: [
       bodies[seed.body],
@@ -45,7 +47,7 @@ export const getGnarDataV2 = (seed: GnarSeed) => {
       heads[seed.head],
       glasses[seed.glasses],
     ],
-    background: gnarDataV2.bgcolors[seed.background],
+    background: gnarData.bgcolors[seed.background],
   }
 }
 

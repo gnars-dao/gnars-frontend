@@ -1,0 +1,42 @@
+query Gnar($filter: Gnar_filter) {
+  gnars(
+    first: 1
+    orderBy: creationTimestamp
+    orderDirection: desc
+    where: $filter
+  ) {
+    id
+    creationTimestamp
+    owner {
+      id
+    }
+    auction {
+      settled
+      startTime
+      endTime
+      amount
+      bidder {
+        id
+      }
+      bids(orderBy: amount, orderDirection: desc) {
+        amount
+        bidder {
+          id
+        }
+        blockTimestamp
+        id
+      }
+    }
+    seed {
+      accessory
+      background
+      body
+      glasses
+      head
+    }
+  }
+
+  latestGnar: gnars(first: 1, orderBy: creationTimestamp, orderDirection: desc) {
+    id
+  }
+}

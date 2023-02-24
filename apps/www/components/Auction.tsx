@@ -1,49 +1,52 @@
 import clsx from "clsx"
 
-import useGetGnarSeed from "hooks/useGetGnarSeed"
-import { getGnarDataV2, isBgDark } from "utils"
+import { getGnarData, isBgDark } from "utils"
 
-import AuctionDetails from "./AuctionDetails"
+import { AuctionDetails } from "./AuctionDetails"
 import Gnar from "./Gnar"
 import Menu from "./Menu"
+import useGnarInfo from "../hooks/useGnarInfo"
+import { Box, ColorModeProvider, DarkMode, Text } from "@chakra-ui/react"
 
 interface AuctionProps {
-  gnarId: number
+  gnarId?: number
 }
 
 export default function Auction(props: AuctionProps) {
   const { gnarId } = props
 
-  const { data: gnarSeedData } = useGetGnarSeed({ gnarId: gnarId })
+  const { isLoading, data } = useGnarInfo(gnarId)
 
-  const seed = getGnarDataV2(gnarSeedData)
+  const seed = data?.gnar?.seed
+  const isOg = data?.gnar?.isOg
+  const parts = getGnarData(gnarId, seed)
 
-  const hasDarkBg = isBgDark(seed?.background)
+  console.log({ data, parts })
+
+  const hasDarkBg = isBgDark(parts?.background)
 
   return (
-    <div
-      className={clsx(
-        "flex flex-col w-full items-center text-primaryText",
-        hasDarkBg && "dark"
-      )}
-      style={{
-        backgroundColor: seed?.background ? `#${seed.background}` : "#d5d7e1",
-      }}
-    >
-      <Menu hasDarkBg={hasDarkBg} />
-
-      <div className="flex flex-col lg:flex-row w-full ">
-        <div className="flex flex-1 justify-center items-end">
-          <div className="flex w-full justify-center lg:justify-end">
-            <div className="w-full max-w-570px">
-              <Gnar seed={seed} />
+    <ColorModeProvider value={hasDarkBg ? "dark" : "light"}>
+      <Box
+        color={"chakra-body-text"}
+        bgColor={parts?.background ? `#${parts.background}` : "#d5d7e1"}
+        className={"flex flex-col w-full items-center"}
+        style={{}}
+      >
+        <Menu hasDarkBg={hasDarkBg} />
+        <div className="flex flex-col lg:flex-row w-full ">
+          <div className="flex flex-1 justify-center items-end">
+            <div className="flex w-full justify-center lg:justify-end">
+              <div className="w-full max-w-570px">
+                <Gnar isOg={isOg} seed={parts} />
+              </div>
             </div>
           </div>
+          <div className="flex flex-1 lg:bg-inherit justify-center lg:justify-start">
+            <AuctionDetails desiredGnarId={gnarId} />
+          </div>
         </div>
-        <div className="flex flex-1 bg-white lg:bg-inherit justify-center lg:justify-start">
-          <AuctionDetails gnarId={gnarId} />
-        </div>
-      </div>
-    </div>
+      </Box>
+    </ColorModeProvider>
   )
 }

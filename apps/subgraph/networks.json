@@ -1,0 +1,16 @@
+{
+  "mainnet": {
+    "GnarsOG": {
+      "address": "0x494715b2a3c75dadd24929835b658a1c19bd4552",
+      "startBlock": 14211104
+    },
+    "GnarsV2Token": {
+      "address": "0x558BFFF0D583416f7C4e380625c7865821b8E95C",
+      "startBlock": 14998510
+    },
+    "GnarsV2AuctionHouse": {
+      "address": "0xC28e0d3c00296dD8c5C3F2E9707361920f92a209",
+      "startBlock": 14998513
+    }
+  }
+}

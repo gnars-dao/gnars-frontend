@@ -7,9 +7,8 @@ import { ConnectKitButton } from "connectkit"
 
 import { nFormatter } from "utils"
 import { TREASURY_ADDRESS } from "utils/contracts"
-
-import Button from "./Button"
 import { IconButton } from "./IconButton"
+import { Button, HStack } from "@chakra-ui/react"
 
 interface MenuProps {
   hasDarkBg: boolean
@@ -32,13 +31,13 @@ export default function Menu(props: MenuProps) {
                 className="hidden sm:flex max-h-40px min-w-190px"
                 src={
                   hasDarkBg
-                    ? "/images/logo-white.png"
+                    ? "/images/logo-white.png" //@TODO switch for svg text responsive to colorMode
                     : "/images/logo-black.png"
                 }
               />
               <img
                 className="flex sm:hidden max-h-40px"
-                src="/images/logo-hand.png"
+                src="/images/logo-hand.png" //@TODO switch for svg logo with short horns
               />
             </a>
           </Link>
@@ -48,26 +47,23 @@ export default function Menu(props: MenuProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button className="gap-3 hover:bg-hoverLight font-medium w-full lg:w-auto border border-borderColor">
-                <div className="text-secondaryText dark:text-white">
-                  Treasury
-                </div>
-                <div className="whitespace-nowrap dark:text-white">
-                  Ξ {nFormatter(Number(balanceData?.formatted))}
-                </div>
+              <Button>
+                <HStack>
+                  <div>Treasury</div>
+                  <div className="whitespace-nowrap">
+                    Ξ {nFormatter(Number(balanceData?.formatted), 3)}
+                  </div>
+                </HStack>
               </Button>
             </a>
           )}
         </div>
         <Button
-          className="flex lg:hidden"
+          variant={"solid"}
+          display={{ base: undefined, lg: "none" }}
           onClick={() => setShowMenu(!showMenu)}
         >
-          <Svg
-            className="dark:text-white"
-            src="/images/bars-solid.svg"
-            width={24}
-          />
+          <Svg src="/images/bars-solid.svg" width={24} />
         </Button>
       </div>
       <div

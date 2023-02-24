@@ -1,15 +1,14 @@
 import clsx from "clsx"
+import { Button, ButtonProps } from "@chakra-ui/react"
+import { FC } from "react"
 
-export default function RoundButton(props) {
-  const { children, className } = props
+export const RoundButton: FC<ButtonProps> = (props) => {
   return (
-    <button
-      className={clsx(
-        "text-lg text-primaryText bg-primary hover:bg-hoverLight font-bold rounded-full w-32px h-32px text-center",
-        className
-      )}
-    >
-      {children}
-    </button>
+    <Button
+      borderRadius={"full"}
+      // variant={"outline"}
+      // colorScheme={"gray"}
+      {...props}
+    />
   )
 }

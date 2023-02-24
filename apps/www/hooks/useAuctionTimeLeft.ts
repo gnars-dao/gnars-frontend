@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { intervalToDuration, isPast } from "date-fns"
 
-export default function useAuctionTimeLeft(endTimestamp: string) {
+export default function useAuctionTimeLeft(endTimestamp?: number) {
   const [auctionTimeLeft, setAuctionTimeLeft] = useState<string>()
 
   useEffect(() => {
@@ -10,7 +10,7 @@ export default function useAuctionTimeLeft(endTimestamp: string) {
     }
     const interval = setInterval(() => {
       const now = Date.now()
-      const endDate = new Date(endTimestamp)
+      const endDate = new Date(endTimestamp * 1000)
 
       if (isPast(endDate)) {
         return setAuctionTimeLeft(null)
