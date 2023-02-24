@@ -24,8 +24,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <WagmiConfig client={client}>
         <ConnectKitProvider theme={"midnight"}>
           <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
-            <Footer />
+            <DarkMode>
+              <Component {...pageProps} />
+              <Footer />
+            </DarkMode>
           </QueryClientProvider>
         </ConnectKitProvider>
       </WagmiConfig>
