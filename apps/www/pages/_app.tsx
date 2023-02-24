@@ -20,7 +20,6 @@ const client = createClient({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={"dark"} />
       <WagmiConfig client={client}>
         <ConnectKitProvider theme={"midnight"}>
           <QueryClientProvider client={queryClient}>
