@@ -11,6 +11,7 @@ export const provider = new providers.AlchemyProvider(
 
 export const V2_AUCTION_ADDRESS = "0xC28e0d3c00296dD8c5C3F2E9707361920f92a209"
 export const V2_GNAR_ADDRESS = "0x558BFFF0D583416f7C4e380625c7865821b8E95C"
+// @TODO switch for DAO treasury after migration
 export const TREASURY_ADDRESS = "0x0658f4eD17289144717713ADfFC2539eF7c2EF8e"
 
 export const v2AuctionHouse = SkateContractV2AuctionHouse__factory.connect(

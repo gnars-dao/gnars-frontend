@@ -5,9 +5,9 @@ import { is10thGnar } from "utils"
 import { V2_START_ID } from "utils/contracts"
 import Bids from "./Bids"
 import { RoundButton } from "./RoundButton"
-import { LatestBid } from "./LatestBid"
+import { AuctionStatus } from "./AuctionStatus"
 import { FC } from "react"
-import { HStack, Text } from "@chakra-ui/react"
+import { Box, HStack, Text } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 
 interface AuctionDetailsProps {
@@ -27,7 +27,7 @@ export const AuctionDetails: FC<AuctionDetailsProps> = ({ desiredGnarId }) => {
   console.log({ desiredGnarId, gnarId, latestGnarId, isLatestGnar })
 
   return (
-    <div className="w-full px-4 sm:px-10 lg:px-0 lg:max-w-450px">
+    <Box maxW={"lg"} px={{ base: 4, sm: 10, lg: 0 }}>
       <div className="flex flex-col gap-3 pt-[15%]">
         <HStack spacing={1}>
           <RoundButton
@@ -59,7 +59,7 @@ export const AuctionDetails: FC<AuctionDetailsProps> = ({ desiredGnarId }) => {
         </div>
       </div>
       <div className="pt-6">
-        <LatestBid desiredGnarId={desiredGnarId} />
+        <AuctionStatus desiredGnarId={desiredGnarId} />
       </div>
       {isLatestGnar ? (
         <div>
@@ -67,15 +67,15 @@ export const AuctionDetails: FC<AuctionDetailsProps> = ({ desiredGnarId }) => {
           <Bids />
         </div>
       ) : !gnar.isOg && is10thGnar(gnarId) ? (
-        <div className="text-16px mt-10 pb-4 border-b border-secondaryText">
+        <Text className="text-16px mt-10 pb-4 border-b border-secondaryText">
           To pay homage and show our respect as a Nouns extension, every 10th
           Gnar for the first 5 years of the project is sent to the Nouns
           Athletes.
-        </div>
+        </Text>
       ) : null}
       <div>
         {/* {display_gnarId === currentGnarId ? <BidHistory /> : <BidPast />} */}
       </div>
-    </div>
+    </Box>
   )
 }

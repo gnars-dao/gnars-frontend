@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { intervalToDuration, isPast } from "date-fns"
 
 export default function useAuctionTimeLeft(endTimestamp?: number) {
-  const [auctionTimeLeft, setAuctionTimeLeft] = useState<string>()
+  const [auctionTimeLeft, setAuctionTimeLeft] = useState<string | null>()
 
   useEffect(() => {
     if (!endTimestamp) {

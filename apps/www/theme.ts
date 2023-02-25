@@ -1,4 +1,10 @@
-import { defineStyle, defineStyleConfig, extendTheme } from "@chakra-ui/react"
+import {
+  createMultiStyleConfigHelpers,
+  defineStyle,
+  defineStyleConfig,
+  extendTheme,
+} from "@chakra-ui/react"
+import { avatarAnatomy } from "@chakra-ui/anatomy"
 
 const config = {
   initialColorMode: "dark",
@@ -19,13 +25,34 @@ const solid = defineStyle({
   },
 })
 
-export const buttonTheme = defineStyleConfig({
+const {
+  definePartsStyle: defineAvatarPartsStyle,
+  defineMultiStyleConfig: defineAvatarMultiStyleConfig,
+} = createMultiStyleConfigHelpers(avatarAnatomy.keys)
+
+const avatarDelimitedVariant = defineAvatarPartsStyle({
+  container: {
+    borderWidth: "1px",
+    borderColor: "blackAlpha.800",
+    bg: "whiteAlpha.800",
+    _dark: {
+      bg: "whiteAlpha.500",
+      borderColor: "whiteAlpha.800",
+    },
+  },
+})
+
+export const Avatar = defineAvatarMultiStyleConfig({
+  variants: { delimited: avatarDelimitedVariant },
+})
+
+export const Button = defineStyleConfig({
   variants: { outline, solid },
 })
 
 const theme = extendTheme({
   ...config,
-  components: { Button: buttonTheme },
+  components: { Button, Avatar },
   styles: { global: { body: { bg: "gray.800" } } },
 })
 

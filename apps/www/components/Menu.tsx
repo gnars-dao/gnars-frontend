@@ -1,44 +1,29 @@
 import clsx from "clsx"
 import Link from "next/link"
 import { useState } from "react"
-import { useAccount, useBalance, useEnsAvatar } from "wagmi"
+import { useBalance } from "wagmi"
 import { ConnectKitButton } from "connectkit"
 
 import { nFormatter } from "utils"
 import { TREASURY_ADDRESS } from "utils/contracts"
 import {
-  Avatar,
-  Box,
-  BoxProps,
   Button,
   Center,
   CenterProps,
   HStack,
-  Spinner,
-  Stack,
-  StackProps,
-  Text,
-  useColorMode,
-  Link as ExternalLink,
   IconButton,
+  Image,
+  Link as ExternalLink,
+  Stack,
+  Text,
 } from "@chakra-ui/react"
 import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
-import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
+import { AvatarWallet } from "./AvatarWallet"
 
 export type MenuProps = CenterProps
 
 export default function Menu(props: MenuProps) {
-  const { colorMode } = useColorMode()
   const [showMenu, setShowMenu] = useState(false)
-  const { address, isConnected } = useAccount()
-  const { data: nnsOrEnsName } = useNnsNameWithEnsFallback(address)
-  const {
-    isLoading: isLoadingEnsAvatar,
-    isSuccess: isSuccessEnsAvatar,
-    data: ensAvatar,
-  } = useEnsAvatar({
-    addressOrName: address,
-  })
   const { data: balanceData, isSuccess: isSuccessBalance } = useBalance({
     addressOrName: TREASURY_ADDRESS,
   })
@@ -50,27 +35,17 @@ export default function Menu(props: MenuProps) {
         justifyContent={"space-between"}
         w={"full"}
         spacing={6}
-        pt={{ base: 4, lg: 12 }}
-        px={4}
+        p={4}
         maxW={"1116px"}
       >
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-6">
             <Link href="/">
-              <a className="flex">
-                <img
-                  className="hidden sm:flex max-h-40px min-w-190px"
-                  src={
-                    colorMode === "dark"
-                      ? "/images/logo-white.png" //@TODO switch for svg text responsive to colorMode
-                      : "/images/logo-black.png"
-                  }
-                />
-                <img
-                  className="flex sm:hidden max-h-40px"
-                  src="/images/logo-hand.png" //@TODO switch for svg logo with short horns
-                />
-              </a>
+              <Image
+                filter={"drop-shadow(0 0 1px #0005)"}
+                className="max-h-40px"
+                src="/images/logo.png"
+              />
             </Link>
             {isSuccessBalance && (
               <ExternalLink
@@ -137,29 +112,18 @@ export default function Menu(props: MenuProps) {
             </Link>
 
             <ConnectKitButton.Custom>
-              {({ isConnected, truncatedAddress, show, isConnecting }) => {
+              {({ isConnected, address, show, isConnecting }) => {
                 return (
                   <Button
                     isLoading={isConnecting}
                     loadingText={"Connecting Wallet"}
                     onClick={show}
                   >
-                    <HStack>
-                      {isLoadingEnsAvatar && <Spinner boxSize={6} p={2} />}
-                      {isConnected && isSuccessEnsAvatar && (
-                        <Avatar
-                          src={ensAvatar}
-                          ignoreFallback
-                          loading={"eager"}
-                          boxSize={8}
-                        />
-                      )}
-                      <Text>
-                        {isConnected
-                          ? nnsOrEnsName ?? truncatedAddress
-                          : "Connect Wallet"}
-                      </Text>
-                    </HStack>
+                    {isConnected ? (
+                      <AvatarWallet address={address} />
+                    ) : (
+                      <Text>Connect Wallet</Text>
+                    )}
                   </Button>
                 )
               }}
