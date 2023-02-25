@@ -3,9 +3,9 @@ import useGnarInfo from "hooks/useGnarInfo"
 import Link from "next/link"
 import { is10thGnar } from "utils"
 import { V2_START_ID } from "utils/contracts"
-import AuctionInput from "./AuctionInput"
+import Bids from "./Bids"
 import { RoundButton } from "./RoundButton"
-import { TimeCounter } from "./TimeCounter"
+import { LatestBid } from "./LatestBid"
 import { FC } from "react"
 import { HStack, Text } from "@chakra-ui/react"
 import { useRouter } from "next/router"
@@ -59,12 +59,12 @@ export const AuctionDetails: FC<AuctionDetailsProps> = ({ desiredGnarId }) => {
         </div>
       </div>
       <div className="pt-6">
-        <TimeCounter desiredGnarId={desiredGnarId} />
+        <LatestBid desiredGnarId={desiredGnarId} />
       </div>
       {isLatestGnar ? (
         <div>
           {" "}
-          <AuctionInput />
+          <Bids />
         </div>
       ) : !gnar.isOg && is10thGnar(gnarId) ? (
         <div className="text-16px mt-10 pb-4 border-b border-secondaryText">

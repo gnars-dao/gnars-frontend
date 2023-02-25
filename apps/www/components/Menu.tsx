@@ -23,6 +23,7 @@ import {
   IconButton,
 } from "@chakra-ui/react"
 import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
+import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 
 export type MenuProps = CenterProps
 
@@ -30,6 +31,7 @@ export default function Menu(props: MenuProps) {
   const { colorMode } = useColorMode()
   const [showMenu, setShowMenu] = useState(false)
   const { address, isConnected } = useAccount()
+  const { data: nnsOrEnsName } = useNnsNameWithEnsFallback(address)
   const {
     isLoading: isLoadingEnsAvatar,
     isSuccess: isSuccessEnsAvatar,
@@ -135,13 +137,7 @@ export default function Menu(props: MenuProps) {
             </Link>
 
             <ConnectKitButton.Custom>
-              {({
-                isConnected,
-                truncatedAddress,
-                ensName,
-                show,
-                isConnecting,
-              }) => {
+              {({ isConnected, truncatedAddress, show, isConnecting }) => {
                 return (
                   <Button
                     isLoading={isConnecting}
@@ -160,7 +156,7 @@ export default function Menu(props: MenuProps) {
                       )}
                       <Text>
                         {isConnected
-                          ? ensName ?? truncatedAddress
+                          ? nnsOrEnsName ?? truncatedAddress
                           : "Connect Wallet"}
                       </Text>
                     </HStack>

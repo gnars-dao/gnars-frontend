@@ -26,7 +26,7 @@ export default function Gnar(props: GnarProps) {
   const palette = isOg ? ogGnarData.palette : gnarDataV2.palette
   const image = buildSvg(seed?.parts, palette, seed?.background)
 
-  //  @TODO add tooltip with part names
+  //  @TODO add tooltip with part names (with tappable icon on mobile)
   return (
     <div>
       <img src={image} alt={"gnar"} className="w-full" />

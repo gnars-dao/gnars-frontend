@@ -11,7 +11,7 @@ interface TimeCounterProps {
   desiredGnarId?: number
 }
 
-export const TimeCounter: FC<TimeCounterProps> = ({ desiredGnarId }) => {
+export const LatestBid: FC<TimeCounterProps> = ({ desiredGnarId }) => {
   const {
     isLoading,
     data: {
@@ -46,7 +46,7 @@ export const TimeCounter: FC<TimeCounterProps> = ({ desiredGnarId }) => {
   return (
     <div className="flex flex-col lg:flex-row">
       <div className="flex flex-row lg:flex-col justify-between items-center lg:items-start lg:border-r lg:border-secondaryText lg:dark:border-white lg:pr-10">
-        <div className="text-lg text-secondaryText lg:dark:text-white font-medium whitespace-nowrap">
+        <div className="text-lg font-medium whitespace-nowrap">
           {auctionTimeLeft ? "Current bid" : "Winning bid"}
         </div>
         <div className="text-32px font-medium pt-1 whitespace-nowrap">
@@ -70,7 +70,7 @@ export const TimeCounter: FC<TimeCounterProps> = ({ desiredGnarId }) => {
         </div>
       </div>
       <div className="flex flex-row lg:flex-col justify-between items-center lg:items-start lg:pl-10">
-        <div className="text-lg text-secondaryText lg:dark:text-white font-medium">
+        <div className="text-lg font-medium">
           {auctionTimeLeft ? "Auction ends in" : "Winner"}
         </div>
         <div className="text-32px font-medium pt-1 text-right lg:text-left">
