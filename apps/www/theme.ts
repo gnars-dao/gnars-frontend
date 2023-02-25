@@ -26,7 +26,7 @@ export const buttonTheme = defineStyleConfig({
 const theme = extendTheme({
   ...config,
   components: { Button: buttonTheme },
-  styles: { global: { body: { bg: "chakra-body-bg" } } },
+  styles: { global: { body: { bg: "gray.800" } } },
 })
 
 export default theme

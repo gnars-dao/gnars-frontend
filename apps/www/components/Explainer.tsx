@@ -16,7 +16,7 @@ export default function Explainer() {
           <Image src="/images/auction-chart.jpg" maxWidth={["full", "xl"]} />
         </div>
       </div>
-      // @TODO embed https://www.youtube.com/watch?v=JQSmfSnRGVk here
+      {/*@TODO embed https://www.youtube.com/watch?v=JQSmfSnRGVk here*/}
       <div id="wtf" className="flex justify-center pt-32 container">
         <div className="w-full sm:w-2/3">
           <div className="text-6xl font-secondary">WTF?</div>
