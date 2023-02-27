@@ -1,19 +1,57 @@
 import TextLink from "./TextLink"
-import { Box, DarkMode, Image, LightMode, Text } from "@chakra-ui/react"
+import {
+  Box,
+  DarkMode,
+  Heading,
+  HStack,
+  Image,
+  LightMode,
+  SimpleGrid,
+  Text,
+  VStack,
+} from "@chakra-ui/react"
 
 export default function Explainer() {
   return (
-    <Box color={"chakra-body-text"} bgColor={"chakra-body-bg"}>
+    <Box color={"chakra-body-text"} bgColor={"chakra-body-bg"} px={6}>
       <div className="flex flex-col pt-10 sm:pt-32 w-full">
         <div className="flex flex-col xl:flex-row gap-10 sm:gap-32 xl:gap-48 pb-10 justify-center items-center">
-          <div className="font-secondary text-4xl sm:text-8xl flex justify-center">
+          <Text
+            textStyle={"h1"}
+            fontSize={{
+              base: "calc(60px + (96 - 60) * ((100vw - 375px) / (780 - 375)))",
+              md: "8xl",
+            }}
+          >
             ONE GNAR,
             <br />
             LESS OFTEN,
             <br />
             FOREVER.
-          </div>
-          <Image src="/images/auction-chart.jpg" maxWidth={["full", "xl"]} />
+          </Text>
+          <VStack>
+            <Heading>Auctions</Heading>
+            <Image
+              src="/images/auction-chart.png"
+              maxWidth={{ base: "full", sm: "lg" }}
+            />
+            <SimpleGrid
+              columns={2}
+              w={"full"}
+              px={8}
+              fontFamily={'"Londrina Solid", sans-serif'}
+              fontSize={["2xl", "3xl"]}
+            >
+              <HStack>
+                <Box boxSize={4} bgColor={"#E53B44"} />
+                <Text> Per day</Text>
+              </HStack>
+              <HStack>
+                <Box boxSize={4} bgColor={"#0484D1"} />
+                <Text> Duration</Text>
+              </HStack>
+            </SimpleGrid>
+          </VStack>
         </div>
       </div>
       {/*@TODO embed https://www.youtube.com/watch?v=JQSmfSnRGVk here*/}

@@ -7,7 +7,7 @@ import Bids from "./Bids"
 import { RoundButton } from "./RoundButton"
 import { AuctionStatus } from "./AuctionStatus"
 import { FC } from "react"
-import { Box, HStack, Text } from "@chakra-ui/react"
+import { Box, HStack, Spinner, Text } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 
 interface AuctionDetailsProps {
@@ -21,13 +21,16 @@ export const AuctionDetails: FC<AuctionDetailsProps> = ({ desiredGnarId }) => {
   if (isLoading || !data) return <p>Loading...</p>
   const { latestGnarId, gnar } = data
   const gnarId = gnar?.gnarId || desiredGnarId
-  const isOg = gnar?.isOg
+  const isOg = desiredGnarId <= V2_START_ID || gnar?.isOg
   const numericGnarId = gnar ? parseInt(gnar.gnarId) : undefined
   const isLatestGnar = `${gnarId}` === latestGnarId
-  console.log({ desiredGnarId, gnarId, latestGnarId, isLatestGnar })
 
   return (
-    <Box maxW={"lg"} px={{ base: 4, sm: 10, lg: 0 }}>
+    <Box
+      w={{ base: "full", lg: undefined }}
+      maxW={{ base: "full", lg: "lg" }}
+      px={{ base: 4, sm: 10, lg: 0 }}
+    >
       <div className="flex flex-col gap-3 pt-[15%]">
         <HStack spacing={1}>
           <RoundButton
@@ -39,22 +42,22 @@ export const AuctionDetails: FC<AuctionDetailsProps> = ({ desiredGnarId }) => {
           </RoundButton>
           <RoundButton
             px={0}
-            isDisabled={isLatestGnar}
+            isDisabled={isLoading || isLatestGnar}
             onClick={() => push(`/gnar/${numericGnarId + 1}`)}
           >
             →
           </RoundButton>
           <RoundButton
-            isDisabled={isLatestGnar}
+            isDisabled={isLoading || isLatestGnar}
             onClick={() => push(`/gnar/${latestGnarId}`)}
           >
-            Latest
+            Latest auction
           </RoundButton>
         </HStack>
         <div className="font-secondary text-5xl sm:text-7xl">
           <HStack>
             {isOg && <Text>OG</Text>}
-            <Text>Gnar {desiredGnarId}</Text>
+            {gnarId ? <Text>Gnar {gnarId}</Text> : <Spinner />}
           </HStack>
         </div>
       </div>

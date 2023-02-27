@@ -48,7 +48,7 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({
           boxSize={8}
         />
       )}
-      <Text>{nnsOrEnsName ?? shortAddress(address)}</Text>
+      <Text whiteSpace={"nowrap"}>{nnsOrEnsName ?? shortAddress(address)}</Text>
     </HStack>
   )
 }

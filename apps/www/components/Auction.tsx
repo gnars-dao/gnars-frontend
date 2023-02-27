@@ -7,6 +7,7 @@ import Gnar from "./Gnar"
 import Menu from "./Menu"
 import useGnarInfo from "../hooks/useGnarInfo"
 import {
+  AspectRatio,
   Box,
   ColorMode,
   ColorModeProvider,
@@ -32,8 +33,6 @@ export default function Auction(props: AuctionProps) {
   const isOg = data?.gnar?.isOg
   const parts = getGnarData(gnarId, seed)
 
-  console.log({ data, parts })
-
   const hasDarkBg = isBgDark(parts?.background)
   const auctionDetailsColorMode = useBreakpointValue<ColorMode>({
     base: "dark",
@@ -54,9 +53,9 @@ export default function Auction(props: AuctionProps) {
             className="flex flex-1 justify-center items-end"
           >
             <div className="flex w-full justify-center lg:justify-end">
-              <div className="w-full max-w-570px">
+              <AspectRatio ratio={1 / 1} w={"full"} maxW={"570px"}>
                 <Gnar isOg={isOg} seed={parts} />
-              </div>
+              </AspectRatio>
             </div>
           </Box>
           <ColorModeProvider value={auctionDetailsColorMode}>

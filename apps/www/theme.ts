@@ -20,7 +20,25 @@ const outline = defineStyle({
 
 const solid = defineStyle({
   bg: "whiteAlpha.800",
+  _hover: {
+    bg: "whiteAlpha.900",
+  },
+  _active: {
+    px: "14px",
+    borderWidth: "2px",
+    borderColor: "whiteAlpha.900",
+    bg: "whiteAlpha.900",
+  },
   _dark: {
+    _active: {
+      px: "14px",
+      borderWidth: "2px",
+      borderColor: "whiteAlpha.600",
+      bg: "whiteAlpha.400",
+    },
+    _hover: {
+      bg: "whiteAlpha.400",
+    },
     bg: "whiteAlpha.300",
   },
 })
@@ -32,7 +50,7 @@ const {
 
 const avatarDelimitedVariant = defineAvatarPartsStyle({
   container: {
-    borderWidth: "1px",
+    borderWidth: "2px",
     borderColor: "blackAlpha.800",
     bg: "whiteAlpha.800",
     _dark: {
@@ -48,12 +66,44 @@ export const Avatar = defineAvatarMultiStyleConfig({
 
 export const Button = defineStyleConfig({
   variants: { outline, solid },
+  baseStyle: {
+    boxSizing: "border-box",
+  },
+})
+
+const Heading = defineStyleConfig({
+  baseStyle: {
+    fontFamily: '"Londrina Solid", sans-serif',
+    fontWeight: "normal",
+  },
+  defaultProps: {
+    size: "3xl",
+  },
 })
 
 const theme = extendTheme({
   ...config,
-  components: { Button, Avatar },
-  styles: { global: { body: { bg: "gray.800" } } },
+  components: { Button, Avatar, Heading },
+  textStyles: {
+    h1: {
+      fontFamily: '"Londrina Solid", sans-serif',
+      fontSize: { base: "5xl", sm: "8xl" },
+      lineHeight: "120%",
+    },
+    h2: {
+      fontFamily: '"Londrina Solid", sans-serif',
+      fontSize: "3xl",
+      lineHeight: "100%",
+    },
+    h3: {
+      fontFamily: '"Londrina Solid", sans-serif',
+      fontSize: "2xl",
+      lineHeight: "100%",
+    },
+  },
+  styles: {
+    global: { body: { bg: "gray.800" } },
+  },
 })
 
 export default theme

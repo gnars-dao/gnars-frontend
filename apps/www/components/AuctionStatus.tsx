@@ -5,6 +5,19 @@ import { TREASURY_ADDRESS } from "utils/contracts"
 import { FC } from "react"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 import { AvatarWallet } from "./AvatarWallet"
+import {
+  Divider,
+  Stack,
+  StackDivider,
+  Stat,
+  StatGroup,
+  StatLabel,
+  StatNumber,
+  Text,
+  useBreakpointValue,
+  useColorMode,
+  VStack,
+} from "@chakra-ui/react"
 
 interface TimeCounterProps {
   desiredGnarId?: number
@@ -25,6 +38,14 @@ export const AuctionStatus: FC<TimeCounterProps> = ({ desiredGnarId }) => {
   const isTreasuryGnar = is10thGnar(gnarId)
   const winner = isTreasuryGnar ? TREASURY_ADDRESS : latestBidder
   const isBurned = auctionEnded && !winner
+  const { colorMode } = useColorMode()
+  const divider = useBreakpointValue({
+    md: (
+      <StackDivider
+        borderColor={colorMode === "dark" ? "whiteAlpha.300" : "blackAlpha.300"}
+      />
+    ),
+  })
 
   if (isLoading)
     return (
@@ -34,29 +55,61 @@ export const AuctionStatus: FC<TimeCounterProps> = ({ desiredGnarId }) => {
     )
 
   return (
-    <div className="flex flex-col lg:flex-row">
-      <div className="flex flex-row lg:flex-col justify-between items-center lg:items-start lg:border-r lg:border-secondaryText lg:dark:border-white lg:pr-10">
-        <div className="text-lg font-medium whitespace-nowrap">
-          {auctionEnded ? "Winning bid" : "Current bid"}
-        </div>
-        <div className="text-32px font-medium pt-1 whitespace-nowrap">
+    <Stack
+      spacing={10}
+      direction={{ base: "column", md: "row" }}
+      divider={divider}
+      justifyItems={"start"}
+      alignItems={"start"}
+    >
+      <VStack alignItems={"start"}>
+        <Text>{auctionEnded ? "Winning bid" : "Current bid"}</Text>
+        <Text fontSize={"4xl"} fontWeight={"bold"} lineHeight={1}>
           {isBurned || isTreasuryGnar
             ? "N/A"
             : `Ξ ${truncatedAmount(latestBid)}`}
-        </div>
-      </div>
-      <div className="flex flex-row lg:flex-col justify-between items-center lg:items-start lg:pl-10">
-        <div className="text-lg font-medium">
-          {auctionEnded ? "Winner" : "Auction ends in"}
-        </div>
-        <div className="text-32px font-medium pt-1 text-right lg:text-left">
+        </Text>
+      </VStack>
+
+      <VStack alignItems={"start"}>
+        <Text>
+          {isBurned ? "Outcome" : auctionEnded ? "Winner" : "Auction ends in"}
+        </Text>
+        <Text fontSize={"4xl"} fontWeight={"bold"} lineHeight={1}>
           {isBurned ? (
-            "Burned"
-          ) : (
+            "Burned 🔥"
+          ) : !!winner ? (
             <AvatarWallet variant={"delimited"} address={winner} />
+          ) : (
+            "N/A"
           )}
-        </div>
-      </div>
-    </div>
+        </Text>
+      </VStack>
+    </Stack>
+    // <div className="flex flex-col lg:flex-row">
+    //
+    //   <VStack alignItems={"start"}>
+    //     <div className="text-lg font-medium whitespace-nowrap">
+    //       {auctionEnded ? "Winning bid" : "Current bid"}
+    //     </div>
+    //     <Text lineHeight={1}>
+    //       {isBurned || isTreasuryGnar
+    //         ? "N/A"
+    //         : `Ξ ${truncatedAmount(latestBid)}`}
+    //     </Text>
+    //   </VStack>
+    //   <div className="flex flex-row lg:flex-col justify-between items-center lg:items-start lg:pl-10">
+    //     <div className="text-lg font-medium">
+    //       {auctionEnded ? "Winner" : "Auction ends in"}
+    //     </div>
+    //     <div className="text-32px font-medium pt-1 text-right lg:text-left">
+    //       {isBurned ? (
+    //         "Burned"
+    //       ) : (
+    //         <AvatarWallet variant={"delimited"} address={winner} />
+    //       )}
+    //     </div>
+    //   </div>
+    // </div>
   )
 }

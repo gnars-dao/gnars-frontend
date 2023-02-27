@@ -119,7 +119,7 @@ export default function Menu(props: MenuProps) {
                     loadingText={"Connecting Wallet"}
                     onClick={show}
                   >
-                    {isConnected ? (
+                    {!!address ? (
                       <AvatarWallet address={address} />
                     ) : (
                       <Text>Connect Wallet</Text>
