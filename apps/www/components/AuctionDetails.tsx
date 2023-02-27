@@ -71,9 +71,8 @@ export const AuctionDetails: FC<AuctionDetailsProps> = ({ desiredGnarId }) => {
         </div>
       ) : !gnar.isOg && is10thGnar(gnarId) ? (
         <Text className="text-16px mt-10 pb-4 border-b border-secondaryText">
-          To pay homage and show our respect as a Nouns extension, every 10th
-          Gnar for the first 5 years of the project is sent to the Nouns
-          Athletes.
+          To pay homage and show our respect as a Nouns extension, every Gnar
+          ending in 7 is reserved for onboarding shredders.
         </Text>
       ) : null}
       <div>

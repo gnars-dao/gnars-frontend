@@ -54,7 +54,7 @@ export default function Auction(props: AuctionProps) {
           >
             <div className="flex w-full justify-center lg:justify-end">
               <AspectRatio ratio={1 / 1} w={"full"} maxW={"570px"}>
-                <Gnar isOg={isOg} seed={parts} />
+                <Gnar gnarId={`${gnarId}`} isOg={isOg} seed={parts} />
               </AspectRatio>
             </div>
           </Box>
