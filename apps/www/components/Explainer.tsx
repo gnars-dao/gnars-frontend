@@ -120,7 +120,7 @@ export default function Explainer() {
                     Artwork is generative and stored directly on-chain (not
                     IPFS).
                   </li>
-                  <li>Shredders receive 10% of supply for 5 years.</li>
+                  <li>Shredders receive 10% of supply.</li>
                 </ul>
               </div>
 
