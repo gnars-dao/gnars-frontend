@@ -107,6 +107,7 @@ export default function Gnar(props: GnarProps) {
                 <PopoverContent
                   p={2}
                   textStyle={"h2"}
+                  color={"chakra-body-text"}
                   // minW={"xs"}
                   w={"fit-content"}
                   maxW={"xl"}
