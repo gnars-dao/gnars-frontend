@@ -65,33 +65,38 @@ const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
         alt={"gnar"}
       />
 
-      <HStack position={"absolute"} bottom={-12} left={"auto"} right={"auto"}>
-        {!isOg && (
-          <Popover
-            offset={[0, 16]}
-            isOpen={isOpen}
-            onClose={onClose}
-            placement={"bottom"}
-            arrowSize={16}
-            closeOnBlur
-          >
-            <PopoverTrigger>
-              {/*@TODO solve flickering tooltip issue when moving the mouse in/out of the button*/}
-              <IconButton
-                isActive={isOpen}
-                variant={"outline"}
-                borderRadius={"full"}
-                onClick={onToggle}
-                aria-label={"Traits info"}
-                icon={<FaInfo />}
-              />
-            </PopoverTrigger>
+      <DarkMode>
+        <HStack
+          color={"chakra-body-text"}
+          position={"absolute"}
+          bottom={-12}
+          left={"auto"}
+          right={"auto"}
+        >
+          {!isOg && (
+            <Popover
+              offset={[0, 16]}
+              isOpen={isOpen}
+              onClose={onClose}
+              placement={"bottom"}
+              arrowSize={16}
+              closeOnBlur
+            >
+              <PopoverTrigger>
+                {/*@TODO solve flickering tooltip issue when moving the mouse in/out of the button*/}
+                <IconButton
+                  isActive={isOpen}
+                  variant={"outline"}
+                  borderRadius={"full"}
+                  onClick={onToggle}
+                  aria-label={"Traits info"}
+                  icon={<FaInfo />}
+                />
+              </PopoverTrigger>
 
-            <DarkMode>
               <PopoverContent
                 p={2}
                 textStyle={"h2"}
-                color={"chakra-body-text"}
                 w={"fit-content"}
                 maxW={"xl"}
               >
@@ -114,31 +119,31 @@ const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
                   </SimpleGrid>
                 </PopoverBody>
               </PopoverContent>
-            </DarkMode>
-          </Popover>
-        )}
-        <Button
-          variant={"outline"}
-          borderRadius={"full"}
-          leftIcon={<MdFileDownload />}
-          onClick={() => {
-            const canvas = document.createElement("canvas")
-            canvas.width = 512
-            canvas.height = 512
-            canvas
-              .getContext("2d")
-              ?.drawImage(gnarImageRef.current, 0, 0, 512, 512)
-            const link = document.createElement("a")
-            link.href = canvas.toDataURL()
-            link.download = `gnar-${gnarId}.png`
-            link.click()
-            canvas.remove()
-            link.remove()
-          }}
-        >
-          PNG
-        </Button>
-      </HStack>
+            </Popover>
+          )}
+          <Button
+            variant={"outline"}
+            borderRadius={"full"}
+            leftIcon={<MdFileDownload />}
+            onClick={() => {
+              const canvas = document.createElement("canvas")
+              canvas.width = 512
+              canvas.height = 512
+              canvas
+                .getContext("2d")
+                ?.drawImage(gnarImageRef.current, 0, 0, 512, 512)
+              const link = document.createElement("a")
+              link.href = canvas.toDataURL()
+              link.download = `gnar-${gnarId}.png`
+              link.click()
+              canvas.remove()
+              link.remove()
+            }}
+          >
+            PNG
+          </Button>
+        </HStack>
+      </DarkMode>
     </Box>
   )
 }
