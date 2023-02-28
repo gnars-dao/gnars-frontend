@@ -7,6 +7,8 @@
 //   "utf8"
 // ).toString("base64")}`
 
+import { GnarPart } from "./index"
+
 const decodeImage = (image: string) => {
   const data = image.replace(/^0x/, "")
   const paletteIndex = parseInt(data.substring(0, 2), 16)
@@ -32,7 +34,7 @@ const decodeImage = (image: string) => {
 }
 
 export default function buildSvg(
-  parts,
+  parts: GnarPart[],
   paletteColors: string[],
   bgColor: string
 ) {

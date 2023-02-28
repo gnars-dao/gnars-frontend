@@ -31,112 +31,90 @@ import accessoryIcon from "../assets/images/nouns-nouns-part-accessory-sharp.svg
 import Image from "next/image"
 import { FaInfo } from "react-icons/fa"
 import { MdFileDownload } from "react-icons/md"
-import { useRef } from "react"
+import { FC, useRef } from "react"
+import { GnarPart, Gnartwork } from "../utils"
+import { GnarInfo } from "../hooks/useGnarInfo"
 
 interface GnarProps {
   isOg: boolean
   gnarId: string
-  seed:
-    | {
-        parts: {
-          filename: string
-          trait?: string
-          data: string
-        }[]
-        background: string
-      }
-    | undefined
+  gnartwork: Gnartwork
 }
 
-export default function Gnar(props: GnarProps) {
-  const { seed, isOg, gnarId } = props
+const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
   const gnarImageRef = useRef<HTMLImageElement>(null)
-  const [isHovered, { on, off }] = useBoolean(false)
-  const { isOpen: isExplicitlyOpen, onToggle, onClose } = useDisclosure()
+  const { isOpen, onToggle, onOpen, onClose } = useDisclosure()
 
-  const isOpen = isHovered || isExplicitlyOpen
-
-  if (!seed) return <LoadingGnar />
-
-  const [body, accessory, head, noggles] = seed?.parts
+  const { body, accessory, head, noggles } = gnartwork.parts
 
   const palette = isOg ? ogGnarData.palette : gnarDataV2.palette
-  const image = buildSvg(seed?.parts, palette, seed?.background)
+  const image = buildSvg(
+    [body, accessory, head, noggles],
+    palette,
+    gnartwork?.background
+  )
 
   return (
-    <Box>
+    <Box overflow={"visible!important"}>
       <ChakraImage
         ref={gnarImageRef}
-        onMouseOver={on}
-        onMouseLeave={off}
+        onMouseOver={onOpen}
+        onMouseLeave={onClose}
         w={"full"}
         src={image}
         alt={"gnar"}
       />
 
-      <HStack position={"absolute"} bottom={2} left={"75%"}>
+      <HStack position={"absolute"} bottom={-12} left={"auto"} right={"auto"}>
         {!isOg && (
           <Popover
-            closeDelay={500}
-            offset={[0, 12]}
+            offset={[0, 16]}
             isOpen={isOpen}
             onClose={onClose}
             placement={"bottom"}
             arrowSize={16}
-            autoFocus={false}
-            returnFocusOnClose={false}
+            closeOnBlur
           >
             <PopoverTrigger>
               {/*@TODO solve flickering tooltip issue when moving the mouse in/out of the button*/}
               <IconButton
-                onMouseOver={on}
-                onMouseLeave={off}
                 isActive={isOpen}
-                cursor={isHovered ? "default" : "pointer"}
-                // isDisabled={isOpen}
                 variant={"outline"}
                 borderRadius={"full"}
-                onClick={isHovered ? undefined : onToggle}
+                onClick={onToggle}
                 aria-label={"Traits info"}
                 icon={<FaInfo />}
               />
             </PopoverTrigger>
 
-            <Portal>
-              <DarkMode>
-                <PopoverContent
-                  p={2}
-                  textStyle={"h2"}
-                  color={"chakra-body-text"}
-                  // minW={"xs"}
-                  w={"fit-content"}
-                  maxW={"xl"}
-                  onMouseOver={on}
-                  onMouseLeave={off}
-                >
-                  <PopoverArrow />
-                  {!isExplicitlyOpen && <PopoverCloseButton />}
-                  <PopoverHeader>Traits</PopoverHeader>
-                  <PopoverBody>
-                    <SimpleGrid
-                      templateColumns={"30px 1fr"}
-                      columns={2}
-                      spacing={2}
-                      alignItems={"center"}
-                    >
-                      <ChakraImage src={headIcon.src} />
-                      <Text>{head.trait}</Text>
-                      <ChakraImage src={nogglesIcon.src} />
-                      <Text>{noggles.trait}</Text>
-                      <ChakraImage src={accessoryIcon.src} />
-                      <Text>{accessory.trait}</Text>
-                      <ChakraImage src={bodyIcon.src} />
-                      <Text>{body.trait}</Text>
-                    </SimpleGrid>
-                  </PopoverBody>
-                </PopoverContent>
-              </DarkMode>
-            </Portal>
+            <DarkMode>
+              <PopoverContent
+                p={2}
+                textStyle={"h2"}
+                color={"chakra-body-text"}
+                w={"fit-content"}
+                maxW={"xl"}
+              >
+                <PopoverArrow />
+                <PopoverBody>
+                  <SimpleGrid
+                    templateColumns={"30px 1fr"}
+                    columns={2}
+                    spacing={2}
+                    alignItems={"center"}
+                  >
+                    <ChakraImage src={headIcon.src} />
+                    <Text>{head.trait}</Text>
+                    <ChakraImage src={nogglesIcon.src} />
+                    <Text>{noggles.trait}</Text>
+                    <ChakraImage src={accessoryIcon.src} />
+                    <Text>{accessory.trait}</Text>
+                    <ChakraImage src={bodyIcon.src} />
+                    <Text>{body.trait}</Text>
+                  </SimpleGrid>
+                </PopoverBody>
+              </PopoverContent>
+            </DarkMode>
           </Popover>
         )}
         <Button
@@ -164,3 +142,4 @@ export default function Gnar(props: GnarProps) {
     </Box>
   )
 }
+export default Gnar

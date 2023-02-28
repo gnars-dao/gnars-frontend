@@ -2,22 +2,34 @@ import Auction from "components/Auction"
 import Explainer from "components/Explainer"
 
 import { GetStaticProps } from "next"
+import { fetchGnarInfo, GnarInfo } from "../../hooks/useGnarInfo"
 
-export default function Gnar(props) {
-  const { gnarId } = props
-
+export default function Gnar({
+  gnarInfo,
+  gnarId,
+}: {
+  gnarInfo: GnarInfo
+  gnarId: number
+}) {
   return (
     <>
-      <Auction desiredGnarId={Number(gnarId)} />
+      <Auction desiredGnarId={gnarId} initialGnarInfo={gnarInfo} />
       <Explainer />
     </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { gnarId } = context.params
+export const getStaticProps: GetStaticProps = async ({
+  params: { gnarId },
+}) => {
+  if (typeof gnarId !== "string") {
+    throw new Error("Invalid gnarId")
+  }
+
+  const gnarInfo = await fetchGnarInfo(parseInt(gnarId))
+
   return {
-    props: { gnarId },
+    props: { gnarId, gnarInfo },
     // 1 hour in seconds
     revalidate: 36000,
   }

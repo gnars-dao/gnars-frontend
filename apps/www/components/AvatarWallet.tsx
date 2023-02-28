@@ -1,6 +1,7 @@
 import {
   Avatar,
   AvatarProps,
+  Box,
   HStack,
   Image,
   PropsOf,
@@ -11,7 +12,7 @@ import {
 import { FC, useMemo } from "react"
 import { useEnsAvatar } from "wagmi"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
-import * as blockies from "blockies-ts"
+import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync.mjs"
 import { shortAddress } from "../utils"
 
 export type AvatarWalletProps = {
@@ -32,10 +33,6 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({
   } = useEnsAvatar({
     addressOrName: address,
   })
-  const blockid = useMemo(
-    () => blockies.create({ seed: address }).toDataURL(),
-    [address]
-  )
   return (
     <HStack {...props}>
       {isLoadingEnsAvatar && <Spinner boxSize={6} p={2} />}
@@ -43,12 +40,13 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({
         <Avatar
           variant={variant}
           src={ensAvatar}
-          icon={<Image borderRadius={"full"} src={blockid} />}
+          icon={<BlockiesSvgSync address={address} />}
           loading={"eager"}
+          overflow={"clip"}
           boxSize={8}
         />
       )}
-      <Text whiteSpace={"nowrap"}>{nnsOrEnsName ?? shortAddress(address)}</Text>
+      <Box whiteSpace={"nowrap"}>{nnsOrEnsName ?? shortAddress(address)}</Box>
     </HStack>
   )
 }

@@ -36,17 +36,26 @@ export const truncatedAmount = (amount: string) => {
   return Number(formatEther(amount)).toFixed(3)
 }
 
-export const getGnarData = (gnarId?: number, seed?: GnarSeed) => {
-  if (!gnarId || !seed) return
-  const gnarData = gnarId < V2_START_ID ? ogGnarData : gnarDataV2
+export type GnarPart = {
+  filename: string
+  data: string
+  trait?: string
+}
+
+export type Gnartwork = ReturnType<typeof getGnartwork>
+
+export const getGnartwork = (isOg: boolean, seed: GnarSeed) => {
+  const gnarData = isOg ? ogGnarData : gnarDataV2
   const { bodies, accessories, heads, glasses } = gnarData.images
+  const palette = isOg ? ogGnarData.palette : gnarDataV2.palette
   return {
-    parts: [
-      bodies[seed.body],
-      accessories[seed.accessory],
-      heads[seed.head],
-      glasses[seed.glasses],
-    ],
+    palette,
+    parts: {
+      body: bodies[seed.body] as GnarPart,
+      accessory: accessories[seed.accessory] as GnarPart,
+      head: heads[seed.head] as GnarPart,
+      noggles: glasses[seed.glasses] as GnarPart,
+    },
     background: gnarData.bgcolors[seed.background],
   }
 }

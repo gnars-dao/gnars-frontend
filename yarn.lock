@@ -3919,10 +3919,10 @@ blakejs@^1.1.0:
   resolved "https://registry.yarnpkg.com/blakejs/-/blakejs-1.2.1.tgz#5057e4206eadb4a97f7c0b6e197a505042fc3814"
   integrity sha512-QXUSXI3QVc/gJME0dBpXrag1kbzOqCjCX8/b54ntNyW6sjtoqxqRk3LTmXzaJoh71zMsDCjM+47jS7XiwN/+fQ==
 
-blockies-ts@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/blockies-ts/-/blockies-ts-1.0.0.tgz#d51cda8d8a9df726fb900084e12f86912beb8591"
-  integrity sha512-mL9NO/FjYbFjaSDA5tw/qkUwEXrBG1bHSoPhAFG9CAzDaHTwQHzvYByAYUBmnqYciFsJvdxWKGtyOLgaSKoUkA==
+blockies-react-svg@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/blockies-react-svg/-/blockies-react-svg-0.0.12.tgz#6b528536c424ee78e2c10bef1614dbc11b81378b"
+  integrity sha512-VfT67r7BWsJtmsoB6Tq4Swp5tBknalSqQOLIURpLnCwdPxy2zk9q4bxPsWIR4nYn8ZCv5zPgstQgBDRsqe9Z5w==
 
 bn.js@4.11.8:
   version "4.11.8"
