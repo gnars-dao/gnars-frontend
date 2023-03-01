@@ -38,12 +38,12 @@ export default function Menu(props: MenuProps) {
         p={4}
         maxW={"1116px"}
       >
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-row gap-6">
+        <HStack justifyContent={"space-between"}>
+          <HStack flexShrink={0} spacing={6}>
             <Link href="/">
               <Image
                 filter={"drop-shadow(0 0 1px #0005)"}
-                className="max-h-40px"
+                h={"40px"}
                 src="/images/logo.png"
               />
             </Link>
@@ -63,7 +63,7 @@ export default function Menu(props: MenuProps) {
                 </Button>
               </ExternalLink>
             )}
-          </div>
+          </HStack>
           <IconButton
             variant={"outline"}
             icon={
@@ -74,7 +74,7 @@ export default function Menu(props: MenuProps) {
             display={{ base: undefined, lg: "none" }}
             onClick={() => setShowMenu(!showMenu)}
           />
-        </div>
+        </HStack>
         <div
           className={clsx(
             showMenu ? "flex" : "hidden",
@@ -106,7 +106,7 @@ export default function Menu(props: MenuProps) {
               </Button>
             </ExternalLink>
             <Link href="/playground">
-              <Button variant={"outline"} leftIcon={<FaPlay />}>
+              <Button w={"full"} variant={"outline"} leftIcon={<FaPlay />}>
                 Playground
               </Button>
             </Link>
