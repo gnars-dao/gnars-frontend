@@ -134,6 +134,7 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                 </HStack>
                 <VStack alignItems={"start"} spacing={10} w={"full"}>
                   <AuctionStatus
+                    auctionTimeLeft={auctionTimeLeft}
                     auctionEnded={auctionEnded}
                     burned={isBurned}
                     isTreasuryGnar={isTreasuryGnar}
