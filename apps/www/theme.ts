@@ -81,9 +81,17 @@ const Heading = defineStyleConfig({
   },
 })
 
+const StackDivider = defineStyleConfig({
+  variants: {
+    subtle: ({ colorMode }) => ({
+      borderColor: colorMode === "dark" ? "whiteAlpha.300" : "blackAlpha.300",
+    }),
+  },
+})
+
 const theme = extendTheme({
   ...config,
-  components: { Button, Avatar, Heading },
+  components: { Button, Avatar, Heading, StackDivider },
   textStyles: {
     h1: {
       fontFamily: '"Londrina Solid", sans-serif',

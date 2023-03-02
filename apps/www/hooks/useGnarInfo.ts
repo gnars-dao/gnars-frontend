@@ -26,13 +26,13 @@ export type Gnar = {
     body: number
     head: number
   }
-  auction?: {
+  auction: {
     latestBidder?: string
     latestBid?: string
     bids: Bid[]
     startTimestamp: number
     endTimestamp: number
-  }
+  } | null
 }
 
 export type OGGnar = Gnar & {
@@ -48,14 +48,14 @@ export type OGGnar = Gnar & {
 
 export type GnarV2 = Gnar & {
   isOg: false
-  auction?: {
+  auction: {
     settled: boolean
     latestBidder?: string
     latestBid?: string
     bids: Bid[]
     startTimestamp: number
     endTimestamp: number
-  }
+  } | null
 }
 
 export type GnarInfo = {
@@ -139,7 +139,7 @@ export const fetchGnarInfo = async (desiredGnarId?: number) => {
           })
         ),
       }
-    : undefined
+    : null
 
   return {
     latestGnarId,

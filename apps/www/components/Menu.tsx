@@ -25,7 +25,7 @@ export type MenuProps = CenterProps
 export default function Menu(props: MenuProps) {
   const [showMenu, setShowMenu] = useState(false)
   const { data: balanceData, isSuccess: isSuccessBalance } = useBalance({
-    addressOrName: TREASURY_ADDRESS,
+    address: TREASURY_ADDRESS,
   })
 
   return (
@@ -119,7 +119,7 @@ export default function Menu(props: MenuProps) {
                     loadingText={"Connecting Wallet"}
                     onClick={show}
                   >
-                    {!!address ? (
+                    {isConnected && address ? (
                       <AvatarWallet address={address} />
                     ) : (
                       <Text>Connect Wallet</Text>

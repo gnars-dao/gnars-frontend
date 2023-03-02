@@ -81,9 +81,10 @@ const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
               placement={"bottom"}
               arrowSize={16}
               closeOnBlur
+              autoFocus={false}
+              returnFocusOnClose={false}
             >
               <PopoverTrigger>
-                {/*@TODO solve flickering tooltip issue when moving the mouse in/out of the button*/}
                 <IconButton
                   isActive={isOpen}
                   variant={"outline"}

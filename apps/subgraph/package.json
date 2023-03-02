@@ -1,5 +1,6 @@
 {
   "name": "gnars-subgraph",
+  "version": "0.3.2",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",

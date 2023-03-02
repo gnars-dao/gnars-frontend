@@ -20,7 +20,7 @@
     "@typechain/ethers-v5": "^10.1.0",
     "blockies-react-svg": "^0.0.12",
     "clsx": "^1.2.1",
-    "connectkit": "^0.0.2",
+    "connectkit": "^1.2.0",
     "date-fns": "^2.29.3",
     "ethers": "^5.7.1",
     "framer-motion": "^9.0.7",
@@ -32,7 +32,7 @@
     "react-icons": "^4.7.1",
     "react-inlinesvg": "^3.0.1",
     "typechain": "^8.1.0",
-    "wagmi": "^0.6.7"
+    "wagmi": "^0.11.7"
   },
   "devDependencies": {
     "@graphprotocol/client-cli": "^2.2.18",

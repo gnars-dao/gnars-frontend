@@ -12,6 +12,7 @@ import {
   chakra,
   AspectRatio,
   Stack,
+  Code,
 } from "@chakra-ui/react"
 import Link from "next/link"
 
@@ -293,10 +294,13 @@ export default function Explainer() {
                   prevent any future updates. Currently, Gnar traits are
                   determined using pseudo-random number generation:
                 </p>
-                <p className="text-hoverRed break-words">
-                  keccak256(abi.encodePacked(blockhash(block.number - 1),
-                  gnarId))
-                </p>
+                <Code colorScheme={"red"} p={4}>
+                  keccak256(
+                  <wbr />
+                  abi.encodePacked(
+                  <wbr />
+                  blockhash(block.number - 1), gnarId))
+                </Code>
                 <p>
                   Trait generation is not truly random. Traits can be predicted
                   when minting a Gnar on the pending block.

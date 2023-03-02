@@ -4,6 +4,7 @@ import {
   Box,
   HStack,
   Image,
+  Link,
   PropsOf,
   Spinner,
   StackProps,
@@ -14,14 +15,17 @@ import { useEnsAvatar } from "wagmi"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync.mjs"
 import { shortAddress } from "../utils"
+import { HiExternalLink } from "react-icons/all"
 
 export type AvatarWalletProps = {
   address: string
+  withLink?: boolean
   variant?: AvatarProps["variant"]
 } & StackProps
 
 export const AvatarWallet: FC<AvatarWalletProps> = ({
   address,
+  withLink = false,
   variant,
   ...props
 }) => {
@@ -31,9 +35,10 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({
     isFetched: isFetchedEnsAvatar,
     data: ensAvatar,
   } = useEnsAvatar({
-    addressOrName: address,
+    address: address as `0x${string}`,
   })
-  return (
+
+  const content = (
     <HStack {...props}>
       {isLoadingEnsAvatar && <Spinner boxSize={6} p={2} />}
       {isFetchedEnsAvatar && (
@@ -43,10 +48,31 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({
           icon={<BlockiesSvgSync address={address} />}
           loading={"eager"}
           overflow={"clip"}
-          boxSize={8}
+          boxSize={"36px"}
         />
       )}
-      <Box whiteSpace={"nowrap"}>{nnsOrEnsName ?? shortAddress(address)}</Box>
+      <Text whiteSpace={"nowrap"}>
+        {nnsOrEnsName ?? shortAddress(address)}
+        {withLink && (
+          <HiExternalLink
+            style={{
+              display: "inline",
+              marginBottom: "-2px",
+              maxWidth: "18px",
+              maxHeight: "18px",
+              verticalAlign: "baseline",
+            }}
+          />
+        )}
+      </Text>
     </HStack>
+  )
+
+  return withLink ? (
+    <Link isExternal href={`https://etherscan.io/address/${address}`}>
+      {content}
+    </Link>
+  ) : (
+    content
   )
 }
