@@ -5,9 +5,9 @@ export const ShredIcon = createIcon({
   viewBox: "0 0 20 20",
   defaultProps: {
     width: "20px",
-    height: "20px",
+    height: "20px"
   },
-  d: "M8 7V4H4v12h12V8H8v4h4v3h-1v-2H7V7h1Zm8 0h-4V4h4v3Z",
+  d: "M8 7V4H4v12h12V8H8v4h4v3h-1v-2H7V7h1Zm8 0h-4V4h4v3Z"
 })
 
 export const OGNogglesIcon = createIcon({
@@ -15,7 +15,15 @@ export const OGNogglesIcon = createIcon({
   viewBox: "0 0 24 24",
   defaultProps: {
     width: "24px",
-    height: "24px",
+    height: "24px"
   },
-  d: "M15,15L19,15L19,14L20,14L20,10L19,10L19,9L15,9L15,10L14,10L14,12L13,12L13,10L12,10L12,9L8,9L8,10L7,10L7,11L4,11L4,14L5,14L5,12L7,12L7,14L8,14L8,10L10,10L10,14L8,14L8,15L12,15L12,14L15,14L15,10L17,10L17,14L15,14L15,15Z",
+  d:
+    "M15,15L19,15L19,14L20,14L20,10L19,10L19,9L15,9L15,10L14,10L14,12L13,12L13,10L12,10L12,9L8,9L8,10L7,10L7,11L4,11L4,14L5,14L5,12L7,12L7,14L8,14L8,10L10,10L10,14L8,14L8,15L12,15L12,14L15,14L15,10L17,10L17,14L15,14L15,15Z"
+})
+
+export const EtherscanIcon = createIcon({
+  displayName: "EtherscanIcon",
+  viewBox: "0 0 293.8 293.7",
+  d:
+    "M61 140a12 12 0 0 1 13-13h20a12 12 0 0 1 13 13v78l8-2a10 10 0 0 0 8-10v-97a12 12 0 0 1 13-13h21a12 12 0 0 1 12 13v90l10-4a10 10 0 0 0 7-10V78a12 12 0 0 1 12-13h21a12 12 0 0 1 12 13v88c18-13 37-29 51-47a21 21 0 0 0 3-20A147 147 0 0 0 149 0C67-1 0 65 0 147a146 146 0 0 0 20 73 19 19 0 0 0 17 9 509 509 0 0 0 15-1 10 10 0 0 0 9-10v-78m0 126a147 147 0 0 0 233-119l-1-10c-53 80-152 117-232 129"
 })

@@ -38,6 +38,7 @@
     "@graphprotocol/client-cli": "^2.2.18",
     "@types/lodash": "^4.14.191",
     "@types/react": "18.0.21",
+    "@wagmi/cli": "^0.1.11",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.17",
     "tailwindcss": "^3.1.8"

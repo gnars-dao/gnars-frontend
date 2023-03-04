@@ -9,36 +9,28 @@ import {
   Button,
   ColorMode,
   ColorModeProvider,
-  DarkMode,
   HStack,
+  IconButton,
   Link,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverTrigger,
   Spinner,
   Stack,
   Text,
   useBreakpointValue,
-  VStack,
+  VStack
 } from "@chakra-ui/react"
 import { AuctionNavigation } from "./AuctionNavigation"
-import { TREASURY_ADDRESS } from "../utils/contracts"
-import { OGNogglesIcon, ShredIcon } from "./Icons"
-import {
-  FaInfoCircle,
-  FiInfo,
-  HiExternalLink,
-  RiAuctionLine,
-} from "react-icons/all"
+import { TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../utils/contracts"
+import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "./Icons"
+import { FiInfo, HiExternalLink } from "react-icons/all"
 import useAuctionTimeLeft from "../hooks/useAuctionTimeLeft"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 import { FC } from "react"
-import { BiddingAndSettlingModal } from "./BiddingAndSettlingModal"
+import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"
 import { AuctionStatus } from "./AuctionStatus"
 import { SettleAuctionButton } from "./SettleAuctionButton"
-import { Bids } from "./Bids"
+import { BidsTable } from "./BidsTable"
+import { BidForGnar } from "./BidForGnar"
+import { BidsPopover } from "./BidsPopover"
 
 interface AuctionProps {
   desiredGnarId?: number
@@ -49,8 +41,8 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
   const {
     data: {
       latestGnarId,
-      gnar: { gnarId, seed, owner, isLatestGnar, isOg, auction },
-    },
+      gnar: { gnarId, seed, owner, isLatestGnar, isOg, auction }
+    }
   } = useGnarInfo(desiredGnarId, initialGnarInfo)
 
   const numericGnarId = parseInt(gnarId)
@@ -60,14 +52,14 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
   const hasDarkBg = isBgDark(gnartwork?.background)
   const auctionDetailsColorMode = useBreakpointValue<ColorMode>({
     base: "dark",
-    lg: hasDarkBg ? "dark" : "light",
+    lg: hasDarkBg ? "dark" : "light"
   })
   const gnarBgColor = gnartwork?.background
     ? `#${gnartwork.background}`
     : "#d5d7e1"
 
   const { endTimestamp, latestBidder, latestBid, settled, bids } = {
-    ...(auction ?? {}),
+    ...(auction ?? {})
   }
 
   const auctionTimeLeft = useAuctionTimeLeft(endTimestamp)
@@ -77,7 +69,7 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
   const auctionEnded = auctionTimeLeft === null
   const isTreasuryGnar = is10thGnar(gnarId)
   const winner = isTreasuryGnar ? TREASURY_ADDRESS : latestBidder
-  const isBurned = auctionEnded && !winner
+  const isBurned = auction && auctionEnded && !winner
 
   return (
     <ColorModeProvider value={hasDarkBg ? "dark" : "light"}>
@@ -141,7 +133,30 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                     amount={latestBid}
                     winner={winner}
                   />
-                  {settled && !isBurned && (
+                  {(isTreasuryGnar || isOg) && (
+                    <VStack alignItems={"start"} spacing={1}>
+                      {isTreasuryGnar && (
+                        <Text fontSize={"sm"} lineHeight={1.2}>
+                          <FiInfo
+                            style={{
+                              display: "inline"
+                            }}
+                          />{" "}
+                          To pay homage and show our respect as a Nouns
+                          extension, every Gnar ending in 7 is reserved for
+                          onboarding shredders.
+                        </Text>
+                      )}
+                      {isOg && (
+                        <Text fontSize={"sm"} lineHeight={1.2}>
+                          <FiInfo style={{}} /> OG Gnars dropped before Gnars
+                          was officially a DAO, and have no voting power. Each
+                          OG Gnar entitled it's holder to claim 2 Gnars.
+                        </Text>
+                      )}
+                    </VStack>
+                  )}
+                  {(!auction || (auction && settled)) && !isBurned && (
                     <HStack
                       spacing={1}
                       fontSize={"lg"}
@@ -161,30 +176,24 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                       </Link>
                     </HStack>
                   )}
-                  {auction && auctionEnded && !settled && (
+                  {auction && !settled && (
                     <VStack w={"full"} alignItems={"start"} spacing={1}>
-                      <SettleAuctionButton size={"lg"} w={"full"} />
-                      <BiddingAndSettlingModal>
-                        {({ getButtonProps }) => {
-                          return (
-                            <Button
-                              color={"chakra-body-text"}
-                              size={"sm"}
-                              leftIcon={<FaInfoCircle />}
-                              variant={"link"}
-                              {...getButtonProps()}
-                            >
-                              bidding and settling
-                            </Button>
-                          )
-                        }}
-                      </BiddingAndSettlingModal>
+                      <BidForGnar
+                        gnarId={gnarId}
+                        currentBid={latestBid}
+                        w={"full"}
+                        h={12}
+                      />
+                      {auctionEnded && (
+                        <SettleAuctionButton size={"lg"} w={"full"} />
+                      )}
+                      <BiddingAndSettlingInfo />
                       {bids?.length > 0 && (
                         <VStack w="full" alignItems={"end"} spacing={1}>
                           <Text fontSize={"sm"}>
                             {bids.length} Bid{bids.length > 1 && "s"}
                           </Text>
-                          <Bids
+                          <BidsTable
                             bids={bids}
                             w={"full"}
                             overflow={"scroll"}
@@ -196,58 +205,19 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                     </VStack>
                   )}
                 </VStack>
-                {isTreasuryGnar ||
-                  (isOg && (
-                    <VStack alignItems={"start"} spacing={1}>
-                      {isTreasuryGnar && (
-                        <Text fontSize={"sm"} lineHeight={1.2}>
-                          <FiInfo
-                            style={{
-                              display: "inline",
-                            }}
-                          />{" "}
-                          To pay homage and show our respect as a Nouns
-                          extension, every Gnar ending in 7 is reserved for
-                          onboarding shredders.
-                        </Text>
-                      )}
-                      {isOg && (
-                        <Text fontSize={"sm"} lineHeight={1.2}>
-                          <FiInfo
-                            style={{
-                              display: "inline",
-                            }}
-                          />{" "}
-                          OG Gnars dropped before Gnars was officially a DAO,
-                          and have no voting power. Each OG Gnar entitled it's
-                          holder to claim 2 Gnars.
-                        </Text>
-                      )}
-                    </VStack>
-                  ))}
-                {auction && settled && bids.length > 0 && (
+                {(!auction || settled) && (
                   <HStack>
-                    <Popover>
-                      <PopoverTrigger>
-                        <Button
-                          leftIcon={<RiAuctionLine />}
-                          variant={"outline"}
-                        >
-                          {bids.length} Bid{bids.length > 1 && "s"}
-                        </Button>
-                      </PopoverTrigger>
-                      <DarkMode>
-                        <PopoverContent
-                          minWidth={"400px"}
-                          textColor={"chakra-body-text"}
-                        >
-                          <PopoverArrow />
-                          <PopoverBody>
-                            <Bids bids={bids} />
-                          </PopoverBody>
-                        </PopoverContent>
-                      </DarkMode>
-                    </Popover>
+                    {bids && bids.length > 0 && <BidsPopover bids={bids} />}
+                    <Link
+                      isExternal
+                      href={`https://etherscan.io/token/${V2_GNAR_ADDRESS}?a=${gnarId}`}
+                    >
+                      <IconButton
+                        aria-label={"Etherscan"}
+                        variant={"outline"}
+                        icon={<EtherscanIcon />}
+                      />
+                    </Link>
                   </HStack>
                 )}
               </VStack>

@@ -2,8 +2,7 @@ query OGGnar ($gnarId: ID!) {
     ogAuction(id: $gnarId) {
         amount
         bidder
-        startTimestamp
-        endTimestamp
+
         bids(orderBy: amount, orderDirection: desc) {
             amount
             bidder

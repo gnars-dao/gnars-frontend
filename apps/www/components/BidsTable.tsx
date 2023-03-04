@@ -14,7 +14,7 @@ import {
   Thead,
   Tr,
   useColorMode,
-  VStack,
+  VStack
 } from "@chakra-ui/react"
 import { FC } from "react"
 import { AvatarWallet } from "./AvatarWallet"
@@ -24,7 +24,7 @@ import { HiExternalLink } from "react-icons/all"
 export type BidsProps = {
   bids: GnarInfo["gnar"]["auction"]["bids"]
 } & TableContainerProps
-export const Bids: FC<BidsProps> = ({ bids, ...props }) => {
+export const BidsTable: FC<BidsProps> = ({ bids, ...props }) => {
   const { colorMode } = useColorMode()
   const borderColor = colorMode === "dark" ? "whiteAlpha.300" : "blackAlpha.300"
   const amountBids = bids.length
@@ -70,7 +70,7 @@ export const Bids: FC<BidsProps> = ({ bids, ...props }) => {
                     <HiExternalLink
                       style={{
                         display: "inline",
-                        verticalAlign: "text-bottom",
+                        verticalAlign: "text-bottom"
                       }}
                     />
                   </Text>

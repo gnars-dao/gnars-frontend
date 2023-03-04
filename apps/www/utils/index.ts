@@ -17,14 +17,14 @@ export const nFormatter = (num: number, digits: number = 2) => {
     { value: 1e9, symbol: "g" },
     { value: 1e12, symbol: "t" },
     { value: 1e15, symbol: "p" },
-    { value: 1e18, symbol: "e" },
+    { value: 1e18, symbol: "e" }
   ]
 
   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/
   var item = lookup
     .slice()
     .reverse()
-    .find(function (item) {
+    .find(function(item) {
       return num >= item.value
     })
   return item
@@ -32,8 +32,8 @@ export const nFormatter = (num: number, digits: number = 2) => {
     : "0"
 }
 
-export const truncatedAmount = (amount: string) => {
-  return Number(formatEther(amount)).toFixed(3)
+export const truncatedAmount = (amount: string, digits?: number) => {
+  return Number(formatEther(amount)).toFixed(digits ?? 3)
 }
 
 export type GnarPart = {
@@ -54,9 +54,9 @@ export const getGnartwork = (isOg: boolean, seed: GnarSeed) => {
       body: bodies[seed.body] as GnarPart,
       accessory: accessories[seed.accessory] as GnarPart,
       head: heads[seed.head] as GnarPart,
-      noggles: glasses[seed.glasses] as GnarPart,
+      noggles: glasses[seed.glasses] as GnarPart
     },
-    background: gnarData.bgcolors[seed.background],
+    background: gnarData.bgcolors[seed.background]
   }
 }
 
@@ -90,7 +90,7 @@ export const isBgDark = (color: string) => {
   }
 }
 
-export const is10thGnar = (gnarId) => (gnarId - V2_START_ID) % 10 === 0
+export const is10thGnar = gnarId => (gnarId - V2_START_ID) % 10 === 0
 
 export const shortAddress = (address: string) =>
   [address.substring(0, 6), address.substring(38)].join("…")

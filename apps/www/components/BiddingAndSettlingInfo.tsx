@@ -13,30 +13,34 @@ import {
   Portal,
   Text,
   useDisclosure,
-  VStack,
+  VStack
 } from "@chakra-ui/react"
 import { FC } from "react"
-import { UseDisclosureReturn } from "@chakra-ui/hooks/dist/use-disclosure"
+import { FaInfoCircle } from "react-icons/all"
 
-interface BiddingAndSettlingModalProps {
-  children?: (renderProps: UseDisclosureReturn) => React.ReactNode
-}
+interface BiddingAndSettlingModalProps {}
 
-export const BiddingAndSettlingModal: FC<BiddingAndSettlingModalProps> = ({
-  children,
-}) => {
-  const disclosure = useDisclosure()
+export const BiddingAndSettlingInfo: FC<BiddingAndSettlingModalProps> = ({}) => {
+  const { isOpen, onClose, getButtonProps } = useDisclosure()
   return (
     <>
-      {children(disclosure)}
+      <Button
+        color={"chakra-body-text"}
+        size={"sm"}
+        leftIcon={<FaInfoCircle />}
+        variant={"link"}
+        {...getButtonProps()}
+      >
+        bidding and settling
+      </Button>
       <DarkMode>
         <Modal
           scrollBehavior={"inside"}
           closeOnEsc
           closeOnOverlayClick
           size={"2xl"}
-          isOpen={disclosure.isOpen}
-          onClose={disclosure.onClose}
+          isOpen={isOpen}
+          onClose={onClose}
         >
           <ModalOverlay />
           <ModalContent mx={2}>
