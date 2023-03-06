@@ -1,23 +1,24 @@
 import { FC } from "react"
 import { useRouter } from "next/router"
-import { HStack } from "@chakra-ui/react"
+import { HStack, StackProps } from "@chakra-ui/react"
 import { RoundButton } from "./RoundButton"
 
-export interface AuctionNavigationParams {
+export type AuctionNavigationParams = {
   gnarId: number
   latestGnarId: string
   isLatestGnar: boolean
-}
+} & StackProps
 
 export const AuctionNavigation: FC<AuctionNavigationParams> = ({
   gnarId,
   isLatestGnar,
   latestGnarId,
+  ...props
 }) => {
   const { push } = useRouter()
 
   return (
-    <HStack spacing={1}>
+    <HStack spacing={1} {...props}>
       <RoundButton
         px={0}
         isDisabled={gnarId <= 0}

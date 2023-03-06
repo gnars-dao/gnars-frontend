@@ -1,6 +1,7 @@
 import { FC, useState } from "react"
 import {
   Button,
+  ButtonGroup,
   ButtonProps,
   HStack,
   IconButton,
@@ -17,13 +18,14 @@ import {
   SliderMark,
   SliderThumb,
   SliderTrack,
+  Stack,
   StackProps,
   useNumberInput,
-  useSlider
+  useSlider,
 } from "@chakra-ui/react"
 import {
   useGnarsV2AuctionHouseCreateBid,
-  usePrepareGnarsV2AuctionHouseCreateBid
+  usePrepareGnarsV2AuctionHouseCreateBid,
 } from "../utils/sdk"
 import { BigNumber } from "ethers"
 import { formatEther, parseEther } from "ethers/lib/utils"
@@ -52,12 +54,12 @@ export const BidForGnar: FC<BidForGnarProps> = ({
     getInputProps,
     getIncrementButtonProps,
     getDecrementButtonProps,
-    value: bidAmount
+    value: bidAmount,
   } = useNumberInput({
     defaultValue: minBidEth,
     min: minBidEth,
     step: minBidEth * 0.05,
-    precision: 7
+    precision: 7,
   })
 
   const inc = getIncrementButtonProps()
@@ -65,39 +67,55 @@ export const BidForGnar: FC<BidForGnarProps> = ({
   const input = getInputProps()
   const { config } = usePrepareGnarsV2AuctionHouseCreateBid({
     args: [BigNumber.from(gnarId), founderAllocation, treasuryAllocation],
-    overrides: { value: parseEther(bidAmount) }
+    overrides: { value: parseEther(bidAmount) },
   })
   const { isLoading, write } = useGnarsV2AuctionHouseCreateBid(config)
 
   return (
-    <HStack spacing={4} {...props}>
-      <HStack w="sm" spacing={1}>
+    <Stack direction={{ base: "column", md: "row" }} spacing={4} {...props}>
+      <ButtonGroup
+        isAttached
+        w={{ base: "full", md: "sm", lg: "2xs" }}
+        minW={{ base: "full", md: "sm", lg: 60 }}
+      >
         <IconButton
+          variant={"outline"}
           aria-label={"decrease"}
           icon={<FaCaretDown />}
           size={"lg"}
+          w={{ base: 32, sm: "full", md: 48, lg: "initial" }}
           {...dec}
         />
 
-        <InputGroup size={"lg"}>
-          <Input {...input} />
-          <InputRightElement>Ξ</InputRightElement>
+        <InputGroup variant={"outline"} size={"lg"}>
+          <Input
+            variant={"outline"}
+            textAlign={"end"}
+            pr={10}
+            pl={2}
+            borderRadius={0}
+            borderX={0}
+            {...input}
+          />
+          <InputRightElement w={10}>Ξ</InputRightElement>
         </InputGroup>
         <IconButton
+          variant={"outline"}
           aria-label={"increase"}
           icon={<FaCaretUp />}
           size={"lg"}
+          w={{ base: 32, sm: "full", md: 48, lg: "initial" }}
           {...inc}
         />
-      </HStack>
+      </ButtonGroup>
 
       <Slider
         flexGrow={1}
         aria-label="Founder allocation"
         value={treasuryAllocation}
         onChange={setTreasuryAllocation}
-        w={"3xs"}
-        h={"full"}
+        w={{ base: "full", lg: "3xs" }}
+        h={12}
         pt={0}
       >
         <SliderMark
@@ -122,20 +140,20 @@ export const BidForGnar: FC<BidForGnarProps> = ({
         </SliderMark>
         <SliderMark
           value={0}
-          bottom={0}
+          bottom={1}
           fontWeight={"bold"}
-          fontSize="2xs"
+          fontSize={9}
           filter={"opacity(30%)"}
         >
           FOUNDER
         </SliderMark>
         <SliderMark
           value={0}
-          bottom={0}
+          bottom={1}
           left={"auto!important"}
           right={0}
           fontWeight={"bold"}
-          fontSize="2xs"
+          fontSize={9}
           filter={"opacity(30%)"}
         >
           TREASURY
@@ -146,13 +164,14 @@ export const BidForGnar: FC<BidForGnarProps> = ({
 
       <Button
         size={"lg"}
-        h={"full"}
-        // isLoading={isLoading}
-        // isDisabled={!write}
-        // onClick={write}
+        h={12}
+        px={10}
+        isLoading={isLoading}
+        isDisabled={!write}
+        onClick={write}
       >
         Place Bid
       </Button>
-    </HStack>
+    </Stack>
   )
 }

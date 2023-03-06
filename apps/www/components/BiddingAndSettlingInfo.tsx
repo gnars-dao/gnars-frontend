@@ -13,14 +13,16 @@ import {
   Portal,
   Text,
   useDisclosure,
-  VStack
+  VStack,
 } from "@chakra-ui/react"
 import { FC } from "react"
 import { FaInfoCircle } from "react-icons/all"
 
 interface BiddingAndSettlingModalProps {}
 
-export const BiddingAndSettlingInfo: FC<BiddingAndSettlingModalProps> = ({}) => {
+export const BiddingAndSettlingInfo: FC<
+  BiddingAndSettlingModalProps
+> = ({}) => {
   const { isOpen, onClose, getButtonProps } = useDisclosure()
   return (
     <>
@@ -43,7 +45,12 @@ export const BiddingAndSettlingInfo: FC<BiddingAndSettlingModalProps> = ({}) => 
           onClose={onClose}
         >
           <ModalOverlay />
-          <ModalContent mx={2}>
+          <ModalContent
+            mx={2}
+            pb={4}
+            color={"chakra-body-text"}
+            bgColor={"chakra-body-bg"}
+          >
             <ModalHeader textStyle={"h2"} textAlign={"center"}>
               Bidding and Settling
             </ModalHeader>

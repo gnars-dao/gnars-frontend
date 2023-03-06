@@ -27,8 +27,8 @@ export type Gnar = {
     head: number
   }
   auction: {
-    latestBidder?: string
-    latestBid?: string
+    latestBidder: string | null
+    latestBid: string | null
     bids: Bid[]
     startTimestamp: number
     endTimestamp: number
@@ -39,8 +39,8 @@ export type OGGnar = Gnar & {
   isLatestGnar: false
   isOg: true
   auction: {
-    latestBidder?: string
-    latestBid?: string
+    latestBidder: string | null
+    latestBid: string | null
     bids: Bid[]
     settled: true
   }
@@ -50,8 +50,8 @@ export type GnarV2 = Gnar & {
   isOg: false
   auction: {
     settled: boolean
-    latestBidder?: string
-    latestBid?: string
+    latestBidder: string | null
+    latestBid: string | null
     bids: Bid[]
     startTimestamp: number
     endTimestamp: number
@@ -98,8 +98,8 @@ export const fetchGnarInfo = async (desiredGnarId?: number) => {
         seed,
         owner,
         auction: {
-          latestBidder: bidder,
-          latestBid: amount,
+          latestBidder: bidder ?? null,
+          latestBid: amount ?? null,
           bids,
           settled: true,
         },
@@ -126,8 +126,8 @@ export const fetchGnarInfo = async (desiredGnarId?: number) => {
   const auction = auctionData
     ? {
         settled: auctionData.settled,
-        latestBidder: auctionData.bidder?.id,
-        latestBid: auctionData.amount,
+        latestBidder: auctionData.bidder?.id  ?? null,
+        latestBid: auctionData.amount  ?? null,
         startTimestamp: auctionData.startTime,
         endTimestamp: auctionData.endTime,
         bids: auctionData.bids.map(

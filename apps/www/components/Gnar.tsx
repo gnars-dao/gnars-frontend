@@ -75,11 +75,9 @@ const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
         >
           {!isOg && (
             <Popover
-              offset={[0, 16]}
               isOpen={isOpen}
               onClose={onClose}
               placement={"bottom"}
-              arrowSize={16}
               closeOnBlur
               autoFocus={false}
               returnFocusOnClose={false}
@@ -98,15 +96,16 @@ const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
               <PopoverContent
                 p={2}
                 textStyle={"h2"}
+                fontSize={{ base: "2xl", lg: "3xl" }}
                 w={"fit-content"}
                 maxW={"xl"}
               >
                 <PopoverArrow />
-                <PopoverBody>
+                <PopoverBody p={1}>
                   <SimpleGrid
                     templateColumns={"30px 1fr"}
                     columns={2}
-                    spacing={2}
+                    spacing={1}
                     alignItems={"center"}
                   >
                     <ChakraImage src={headIcon.src} />

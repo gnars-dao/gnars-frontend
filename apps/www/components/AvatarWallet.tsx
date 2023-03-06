@@ -40,7 +40,7 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({
 
   const content = (
     <HStack {...props}>
-      {isLoadingEnsAvatar && <Spinner boxSize={6} p={2} />}
+      {isLoadingEnsAvatar && <Spinner boxSize={"36px"} thickness={"2px"} />}
       {isFetchedEnsAvatar && (
         <Avatar
           variant={variant}
