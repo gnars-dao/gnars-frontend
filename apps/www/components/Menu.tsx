@@ -1,4 +1,3 @@
-import clsx from "clsx"
 import Link from "next/link"
 import { useState } from "react"
 import { useBalance } from "wagmi"
@@ -7,6 +6,7 @@ import { ConnectKitButton } from "connectkit"
 import { nFormatter } from "utils"
 import { TREASURY_ADDRESS } from "utils/contracts"
 import {
+  Box,
   Button,
   Center,
   CenterProps,
@@ -75,14 +75,11 @@ export default function Menu(props: MenuProps) {
             onClick={() => setShowMenu(!showMenu)}
           />
         </HStack>
-        <Stack
-            direction={{base: "column", lg: "row"}}
-          className={clsx(
-            showMenu ? "flex" : "hidden",
-            "lg:flex flex-col lg:flex-row lg:justify-end w-full text-lg gap-3"
-          )}
-        >
-          <Stack spacing={3} direction={{ base: "column", lg: "row" }}>
+        <Box display={{ base: showMenu ? "initial" : "none" }}>
+          <Stack
+            spacing={{ base: 1, lg: 3 }}
+            direction={{ base: "column", lg: "row" }}
+          >
             <ExternalLink
               href="https://snapshot.org/#/gnars.eth"
               isExternal
@@ -130,7 +127,7 @@ export default function Menu(props: MenuProps) {
               }}
             </ConnectKitButton.Custom>
           </Stack>
-        </St>
+        </Box>
       </Stack>
     </Center>
   )

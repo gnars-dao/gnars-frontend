@@ -1,4 +1,5 @@
 // @TODO implement playground
+import * as CSS from "csstype"
 import {
   Box,
   Button,
@@ -134,7 +135,7 @@ export default function Playground() {
 export type PartPickerProps = {
   part: string
   icon: JSX.Element
-  size: Pick<CenterProps, "boxSize">
+  size: Token<CSS.Property.Width | CSS.Property.Height | number, "sizes">
 } & StackProps
 
 export const PartPicker: FC<PartPickerProps> = ({

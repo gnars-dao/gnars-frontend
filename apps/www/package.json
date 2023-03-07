@@ -19,7 +19,6 @@
     "@tanstack/react-query": "^4.9.0",
     "@typechain/ethers-v5": "^10.1.0",
     "blockies-react-svg": "^0.0.12",
-    "clsx": "^1.2.1",
     "connectkit": "^1.2.0",
     "date-fns": "^2.29.3",
     "ethers": "^5.7.1",
