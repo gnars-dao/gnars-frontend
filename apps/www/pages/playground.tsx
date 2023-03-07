@@ -135,7 +135,7 @@ export default function Playground() {
 export type PartPickerProps = {
   part: string
   icon: JSX.Element
-  size: Token<CSS.Property.Width | CSS.Property.Height | number, "sizes">
+  size: CSS.Property.Width | CSS.Property.Height | number
 } & StackProps
 
 export const PartPicker: FC<PartPickerProps> = ({
