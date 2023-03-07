@@ -12,6 +12,6 @@
     "api:start": "yarn workspace api start"
   },
   "devDependencies": {
-    "turbo": "latest"
+    "turbo": "^1.8.3"
   }
 }
