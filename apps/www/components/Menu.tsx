@@ -75,7 +75,7 @@ export default function Menu(props: MenuProps) {
             onClick={() => setShowMenu(!showMenu)}
           />
         </HStack>
-        <Box display={{ base: showMenu ? "initial" : "none" }}>
+        <Box display={{ base: showMenu ? "initial" : "none", lg: "initial" }}>
           <Stack
             spacing={{ base: 1, lg: 3 }}
             direction={{ base: "column", lg: "row" }}
