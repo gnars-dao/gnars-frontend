@@ -48,7 +48,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
     .add(currentBid)
 
   const minBidEth = parseFloat(formatEther(minBid))
-  const [treasuryAllocation, setTreasuryAllocation] = useState<number>(50)
+  const [treasuryAllocation, setTreasuryAllocation] = useState<number>(90)
   const founderAllocation = 100 - treasuryAllocation
   const {
     getInputProps,
