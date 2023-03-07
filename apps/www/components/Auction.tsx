@@ -218,6 +218,7 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                     </VStack>
                   )}
                 </VStack>
+                {/*@TODO prevent flashing bid when cached auction was already settled*/}
                 {(!auction || settled) && (
                   <HStack>
                     {bids && bids.length > 0 && <BidsPopover bids={bids} />}

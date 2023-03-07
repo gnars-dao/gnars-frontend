@@ -75,7 +75,8 @@ export default function Menu(props: MenuProps) {
             onClick={() => setShowMenu(!showMenu)}
           />
         </HStack>
-        <div
+        <Stack
+            direction={{base: "column", lg: "row"}}
           className={clsx(
             showMenu ? "flex" : "hidden",
             "lg:flex flex-col lg:flex-row lg:justify-end w-full text-lg gap-3"
@@ -129,7 +130,7 @@ export default function Menu(props: MenuProps) {
               }}
             </ConnectKitButton.Custom>
           </Stack>
-        </div>
+        </St>
       </Stack>
     </Center>
   )

@@ -1,7 +1,7 @@
 import Auction from "components/Auction"
 import Explainer from "components/Explainer"
 
-import { GetStaticProps } from "next"
+import { GetServerSideProps, GetStaticProps } from "next"
 import { fetchGnarInfo, GnarInfo } from "../hooks/useGnarInfo"
 
 export default function Home({ gnarInfo }: { gnarInfo: GnarInfo }) {
@@ -13,12 +13,9 @@ export default function Home({ gnarInfo }: { gnarInfo: GnarInfo }) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({}) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const gnarInfo = await fetchGnarInfo()
-
   return {
     props: { gnarInfo },
-    // 10 minutes in seconds
-    revalidate: 600,
   }
 }
