@@ -28,14 +28,14 @@ export const EtherscanIcon = createIcon({
 
 export const HeadIcon = createIcon({
   displayName: "HeadIcon",
+  defaultProps: { boxSize: "24px" },
   viewBox: "0 0 24 24",
   d: "M20 19V4H4v7h2V9h6v2h1V9h6v6h-6v-3h-1v3H6v-3H4v7h16Zm-2-5h-2v-4h2v4Zm-7 0H9v-4h2v4Z",
 })
 
-//<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" viewBox="0 0 24 24"><path d="M20 19V4H4v7h2V9h6v2h1V9h6v6h-6v-3h-1v3H6v-3H4v7h16Zm-2-5h-2v-4h2v4Zm-7 0H9v-4h2v4Z" style="fill:#fff"/></svg>
-
 export const NogglesIcon = createIcon({
   displayName: "NogglesIcon",
+  defaultProps: { boxSize: "24px" },
   viewBox: "0 0 24 24",
   path: (
     <chakra.path
@@ -48,20 +48,16 @@ export const NogglesIcon = createIcon({
   ),
 })
 
-//<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" viewBox="0 0 24 24"><path d="M13 11V9H7v2H4v3h1v-2h2v3h6v-3h1v3h6V9h-6v2h-1Zm2-1v4h2v-4h-2Zm-7 0v4h2v-4H8Z" style="fill:#fff"/></svg>
-
 export const AccessoryIcon = createIcon({
   displayName: "AccessoryIcon",
+  defaultProps: { boxSize: "24px" },
   viewBox: "0 0 24 24",
   d: "M6 17H5v1h1v-1Zm4 0H8v1h2v-1Zm4 0h-2v1h2v-1Zm4 0h-2v1h2v-1ZM7 17v-2H6v2h1Zm7-2h2v2h-2v-2Zm-4 0h2v2h-2v-2Zm9 2v-2h-1v2h1Zm-3-4h2v2h-2v-2Zm-4 0h2v2h-2v-2Zm-4 0h2v2H8v-2Zm-2 2v-2H5v2h1Zm1-2v-2H6v2h1Zm3-2h2v2h-2v-2Zm4 0h2v2h-2v-2Zm5 2v-2h-1v2h1Zm-1-4v2h-2V9h2ZM6 11V9H5v2h1Zm8-2v2h-2V9h2Zm-4 0v2H8V9h2Zm6-2v2h-2V7h2Zm-4 0v2h-2V7h2ZM8 7v2H6V7h2Zm11 2V7h-1v2h1Z",
 })
 
-//<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" viewBox="0 0 24 24"><path d="M6 17H5v1h1v-1Zm4 0H8v1h2v-1Zm4 0h-2v1h2v-1Zm4 0h-2v1h2v-1ZM7 17v-2H6v2h1Zm7-2h2v2h-2v-2Zm-4 0h2v2h-2v-2Zm9 2v-2h-1v2h1Zm-3-4h2v2h-2v-2Zm-4 0h2v2h-2v-2Zm-4 0h2v2H8v-2Zm-2 2v-2H5v2h1Zm1-2v-2H6v2h1Zm3-2h2v2h-2v-2Zm4 0h2v2h-2v-2Zm5 2v-2h-1v2h1Zm-1-4v2h-2V9h2ZM6 11V9H5v2h1Zm8-2v2h-2V9h2Zm-4 0v2H8V9h2Zm6-2v2h-2V7h2Zm-4 0v2h-2V7h2ZM8 7v2H6V7h2Zm11 2V7h-1v2h1Z" style="fill:#fff"/></svg>
-
 export const BodyIcon = createIcon({
   displayName: "BodyIcon",
+  defaultProps: { boxSize: "24px" },
   viewBox: "0 0 24 24",
   d: "M8 18v-7H7v7H5V7h14v11H8Z",
 })
-
-//<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" viewBox="0 0 24 24"><path d="M8 18v-7H7v7H5V7h14v11H8Z" style="fill:#fff"/></svg>

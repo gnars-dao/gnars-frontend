@@ -14,7 +14,7 @@ import {
   Thead,
   Tr,
   useColorMode,
-  VStack
+  VStack,
 } from "@chakra-ui/react"
 import { FC } from "react"
 import { AvatarWallet } from "./AvatarWallet"
@@ -70,7 +70,7 @@ export const BidsTable: FC<BidsProps> = ({ bids, ...props }) => {
                     <HiExternalLink
                       style={{
                         display: "inline",
-                        verticalAlign: "text-bottom"
+                        verticalAlign: "text-bottom",
                       }}
                     />
                   </Text>

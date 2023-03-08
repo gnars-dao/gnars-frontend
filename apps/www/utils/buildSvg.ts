@@ -36,7 +36,7 @@ const decodeImage = (image: string) => {
 export default function buildSvg(
   parts: GnarPart[],
   paletteColors: string[],
-  bgColor: string
+  bgColor?: string
 ) {
   const svgWithoutEndTag = parts.reduce((result, part) => {
     const svgRects: string[] = []
@@ -66,7 +66,7 @@ export default function buildSvg(
     })
     result += svgRects.join("")
     return result
-  }, `<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#${bgColor}" />`)
+  }, `<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">${bgColor ? `<rect width="100%" height="100%" fill="#${bgColor}" />` : ""}`)
 
   const completedSvg = `${svgWithoutEndTag}</svg>`
 

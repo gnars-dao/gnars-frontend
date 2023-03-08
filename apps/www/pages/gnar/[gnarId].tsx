@@ -4,7 +4,7 @@ import Explainer from "components/Explainer"
 import { GetStaticProps } from "next"
 import { fetchGnarInfo, GnarInfo } from "../../hooks/useGnarInfo"
 
-export default function Gnar({
+export default function GnarPage({
   gnarInfo,
   gnarId,
 }: {

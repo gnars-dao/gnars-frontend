@@ -5,7 +5,9 @@ import ogGnarData from "../data/image-data.json"
 import gnarDataV2 from "../data/image-data-V2.json"
 import {
   Box,
+  BoxProps,
   Button,
+  ButtonProps,
   DarkMode,
   HStack,
   IconButton,
@@ -16,9 +18,12 @@ import {
   PopoverCloseButton,
   PopoverContent,
   PopoverHeader,
+  PopoverProps,
   PopoverTrigger,
   Portal,
   SimpleGrid,
+  SimpleGridProps,
+  StackProps,
   Text,
   Tooltip,
   useBoolean,
@@ -31,31 +36,50 @@ import accessoryIcon from "../assets/images/nouns-nouns-part-accessory-sharp.svg
 import Image from "next/image"
 import { FaInfo } from "react-icons/fa"
 import { MdFileDownload } from "react-icons/md"
-import { FC, useRef } from "react"
+import { FC, useMemo, useRef } from "react"
 import { GnarPart, Gnartwork } from "../utils"
 import { GnarInfo } from "../hooks/useGnarInfo"
+import { FaSquareFull } from "react-icons/all"
+import { HeadIcon } from "./Icons"
 
-interface GnarProps {
+interface GnarProps extends BoxProps {
   isOg: boolean
   gnarId: string
   gnartwork: Gnartwork
+  buttonProps?: ButtonProps
+  gridProps?: SimpleGridProps
+  buttonsStackProps?: StackProps
+  popoverProps?: PopoverProps
 }
 
-const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
+const Gnar: FC<GnarProps> = ({
+  gnartwork,
+  isOg,
+  gnarId,
+  buttonProps = {},
+  gridProps = {},
+  buttonsStackProps = {},
+  popoverProps = {},
+  ...props
+}) => {
   const gnarImageRef = useRef<HTMLImageElement>(null)
   const { isOpen, onToggle, onOpen, onClose } = useDisclosure()
 
-  const { body, accessory, head, noggles } = gnartwork.parts
-
   const palette = isOg ? ogGnarData.palette : gnarDataV2.palette
-  const image = buildSvg(
-    [body, accessory, head, noggles],
-    palette,
-    gnartwork?.background
-  )
+  const background =
+    typeof gnartwork.background !== "string" ? [gnartwork.background] : []
+  const image = useMemo(() => {
+    return buildSvg(
+      [...background, ...Object.values(gnartwork.parts)],
+      palette,
+      typeof gnartwork.background === "string"
+        ? gnartwork.background
+        : undefined
+    )
+  }, [gnarId])
 
   return (
-    <Box overflow={"visible!important"}>
+    <Box overflow={"visible!important"} position={"relative"} {...props}>
       <ChakraImage
         ref={gnarImageRef}
         onMouseOver={onOpen}
@@ -63,6 +87,7 @@ const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
         w={"full"}
         src={image}
         alt={"gnar"}
+        borderRadius={"md"}
       />
 
       <DarkMode>
@@ -72,6 +97,7 @@ const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
           bottom={-12}
           left={"auto"}
           right={"auto"}
+          {...buttonsStackProps}
         >
           {!isOg && (
             <Popover
@@ -90,32 +116,44 @@ const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
                   onClick={onToggle}
                   aria-label={"Traits info"}
                   icon={<FaInfo />}
+                  {...buttonProps}
                 />
               </PopoverTrigger>
 
-              <PopoverContent
-                p={2}
-                textStyle={"h2"}
-                fontSize={{ base: "2xl", lg: "3xl" }}
-                w={"fit-content"}
-                maxW={"xl"}
-              >
+              <PopoverContent w={"fit-content"} maxW={"xl"}>
                 <PopoverArrow />
                 <PopoverBody p={1}>
                   <SimpleGrid
+                    p={2}
+                    textStyle={"h2"}
+                    fontSize={{ base: "2xl", lg: "3xl" }}
                     templateColumns={"30px 1fr"}
                     columns={2}
                     spacing={1}
                     alignItems={"center"}
+                    {...gridProps}
                   >
-                    <ChakraImage src={headIcon.src} />
-                    <Text>{head.trait}</Text>
+                    <HeadIcon />
+                    <Text>{gnartwork.parts.head.trait}</Text>
                     <ChakraImage src={nogglesIcon.src} />
-                    <Text>{noggles.trait}</Text>
+                    <Text>{gnartwork.parts.noggles.trait}</Text>
                     <ChakraImage src={accessoryIcon.src} />
-                    <Text>{accessory.trait}</Text>
+                    <Text>{gnartwork.parts.accessory.trait}</Text>
                     <ChakraImage src={bodyIcon.src} />
-                    <Text>{body.trait}</Text>
+                    <Text>{gnartwork.parts.body.trait}</Text>
+                    {typeof gnartwork.background !== "string" && (
+                      <>
+                        <FaSquareFull
+                          style={{
+                            display: "inline-block",
+                            padding: "4px",
+                            width: "24px",
+                            height: "24px",
+                          }}
+                        />
+                        <Text>{gnartwork.background.trait}</Text>
+                      </>
+                    )}
                   </SimpleGrid>
                 </PopoverBody>
               </PopoverContent>
@@ -139,6 +177,7 @@ const Gnar: FC<GnarProps> = ({ gnartwork, isOg, gnarId }) => {
               canvas.remove()
               link.remove()
             }}
+            {...buttonProps}
           >
             PNG
           </Button>

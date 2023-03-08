@@ -5,6 +5,7 @@ import { GnarSeed } from "types"
 import gnarDataV2 from "../data/image-data-V2.json"
 import ogGnarData from "../data/image-data.json"
 import { V2_START_ID } from "./contracts"
+import { random } from "lodash"
 
 export const queryClient = new QueryClient()
 
@@ -17,14 +18,14 @@ export const nFormatter = (num: number, digits: number = 2) => {
     { value: 1e9, symbol: "g" },
     { value: 1e12, symbol: "t" },
     { value: 1e15, symbol: "p" },
-    { value: 1e18, symbol: "e" }
+    { value: 1e18, symbol: "e" },
   ]
 
   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/
   var item = lookup
     .slice()
     .reverse()
-    .find(function(item) {
+    .find(function (item) {
       return num >= item.value
     })
   return item
@@ -42,9 +43,59 @@ export type GnarPart = {
   trait?: string
 }
 
-export type Gnartwork = ReturnType<typeof getGnartwork>
+export type PartKind =
+  | "backgrounds"
+  | "bodies"
+  | "accessories"
+  | "heads"
+  | "glasses"
 
-export const getGnartwork = (isOg: boolean, seed: GnarSeed) => {
+export const partKinds = [
+  "backgrounds",
+  "bodies",
+  "accessories",
+  "heads",
+  "glasses",
+] as PartKind[]
+
+export const generateGnarV2Seed = ({
+  background,
+  glasses,
+  body,
+  head,
+  accessory,
+}: Partial<GnarSeed> = {}): GnarSeed => {
+  const {
+    images: {
+      bodies: { length: amountBodies },
+      accessories: { length: amountAccessories },
+      heads: { length: amountHeads },
+      glasses: { length: amountGlasses },
+    },
+    bgcolors: { length: amountBackgrounds },
+  } = gnarDataV2
+
+  return {
+    background: background ?? random(amountBackgrounds - 1),
+    body: body ?? random(amountBodies - 1),
+    accessory: accessory ?? random(amountAccessories - 1),
+    head: head ?? random(amountHeads - 1),
+    glasses: glasses ?? random(amountGlasses - 1),
+  }
+}
+
+export type Gnartwork = {
+  palette: string[]
+  parts: {
+    body: GnarPart
+    accessory: GnarPart
+    head: GnarPart
+    noggles: GnarPart
+  }
+  background: GnarPart | string
+}
+
+export const getGnartwork = (isOg: boolean, seed: GnarSeed): Gnartwork => {
   const gnarData = isOg ? ogGnarData : gnarDataV2
   const { bodies, accessories, heads, glasses } = gnarData.images
   const palette = isOg ? ogGnarData.palette : gnarDataV2.palette
@@ -54,9 +105,11 @@ export const getGnartwork = (isOg: boolean, seed: GnarSeed) => {
       body: bodies[seed.body] as GnarPart,
       accessory: accessories[seed.accessory] as GnarPart,
       head: heads[seed.head] as GnarPart,
-      noggles: glasses[seed.glasses] as GnarPart
+      noggles: glasses[seed.glasses] as GnarPart,
     },
-    background: gnarData.bgcolors[seed.background]
+    background: isOg
+      ? ogGnarData.bgcolors[seed.background]
+      : gnarDataV2.images.backgrounds[seed.background],
   }
 }
 
@@ -90,7 +143,7 @@ export const isBgDark = (color: string) => {
   }
 }
 
-export const is10thGnar = gnarId => (gnarId - V2_START_ID) % 10 === 0
+export const is10thGnar = (gnarId) => (gnarId - V2_START_ID) % 10 === 0
 
 export const shortAddress = (address: string) =>
   [address.substring(0, 6), address.substring(38)].join("…")

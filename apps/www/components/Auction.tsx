@@ -211,7 +211,7 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                             w={"full"}
                             overflow={"scroll"}
                             flexGrow={1}
-                            maxH={"190px"}
+                            maxH={"180px"}
                           />
                         </VStack>
                       )}
