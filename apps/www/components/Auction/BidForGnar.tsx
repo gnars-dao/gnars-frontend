@@ -20,6 +20,7 @@ import {
   SliderTrack,
   Stack,
   StackProps,
+  Text,
   useNumberInput,
   useSlider,
 } from "@chakra-ui/react"
@@ -30,6 +31,7 @@ import {
 import { BigNumber } from "ethers"
 import { formatEther, parseEther } from "ethers/lib/utils"
 import { FaCaretDown, FaCaretUp } from "react-icons/all"
+import { ConnectKitButton } from "connectkit"
 
 const minBidIncrementPercentage = 5
 
@@ -134,44 +136,59 @@ export const BidForGnar: FC<BidForGnarProps> = ({
           top={"50%"}
           w={"full"}
           textAlign={"center"}
-          mt={-3}
+          mt={-2}
+          fontSize={"2xs"}
         >
           |
         </SliderMark>
         <SliderMark
           value={0}
-          bottom={1}
+          top={"70%"}
           fontWeight={"bold"}
           fontSize={9}
+          lineHeight={1}
           filter={"opacity(30%)"}
+          maxW={"50%"}
         >
-          FOUNDER
+          <HStack flexWrap={"wrap"} justifyContent={"start"} gap={1}>
+            <Text>FOUNDER</Text>
+            <Text marginInline={"0!important"}>{founderAllocation}%</Text>
+          </HStack>
         </SliderMark>
         <SliderMark
           value={0}
-          bottom={1}
+          lineHeight={1}
+          top={"70%"}
           left={"auto!important"}
           right={0}
           fontWeight={"bold"}
           fontSize={9}
           filter={"opacity(30%)"}
+          maxW={"50%"}
         >
-          TREASURY
+          <HStack flexWrap={"wrap-reverse"} justifyContent={"end"} gap={1}>
+            <Text>{treasuryAllocation}%</Text>
+            <Text marginInline={"0!important"}>TREASURY</Text>
+          </HStack>
         </SliderMark>
         <SliderTrack />
         <SliderThumb />
       </Slider>
 
-      <Button
-        size={"lg"}
-        h={12}
-        px={10}
-        isLoading={isLoading}
-        isDisabled={!write}
-        onClick={write}
-      >
-        Place Bid
-      </Button>
+      <ConnectKitButton.Custom>
+        {({ isConnected, address, show, isConnecting }) => (
+          <Button
+            size={"lg"}
+            h={12}
+            px={10}
+            isLoading={isLoading || isConnecting}
+            isDisabled={isConnected && !write}
+            onClick={isConnected ? write : show}
+          >
+            Place Bid
+          </Button>
+        )}
+      </ConnectKitButton.Custom>
     </Stack>
   )
 }
