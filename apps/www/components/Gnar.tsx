@@ -40,7 +40,7 @@ import { FC, useMemo, useRef } from "react"
 import { GnarPart, Gnartwork } from "../utils"
 import { GnarInfo } from "../hooks/useGnarInfo"
 import { FaSquareFull } from "react-icons/all"
-import { HeadIcon } from "./Icons"
+import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "./Icons"
 
 interface GnarProps extends BoxProps {
   isOg: boolean
@@ -66,15 +66,12 @@ const Gnar: FC<GnarProps> = ({
   const { isOpen, onToggle, onOpen, onClose } = useDisclosure()
 
   const palette = isOg ? ogGnarData.palette : gnarDataV2.palette
-  const background =
-    typeof gnartwork.background !== "string" ? [gnartwork.background] : []
+  const { body, accessory, head, noggles } = gnartwork.parts
   const image = useMemo(() => {
     return buildSvg(
-      [...background, ...Object.values(gnartwork.parts)],
+      [body, accessory, head, noggles],
       palette,
-      typeof gnartwork.background === "string"
-        ? gnartwork.background
-        : undefined
+      gnartwork.background
     )
   }, [gnarId])
 
@@ -133,15 +130,15 @@ const Gnar: FC<GnarProps> = ({
                     alignItems={"center"}
                     {...gridProps}
                   >
+                    <NogglesIcon />
+                    <Text>{gnartwork.parts.noggles.trait}</Text>
                     <HeadIcon />
                     <Text>{gnartwork.parts.head.trait}</Text>
-                    <ChakraImage src={nogglesIcon.src} />
-                    <Text>{gnartwork.parts.noggles.trait}</Text>
-                    <ChakraImage src={accessoryIcon.src} />
+                    <AccessoryIcon />
                     <Text>{gnartwork.parts.accessory.trait}</Text>
-                    <ChakraImage src={bodyIcon.src} />
+                    <BodyIcon />
                     <Text>{gnartwork.parts.body.trait}</Text>
-                    {typeof gnartwork.background !== "string" && (
+                    {gnartwork.parts.background && (
                       <>
                         <FaSquareFull
                           style={{
@@ -151,7 +148,7 @@ const Gnar: FC<GnarProps> = ({
                             height: "24px",
                           }}
                         />
-                        <Text>{gnartwork.background.trait}</Text>
+                        <Text>{gnartwork.parts.background.trait}</Text>
                       </>
                     )}
                   </SimpleGrid>

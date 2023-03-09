@@ -12,9 +12,9 @@ import {
 } from "@chakra-ui/react"
 import { FC, useMemo } from "react"
 import { useEnsAvatar } from "wagmi"
-import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
+import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
 import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync.mjs"
-import { shortAddress } from "../utils"
+import { shortAddress } from "../../utils"
 import { HiExternalLink } from "react-icons/all"
 
 export type AvatarWalletProps = {

@@ -1,0 +1,80 @@
+import { Button, VStack, Wrap, WrapItem } from "@chakra-ui/react"
+import { PartPicker } from "./PartPicker"
+import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "../Icons"
+import { FaSquareFull } from "react-icons/all"
+import { usePlaygroundState } from "../../hooks/usePlaygroundState"
+import { FC } from "react"
+import * as CSS from "csstype"
+
+export type GeneratorProps = {
+  buttonSize: CSS.Property.Width | CSS.Property.Height | number
+}
+
+export const Generator: FC<GeneratorProps> = ({ buttonSize }) => {
+  const { generate } = usePlaygroundState()
+
+  return (
+    <VStack alignItems={"center"} alignContent={"center"}>
+      <Wrap
+        justify={"center"}
+        w={"fit-content"}
+        textStyle={"h2"}
+        fontSize={{ base: 14, lg: 18 }}
+        flexShrink={0}
+      >
+        <WrapItem>
+          <PartPicker
+            part={"Head"}
+            partKind={"heads"}
+            icon={<HeadIcon boxSize={"24px"} />}
+            size={buttonSize}
+          />
+        </WrapItem>
+        <WrapItem>
+          <PartPicker
+            part={"Noggles"}
+            partKind={"glasses"}
+            icon={<NogglesIcon boxSize={"24px"} />}
+            size={buttonSize}
+          />
+        </WrapItem>
+        <WrapItem>
+          <PartPicker
+            part={"Body"}
+            partKind={"bodies"}
+            icon={<BodyIcon boxSize={"24px"} />}
+            size={buttonSize}
+          />
+        </WrapItem>
+        <WrapItem>
+          <PartPicker
+            part={"Accessory"}
+            partKind={"accessories"}
+            icon={<AccessoryIcon boxSize={"24px"} />}
+            size={buttonSize}
+          />
+        </WrapItem>
+        <WrapItem>
+          <PartPicker
+            part={"Background"}
+            partKind={"backgrounds"}
+            icon={
+              <FaSquareFull
+                style={{
+                  display: "inline-block",
+                  padding: "4px",
+                  width: "24px",
+                  height: "24px",
+                }}
+              />
+            }
+            size={buttonSize}
+          />
+        </WrapItem>
+      </Wrap>
+      <Button onClick={generate} flexShrink={0} size={"lg"} w={"full"}>
+        Generate Gnars
+      </Button>
+    </VStack>
+  )
+}

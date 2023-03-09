@@ -1,4 +1,4 @@
-import { GnarInfo } from "../hooks/useGnarInfo"
+import { GnarInfo } from "../../hooks/useGnarInfo"
 import {
   Link,
   SimpleGrid,

@@ -26,7 +26,7 @@ import {
 import {
   useGnarsV2AuctionHouseCreateBid,
   usePrepareGnarsV2AuctionHouseCreateBid,
-} from "../utils/sdk"
+} from "../../utils/sdk"
 import { BigNumber } from "ethers"
 import { formatEther, parseEther } from "ethers/lib/utils"
 import { FaCaretDown, FaCaretUp } from "react-icons/all"

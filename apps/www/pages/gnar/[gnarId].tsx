@@ -1,4 +1,4 @@
-import Auction from "components/Auction"
+import Auction from "components/Auction/Auction"
 import Explainer from "components/Explainer"
 
 import { GetStaticProps } from "next"

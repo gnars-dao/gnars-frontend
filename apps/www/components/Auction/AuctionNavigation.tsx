@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { useRouter } from "next/router"
 import { HStack, StackProps } from "@chakra-ui/react"
-import { RoundButton } from "./RoundButton"
+import { RoundButton } from "../RoundButton"
 
 export type AuctionNavigationParams = {
   gnarId: number

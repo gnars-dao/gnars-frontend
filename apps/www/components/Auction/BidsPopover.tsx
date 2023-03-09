@@ -1,4 +1,4 @@
-import { Bid } from "../hooks/useGnarInfo"
+import { Bid } from "../../hooks/useGnarInfo"
 import { FC } from "react"
 import {
   Button,
@@ -7,7 +7,7 @@ import {
   PopoverArrow,
   PopoverBody,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
 } from "@chakra-ui/react"
 import { RiAuctionLine } from "react-icons/all"
 import { BidsTable } from "./BidsTable"

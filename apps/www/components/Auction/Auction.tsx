@@ -1,8 +1,8 @@
 import { getGnartwork, is10thGnar, isBgDark, shortAddress } from "utils"
 
-import Gnar from "./Gnar"
-import Menu from "./Menu"
-import useGnarInfo, { GnarInfo } from "../hooks/useGnarInfo"
+import Gnar from "../Gnar"
+import Menu from "../Menu"
+import useGnarInfo, { GnarInfo } from "../../hooks/useGnarInfo"
 import {
   AspectRatio,
   Box,
@@ -21,11 +21,11 @@ import {
   WrapItem,
 } from "@chakra-ui/react"
 import { AuctionNavigation } from "./AuctionNavigation"
-import { TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../utils/contracts"
-import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "./Icons"
+import { TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../utils/contracts"
+import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons"
 import { FiInfo, HiExternalLink, RiVipCrownFill } from "react-icons/all"
-import useAuctionTimeLeft from "../hooks/useAuctionTimeLeft"
-import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
+import useAuctionTimeLeft from "../../hooks/useAuctionTimeLeft"
+import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
 import { FC } from "react"
 import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"
 import { AuctionStatus } from "./AuctionStatus"

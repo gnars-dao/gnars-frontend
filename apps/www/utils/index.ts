@@ -87,12 +87,13 @@ export const generateGnarV2Seed = ({
 export type Gnartwork = {
   palette: string[]
   parts: {
+    background?: GnarPart
     body: GnarPart
     accessory: GnarPart
     head: GnarPart
     noggles: GnarPart
   }
-  background: GnarPart | string
+  background: string
 }
 
 export const getGnartwork = (isOg: boolean, seed: GnarSeed): Gnartwork => {
@@ -102,14 +103,15 @@ export const getGnartwork = (isOg: boolean, seed: GnarSeed): Gnartwork => {
   return {
     palette,
     parts: {
+      background: isOg
+        ? undefined
+        : gnarDataV2.images.backgrounds[seed.background],
       body: bodies[seed.body] as GnarPart,
       accessory: accessories[seed.accessory] as GnarPart,
       head: heads[seed.head] as GnarPart,
       noggles: glasses[seed.glasses] as GnarPart,
     },
-    background: isOg
-      ? ogGnarData.bgcolors[seed.background]
-      : gnarDataV2.images.backgrounds[seed.background],
+    background: gnarData.bgcolors[seed.background],
   }
 }
 

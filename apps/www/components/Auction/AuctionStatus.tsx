@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Box, Stack, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
-import { SubtleStackDivider } from "./SubtleStackDivider"
-import { truncatedAmount } from "../utils"
+import { SubtleStackDivider } from "../SubtleStackDivider"
+import { truncatedAmount } from "../../utils"
 import { AvatarWallet } from "./AvatarWallet"
 
 interface AuctionStatusProps {
