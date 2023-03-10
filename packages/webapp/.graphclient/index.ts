@@ -3445,7 +3445,7 @@ const gnarsTransforms = [];
 const additionalTypeDefs = [] as any[];
 const gnarsHandler = new GraphqlHandler({
               name: "gnars",
-              config: {"endpoint":"https://api.studio.thegraph.com/query/12901/gnars-subgraph/v0.3.2"},
+              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/volkyeth/gnars-dao"},
               baseDir,
               cache,
               pubsub,
@@ -3497,8 +3497,8 @@ const merger = new(BareMerger as any)({
   };
 }
 
-export function createBuiltMeshHTTPHandler(): MeshHTTPHandler<MeshContext> {
-  return createMeshHTTPHandler<MeshContext>({
+export function createBuiltMeshHTTPHandler<TServerContext = {}>(): MeshHTTPHandler<TServerContext> {
+  return createMeshHTTPHandler<TServerContext>({
     baseDir,
     getBuiltMesh: getBuiltGraphClient,
     rawServeConfig: undefined,
