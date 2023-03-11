@@ -2,6 +2,6 @@ sources:
   - name: gnars
     handler:
       graphql:
-        endpoint: https://api.thegraph.com/subgraphs/name/volkyeth/gnars-dao
+        endpoint: https://api.thegraph.com/subgraphs/name/gnarsdao/gnars
 documents:
   - './queries/**/*.graphql'

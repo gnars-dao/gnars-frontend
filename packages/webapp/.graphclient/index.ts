@@ -3445,7 +3445,7 @@ const gnarsTransforms = [];
 const additionalTypeDefs = [] as any[];
 const gnarsHandler = new GraphqlHandler({
               name: "gnars",
-              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/volkyeth/gnars-dao"},
+              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/gnarsdao/gnars"},
               baseDir,
               cache,
               pubsub,
