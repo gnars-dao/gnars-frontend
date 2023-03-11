@@ -37,6 +37,3 @@ yarn-error.log*
 .turbo
 
 dist/
-
-# contracts
-contracts
