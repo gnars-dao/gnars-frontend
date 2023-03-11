@@ -65,7 +65,8 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
   }
 
   // @TODO show how many auctions are left until next gnarving
-
+  // @TODO add slide animation when changing Gnar
+  // @TODO add fake loader like https://github.com/rstacruz/nprogress
   const auctionTimeLeft = useAuctionTimeLeft(endTimestamp)
 
   const { data: ownerName } = useNnsNameWithEnsFallback(owner)
