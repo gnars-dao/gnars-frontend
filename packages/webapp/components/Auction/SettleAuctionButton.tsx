@@ -6,6 +6,7 @@ import { ConnectKitButton } from "connectkit"
 
 export type SettleAuctionButtonProps = ButtonProps
 export const SettleAuctionButton: FC<SettleAuctionButtonProps> = (props) => {
+  // @TODO use typechain instead
   const { isLoading, write } =
     useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction()
 

@@ -67,6 +67,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
   const inc = getIncrementButtonProps()
   const dec = getDecrementButtonProps()
   const input = getInputProps()
+  // @TODO use typechain instead
   const { config } = usePrepareGnarsV2AuctionHouseCreateBid({
     args: [BigNumber.from(gnarId), founderAllocation, treasuryAllocation],
     overrides: { value: parseEther(bidAmount) },
