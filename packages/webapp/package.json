@@ -7,7 +7,7 @@
     "build": "yarn typechain && next build",
     "start": "next start",
     "lint": "next lint",
-    "typechain": "typechain --target=ethers-v5 '../../abis/*.json' --out-dir types/contracts"
+    "typechain": "typechain --target=ethers-v5 './abis/*.json' --out-dir types/contracts"
   },
   "engines": {
     "node": ">=16.0.0"
