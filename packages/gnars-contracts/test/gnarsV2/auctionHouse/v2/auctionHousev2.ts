@@ -15,10 +15,10 @@ import { ethers, upgrades } from "hardhat"
 import {
   SkateContractV2AuctionHouseV2,
   SkateContractV2AuctionHouse,
-} from "../../../../typechain-types"
-import { IWETH } from "../../../../typechain-types/gnarsV2/auctionHouse/v1/interfaces"
-import { SkateContract } from "../../../../typechain-types/gnarsOG"
-import { SkateContractV2 } from "../../../../typechain-types/gnarsV2/token"
+} from "../typechain-types"
+import { IWETH } from "../typechain-types/gnarsV2/auctionHouse/v1/interfaces"
+import { SkateContract } from "../typechain-types/gnarsOG"
+import { SkateContractV2 } from "../typechain-types/gnarsV2/token"
 
 describe("GnarsAuctionHouseV2", async () => {
   const gnarsAuctionHouseProxyAddress =
@@ -30,9 +30,7 @@ describe("GnarsAuctionHouseV2", async () => {
   const gnarsOgToken = await ethers
     .getContractFactory("SkateContract")
     .then((f) => f.attach("0x494715B2a3C75DaDd24929835B658a1c19bd4552"))
-  const weth = ethers
-    .getContractFactory("IWETH")
-    .then((f) => f.attach("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"))
+  const wethAddress = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
   let deployer: SignerWithAddress
   let gnarsDAO: SignerWithAddress
   let bidderA: SignerWithAddress
@@ -43,21 +41,6 @@ describe("GnarsAuctionHouseV2", async () => {
   const RESERVE_PRICE = 2
   const MIN_INCREMENT_BID_PERCENTAGE = 5
   const DURATION = 60 * 60 * 24
-
-  // async function deploy(deployer?: SignerWithAddress) {
-  //   const auctionHouseFactory = await ethers.getContractFactory(
-  //     "SkateContractV2AuctionHouseV2",
-  //     deployer
-  //   )
-  //   return auctionHouseFactory.deploy(
-  //     nounsToken.address,
-  //     weth.address,
-  //     TIME_BUFFER,
-  //     RESERVE_PRICE,
-  //     MIN_INCREMENT_BID_PERCENTAGE,
-  //     DURATION
-  //   )
-  // }
 
   // before(async () => {
   //   ;[deployer, gnarsDAO, bidderA, bidderB] = await ethers.getSigners()
@@ -87,7 +70,20 @@ describe("GnarsAuctionHouseV2", async () => {
     await ethers.provider.send("evm_revert", [snapshotId])
   })
 
-  it("should run the setup", async () => {})
+  it("should be a valid UUPS implementation", async () => {
+    const auctionHouseV2Factory = await ethers.getContractFactory(
+      "SkateContractV2AuctionHouseV2",
+      deployer
+    )
+
+    expect(false).to.be.true
+
+    await expect(
+      upgrades.validateImplementation(auctionHouseV2Factory, {
+        kind: "beacon",
+      })
+    ).to.be.false
+  })
 
   // it("should revert if a second initialization is attempted", async () => {
   //   const tx = gnarsAuctionHouseV2.initialize(

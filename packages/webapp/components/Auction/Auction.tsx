@@ -21,7 +21,11 @@ import {
   WrapItem,
 } from "@chakra-ui/react"
 import { AuctionNavigation } from "./AuctionNavigation"
-import { TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../utils/contracts"
+import {
+  OG_GNAR_ADDRESS,
+  TREASURY_ADDRESS,
+  V2_GNAR_ADDRESS,
+} from "../../utils/contracts"
 import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons"
 import { FiInfo, HiExternalLink, RiVipCrownFill } from "react-icons/all"
 import useAuctionTimeLeft from "../../hooks/useAuctionTimeLeft"
@@ -225,7 +229,9 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                     {bids && bids.length > 0 && <BidsPopover bids={bids} />}
                     <Link
                       isExternal
-                      href={`https://etherscan.io/token/${V2_GNAR_ADDRESS}?a=${gnarId}`}
+                      href={`https://etherscan.io/token/${
+                        isOg ? OG_GNAR_ADDRESS : V2_GNAR_ADDRESS
+                      }?a=${gnarId}`}
                     >
                       <IconButton
                         aria-label={"Etherscan"}
