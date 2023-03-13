@@ -5,6 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query"
 import { createClient, WagmiConfig } from "wagmi"
 import { ConnectKitProvider, getDefaultClient } from "connectkit"
 import { ChakraProvider, ColorModeScript, DarkMode } from "@chakra-ui/react"
+import { Analytics } from "@vercel/analytics/react"
 
 import { queryClient } from "utils"
 import theme from "../theme"
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <DarkMode>
               <Component {...pageProps} />
               <Footer />
+              <Analytics />
             </DarkMode>
           </QueryClientProvider>
         </ConnectKitProvider>
