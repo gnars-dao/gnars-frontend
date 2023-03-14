@@ -20,7 +20,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react"
-import { AuctionNavigation } from "./AuctionNavigation"
+import { GnarNavigation } from "./GnarNavigation"
 import {
   OG_GNAR_ADDRESS,
   TREASURY_ADDRESS,
@@ -43,10 +43,11 @@ interface AuctionProps {
   initialGnarInfo: GnarInfo
 }
 
-const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
+const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
   const {
     data: {
       latestGnarId,
+      latestAuctionGnarId,
       gnar: { gnarId, seed, owner, isLatestGnar, isOg, auction },
     },
   } = useGnarInfo(desiredGnarId, initialGnarInfo)
@@ -132,10 +133,10 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                     </HStack>
                   </WrapItem>
                   <WrapItem alignSelf={"end"}>
-                    <AuctionNavigation
+                    <GnarNavigation
                       gnarId={numericGnarId}
                       latestGnarId={latestGnarId}
-                      isLatestGnar={isLatestGnar}
+                      latestAuctionGnarId={latestAuctionGnarId}
                     />
                   </WrapItem>
                 </Wrap>
@@ -249,4 +250,4 @@ const Auction: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
     </ColorModeProvider>
   )
 }
-export default Auction
+export default GnarSection

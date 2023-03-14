@@ -1,4 +1,4 @@
-import Auction from "components/Auction/Auction"
+import GnarSection from "components/Auction/GnarSection"
 import Explainer from "components/Explainer"
 
 import { GetServerSideProps, GetStaticProps } from "next"
@@ -7,7 +7,7 @@ import { fetchGnarInfo, GnarInfo } from "../hooks/useGnarInfo"
 export default function Home({ gnarInfo }: { gnarInfo: GnarInfo }) {
   return (
     <>
-      <Auction initialGnarInfo={gnarInfo} />
+      <GnarSection initialGnarInfo={gnarInfo} />
       <Explainer />
     </>
   )

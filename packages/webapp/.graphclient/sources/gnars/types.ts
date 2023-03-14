@@ -1093,6 +1093,7 @@ export type OgAuction_orderBy =
   | 'gnar__head'
   | 'gnar__glasses'
   | 'gnar__owner'
+  | 'gnar__wasClaimed'
   | 'amount'
   | 'startBlock'
   | 'endBlock'
@@ -1228,6 +1229,7 @@ export type OgBid_orderBy =
   | 'gnar__head'
   | 'gnar__glasses'
   | 'gnar__owner'
+  | 'gnar__wasClaimed'
   | 'amount'
   | 'bidder'
   | 'blockNumber'
@@ -1256,6 +1258,8 @@ export type OgGnar = {
   glasses: Scalars['BigInt'];
   /** The owner of the OG Gnar */
   owner: Scalars['Bytes'];
+  /** Was OG Gnar used to claim the 2 Gnars it's entitled to */
+  wasClaimed: Scalars['Boolean'];
 };
 
 export type OgGnar_filter = {
@@ -1317,6 +1321,10 @@ export type OgGnar_filter = {
   owner_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   owner_contains?: InputMaybe<Scalars['Bytes']>;
   owner_not_contains?: InputMaybe<Scalars['Bytes']>;
+  wasClaimed?: InputMaybe<Scalars['Boolean']>;
+  wasClaimed_not?: InputMaybe<Scalars['Boolean']>;
+  wasClaimed_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  wasClaimed_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   and?: InputMaybe<Array<InputMaybe<OgGnar_filter>>>;
@@ -1330,7 +1338,8 @@ export type OgGnar_orderBy =
   | 'accessory'
   | 'head'
   | 'glasses'
-  | 'owner';
+  | 'owner'
+  | 'wasClaimed';
 
 export type OgTransferEvent = {
   /** The txn hash of this event */
@@ -1429,6 +1438,7 @@ export type OgTransferEvent_orderBy =
   | 'gnar__head'
   | 'gnar__glasses'
   | 'gnar__owner'
+  | 'gnar__wasClaimed'
   | 'previousHolder'
   | 'newHolder'
   | 'blockNumber'

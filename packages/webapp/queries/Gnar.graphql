@@ -39,4 +39,8 @@ query Gnar($filter: Gnar_filter) {
   latestGnar: gnars(first: 1, orderBy: creationTimestamp, orderDirection: desc) {
     id
   }
+
+  latestAuction: auctions(orderBy: startTime, orderDirection: desc) {
+    id
+  }
 }

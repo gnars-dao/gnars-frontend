@@ -61,9 +61,12 @@ export type GnarV2 = Gnar & {
 export type GnarInfo = {
   gnar: GnarV2 | OGGnar
   latestGnarId: string
+  latestAuctionGnarId: string
 }
 
-export const fetchGnarInfo = async (desiredGnarId?: number) => {
+export const fetchGnarInfo = async (
+  desiredGnarId?: number
+): Promise<GnarInfo> => {
   const sdk = getBuiltGraphSDK()
   const isOg = desiredGnarId < V2_START_ID
 
@@ -79,6 +82,9 @@ export const fetchGnarInfo = async (desiredGnarId?: number) => {
       latestGnar: {
         [0]: { id: latestGnarId },
       },
+      latestAuction: {
+        [0]: { id: latestAuctionGnarId },
+      },
     } = await sdk.OGGnar({ gnarId: `${desiredGnarId}` })
 
     const seed = {
@@ -91,6 +97,7 @@ export const fetchGnarInfo = async (desiredGnarId?: number) => {
 
     return {
       latestGnarId,
+      latestAuctionGnarId,
       gnar: {
         isOg,
         isLatestGnar: false,
@@ -111,6 +118,9 @@ export const fetchGnarInfo = async (desiredGnarId?: number) => {
     latestGnar: {
       [0]: { id: latestGnarId },
     },
+    latestAuction: {
+      [0]: { id: latestAuctionGnarId },
+    },
     gnars: {
       [0]: {
         seed,
@@ -120,14 +130,14 @@ export const fetchGnarInfo = async (desiredGnarId?: number) => {
       },
     },
   } = await sdk.Gnar({
-    filter: desiredGnarId ? { id: `${desiredGnarId}` } : {},
+    filter: desiredGnarId ? { id: `${desiredGnarId}` } : { auction_not: null },
   })
 
   const auction = auctionData
     ? {
         settled: auctionData.settled,
-        latestBidder: auctionData.bidder?.id  ?? null,
-        latestBid: auctionData.amount  ?? null,
+        latestBidder: auctionData.bidder?.id ?? null,
+        latestBid: auctionData.amount ?? null,
         startTimestamp: auctionData.startTime,
         endTimestamp: auctionData.endTime,
         bids: auctionData.bids.map(
@@ -143,6 +153,7 @@ export const fetchGnarInfo = async (desiredGnarId?: number) => {
 
   return {
     latestGnarId,
+    latestAuctionGnarId,
     gnar: {
       isOg,
       isLatestGnar: latestGnarId === gnarId,

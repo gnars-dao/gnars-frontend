@@ -1114,6 +1114,7 @@ export type OgAuction_orderBy =
   | 'gnar__head'
   | 'gnar__glasses'
   | 'gnar__owner'
+  | 'gnar__wasClaimed'
   | 'amount'
   | 'startBlock'
   | 'endBlock'
@@ -1249,6 +1250,7 @@ export type OgBid_orderBy =
   | 'gnar__head'
   | 'gnar__glasses'
   | 'gnar__owner'
+  | 'gnar__wasClaimed'
   | 'amount'
   | 'bidder'
   | 'blockNumber'
@@ -1277,6 +1279,8 @@ export type OgGnar = {
   glasses: Scalars['BigInt'];
   /** The owner of the OG Gnar */
   owner: Scalars['Bytes'];
+  /** Was OG Gnar used to claim the 2 Gnars it's entitled to */
+  wasClaimed: Scalars['Boolean'];
 };
 
 export type OgGnar_filter = {
@@ -1338,6 +1342,10 @@ export type OgGnar_filter = {
   owner_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   owner_contains?: InputMaybe<Scalars['Bytes']>;
   owner_not_contains?: InputMaybe<Scalars['Bytes']>;
+  wasClaimed?: InputMaybe<Scalars['Boolean']>;
+  wasClaimed_not?: InputMaybe<Scalars['Boolean']>;
+  wasClaimed_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  wasClaimed_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   and?: InputMaybe<Array<InputMaybe<OgGnar_filter>>>;
@@ -1351,7 +1359,8 @@ export type OgGnar_orderBy =
   | 'accessory'
   | 'head'
   | 'glasses'
-  | 'owner';
+  | 'owner'
+  | 'wasClaimed';
 
 export type OgTransferEvent = {
   /** The txn hash of this event */
@@ -1450,6 +1459,7 @@ export type OgTransferEvent_orderBy =
   | 'gnar__head'
   | 'gnar__glasses'
   | 'gnar__owner'
+  | 'gnar__wasClaimed'
   | 'previousHolder'
   | 'newHolder'
   | 'blockNumber'
@@ -3207,6 +3217,7 @@ export type OgGnarResolvers<ContextType = MeshContext, ParentType extends Resolv
   head?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   glasses?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   owner?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  wasClaimed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3445,7 +3456,7 @@ const gnarsTransforms = [];
 const additionalTypeDefs = [] as any[];
 const gnarsHandler = new GraphqlHandler({
               name: "gnars",
-              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/gnarsdao/gnars"},
+              config: {"endpoint":"https://api.studio.thegraph.com/query/12901/gnars-subgraph/v0.4.0"},
               baseDir,
               cache,
               pubsub,
@@ -3542,7 +3553,7 @@ export type GnarQuery = { gnars: Array<(
         & { bidder?: Maybe<Pick<Account, 'id'>> }
       )> }
     )>, seed?: Maybe<Pick<Seed, 'accessory' | 'background' | 'body' | 'glasses' | 'head'>> }
-  )>, latestGnar: Array<Pick<Gnar, 'id'>> };
+  )>, latestGnar: Array<Pick<Gnar, 'id'>>, latestAuction: Array<Pick<Auction, 'id'>> };
 
 export type OGGnarQueryVariables = Exact<{
   gnarId: Scalars['ID'];
@@ -3552,7 +3563,7 @@ export type OGGnarQueryVariables = Exact<{
 export type OGGnarQuery = { ogAuction?: Maybe<(
     Pick<OgAuction, 'amount' | 'bidder' | 'id'>
     & { bids: Array<Pick<OgBid, 'amount' | 'bidder' | 'blockTimestamp' | 'id'>>, gnar: Pick<OgGnar, 'accessory' | 'background' | 'body' | 'glasses' | 'head' | 'owner'> }
-  )>, latestGnar: Array<Pick<Gnar, 'id'>> };
+  )>, latestGnar: Array<Pick<Gnar, 'id'>>, latestAuction: Array<Pick<Auction, 'id'>> };
 
 
 export const GnarDocument = gql`
@@ -3596,6 +3607,9 @@ export const GnarDocument = gql`
   latestGnar: gnars(first: 1, orderBy: creationTimestamp, orderDirection: desc) {
     id
   }
+  latestAuction: auctions(orderBy: startTime, orderDirection: desc) {
+    id
+  }
 }
     ` as unknown as DocumentNode<GnarQuery, GnarQueryVariables>;
 export const OGGnarDocument = gql`
@@ -3620,6 +3634,9 @@ export const OGGnarDocument = gql`
     id
   }
   latestGnar: gnars(first: 1, orderBy: creationTimestamp, orderDirection: desc) {
+    id
+  }
+  latestAuction: auctions(orderBy: startTime, orderDirection: desc) {
     id
   }
 }
