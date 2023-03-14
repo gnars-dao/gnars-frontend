@@ -49,6 +49,9 @@ ISkateContractV2AuctionHouseV2,
     OwnableUpgradeable,
     UUPSUpgradeable
 {
+    // og skate Address
+    address public constant SKATE_OG_ADDRESS = 0x494715B2a3C75DaDd24929835B658a1c19bd4552;
+
     using Counters for Counters.Counter;
 
     // The Gnar ERC721 token contract
@@ -83,9 +86,6 @@ ISkateContractV2AuctionHouseV2,
 
     // v2 storage slots //
 
-    // og skate Address
-    address public ogSkate;
-
     // The minimum amount of time left in an auction after a new bid is created
     uint256 public timeBuffer;
 
@@ -99,7 +99,6 @@ ISkateContractV2AuctionHouseV2,
      */
     function initialize(
         address _skate,
-        address _ogSkate,
         address _dao,
         ISkateContractV2 _gnars,
         address _weth,
@@ -126,7 +125,6 @@ ISkateContractV2AuctionHouseV2,
         require(_timeDoublingCount > 0, "Time doubling count is zero");
 
         skate = _skate;
-        ogSkate = _ogSkate;
         dao = _dao;
         gnars = _gnars;
         weth = _weth;
@@ -352,16 +350,18 @@ ISkateContractV2AuctionHouseV2,
      * @dev Only callable by the owner.
      */
     function claimGnars(uint256[] calldata ogGnarIds) external override nonReentrant whenNotPaused {
-        IERC721Enumerable ogGnars = IERC721Enumerable(ogSkate);
+        IERC721Enumerable ogGnars = IERC721Enumerable(SKATE_OG_ADDRESS);
 
-        for (uint256 ogGnarId=0; ogGnarId < ogGnarIds.length; ogGnarId++) {
+        for (uint256 i=0; i < ogGnarIds.length; i++) {
+            uint256 ogGnarId = ogGnarIds[i];
             require(msg.sender == ogGnars.ownerOf(ogGnarId), "Not owner of OG Gnar");
             require(gnarsClaimedFor[ogGnarId] != true, "OG Gnar already used to claim Gnars");
 
             gnarsClaimedFor[ogGnarId] = true;
+            gnars.safeTransferFrom(address(this), msg.sender, gnars.mint());
+            gnars.safeTransferFrom(address(this), msg.sender, gnars.mint());
 
-            gnars.safeTransferFrom(address(this), msg.sender, gnars.mint());
-            gnars.safeTransferFrom(address(this), msg.sender, gnars.mint());
+            emit OGGnarClaimed(ogGnarId, block.timestamp);
         }
     }
 }
