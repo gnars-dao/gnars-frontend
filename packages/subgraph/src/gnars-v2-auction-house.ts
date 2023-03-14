@@ -2,9 +2,11 @@ import { BigInt, log } from "@graphprotocol/graph-ts"
 import {
   AuctionBid,
   AuctionCreated,
+  AuctionExtended,
   AuctionSettled,
+  OGGnarClaimed,
 } from "../generated/GnarsV2AuctionHouse/GnarsV2AuctionHouse"
-import { Auction, Bid, Gnar } from "../generated/schema"
+import { Auction, Bid, Gnar, OgGnar } from "../generated/schema"
 import { getOrCreateAccount } from "./helpers"
 
 export function handleAuctionCreated(event: AuctionCreated): void {
@@ -62,21 +64,21 @@ export function handleAuctionBid(event: AuctionBid): void {
   bid.save()
 }
 
-// export function handleAuctionExtended(event: AuctionExtended): void {
-//   let gnarId = event.params.gnarId.toString();
-//
-//   let auction = Auction.load(gnarId);
-//   if (auction == null) {
-//     log.error('[handleAuctionExtended] Auction not found for Gnar #{}. Hash: {}', [
-//       gnarId,
-//       event.transaction.hash.toHex(),
-//     ]);
-//     return;
-//   }
-//
-//   auction.endTime = event.params.endTime;
-//   auction.save();
-// }
+export function handleAuctionExtended(event: AuctionExtended): void {
+  let gnarId = event.params.gnarId.toString()
+
+  let auction = Auction.load(gnarId)
+  if (auction == null) {
+    log.error(
+      "[handleAuctionExtended] Auction not found for Gnar #{}. Hash: {}",
+      [gnarId, event.transaction.hash.toHex()]
+    )
+    return
+  }
+
+  auction.endTime = event.params.endTime
+  auction.save()
+}
 
 export function handleAuctionSettled(event: AuctionSettled): void {
   let gnarId = event.params.gnarId.toString()
@@ -92,4 +94,20 @@ export function handleAuctionSettled(event: AuctionSettled): void {
 
   auction.settled = true
   auction.save()
+}
+
+export function handleOGClaim(event: OGGnarClaimed): void {
+  let ogGnarId = event.params.ogGnarId.toString()
+
+  let ogGnar = OgGnar.load(ogGnarId)
+  if (ogGnar == null) {
+    log.error("[handleOGClaim] OG Gnard not found for id #{}. Hash: {}", [
+      ogGnarId,
+      event.transaction.hash.toHex(),
+    ])
+    return
+  }
+
+  ogGnar.wasClaimed = true
+  ogGnar.save()
 }

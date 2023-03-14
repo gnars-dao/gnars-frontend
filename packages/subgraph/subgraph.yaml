@@ -88,4 +88,8 @@ dataSources:
           handler: handleAuctionCreated
         - event: AuctionSettled(indexed uint256,address,uint256,uint256)
           handler: handleAuctionSettled
+        - event: AuctionExtended(indexed uint256,uint256)
+          handler: handleAuctionExtended
+        - event: OGGnarClaimed(indexed uint256,uint256)
+          handler: handleOGClaim
       file: ./src/gnars-v2-auction-house.ts
