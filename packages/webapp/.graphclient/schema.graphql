@@ -1050,6 +1050,7 @@ enum OgAuction_orderBy {
   gnar__head
   gnar__glasses
   gnar__owner
+  gnar__wasClaimed
   amount
   startBlock
   endBlock
@@ -1186,6 +1187,7 @@ enum OgBid_orderBy {
   gnar__head
   gnar__glasses
   gnar__owner
+  gnar__wasClaimed
   amount
   bidder
   blockNumber
@@ -1215,6 +1217,8 @@ type OgGnar {
   glasses: BigInt!
   """The owner of the OG Gnar"""
   owner: Bytes!
+  """Was OG Gnar used to claim the 2 Gnars it's entitled to"""
+  wasClaimed: Boolean!
 }
 
 input OgGnar_filter {
@@ -1276,6 +1280,10 @@ input OgGnar_filter {
   owner_not_in: [Bytes!]
   owner_contains: Bytes
   owner_not_contains: Bytes
+  wasClaimed: Boolean
+  wasClaimed_not: Boolean
+  wasClaimed_in: [Boolean!]
+  wasClaimed_not_in: [Boolean!]
   """Filter for the block changed event."""
   _change_block: BlockChangedFilter
   and: [OgGnar_filter]
@@ -1290,6 +1298,7 @@ enum OgGnar_orderBy {
   head
   glasses
   owner
+  wasClaimed
 }
 
 type OgTransferEvent {
@@ -1389,6 +1398,7 @@ enum OgTransferEvent_orderBy {
   gnar__head
   gnar__glasses
   gnar__owner
+  gnar__wasClaimed
   previousHolder
   newHolder
   blockNumber

@@ -39,6 +39,9 @@ type OgGnar @entity {
 
   "The owner of the OG Gnar"
   owner: Bytes!
+
+  "Was OG Gnar used to claim the 2 Gnars it's entitled to"
+  wasClaimed: Boolean!
 }
 
 type OgBid @entity(immutable: true) {

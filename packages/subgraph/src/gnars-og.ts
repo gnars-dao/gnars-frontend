@@ -36,6 +36,7 @@ export function handleTransfer(event: Transfer): void {
     ogGnar.background = seed.getBackground()
     ogGnar.head = seed.getHead()
     ogGnar.glasses = seed.getGlasses()
+    ogGnar.wasClaimed = false
   }
 
   ogGnar!.owner = event.params.to

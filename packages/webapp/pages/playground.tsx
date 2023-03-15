@@ -13,11 +13,11 @@ import { usePlaygroundState } from "../hooks/usePlaygroundState"
 import { Generator } from "../components/Playground/Generator"
 
 export default function Playground() {
-  const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" })
+  const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" }) ?? "96px"
   const { generatedGnars } = usePlaygroundState()
   return (
     <DarkMode>
-      <VStack w={"full"} color={"chakra-body-text"} spacing={6}>
+      <VStack w={"full"} h={"full"} color={"chakra-body-text"} spacing={6}>
         <Menu />
         <Heading>Playground</Heading>
         <VStack

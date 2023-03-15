@@ -6,16 +6,18 @@ import { RoundButton } from "../RoundButton"
 export type AuctionNavigationParams = {
   gnarId: number
   latestGnarId: string
-  isLatestGnar: boolean
+  latestAuctionGnarId: string
 } & StackProps
 
-export const AuctionNavigation: FC<AuctionNavigationParams> = ({
+export const GnarNavigation: FC<AuctionNavigationParams> = ({
   gnarId,
-  isLatestGnar,
   latestGnarId,
+  latestAuctionGnarId,
   ...props
 }) => {
   const { push } = useRouter()
+  const isLatestGnar = `${gnarId}` === latestGnarId
+  const isLatestAuction = `${gnarId}` === latestAuctionGnarId
 
   return (
     <HStack spacing={1} {...props}>
@@ -34,8 +36,8 @@ export const AuctionNavigation: FC<AuctionNavigationParams> = ({
         →
       </RoundButton>
       <RoundButton
-        isDisabled={isLatestGnar}
-        onClick={() => push(`/gnar/${latestGnarId}`)}
+        isDisabled={isLatestAuction}
+        onClick={() => push(`/gnar/${latestAuctionGnarId}`)}
       >
         Latest auction
       </RoundButton>

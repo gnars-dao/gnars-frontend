@@ -1,4 +1,4 @@
-import Auction from "components/Auction/Auction"
+import GnarSection from "components/Auction/GnarSection"
 import Explainer from "components/Explainer"
 
 import { GetStaticProps } from "next"
@@ -13,7 +13,7 @@ export default function GnarPage({
 }) {
   return (
     <>
-      <Auction desiredGnarId={gnarId} initialGnarInfo={gnarInfo} />
+      <GnarSection desiredGnarId={gnarId} initialGnarInfo={gnarInfo} />
       <Explainer />
     </>
   )

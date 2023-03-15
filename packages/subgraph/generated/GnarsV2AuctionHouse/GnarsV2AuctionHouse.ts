@@ -92,6 +92,28 @@ export class AuctionCreated__Params {
   }
 }
 
+export class AuctionExtended extends ethereum.Event {
+  get params(): AuctionExtended__Params {
+    return new AuctionExtended__Params(this);
+  }
+}
+
+export class AuctionExtended__Params {
+  _event: AuctionExtended;
+
+  constructor(event: AuctionExtended) {
+    this._event = event;
+  }
+
+  get gnarId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get endTime(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+}
+
 export class AuctionMinBidIncrementPercentageUpdated extends ethereum.Event {
   get params(): AuctionMinBidIncrementPercentageUpdated__Params {
     return new AuctionMinBidIncrementPercentageUpdated__Params(this);
@@ -158,6 +180,24 @@ export class AuctionSettled__Params {
   }
 }
 
+export class AuctionTimeBufferUpdated extends ethereum.Event {
+  get params(): AuctionTimeBufferUpdated__Params {
+    return new AuctionTimeBufferUpdated__Params(this);
+  }
+}
+
+export class AuctionTimeBufferUpdated__Params {
+  _event: AuctionTimeBufferUpdated;
+
+  constructor(event: AuctionTimeBufferUpdated) {
+    this._event = event;
+  }
+
+  get timeBuffer(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
 export class BeaconUpgraded extends ethereum.Event {
   get params(): BeaconUpgraded__Params {
     return new BeaconUpgraded__Params(this);
@@ -173,6 +213,28 @@ export class BeaconUpgraded__Params {
 
   get beacon(): Address {
     return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class OGGnarClaimed extends ethereum.Event {
+  get params(): OGGnarClaimed__Params {
+    return new OGGnarClaimed__Params(this);
+  }
+}
+
+export class OGGnarClaimed__Params {
+  _event: OGGnarClaimed;
+
+  constructor(event: OGGnarClaimed) {
+    this._event = event;
+  }
+
+  get ogGnarId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get timestamp(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 }
 
@@ -361,6 +423,29 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     return new GnarsV2AuctionHouse("GnarsV2AuctionHouse", address);
   }
 
+  SKATE_OG_ADDRESS(): Address {
+    let result = super.call(
+      "SKATE_OG_ADDRESS",
+      "SKATE_OG_ADDRESS():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_SKATE_OG_ADDRESS(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "SKATE_OG_ADDRESS",
+      "SKATE_OG_ADDRESS():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   auction(): GnarsV2AuctionHouse__auctionResult {
     let result = super.call(
       "auction",
@@ -476,6 +561,29 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  gnarsClaimedFor(param0: BigInt): boolean {
+    let result = super.call(
+      "gnarsClaimedFor",
+      "gnarsClaimedFor(uint256):(bool)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_gnarsClaimedFor(param0: BigInt): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "gnarsClaimedFor",
+      "gnarsClaimedFor(uint256):(bool)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   minBidIncrementPercentage(): i32 {
     let result = super.call(
       "minBidIncrementPercentage",
@@ -578,6 +686,21 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  timeBuffer(): BigInt {
+    let result = super.call("timeBuffer", "timeBuffer():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_timeBuffer(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("timeBuffer", "timeBuffer():(uint256)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   timeDoublingCount(): BigInt {
     let result = super.call(
       "timeDoublingCount",
@@ -614,6 +737,36 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+}
+
+export class ClaimGnarsCall extends ethereum.Call {
+  get inputs(): ClaimGnarsCall__Inputs {
+    return new ClaimGnarsCall__Inputs(this);
+  }
+
+  get outputs(): ClaimGnarsCall__Outputs {
+    return new ClaimGnarsCall__Outputs(this);
+  }
+}
+
+export class ClaimGnarsCall__Inputs {
+  _call: ClaimGnarsCall;
+
+  constructor(call: ClaimGnarsCall) {
+    this._call = call;
+  }
+
+  get ogGnarIds(): Array<BigInt> {
+    return this._call.inputValues[0].value.toBigIntArray();
+  }
+}
+
+export class ClaimGnarsCall__Outputs {
+  _call: ClaimGnarsCall;
+
+  constructor(call: ClaimGnarsCall) {
+    this._call = call;
   }
 }
 
@@ -702,6 +855,10 @@ export class InitializeCall__Inputs {
 
   get _timeDoublingCount(): BigInt {
     return this._call.inputValues[7].value.toBigInt();
+  }
+
+  get _timeBuffer(): BigInt {
+    return this._call.inputValues[8].value.toBigInt();
   }
 }
 
@@ -855,6 +1012,36 @@ export class SetSkateDaoAddressesCall__Outputs {
   _call: SetSkateDaoAddressesCall;
 
   constructor(call: SetSkateDaoAddressesCall) {
+    this._call = call;
+  }
+}
+
+export class SetTimeBufferCall extends ethereum.Call {
+  get inputs(): SetTimeBufferCall__Inputs {
+    return new SetTimeBufferCall__Inputs(this);
+  }
+
+  get outputs(): SetTimeBufferCall__Outputs {
+    return new SetTimeBufferCall__Outputs(this);
+  }
+}
+
+export class SetTimeBufferCall__Inputs {
+  _call: SetTimeBufferCall;
+
+  constructor(call: SetTimeBufferCall) {
+    this._call = call;
+  }
+
+  get _timeBuffer(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class SetTimeBufferCall__Outputs {
+  _call: SetTimeBufferCall;
+
+  constructor(call: SetTimeBufferCall) {
     this._call = call;
   }
 }

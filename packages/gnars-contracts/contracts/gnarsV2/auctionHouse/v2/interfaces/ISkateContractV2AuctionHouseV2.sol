@@ -72,7 +72,7 @@ interface ISkateContractV2AuctionHouseV2 {
 
     event AuctionTimeBufferUpdated(uint256 timeBuffer);
 
-    event GnarClaimed(uint256 gnarId, uint256 ogGnarId, uint256 timestamp);
+    event OGGnarClaimed(uint256 indexed ogGnarId, uint256 timestamp);
 
     function settleAuction() external;
 

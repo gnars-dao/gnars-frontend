@@ -23,4 +23,8 @@ query OGGnar ($gnarId: ID!) {
     latestGnar: gnars(first: 1, orderBy: creationTimestamp, orderDirection: desc) {
         id
     }
+
+    latestAuction: auctions(orderBy: startTime, orderDirection: desc) {
+        id
+    }
 }

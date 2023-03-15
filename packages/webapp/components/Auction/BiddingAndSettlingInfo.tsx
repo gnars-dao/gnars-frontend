@@ -81,13 +81,6 @@ export const BiddingAndSettlingInfo: FC<
                     bid (minus gas spent to bid) is returned to you in the same
                     transaction as the new higher bid.
                   </Text>
-                  <Text>
-                    Bids at the very last minute DO NOT increase the auction
-                    time. Instead, you have the opportunity to snipe the auction
-                    with a winning bid during the final moments. Sometimes,
-                    multiple bids are sent at the same time, but only one will
-                    be accepted by the auction house contract.
-                  </Text>
                 </VStack>
                 <VStack alignItems={"start"}>
                   <Heading fontSize={"4xl"}>Bid Refunds</Heading>

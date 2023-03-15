@@ -172,6 +172,15 @@ export class OgGnar extends Entity {
   set owner(value: Bytes) {
     this.set("owner", Value.fromBytes(value));
   }
+
+  get wasClaimed(): boolean {
+    let value = this.get("wasClaimed");
+    return value!.toBoolean();
+  }
+
+  set wasClaimed(value: boolean) {
+    this.set("wasClaimed", Value.fromBoolean(value));
+  }
 }
 
 export class OgBid extends Entity {

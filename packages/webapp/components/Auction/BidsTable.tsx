@@ -1,4 +1,4 @@
-import { GnarInfo } from "../../hooks/useGnarInfo"
+import { Bid, GnarInfo } from "../../hooks/useGnarInfo"
 import {
   Link,
   SimpleGrid,
@@ -22,7 +22,7 @@ import { formatEther } from "ethers/lib/utils"
 import { HiExternalLink } from "react-icons/all"
 
 export type BidsProps = {
-  bids: GnarInfo["gnar"]["auction"]["bids"]
+  bids: Bid[]
 } & TableContainerProps
 export const BidsTable: FC<BidsProps> = ({ bids, ...props }) => {
   const { colorMode } = useColorMode()

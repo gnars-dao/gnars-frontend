@@ -120,11 +120,11 @@ const sliderBaseTheme = defineSliderPartsStyle({
     _dark: {
       bgColor: "whiteAlpha.300",
     },
-  }
+  },
 })
 
 const Slider = defineSliderMultiStyleConfig({
-  baseStyle: sliderBaseTheme
+  baseStyle: sliderBaseTheme,
 })
 
 const theme = extendTheme({
@@ -148,7 +148,12 @@ const theme = extendTheme({
     },
   },
   styles: {
-    global: { body: { bg: "gray.800" } },
+    global: {
+      body: { bg: "gray.800" },
+      "html, body, #__next": {
+        height: "100%",
+      },
+    },
   },
 })
 
