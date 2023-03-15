@@ -13,6 +13,7 @@ import {
 import { FC, useMemo } from "react"
 import { useEnsAvatar } from "wagmi"
 import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
+// @ts-ignore
 import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync.mjs"
 import { shortAddress } from "../../utils"
 import { HiExternalLink } from "react-icons/all"
@@ -44,7 +45,7 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({
       {isFetchedEnsAvatar && (
         <Avatar
           variant={variant}
-          src={ensAvatar}
+          src={ensAvatar ?? undefined}
           icon={<BlockiesSvgSync address={address} />}
           loading={"eager"}
           overflow={"clip"}
