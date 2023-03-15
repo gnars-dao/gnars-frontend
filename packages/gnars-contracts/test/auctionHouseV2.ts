@@ -1,28 +1,10 @@
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers"
-import { expect } from "chai"
-import {
-  impersonateAccount,
-  stopImpersonatingAccount,
-  time,
-} from "@nomicfoundation/hardhat-network-helpers"
-import { BigNumber, constants, utils } from "ethers"
-import { ethers, upgrades } from "hardhat"
-// import {
-//   MaliciousBidder__factory as MaliciousBidderFactory,
-//   NounsAuctionHouse,
-//   NounsDescriptorV2__factory as NounsDescriptorV2Factory,
-//   NounsToken,
-//   WETH,
-// } from "../typechain"
-// import { deployNounsToken, deployWeth, populateDescriptorV2 } from "./utils"
-import {
-  SkateContractV2AuctionHouseV2,
-  SkateContractV2AuctionHouse,
-} from "../../../../typechain-types"
-import { IWETH } from "../../../../typechain-types/gnarsV2/auctionHouse/v1/interfaces"
-import { SkateContract } from "../../../../typechain-types/gnarsOG"
-import { SkateContractV2 } from "../../../../typechain-types/gnarsV2/token"
-import { getSigner } from "@nomiclabs/hardhat-ethers/internal/helpers"
+import {SignerWithAddress} from "@nomiclabs/hardhat-ethers/signers"
+import {expect} from "chai"
+import {impersonateAccount, time,} from "@nomicfoundation/hardhat-network-helpers"
+import {utils} from "ethers"
+import {ethers, upgrades} from "hardhat"
+import {SkateContractV2AuctionHouse, SkateContractV2AuctionHouseV2,} from "../typechain-types"
+import {SkateContractV2} from "../typechain-types/gnarsV2/token"
 
 describe("GnarsAuctionHouseV2", () => {
   const gnarsAuctionHouseProxyAddress =
