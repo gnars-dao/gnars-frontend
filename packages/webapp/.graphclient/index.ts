@@ -3501,6 +3501,12 @@ const merger = new(BareMerger as any)({
           return printWithCache(OgGnarDocument);
         },
         location: 'OgGnarDocument.graphql'
+      },{
+        document: WalletOgGnarsDocument,
+        get rawSDL() {
+          return printWithCache(WalletOgGnarsDocument);
+        },
+        location: 'WalletOgGnarsDocument.graphql'
       }
     ];
     },
@@ -3564,6 +3570,13 @@ export type OGGnarQuery = { ogAuction?: Maybe<(
     Pick<OgAuction, 'amount' | 'bidder' | 'id'>
     & { bids: Array<Pick<OgBid, 'amount' | 'bidder' | 'blockTimestamp' | 'id'>>, gnar: Pick<OgGnar, 'accessory' | 'background' | 'body' | 'glasses' | 'head' | 'owner'> }
   )>, latestGnar: Array<Pick<Gnar, 'id'>>, latestAuction: Array<Pick<Auction, 'id'>> };
+
+export type WalletOgGnarsQueryVariables = Exact<{
+  owner: Scalars['Bytes'];
+}>;
+
+
+export type WalletOgGnarsQuery = { ogGnars: Array<Pick<OgGnar, 'id' | 'wasClaimed' | 'accessory' | 'background' | 'body' | 'glasses' | 'head'>> };
 
 
 export const GnarDocument = gql`
@@ -3641,6 +3654,20 @@ export const OGGnarDocument = gql`
   }
 }
     ` as unknown as DocumentNode<OGGnarQuery, OGGnarQueryVariables>;
+export const WalletOgGnarsDocument = gql`
+    query WalletOgGnars($owner: Bytes!) {
+  ogGnars(where: {owner: $owner}) {
+    id
+    wasClaimed
+    accessory
+    background
+    body
+    glasses
+    head
+  }
+}
+    ` as unknown as DocumentNode<WalletOgGnarsQuery, WalletOgGnarsQueryVariables>;
+
 
 
 
@@ -3652,6 +3679,9 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     OGGnar(variables: OGGnarQueryVariables, options?: C): Promise<OGGnarQuery> {
       return requester<OGGnarQuery, OGGnarQueryVariables>(OGGnarDocument, variables, options) as Promise<OGGnarQuery>;
+    },
+    WalletOgGnars(variables: WalletOgGnarsQueryVariables, options?: C): Promise<WalletOgGnarsQuery> {
+      return requester<WalletOgGnarsQuery, WalletOgGnarsQueryVariables>(WalletOgGnarsDocument, variables, options) as Promise<WalletOgGnarsQuery>;
     }
   };
 }
