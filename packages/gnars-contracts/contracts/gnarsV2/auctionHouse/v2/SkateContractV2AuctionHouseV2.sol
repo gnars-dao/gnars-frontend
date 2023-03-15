@@ -1,19 +1,26 @@
 // SPDX-License-Identifier: GPL-3.0
 
 /// @title The Gnars auction house v2
+/////////////////////////////////////
+//                                 //
+//                                 //
+//    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    //
+//    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    //
+//    ▓▓▓▓▓     ▓▓▓▓▓     ▓▓▓▓▓    //
+//    ▓▓▓▓▓     ▓▓▓▓▓     ▓▓▓▓▓    //
+//    ▓▓▓▓▓     ░░░░░░░░░░▓▓▓▓▓    //
+//    ▓▓▓▓▓     ░░░░░░░░░░▓▓▓▓▓    //
+//    ▓▓▓▓▓          ░░░░░▓▓▓▓▓    //
+//    ▓▓▓▓▓          ░░░░░▓▓▓▓▓    //
+//    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    //
+//    ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓    //
+//                                 //
+//                                 //
+/////////////////////////////////////
 
-/*********************************
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- * ░░░████████░░░░░░░████████░░░ *
- * ░░░██░░░░██░░░░░░░░░░░░░██░░░ *
- * ░░░██░░░░██░░░░░░░░░░░░░██░░░ *
- * ░░░██░░░░░░░░░░░░░░░░░░░██░░░ *
- * ░░░██░░░░░░░░░░░░░░░░░░░██░░░ *
- * ░░░██░░░░░░░░░░░░░░░░░░░██░░░ *
- * ░░░██░░░░░░░░░░░░░░░░░░░██░░░ *
- * ░░░███████████████████████░░░ *
- * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
- *********************************/
+// SkateContractV2AuctionHouseV2 adds:
+// - auction extensions
+// - claiming of 2 GnarsV2 by each OGGnar
 
 // LICENSE
 // SkateContractV2AuctionHouseV2.sol is a modified version of Zora's AuctionHouse.sol:
@@ -22,11 +29,6 @@
 // AuctionHouse.sol source code Copyright Zora licensed under the GPL-3.0 license.
 // With modifications by Nounders DAO.
 // With modifications by Gnars DAO.
-//
-//
-// SkateContractV2AuctionHouseV2 adds:
-// - auction extensions
-// - claiming of 2 GnarsV2 by each OGGnar
 
 
 pragma solidity 0.8.6;
