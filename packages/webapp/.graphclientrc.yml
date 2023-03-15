@@ -2,6 +2,6 @@ sources:
   - name: gnars
     handler:
       graphql:
-        endpoint: https://api.studio.thegraph.com/query/12901/gnars-subgraph/v0.4.0 # @TODO change for hostedd service endpoint
+        endpoint: https://api.thegraph.com/subgraphs/name/gnarsdao/gnars
 documents:
   - './queries/**/*.graphql'

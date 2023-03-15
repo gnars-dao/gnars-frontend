@@ -3456,7 +3456,7 @@ const gnarsTransforms = [];
 const additionalTypeDefs = [] as any[];
 const gnarsHandler = new GraphqlHandler({
               name: "gnars",
-              config: {"endpoint":"https://api.studio.thegraph.com/query/12901/gnars-subgraph/v0.4.0"},
+              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/gnarsdao/gnars"},
               baseDir,
               cache,
               pubsub,
