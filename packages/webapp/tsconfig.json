@@ -4,7 +4,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": false, // @TODO change to strict and fix errors
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
