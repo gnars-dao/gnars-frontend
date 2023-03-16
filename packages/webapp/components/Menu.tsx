@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react"
 import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
 import { AvatarWallet } from "./Auction/AvatarWallet"
+import { OGNogglesIcon, ShredIcon } from "./Icons"
 
 export type MenuProps = CenterProps
 
@@ -80,6 +81,11 @@ export default function Menu(props: MenuProps) {
             spacing={{ base: 1, lg: 3 }}
             direction={{ base: "column", lg: "row" }}
           >
+            <Link href="/claim">
+              <Button w={"full"} variant={"outline"} leftIcon={<ShredIcon />}>
+                Claim
+              </Button>
+            </Link>
             <ExternalLink
               href="https://snapshot.org/#/gnars.eth"
               isExternal
