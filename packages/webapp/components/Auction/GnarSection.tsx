@@ -80,6 +80,7 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
   const isTreasuryGnar = is10thGnar(gnarId)
   const winner = isTreasuryGnar ? TREASURY_ADDRESS : latestBidder
   const isBurned = auction && auctionEnded && !winner
+  const isClaimedGnar = !isTreasuryGnar && !auction
 
   return (
     <ColorModeProvider value={hasDarkBg ? "dark" : "light"}>
@@ -149,7 +150,7 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                     amount={latestBid}
                     winner={winner}
                   />
-                  {(isTreasuryGnar || isOg) && (
+                  {(isTreasuryGnar || isOg || isClaimedGnar) && (
                     <VStack alignItems={"start"} spacing={1}>
                       <Text fontSize={"md"} lineHeight={1.1}>
                         <FiInfo
@@ -165,10 +166,18 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                             onboarding shredders.
                           </>
                         )}
+                        {isClaimedGnar && (
+                          <>
+                            When Gnars DAO was launched, holders of OG Gnars
+                            were able to claim 2 Gnars per OG Gnar held, as a
+                            way to give them voting power in the governance.
+                            This Gnar was claimed that way.
+                          </>
+                        )}
                         {isOg && (
                           <>
                             OG Gnars dropped before Gnars was officially a DAO,
-                            and have no voting power. Each OG Gnar entitled it's
+                            and have no voting power. Each OG Gnar entitled its
                             holder to claim 2 Gnars.
                           </>
                         )}
@@ -182,7 +191,11 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                       color={"chakra-body-text"}
                       fontWeight={"semibold"}
                     >
-                      {isOg ? <OGNogglesIcon /> : <ShredIcon />}
+                      {isOg || isClaimedGnar ? (
+                        <OGNogglesIcon />
+                      ) : (
+                        <ShredIcon />
+                      )}
                       <Text>Owned by </Text>
                       <Link
                         isExternal

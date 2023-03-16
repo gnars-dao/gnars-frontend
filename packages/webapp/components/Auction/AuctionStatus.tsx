@@ -9,8 +9,8 @@ interface AuctionStatusProps {
   auctionTimeLeft: string | null
   burned: boolean
   isTreasuryGnar: boolean
-  amount: any
-  winner: any
+  amount: string
+  winner?: string
 }
 
 export const AuctionStatus: FC<AuctionStatusProps> = ({
