@@ -147,6 +147,7 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarInfo }) => {
                     auctionEnded={auctionEnded}
                     burned={isBurned}
                     isTreasuryGnar={isTreasuryGnar}
+                    isClaimedGnar={isClaimedGnar}
                     amount={latestBid}
                     winner={winner}
                   />

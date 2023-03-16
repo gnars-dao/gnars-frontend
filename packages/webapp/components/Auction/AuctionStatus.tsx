@@ -9,6 +9,7 @@ interface AuctionStatusProps {
   auctionTimeLeft: string | null
   burned: boolean
   isTreasuryGnar: boolean
+  isClaimedGnar: boolean
   amount: string
   winner?: string
 }
@@ -18,6 +19,7 @@ export const AuctionStatus: FC<AuctionStatusProps> = ({
   auctionTimeLeft,
   burned,
   isTreasuryGnar,
+  isClaimedGnar,
   amount,
   winner,
 }) => {
@@ -36,13 +38,21 @@ export const AuctionStatus: FC<AuctionStatusProps> = ({
       <VStack alignItems={"start"}>
         <Text>{auctionEnded ? "Winning bid" : "Current bid"}</Text>
         <Text fontSize={"3xl"} fontWeight={"bold"} lineHeight={1}>
-          {burned || isTreasuryGnar ? "N/A" : `Ξ ${truncatedAmount(amount)}`}
+          {burned || isTreasuryGnar || isClaimedGnar
+            ? "N/A"
+            : `Ξ ${truncatedAmount(amount)}`}
         </Text>
       </VStack>
 
       <VStack alignItems={"start"}>
         <Text>
-          {burned ? "Outcome" : auctionEnded ? "Winner" : "Auction ends in"}
+          {burned
+            ? "Outcome"
+            : isClaimedGnar
+            ? "Winner"
+            : auctionEnded
+            ? "Winner"
+            : "Auction ends in"}
         </Text>
         <Box fontSize={"3xl"} fontWeight={"bold"} lineHeight={1}>
           {burned ? (
