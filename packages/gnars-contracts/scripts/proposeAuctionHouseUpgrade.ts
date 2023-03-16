@@ -19,7 +19,7 @@ async function main() {
   )
 
   const proposal = await defender.proposeUpgrade(
-    "0xC28e0d3c00296dD8c5C3F2E9707361920f92a209",
+    gnarsAuctionHouseProxyAddress,
     auctionHousev2,
     {
       kind: "uups",
