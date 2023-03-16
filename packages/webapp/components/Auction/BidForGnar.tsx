@@ -44,10 +44,14 @@ export const BidForGnar: FC<BidForGnarProps> = ({
   currentBid,
   ...props
 }) => {
-  const minBid = BigNumber.from(currentBid)
+  const RESERVE_PRICE = parseEther("0.01") // @TODO add this info to the subgraph so it's always up-to-date
+  const incrementedBid = BigNumber.from(currentBid)
     .mul(minBidIncrementPercentage)
     .div(100)
     .add(currentBid)
+  const minBid = incrementedBid.gt(RESERVE_PRICE)
+    ? incrementedBid
+    : RESERVE_PRICE
 
   const minBidEth = parseFloat(formatEther(minBid))
   const [treasuryAllocation, setTreasuryAllocation] = useState<number>(90)
