@@ -24,7 +24,7 @@ export default function useAuctionTimeLeft(endTimestamp?: number) {
     }
     newAuctionTimeLeft += `${duration.seconds}s`
     setAuctionTimeLeft(newAuctionTimeLeft)
-  }, [])
+  }, [endTimestamp])
 
   useEffect(() => {
     if (!endTimestamp || isInPast) {
