@@ -17,7 +17,12 @@ export default function Playground() {
   const { generatedGnars } = usePlaygroundState()
   return (
     <DarkMode>
-      <VStack w={"full"} h={"full"} color={"chakra-body-text"} spacing={6}>
+      <VStack
+        w={"full"}
+        h={"fit-content"}
+        color={"chakra-body-text"}
+        spacing={6}
+      >
         <Menu />
         <Heading>Playground</Heading>
         <VStack

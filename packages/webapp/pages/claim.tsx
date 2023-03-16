@@ -17,10 +17,15 @@ import { Claiming } from "../components/Claiming"
 export default function Claim() {
   return (
     <DarkMode>
-      <VStack w={"full"} h={"full"} color={"chakra-body-text"} spacing={6}>
+      <VStack
+        w={"full"}
+        h={"fit-content"}
+        color={"chakra-body-text"}
+        spacing={6}
+      >
         <Menu />
         <Heading>Claim Gnars</Heading>
-        <VStack maxW={"6xl"} px={2} alignItems={"start"}>
+        <VStack maxW={"6xl"} px={[4, 20]} alignItems={"start"}>
           <Text>
             Gnars is now a DAO but it didn't start as one. Up until Gnar 626 we
             had a different NFT contract. But it wasn't cut out for what we
