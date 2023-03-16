@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 
 /// @title The Gnars auction house v2
+
 /////////////////////////////////////
 //                                 //
 //                                 //
