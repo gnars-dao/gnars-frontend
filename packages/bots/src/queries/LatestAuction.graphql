@@ -1,0 +1,13 @@
+query LatestAuction {
+    auctions(orderBy: startTime, orderDirection: desc, first: 1) {
+        id
+        endTime
+        bids {
+            id
+            amount
+            bidder {
+                id
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "@gnars/bots",
+  "private": true,
+  "version": "0.1.0",
+  "description": "gnars backend bots",
+  "author": "Volky",
+  "homepage": "https://gnars.wtf",
+  "license": "GPL-3.0",
+  "main": "src/index.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "eth-sdk && graphclient build && tsc --build --force",
+    "dev": "nodemon src/index.ts",
+    "start": "node dist/index.js",
+    "format": "prettier 'src/**/*.ts' --write"
+  },
+  "devDependencies": {
+    "@dethcrypto/eth-sdk": "^0.3.3",
+    "@dethcrypto/eth-sdk-client": "^0.1.6",
+    "@graphprotocol/client-cli": "^2.2.20",
+    "@types/ioredis": "^4.26.4",
+    "@types/node": "^18.11.18",
+    "@types/ramda": "^0.28.20",
+    "@types/sharp": "^0.31.1",
+    "@types/tmp": "^0.2.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "@nouns/contracts": "^0.3.0",
+    "discord.js": "^12.5.3",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.6.8",
+    "ioredis": "^4.27.6",
+    "ramda": "^0.28.0",
+    "sharp": "^0.31.2",
+    "tmp": "^0.2.1",
+    "ts-try": "^0.2.0",
+    "twitter-api-v2": "^1.1.1"
+  }
+}
