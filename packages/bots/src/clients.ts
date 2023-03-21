@@ -4,7 +4,6 @@ import TwitterApi from "twitter-api-v2"
 import { Contract, providers } from "ethers"
 // import { NounsTokenABI } from '@nouns/contracts';
 import Discord from "discord.js"
-import { mainnet } from "wagmi/chains"
 import { getMainnetSdk } from "../eth-sdk/generated"
 
 /**
