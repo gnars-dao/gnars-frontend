@@ -4,7 +4,7 @@ import TwitterApi from "twitter-api-v2"
 import { Contract, providers } from "ethers"
 // import { NounsTokenABI } from '@nouns/contracts';
 import Discord from "discord.js"
-import { getMainnetSdk } from "../eth-sdk/generated"
+import gnarsTokenAbi from "./abis/gnarsToken.json"
 
 /**
  * Redis Client
@@ -33,7 +33,11 @@ export const jsonRpcProvider = new providers.JsonRpcProvider(config.jsonRpcUrl)
 /**
  * Gnars ERC721 Token Contract
  */
-export const gnarsTokenContract = getMainnetSdk(jsonRpcProvider).gnarsToken
+export const gnarsTokenContract = new Contract(
+  config.gnarsTokenAddress,
+  gnarsTokenAbi,
+  jsonRpcProvider
+)
 
 /**
  * Discord webhook client for sending messages to the private

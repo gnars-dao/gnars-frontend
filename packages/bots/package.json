@@ -15,14 +15,12 @@
     "lib"
   ],
   "scripts": {
-    "build": "eth-sdk && graphclient build && tsc --build --force",
+    "build": "graphclient build && tsc --build --force",
     "dev": "nodemon src/index.ts",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "format": "prettier 'src/**/*.ts' --write"
   },
   "devDependencies": {
-    "@dethcrypto/eth-sdk": "^0.3.3",
-    "@dethcrypto/eth-sdk-client": "^0.1.6",
     "@graphprotocol/client-cli": "^2.2.20",
     "@types/ioredis": "^4.26.4",
     "@types/node": "^18.11.18",

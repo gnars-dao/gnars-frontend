@@ -34,7 +34,7 @@ export class DiscordAuctionLifecycleHandler
         .setImage(`attachment://${attachmentName}`)
         .setTimestamp()
       await Promise.all(
-        this.discordClients.map((c) => c.send("<@&1084359177339674634>"))
+        this.discordClients.map((c) => c.send("<@&1022347902573625484>"))
       )
       await Promise.all(this.discordClients.map((c) => c.send(embed)))
     }
@@ -61,7 +61,7 @@ export class DiscordAuctionLifecycleHandler
         .setImage(`attachment://${attachmentName}`)
         .setTimestamp()
       await Promise.all(
-        this.discordClients.map((c) => c.send("<@&1084359177339674634>"))
+        this.discordClients.map((c) => c.send("<@&958234550209773619>"))
       )
       await Promise.all(this.discordClients.map((c) => c.send(embed)))
     }

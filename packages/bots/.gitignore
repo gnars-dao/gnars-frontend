@@ -6,7 +6,5 @@ node_modules
 tsconfig.tsbuildinfo
 dist
 .graphclient
-eth-sdk/generated
-eth-sdk/abis
 
 .env

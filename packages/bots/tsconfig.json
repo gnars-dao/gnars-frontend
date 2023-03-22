@@ -24,7 +24,7 @@
     "strictNullChecks": true,
     "target": "es6",
   },
-  "include": ["src", "src/**/*.json", "eth-sdk/generated", ".graphclient/**/*.ts"],
+  "include": ["src", "src/**/*.json", ".graphclient/**/*.ts"],
   "exclude": ["dist"],
 
 }

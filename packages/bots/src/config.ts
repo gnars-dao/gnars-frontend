@@ -19,4 +19,5 @@ export const config = {
   discordWebhookId: process.env.DISCORD_WEBHOOK_ID ?? "",
   discordPublicWebhookToken: process.env.DISCORD_PUBLIC_WEBHOOK_TOKEN ?? "",
   discordPublicWebhookId: process.env.DISCORD_PUBLIC_WEBHOOK_ID ?? "",
+  gnarsTokenAddress: process.env.GNARS_TOKEN_ADDRESS ?? "",
 }
