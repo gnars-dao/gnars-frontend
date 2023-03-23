@@ -1,7 +1,7 @@
 import { BigNumber, ethers } from "ethers"
 import sharp from "sharp"
 import { isError, tryF } from "ts-try"
-import { gnarsTokenContract } from "./clients"
+import { gnarsTokenContract, jsonRpcProvider, nnsProvider } from "./clients"
 import { Bid, Proposal, TokenMetadata, Vote, VoteDirection } from "./types"
 import { extractProposalTitle } from "./utils/proposals"
 
@@ -18,17 +18,19 @@ const voteDirectionToText = (direction: VoteDirection) => {
 }
 
 /**
- * Try to reverse resolve an ENS domain and return it for display,
+ * Try to reverse resolve an NNS domain, with fallback to a ENS domain
+ * and return it for display.
  * If no result truncate the address and return it
  * @param address The address to ENS lookup or format
- * @returns The resolved ENS lookup domain or a formatted address
+ * @returns The resolved NNS name, ENS name or a formatted address
  */
-export async function resolveEnsOrFormatAddress(address: string) {
-  return (
-    (await ethers.getDefaultProvider().lookupAddress(address)) ||
-    shortAddress(address)
-  )
-}
+export const resolveNnsWithEnsOrShortAddressFallback = async (
+  address: string
+) =>
+  await Promise.all([
+    nnsProvider.lookupAddress(address),
+    jsonRpcProvider.lookupAddress(address),
+  ]).then(([nnsName, ensName]) => nnsName ?? ensName ?? shortAddress(address))
 
 /**
  * Get tweet text for auction started.
@@ -50,7 +52,7 @@ export function formatAuctionStartedTweetText(auctionId: number) {
  * @returns The bid update tweet text
  */
 export async function formatBidMessageText(id: number, bid: Bid) {
-  const bidder = await resolveEnsOrFormatAddress(bid.bidder.id)
+  const bidder = await resolveNnsWithEnsOrShortAddressFallback(bid.bidder.id)
   return `Gnar ${id} has received a bid of Ξ${ethers.utils.formatEther(
     bid.amount
   )} from ${bidder}`
@@ -86,7 +88,7 @@ export async function formatNewGovernanceVoteText(
   proposal: Proposal,
   vote: Vote
 ) {
-  return `${await resolveEnsOrFormatAddress(
+  return `${await resolveNnsWithEnsOrShortAddressFallback(
     vote.voter.id
   )} has voted ${voteDirectionToText(vote.supportDetailed)} Proposal #${
     proposal.id

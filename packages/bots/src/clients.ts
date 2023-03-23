@@ -31,6 +31,14 @@ export const twitter = () =>
 export const jsonRpcProvider = new providers.JsonRpcProvider(config.jsonRpcUrl)
 
 /**
+ * Ethers JSON RPC Provider modified to resolve names with NNS
+ */
+export const nnsProvider = new providers.JsonRpcProvider(config.jsonRpcUrl, {
+  ...jsonRpcProvider.network,
+  ensAddress: config.nnsAddress,
+})
+
+/**
  * Gnars ERC721 Token Contract
  */
 export const gnarsTokenContract = new Contract(

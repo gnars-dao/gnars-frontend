@@ -14,6 +14,7 @@ export const config = {
   twitterAccessToken: process.env.TWITTER_ACCESS_TOKEN ?? "",
   twitterAccessSecret: process.env.TWITTER_ACCESS_SECRET ?? "",
   jsonRpcUrl: process.env.JSON_RPC_URL ?? "",
+  nnsAddress: process.env.NNS_ADDRESS ?? "",
   discordEnabled: process.env.DISCORD_ENABLED === "true",
   discordWebhookToken: process.env.DISCORD_WEBHOOK_TOKEN ?? "",
   discordWebhookId: process.env.DISCORD_WEBHOOK_ID ?? "",
