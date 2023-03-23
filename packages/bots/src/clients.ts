@@ -1,7 +1,7 @@
 import { config } from "./config"
 import Redis from "ioredis"
 import TwitterApi from "twitter-api-v2"
-import { Contract, providers } from "ethers"
+import { Contract, providers, ethers } from "ethers"
 // import { NounsTokenABI } from '@nouns/contracts';
 import Discord from "discord.js"
 import gnarsTokenAbi from "./abis/gnarsToken.json"
@@ -34,8 +34,8 @@ export const jsonRpcProvider = new providers.JsonRpcProvider(config.jsonRpcUrl)
  * Ethers JSON RPC Provider modified to resolve names with NNS
  */
 export const nnsProvider = new providers.JsonRpcProvider(config.jsonRpcUrl, {
-  name: jsonRpcProvider.network.name,
-  chainId: jsonRpcProvider.network.chainId,
+  name: "Ethereum mainnet",
+  chainId: 1,
   ensAddress: config.nnsAddress,
 })
 
