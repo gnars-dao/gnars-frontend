@@ -69,20 +69,15 @@ async function processAuctionTick() {
   const cachedAuctionEndingSoon = await getAuctionEndingSoonCache()
   const lastAuction = await getLastAuction()
   const lastAuctionId = lastAuction.id
-  console.log(
-    `processAuctionTick: cachedAuctionId(${cachedAuctionId}) lastAuctionId(${lastAuctionId})`
-  )
+  process.stdout.write(".")
 
   // check if new auction discovered
   if (cachedAuctionId < lastAuctionId) {
-    await incrementCounter(buildCounterName(`auctions_discovered`))
     await updateAuctionCache(lastAuctionId)
     await Promise.all(
       auctionLifecycleHandlers.map((h) => h.handleNewAuction(lastAuctionId))
     )
-    await incrementCounter(buildCounterName("auction_cache_updates"))
   }
-  await incrementCounter(buildCounterName("auction_process_last_auction"))
 
   // check if new bid discovered
   if (
