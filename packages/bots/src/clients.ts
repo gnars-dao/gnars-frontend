@@ -34,7 +34,8 @@ export const jsonRpcProvider = new providers.JsonRpcProvider(config.jsonRpcUrl)
  * Ethers JSON RPC Provider modified to resolve names with NNS
  */
 export const nnsProvider = new providers.JsonRpcProvider(config.jsonRpcUrl, {
-  ...jsonRpcProvider.network,
+  name: jsonRpcProvider.network.name,
+  chainId: jsonRpcProvider.network.chainId,
   ensAddress: config.nnsAddress,
 })
 
