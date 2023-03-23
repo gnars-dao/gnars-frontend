@@ -103,9 +103,7 @@ export async function formatNewGovernanceVoteText(
 export async function getGnarPngBuffer(
   tokenId: string
 ): Promise<Buffer | undefined> {
-  const dataURI = await tryF(() =>
-    gnarsTokenContract.tokenURI(BigNumber.from(tokenId))
-  )
+  const dataURI = await tryF(() => gnarsTokenContract.tokenURI(tokenId))
   if (isError(dataURI)) {
     console.error(
       `Error fetching dataURI for token ID ${tokenId}: ${dataURI.message}`
