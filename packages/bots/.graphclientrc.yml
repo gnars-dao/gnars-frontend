@@ -3,5 +3,6 @@ sources:
     handler:
       graphql:
         endpoint: https://api.thegraph.com/subgraphs/name/gnarsdao/gnars
+        retry: 2
 documents:
   - './src/queries/**/*.graphql'

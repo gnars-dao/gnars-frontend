@@ -67,7 +67,12 @@ async function processAuctionTick() {
   const cachedAuctionId = await getAuctionCache()
   const cachedBidId = await getBidCache()
   const cachedAuctionEndingSoon = await getAuctionEndingSoonCache()
-  const lastAuction = await getLastAuction()
+  const lastAuction = await getLastAuction().catch((r) => {
+    console.error("Couldn't fetch latest auction", r)
+  })
+  if (!lastAuction) {
+    return
+  }
   const lastAuctionId = lastAuction.id
   process.stdout.write(".")
 

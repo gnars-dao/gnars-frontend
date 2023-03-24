@@ -6,11 +6,11 @@ import { LatestAuctionDocument, execute } from "../.graphclient"
  * Query the subgraph and return the last auction id and bid created.
  * @returns The last auction id and bid from the subgraph.
  */
-export async function getLastAuction(): Promise<AuctionBids> {
-  const latestAuction = await execute(LatestAuctionDocument, {})
-
-  return latestAuction.data["auctions"][0]
-}
+export const getLastAuction = (): Promise<AuctionBids> =>
+  execute(LatestAuctionDocument, {}).then((r) => {
+    if (r.errors && r.errors.length > 0) throw r.errors
+    return r.data["auctions"][0]
+  })
 
 // /**
 //  * Query the subgraph and return all proposals and votes
