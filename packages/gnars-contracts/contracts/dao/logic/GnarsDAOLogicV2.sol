@@ -59,7 +59,7 @@
 
 pragma solidity ^0.8.6;
 
-import './GnarsDAOInterfaces.sol';
+import {GnarsDAOStorageV2, GnarsDAOEventsV2, IGnarsDAOExecutor, GnarsTokenLike} from '../GnarsDAOInterfaces.sol';
 
 contract GnarsDAOLogicV2 is GnarsDAOStorageV2, GnarsDAOEventsV2 {
     /// @notice The name of this contract

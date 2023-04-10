@@ -3,24 +3,25 @@ import { Box, Stack, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
 import { SubtleStackDivider } from "../SubtleStackDivider"
 import { truncatedAmount } from "../../utils"
 import { AvatarWallet } from "./AvatarWallet"
+import { Countdown } from "./Countdown"
 
 interface AuctionStatusProps {
+  endTimestamp?: number
   auctionEnded: boolean
-  auctionTimeLeft: string | null
-  burned: boolean
+  isBurned: boolean
   isTreasuryGnar: boolean
   isClaimedGnar: boolean
-  amount: string
-  winner?: string
+  latestBid?: string | null
+  winner?: string | null
 }
 
 export const AuctionStatus: FC<AuctionStatusProps> = ({
+  endTimestamp,
   auctionEnded,
-  auctionTimeLeft,
-  burned,
+  isBurned,
   isTreasuryGnar,
   isClaimedGnar,
-  amount,
+  latestBid,
   winner,
 }) => {
   const divider = useBreakpointValue({
@@ -38,15 +39,15 @@ export const AuctionStatus: FC<AuctionStatusProps> = ({
       <VStack alignItems={"start"}>
         <Text>{auctionEnded ? "Winning bid" : "Current bid"}</Text>
         <Text fontSize={"3xl"} fontWeight={"bold"} lineHeight={1}>
-          {burned || isTreasuryGnar || isClaimedGnar
+          {isBurned || isTreasuryGnar || isClaimedGnar || !latestBid
             ? "N/A"
-            : `Ξ ${truncatedAmount(amount)}`}
+            : `Ξ ${truncatedAmount(latestBid)}`}
         </Text>
       </VStack>
 
       <VStack alignItems={"start"}>
         <Text>
-          {burned
+          {isBurned
             ? "Outcome"
             : isClaimedGnar
             ? "Winner"
@@ -55,16 +56,16 @@ export const AuctionStatus: FC<AuctionStatusProps> = ({
             : "Auction ends in"}
         </Text>
         <Box fontSize={"3xl"} fontWeight={"bold"} lineHeight={1}>
-          {burned ? (
+          {isBurned ? (
             <Text>Burned 🔥</Text>
-          ) : auctionEnded ? (
+          ) : auctionEnded || !endTimestamp ? (
             !!winner ? (
               <AvatarWallet withLink variant={"delimited"} address={winner} />
             ) : (
               "N/A"
             )
           ) : (
-            <Text>{auctionTimeLeft}</Text>
+            <Countdown timestamp={endTimestamp} />
           )}
         </Box>
       </VStack>

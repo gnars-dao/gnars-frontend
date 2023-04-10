@@ -1,4 +1,4 @@
-import { Bid, GnarInfo } from "../../hooks/useGnarInfo"
+import { Bid, GnarData } from "../../hooks/useGnarData"
 import {
   Link,
   SimpleGrid,

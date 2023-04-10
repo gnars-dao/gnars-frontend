@@ -1,12 +1,3 @@
-// const image = `data:image/svg+xml;base64,${Buffer.from(
-//   buildSVG(
-//     parts,
-//     BigInt(gnarId) < V2_START_ID ? imageData.palette : imageDataV2.palette,
-//     background
-//   ),
-//   "utf8"
-// ).toString("base64")}`
-
 import { GnarPart } from "./index"
 
 const decodeImage = (image: string) => {

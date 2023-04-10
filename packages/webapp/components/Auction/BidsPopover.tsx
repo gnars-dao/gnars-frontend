@@ -1,4 +1,4 @@
-import { Bid } from "../../hooks/useGnarInfo"
+import { Bid } from "../../hooks/useGnarData"
 import { FC } from "react"
 import {
   Button,

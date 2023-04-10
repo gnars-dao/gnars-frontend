@@ -2,20 +2,14 @@ import GnarSection from "components/Auction/GnarSection"
 import Explainer from "components/Explainer"
 
 import { GetServerSideProps, GetStaticProps } from "next"
-import { fetchGnarInfo, GnarInfo } from "../hooks/useGnarInfo"
+import { fetchGnarData, GnarData } from "../hooks/useGnarData"
+import { AnimatePresence } from "framer-motion"
 
-export default function Home({ gnarInfo }: { gnarInfo: GnarInfo }) {
+export default function Home() {
   return (
     <>
-      <GnarSection initialGnarInfo={gnarInfo} />
+      <GnarSection />
       <Explainer />
     </>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const gnarInfo = await fetchGnarInfo()
-  return {
-    props: { gnarInfo },
-  }
 }

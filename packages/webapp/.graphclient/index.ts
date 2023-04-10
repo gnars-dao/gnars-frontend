@@ -3502,6 +3502,18 @@ const merger = new(BareMerger as any)({
         },
         location: 'OgGnarDocument.graphql'
       },{
+        document: ProposalDocument,
+        get rawSDL() {
+          return printWithCache(ProposalDocument);
+        },
+        location: 'ProposalDocument.graphql'
+      },{
+        document: ProposalsDocument,
+        get rawSDL() {
+          return printWithCache(ProposalsDocument);
+        },
+        location: 'ProposalsDocument.graphql'
+      },{
         document: WalletOgGnarsDocument,
         get rawSDL() {
           return printWithCache(WalletOgGnarsDocument);
@@ -3570,6 +3582,27 @@ export type OGGnarQuery = { ogAuction?: Maybe<(
     Pick<OgAuction, 'amount' | 'bidder' | 'id'>
     & { bids: Array<Pick<OgBid, 'amount' | 'bidder' | 'blockTimestamp' | 'id'>>, gnar: Pick<OgGnar, 'accessory' | 'background' | 'body' | 'glasses' | 'head' | 'owner'> }
   )>, latestGnar: Array<Pick<Gnar, 'id'>>, latestAuction: Array<Pick<Auction, 'id'>> };
+
+export type ProposalQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type ProposalQuery = { proposal?: Maybe<(
+    Pick<Proposal, 'id' | 'createdTimestamp' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'description' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes'>
+    & { proposer: Pick<Delegate, 'id'>, votes: Array<(
+      Pick<Vote, 'supportDetailed' | 'reason'>
+      & { voter: Pick<Delegate, 'id'> }
+    )> }
+  )> };
+
+export type ProposalsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProposalsQuery = { proposals: Array<(
+    Pick<Proposal, 'id' | 'createdTimestamp' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes' | 'totalSupply' | 'minQuorumVotesBPS' | 'maxQuorumVotesBPS' | 'quorumCoefficient'>
+    & { proposer: Pick<Delegate, 'id'> }
+  )> };
 
 export type WalletOgGnarsQueryVariables = Exact<{
   owner: Scalars['Bytes'];
@@ -3654,6 +3687,58 @@ export const OGGnarDocument = gql`
   }
 }
     ` as unknown as DocumentNode<OGGnarQuery, OGGnarQueryVariables>;
+export const ProposalDocument = gql`
+    query Proposal($id: ID!) {
+  proposal(id: $id) {
+    id
+    createdTimestamp
+    startBlock
+    endBlock
+    executionETA
+    title
+    description
+    status
+    proposer {
+      id
+    }
+    forVotes
+    abstainVotes
+    againstVotes
+    quorumVotes
+    votes(where: {reason_not: null}) {
+      voter {
+        id
+      }
+      supportDetailed
+      reason
+    }
+  }
+}
+    ` as unknown as DocumentNode<ProposalQuery, ProposalQueryVariables>;
+export const ProposalsDocument = gql`
+    query Proposals {
+  proposals(orderBy: createdTimestamp, orderDirection: desc) {
+    id
+    createdTimestamp
+    startBlock
+    endBlock
+    executionETA
+    title
+    status
+    proposer {
+      id
+    }
+    forVotes
+    abstainVotes
+    againstVotes
+    quorumVotes
+    totalSupply
+    minQuorumVotesBPS
+    maxQuorumVotesBPS
+    quorumCoefficient
+  }
+}
+    ` as unknown as DocumentNode<ProposalsQuery, ProposalsQueryVariables>;
 export const WalletOgGnarsDocument = gql`
     query WalletOgGnars($owner: Bytes!) {
   ogGnars(where: {owner: $owner}) {
@@ -3671,6 +3756,8 @@ export const WalletOgGnarsDocument = gql`
 
 
 
+
+
 export type Requester<C = {}, E = unknown> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C, E>(requester: Requester<C, E>) {
   return {
@@ -3679,6 +3766,12 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     OGGnar(variables: OGGnarQueryVariables, options?: C): Promise<OGGnarQuery> {
       return requester<OGGnarQuery, OGGnarQueryVariables>(OGGnarDocument, variables, options) as Promise<OGGnarQuery>;
+    },
+    Proposal(variables: ProposalQueryVariables, options?: C): Promise<ProposalQuery> {
+      return requester<ProposalQuery, ProposalQueryVariables>(ProposalDocument, variables, options) as Promise<ProposalQuery>;
+    },
+    Proposals(variables?: ProposalsQueryVariables, options?: C): Promise<ProposalsQuery> {
+      return requester<ProposalsQuery, ProposalsQueryVariables>(ProposalsDocument, variables, options) as Promise<ProposalsQuery>;
     },
     WalletOgGnars(variables: WalletOgGnarsQueryVariables, options?: C): Promise<WalletOgGnarsQuery> {
       return requester<WalletOgGnarsQuery, WalletOgGnarsQueryVariables>(WalletOgGnarsDocument, variables, options) as Promise<WalletOgGnarsQuery>;

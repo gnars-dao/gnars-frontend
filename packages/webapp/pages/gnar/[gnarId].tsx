@@ -2,31 +2,30 @@ import GnarSection from "components/Auction/GnarSection"
 import Explainer from "components/Explainer"
 
 import { GetStaticProps } from "next"
-import { fetchGnarInfo, GnarInfo } from "../../hooks/useGnarInfo"
+import { fetchGnarData, GnarData } from "../../hooks/useGnarData"
 
 export default function GnarPage({
   gnarInfo,
   gnarId,
 }: {
-  gnarInfo: GnarInfo
+  gnarInfo: GnarData
   gnarId: number
 }) {
   return (
     <>
-      <GnarSection desiredGnarId={gnarId} initialGnarInfo={gnarInfo} />
+      <GnarSection desiredGnarId={gnarId} initialGnarData={gnarInfo} />
       <Explainer />
     </>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({
-  params: { gnarId },
-}) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const gnarId = params?.gnarId
   if (typeof gnarId !== "string") {
     throw new Error("Invalid gnarId")
   }
 
-  const gnarInfo = await fetchGnarInfo(parseInt(gnarId))
+  const gnarInfo = await fetchGnarData(parseInt(gnarId))
 
   return {
     props: { gnarId, gnarInfo },

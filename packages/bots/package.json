@@ -18,17 +18,21 @@
     "build": "graphclient build && tsc --build --force",
     "dev": "nodemon src/index.ts",
     "start": "node dist/src/index.js",
-    "format": "prettier 'src/**/*.ts' --write"
+    "format": "prettier 'src/**/*.ts' --write",
+    "test": "jest"
   },
   "devDependencies": {
     "@graphprotocol/client-cli": "^2.2.20",
     "@types/ioredis": "^4.26.4",
+    "@types/jest": "^29.5.0",
     "@types/node": "^18.11.18",
     "@types/ramda": "^0.28.20",
     "@types/sharp": "^0.31.1",
     "@types/tmp": "^0.2.1",
+    "jest": "^29.5.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.2",
+    "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   },

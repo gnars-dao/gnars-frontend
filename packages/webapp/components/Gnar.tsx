@@ -1,8 +1,3 @@
-import buildSvg from "utils/buildSvg"
-import LoadingGnar from "./LoadingGnar"
-
-import ogGnarData from "../data/image-data.json"
-import gnarDataV2 from "../data/image-data-V2.json"
 import {
   Box,
   BoxProps,
@@ -11,41 +6,30 @@ import {
   DarkMode,
   HStack,
   IconButton,
-  Image as ChakraImage,
   Popover,
   PopoverArrow,
   PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
-  PopoverHeader,
   PopoverProps,
   PopoverTrigger,
-  Portal,
   SimpleGrid,
   SimpleGridProps,
   StackProps,
   Text,
-  Tooltip,
-  useBoolean,
   useDisclosure,
 } from "@chakra-ui/react"
-import nogglesIcon from "../assets/images/nouns-noggles-sharp.svg"
-import bodyIcon from "../assets/images/nouns-nouns-part-body-sharp.svg"
-import headIcon from "../assets/images/nouns-nouns-part-head-sharp.svg"
-import accessoryIcon from "../assets/images/nouns-nouns-part-accessory-sharp.svg"
-import Image from "next/image"
 import { FaInfo } from "react-icons/fa"
 import { MdFileDownload } from "react-icons/md"
-import { FC, useMemo, useRef } from "react"
-import { GnarPart, Gnartwork } from "../utils"
-import { GnarInfo } from "../hooks/useGnarInfo"
+import { FC, useRef } from "react"
+import { getGnartwork } from "../utils"
+import { GnarData } from "../hooks/useGnarData"
 import { FaSquareFull } from "react-icons/all"
 import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "./Icons"
+import { GnarImage } from "./GnarImage"
 
 interface GnarProps extends BoxProps {
   isOg: boolean
-  gnarId: string
-  gnartwork: Gnartwork
+  gnarData?: GnarData
   buttonProps?: ButtonProps
   gridProps?: SimpleGridProps
   withButtons?: boolean
@@ -54,9 +38,8 @@ interface GnarProps extends BoxProps {
 }
 
 const Gnar: FC<GnarProps> = ({
-  gnartwork,
   isOg,
-  gnarId,
+  gnarData,
   buttonProps = {},
   gridProps = {},
   buttonsStackProps = {},
@@ -66,31 +49,22 @@ const Gnar: FC<GnarProps> = ({
 }) => {
   const gnarImageRef = useRef<HTMLImageElement>(null)
   const { isOpen, onToggle, onOpen, onClose } = useDisclosure()
-
-  const palette = isOg ? ogGnarData.palette : gnarDataV2.palette
-  const { body, accessory, head, noggles } = gnartwork.parts
-  const image = useMemo(() => {
-    return buildSvg(
-      [body, accessory, head, noggles],
-      palette,
-      gnartwork.background
-    )
-  }, [gnarId])
+  const gnartwork = gnarData
+    ? getGnartwork(isOg, gnarData.gnar.seed)
+    : undefined
 
   return (
     <Box overflow={"visible!important"} position={"relative"} {...props}>
-      <ChakraImage
+      <GnarImage
+        isOg={isOg}
+        gnartwork={gnartwork}
         ref={gnarImageRef}
         onMouseOver={onOpen}
         onMouseLeave={onClose}
-        w={"full"}
-        src={image}
-        alt={"gnar"}
-        borderRadius={"md"}
       />
 
       {/*@TODO extract to another component*/}
-      {withButtons && (
+      {gnarData && gnartwork && withButtons && (
         <DarkMode>
           <HStack
             color={"chakra-body-text"}
@@ -173,7 +147,7 @@ const Gnar: FC<GnarProps> = ({
                   ?.drawImage(gnarImageRef.current!, 0, 0, 512, 512)
                 const link = document.createElement("a")
                 link.href = canvas.toDataURL()
-                link.download = `gnar-${gnarId}.png`
+                link.download = `gnar-${gnarData.gnar.gnarId}.png`
                 link.click()
                 canvas.remove()
                 link.remove()

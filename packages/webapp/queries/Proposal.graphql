@@ -1,0 +1,27 @@
+query Proposal ($id: ID!) {
+    proposal (id: $id) {
+        id
+        createdTimestamp
+        startBlock
+        endBlock
+        executionETA
+
+        title
+        description
+        status
+        proposer {
+            id
+        }
+        forVotes
+        abstainVotes
+        againstVotes
+        quorumVotes
+        votes (where: {reason_not: null} ) {
+            voter {
+                id
+            }
+            supportDetailed
+            reason
+        }
+    }
+}

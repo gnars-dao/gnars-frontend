@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, FormEvent, useEffect, useRef, useState } from "react"
 import {
   Button,
   ButtonGroup,
@@ -37,14 +37,15 @@ const minBidIncrementPercentage = 5
 
 export type BidForGnarProps = {
   gnarId: string
-  currentBid: string
+  latestBid?: string | null
 } & StackProps
 export const BidForGnar: FC<BidForGnarProps> = ({
   gnarId,
-  currentBid,
+  latestBid,
   ...props
 }) => {
   const RESERVE_PRICE = parseEther("0.01") // @TODO add this info to the subgraph so it's always up-to-date
+  const currentBid = latestBid ?? "0"
   const incrementedBid = BigNumber.from(currentBid)
     .mul(minBidIncrementPercentage)
     .div(100)
@@ -71,7 +72,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
   const inc = getIncrementButtonProps()
   const dec = getDecrementButtonProps()
   const input = getInputProps()
-  // @TODO use typechain instead
+
   const { config } = usePrepareGnarsV2AuctionHouseCreateBid({
     args: [BigNumber.from(gnarId), founderAllocation, treasuryAllocation],
     overrides: { value: parseEther(bidAmount) },

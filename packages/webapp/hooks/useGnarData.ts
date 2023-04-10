@@ -58,56 +58,46 @@ export type GnarV2 = Gnar & {
   } | null
 }
 
-export type GnarInfo = {
+export type GnarData = {
   gnar: GnarV2 | OGGnar
   latestGnarId: string
   latestAuctionGnarId: string
 }
 
-export const fetchGnarInfo = async (
+export const fetchGnarData = async (
   desiredGnarId?: number
-): Promise<GnarInfo> => {
+): Promise<GnarData> => {
   const sdk = getBuiltGraphSDK()
-  const isOg = desiredGnarId < V2_START_ID
+  const isOg = !!desiredGnarId && desiredGnarId < V2_START_ID
 
   if (isOg) {
-    const {
-      ogAuction: {
-        gnar: { accessory, glasses, body, head, owner, background },
-        bidder,
-        amount,
-        bids,
-        id: gnarId,
-      },
-      latestGnar: {
-        [0]: { id: latestGnarId },
-      },
-      latestAuction: {
-        [0]: { id: latestAuctionGnarId },
-      },
-    } = await sdk.OGGnar({ gnarId: `${desiredGnarId}` })
+    const ogGnarQueryResponse = await sdk.OGGnar({ gnarId: `${desiredGnarId}` })
+
+    if (!ogGnarQueryResponse || !ogGnarQueryResponse.ogAuction) {
+      throw new Error("Couldn't get OG Gnar data")
+    }
 
     const seed = {
-      accessory,
-      glasses,
-      body,
-      head,
-      background,
+      accessory: ogGnarQueryResponse.ogAuction.gnar.accessory,
+      glasses: ogGnarQueryResponse.ogAuction.gnar.glasses,
+      body: ogGnarQueryResponse.ogAuction.gnar.body,
+      head: ogGnarQueryResponse.ogAuction.gnar.head,
+      background: ogGnarQueryResponse.ogAuction.gnar.background,
     }
 
     return {
-      latestGnarId,
-      latestAuctionGnarId,
+      latestGnarId: ogGnarQueryResponse.latestGnar["0"].id,
+      latestAuctionGnarId: ogGnarQueryResponse.latestAuction["0"].id,
       gnar: {
         isOg,
         isLatestGnar: false,
-        gnarId,
+        gnarId: ogGnarQueryResponse.ogAuction.id,
         seed,
-        owner,
+        owner: ogGnarQueryResponse.ogAuction.gnar.owner,
         auction: {
-          latestBidder: bidder ?? null,
-          latestBid: amount ?? null,
-          bids,
+          latestBidder: ogGnarQueryResponse.ogAuction.bidder ?? null,
+          latestBid: ogGnarQueryResponse.ogAuction.amount ?? null,
+          bids: ogGnarQueryResponse.ogAuction.bids,
           settled: true,
         },
       } as OGGnar,
@@ -140,14 +130,12 @@ export const fetchGnarInfo = async (
         latestBid: auctionData.amount ?? null,
         startTimestamp: auctionData.startTime,
         endTimestamp: auctionData.endTime,
-        bids: auctionData.bids.map(
-          ({ bidder: { id: bidder }, blockTimestamp, amount, id }) => ({
-            bidder,
-            blockTimestamp,
-            amount,
-            id,
-          })
-        ),
+        bids: auctionData.bids.map((bid) => ({
+          bidder: bid.bidder?.id,
+          blockTimestamp: bid.blockTimestamp,
+          amount: bid.amount,
+          id: bid.id,
+        })),
       }
     : null
 
@@ -165,13 +153,13 @@ export const fetchGnarInfo = async (
   }
 }
 
-export default function useGnarInfo(
+export default function useGnarData(
   desiredGnarId?: number,
-  initialData?: GnarInfo
-): UseQueryResult<GnarInfo> {
-  return useQuery<GnarInfo, [string, number | undefined]>(
+  initialData?: GnarData
+): UseQueryResult<GnarData> {
+  return useQuery<GnarData, [string, number | undefined]>(
     ["gnar", desiredGnarId],
-    () => fetchGnarInfo(desiredGnarId),
+    () => fetchGnarData(desiredGnarId),
     {
       refetchInterval: 12000,
       initialData,
