@@ -20,7 +20,7 @@ export default function useAuctionTimeLeft(endTimestamp?: number) {
       newAuctionTimeLeft = `${duration.hours}h `
     }
     if (duration.hours > 0 || duration.minutes > 0) {
-      newAuctionTimeLeft = `${duration.minutes}m `
+      newAuctionTimeLeft += `${duration.minutes}m `
     }
     newAuctionTimeLeft += `${duration.seconds}s`
     setAuctionTimeLeft(newAuctionTimeLeft)
