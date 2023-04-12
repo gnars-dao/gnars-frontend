@@ -32,6 +32,8 @@ import { BigNumber } from "ethers"
 import { formatEther, parseEther } from "ethers/lib/utils"
 import { FaCaretDown, FaCaretUp } from "react-icons/all"
 import { ConnectKitButton } from "connectkit"
+import { ContractActionButton } from "../ContractActionButton"
+import { mainnet } from "wagmi/chains"
 
 const minBidIncrementPercentage = 5
 
@@ -76,6 +78,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
   const { config } = usePrepareGnarsV2AuctionHouseCreateBid({
     args: [BigNumber.from(gnarId), founderAllocation, treasuryAllocation],
     overrides: { value: parseEther(bidAmount) },
+    chainId: mainnet.id,
   })
   const { isLoading, write } = useGnarsV2AuctionHouseCreateBid(config)
 
@@ -181,20 +184,17 @@ export const BidForGnar: FC<BidForGnarProps> = ({
         <SliderThumb />
       </Slider>
 
-      <ConnectKitButton.Custom>
-        {({ isConnected, address, show, isConnecting }) => (
-          <Button
-            size={"lg"}
-            h={12}
-            px={10}
-            isLoading={isLoading || isConnecting}
-            isDisabled={isConnected && !write}
-            onClick={isConnected ? write : show}
-          >
-            Place Bid
-          </Button>
-        )}
-      </ConnectKitButton.Custom>
+      <ContractActionButton
+        size={"lg"}
+        h={12}
+        px={10}
+        isLoading={isLoading}
+        loadingText={"Bidding"}
+        isDisabled={!write}
+        onClick={write}
+      >
+        Place Bid
+      </ContractActionButton>
     </Stack>
   )
 }

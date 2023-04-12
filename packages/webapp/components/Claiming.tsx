@@ -23,6 +23,8 @@ import {
 } from "../utils/sdk"
 import { is } from "date-fns/locale"
 import { BigNumber } from "ethers"
+import { ContractActionButton } from "./ContractActionButton"
+import { mainnet } from "wagmi/chains"
 
 export const Claiming = () => {
   const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" })
@@ -41,6 +43,7 @@ export const Claiming = () => {
   const { config } = usePrepareGnarsV2AuctionHouseClaimGnars({
     args: [selectedOgGnars.map((id) => BigNumber.from(id))],
     enabled: selectedOgGnars.length > 0,
+    chainId: mainnet.id,
   })
   const { write: claimGnars, isLoading: isClaiming } =
     useGnarsV2AuctionHouseClaimGnars(config)
@@ -99,7 +102,7 @@ export const Claiming = () => {
             </Button>
           </WrapItem>
           <WrapItem>
-            <Button
+            <ContractActionButton
               variant={"outline"}
               rightIcon={
                 <Tag size={"sm"} variant={"subtle"} borderRadius={"full"}>
@@ -111,7 +114,7 @@ export const Claiming = () => {
               onClick={() => claimGnars?.()}
             >
               Claim selected
-            </Button>
+            </ContractActionButton>
           </WrapItem>
         </Wrap>
       )}
