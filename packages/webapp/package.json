@@ -20,7 +20,7 @@
     "@typechain/ethers-v5": "^10.1.0",
     "@vercel/analytics": "^0.1.11",
     "blockies-react-svg": "^0.0.12",
-    "connectkit": "^1.2.0",
+    "connectkit": "^1.2.2",
     "date-fns": "^2.29.3",
     "ethers": "^5.7.1",
     "framer-motion": "^9.0.7",
@@ -32,7 +32,7 @@
     "react-icons": "^4.7.1",
     "react-inlinesvg": "^3.0.1",
     "typechain": "^8.1.0",
-    "wagmi": "^0.11.7",
+    "wagmi": "^0.12.0",
     "zustand": "^4.3.6"
   },
   "devDependencies": {

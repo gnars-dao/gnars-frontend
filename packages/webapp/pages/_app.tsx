@@ -14,11 +14,13 @@ import { Analytics } from "@vercel/analytics/react"
 
 import { queryClient } from "utils"
 import theme from "../theme"
+import { mainnet } from "wagmi/chains"
 
 const client = createClient({
   ...getDefaultClient({
     appName: "Gnars",
     alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+    chains: [mainnet],
   }),
   persister: null,
 })
@@ -27,7 +29,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <WagmiConfig client={client}>
-        <ConnectKitProvider theme={"midnight"}>
+        <ConnectKitProvider
+          theme={"midnight"}
+          options={{ enforceSupportedChains: false, initialChainId: 1 }}
+        >
           <QueryClientProvider client={queryClient}>
             <DarkMode>
               <VStack h={"full"} spacing={0}>

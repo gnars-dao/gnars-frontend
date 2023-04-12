@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { useState } from "react"
 import { useBalance } from "wagmi"
-import { ConnectKitButton } from "connectkit"
+import { ChainIcon, ConnectKitButton, useModal } from "connectkit"
 
 import { nFormatter } from "utils"
 import { TREASURY_ADDRESS } from "utils/contracts"
@@ -116,19 +116,17 @@ export default function Menu(props: MenuProps) {
             </Link>
 
             <ConnectKitButton.Custom>
-              {({ isConnected, address, show, isConnecting }) => {
+              {({ isConnected, address, show }) => {
                 return (
-                  <Button
-                    isLoading={isConnecting}
-                    loadingText={"Connecting Wallet"}
-                    onClick={show}
-                  >
-                    {isConnected && address ? (
-                      <AvatarWallet address={address} />
-                    ) : (
-                      <Text>Connect Wallet</Text>
-                    )}
-                  </Button>
+                  <HStack>
+                    <Button w={"full"} onClick={show}>
+                      {isConnected && address ? (
+                        <AvatarWallet address={address} />
+                      ) : (
+                        <Text>Connect Wallet</Text>
+                      )}
+                    </Button>
+                  </HStack>
                 )
               }}
             </ConnectKitButton.Custom>
