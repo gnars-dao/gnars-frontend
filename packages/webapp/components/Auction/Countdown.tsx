@@ -36,7 +36,7 @@ const getCountdown = (endDate: Date) => {
     (duration?.hours && duration.hours > 0) ||
     (duration?.minutes && duration?.minutes > 0)
   ) {
-    timeLeft = `${duration.minutes}m `
+    timeLeft += `${duration.minutes}m `
   }
   timeLeft += `${duration.seconds}s`
   return timeLeft

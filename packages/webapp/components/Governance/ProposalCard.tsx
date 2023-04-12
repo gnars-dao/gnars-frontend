@@ -4,6 +4,7 @@ import {
   HStack,
   StackProps,
   Text,
+  Tooltip,
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react"
@@ -11,37 +12,38 @@ import { ProposalsQuery } from "../../.graphclient"
 import { useBlock } from "../../hooks/useBlock"
 import { FC } from "react"
 import {
-  EffectiveProposalStatus,
   getProposalEffectiveStatus,
   getQuorumVotes,
   isFinalized,
 } from "../../utils/governanceUtils"
 import { ProposalStatusBadge } from "./ProposalStatusBadge"
-import { FaClock, ImClock, RiTimeFill } from "react-icons/all"
+import { ProposalCountdown } from "./ProposalCountdown"
 
 export interface ProposalCardProps extends StackProps {
   proposal: ProposalsQuery["proposals"][0]
 }
 
-export const ProposalCard: FC<ProposalCardProps> = ({ proposal, ...props }) => {
+export const ProposalCard: FC<ProposalCardProps> = ({
+  proposal,
+  children,
+  ...props
+}) => {
   const block = useBlock()
   const effectiveStatus = getProposalEffectiveStatus(
     proposal,
     block?.number,
     block?.timestamp
   )
-  const isPending =
-    block?.number &&
-    proposal.startBlock > block.number &&
-    proposal.endBlock <= block.number
+
   const proposalFinalized = isFinalized(effectiveStatus)
   const quorumVotes = getQuorumVotes(proposal)
   const isMobile = useBreakpointValue([true, false]) ?? true
   return (
     <VStack
       w={"full"}
-      borderTopWidth={1}
-      borderLeftWidth={1}
+      borderWidth={1}
+      borderBottomColor={"transparent"}
+      borderRightColor={"transparent"}
       borderRadius={"md"}
       pb={4}
       overflow={"clip"}
@@ -92,25 +94,10 @@ export const ProposalCard: FC<ProposalCardProps> = ({ proposal, ...props }) => {
             borderBottomLeftRadius={"2xl"}
             status={effectiveStatus}
           />
-          {["QUEUED", "PENDING", "ACTIVE"].includes(effectiveStatus) && (
-            <HStack
-              color={"whiteAlpha.300"}
-              fontSize={"xs"}
-              fontWeight={"bold"}
-              px={2}
-            >
-              <Text>
-                {effectiveStatus === "PENDING"
-                  ? "STARTS"
-                  : effectiveStatus === "ACTIVE"
-                  ? "ENDS"
-                  : "EXECUTABLE"}{" "}
-                IN 5h
-                {/* @TODO calculate actual time */}
-              </Text>
-              <RiTimeFill />
-            </HStack>
-          )}
+          <ProposalCountdown
+            effectiveStatus={effectiveStatus}
+            proposal={proposal}
+          />
         </VStack>
       </HStack>
       <Text
@@ -131,35 +118,74 @@ export const ProposalCard: FC<ProposalCardProps> = ({ proposal, ...props }) => {
           bgColor={"whiteAlpha.50"}
           spacing={0}
         >
-          <Box
-            h={"full"}
+          <Tooltip
+            hasArrow
+            color={"white"}
             bgColor={"green.500"}
-            w={`${(100 * proposal.forVotes) / proposal.totalSupply}%`}
-          />
-          <Box
-            h={"full"}
-            opacity={0.5}
+            label={`${proposal.forVotes} FOR`}
+          >
+            <Box
+              h={"full"}
+              bgColor={"green.500"}
+              w={`${
+                (100 * parseInt(proposal.forVotes)) / proposal.totalSupply
+              }%`}
+            />
+          </Tooltip>
+          <Tooltip
+            hasArrow
+            color={"white"}
             bgColor={"green.900"}
-            w={`${
-              (100 * Math.max(quorumVotes.current - proposal.forVotes, 0)) /
-              proposal.totalSupply
-            }%`}
-          />
+            label={`${quorumVotes.current} REQUIRED`}
+          >
+            <Box
+              h={"full"}
+              opacity={0.5}
+              bgColor={"green.900"}
+              w={`${
+                (100 *
+                  Math.max(
+                    quorumVotes.current - parseInt(proposal.forVotes),
+                    0
+                  )) /
+                proposal.totalSupply
+              }%`}
+            />
+          </Tooltip>
           <Box h={"full"} flexGrow={1} />
 
-          <Box
-            h={"full"}
+          <Tooltip
+            hasArrow
+            color={"white"}
             bgColor={"gray.500"}
-            w={`${(100 * proposal.abstainVotes) / proposal.totalSupply}%`}
-          />
+            label={`${proposal.abstainVotes} ABSTAIN`}
+          >
+            <Box
+              h={"full"}
+              bgColor={"gray.500"}
+              w={`${
+                (100 * parseInt(proposal.abstainVotes)) / proposal.totalSupply
+              }%`}
+            />
+          </Tooltip>
           <Box h={"full"} flexGrow={1} />
-          <Box
-            h={"full"}
+          <Tooltip
+            hasArrow
+            color={"white"}
             bgColor={"red.400"}
-            w={`${(100 * proposal.againstVotes) / proposal.totalSupply}%`}
-          />
+            label={`${proposal.againstVotes} AGAINST`}
+          >
+            <Box
+              h={"full"}
+              bgColor={"red.400"}
+              w={`${
+                (100 * parseInt(proposal.againstVotes)) / proposal.totalSupply
+              }%`}
+            />
+          </Tooltip>
         </HStack>
       )}
+      {children}
     </VStack>
   )
 }

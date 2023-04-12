@@ -15,7 +15,7 @@ export const ProposalStatusBadge: FC<ProposalStatusBadgeProps> = ({
   const finalized = isFinalized(status)
   return (
     <Badge
-      variant={finalized ? "subtle" : "solid"}
+      variant={status !== "VETOED" && finalized ? "subtle" : "solid"}
       position={"relative"}
       fontWeight="bold"
       textAlign={"center"}
@@ -49,6 +49,7 @@ const getProposalStyle = (
     case "ACTIVE":
       return { colorScheme: "purple" }
     case "CANCELLED":
+    case "UNDETERMINED":
       return { colorScheme: "gray" }
     case "EXECUTED":
     case "QUEUED":
@@ -56,8 +57,7 @@ const getProposalStyle = (
         colorScheme: "green",
       }
     case "VETOED":
-      return { color: "red", bgColor: "transparent" }
-    case "UNDETERMINED":
+      return { colorScheme: "red" }
     case "DEFEATED":
       return { colorScheme: "red" }
     // case "EXPIRED":

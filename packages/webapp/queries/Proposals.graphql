@@ -1,5 +1,5 @@
 query Proposals {
-    proposals(orderBy: createdTimestamp, orderDirection: desc) {
+    proposals(orderBy: createdTimestamp, orderDirection: desc, first: 1000) {
         id
         createdTimestamp
         startBlock

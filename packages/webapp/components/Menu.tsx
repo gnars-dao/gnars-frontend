@@ -18,7 +18,7 @@ import {
   Text,
 } from "@chakra-ui/react"
 import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
-import { AvatarWallet } from "./Auction/AvatarWallet"
+import { AvatarWallet } from "./AvatarWallet"
 import { OGNogglesIcon, ShredIcon } from "./Icons"
 
 export type MenuProps = CenterProps

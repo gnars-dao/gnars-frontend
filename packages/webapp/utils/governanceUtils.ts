@@ -7,6 +7,7 @@ export type EffectiveProposalStatus =
   | "DEFEATED"
   | "EXPIRED"
   | "UNDETERMINED"
+  | "EXECUTABLE"
 
 export const getProposalEffectiveStatus = (
   proposal: ProposalsQuery["proposals"][0],

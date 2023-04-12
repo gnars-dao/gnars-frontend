@@ -5,9 +5,12 @@ query Proposal ($id: ID!) {
         startBlock
         endBlock
         executionETA
-
         title
         description
+        targets
+        values
+        signatures
+        calldatas
         status
         proposer {
             id
@@ -16,6 +19,11 @@ query Proposal ($id: ID!) {
         abstainVotes
         againstVotes
         quorumVotes
+        totalSupply
+        minQuorumVotesBPS
+        maxQuorumVotesBPS
+        quorumCoefficient
+
         votes (where: {reason_not: null} ) {
             voter {
                 id

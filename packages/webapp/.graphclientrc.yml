@@ -1,7 +1,16 @@
 sources:
+  - name: nouns
+    handler:
+      graphql:
+        endpoint: https://api.thegraph.com/subgraphs/name/nounsdao/nouns-subgraph
   - name: gnars
     handler:
       graphql:
         endpoint: https://api.thegraph.com/subgraphs/name/gnarsdao/gnars
 documents:
   - './queries/**/*.graphql'
+plugins:
+  - pollingLive:
+      defaultInterval: 12_000
+additionalResolvers:
+  - './queries/resolvers'
