@@ -34,6 +34,7 @@ import { FaCaretDown, FaCaretUp } from "react-icons/all"
 import { ConnectKitButton } from "connectkit"
 import { ContractActionButton } from "../ContractActionButton"
 import { mainnet } from "wagmi/chains"
+import useDebounce from "hooks/useDebounce"
 
 const minBidIncrementPercentage = 5
 
@@ -75,12 +76,26 @@ export const BidForGnar: FC<BidForGnarProps> = ({
   const dec = getDecrementButtonProps()
   const input = getInputProps()
 
+  const debouncedFounderAllocation = useDebounce(founderAllocation, 500)
+  const debouncedTreasuryAllocation = useDebounce(treasuryAllocation, 500)
+  const debouncedBidAmount = useDebounce(bidAmount, 500)
+
   const { config } = usePrepareGnarsV2AuctionHouseCreateBid({
-    args: [BigNumber.from(gnarId), founderAllocation, treasuryAllocation],
-    overrides: { value: parseEther(bidAmount) },
+    args: [
+      BigNumber.from(gnarId),
+      debouncedFounderAllocation,
+      debouncedTreasuryAllocation,
+    ],
+    overrides: { value: parseEther(debouncedBidAmount) },
     chainId: mainnet.id,
   })
-  const { isLoading, write } = useGnarsV2AuctionHouseCreateBid(config)
+  const { isLoading, write } = useGnarsV2AuctionHouseCreateBid({
+    ...config,
+    request: {
+      ...config.request,
+      gasLimit: config.request.gasLimit.mul(115).div(100), // add 15% gas buffer to avoid tx rejections due to auction extensions
+    },
+  })
 
   return (
     <Stack direction={{ base: "column", md: "row" }} spacing={4} {...props}>
