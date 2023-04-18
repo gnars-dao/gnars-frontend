@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 <Component {...pageProps} />
                 <Footer />
               </VStack>
-              <Analytics />
+              <Analytics debug={false} />
             </DarkMode>
           </QueryClientProvider>
         </ConnectKitProvider>
