@@ -39,6 +39,7 @@ import { ProposalCard } from "../../components/Governance/ProposalCard"
 import { useQuery } from "@tanstack/react-query"
 import { isArray } from "lodash"
 import { useRouter } from "next/router"
+import Link from "next/link"
 
 export default function Proposals() {
   const { data: proposals } = useQuery(
@@ -46,7 +47,6 @@ export default function Proposals() {
     () => execute(ProposalsDocument, {}).then((r) => r.data.proposals),
     { keepPreviousData: true }
   )
-  const router = useRouter()
   return (
     <DarkMode>
       <VStack
@@ -71,13 +71,18 @@ export default function Proposals() {
           >
             {isArray(proposals) &&
               proposals.map((prop) => (
-                <ProposalCard
-                  proposal={prop}
-                  _hover={{ borderColor: "whiteAlpha.500", cursor: "pointer" }}
-                  onClick={() =>
-                    router.push(`/governance/proposals/${prop.id}`)
-                  }
-                />
+                <Link
+                  href={`/dao/proposals/${prop.id}`}
+                  style={{ width: "100%" }}
+                >
+                  <ProposalCard
+                    proposal={prop}
+                    _hover={{
+                      borderColor: "whiteAlpha.500",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Link>
               ))}
           </VStack>
         </Container>

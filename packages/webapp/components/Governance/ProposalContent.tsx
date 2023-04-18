@@ -5,6 +5,7 @@ import { ProposalQuery, ProposalsQuery } from "../../.graphclient"
 import {
   Box,
   Code,
+  Divider,
   Heading,
   HStack,
   ListItem,
@@ -29,12 +30,15 @@ export const ProposalContent: FC<ProposalContentProps> = ({ proposal }) => {
   )
   return (
     <>
-      <VStack p={4} alignSelf={"start"} alignItems={"start"}>
+      <VStack p={8} alignSelf={"start"} alignItems={"start"}>
         <Text fontWeight={"bold"}>Proposed by</Text>
         <AvatarWallet withLink address={proposal.proposer.id} />
       </VStack>
-      <Box
+      <VStack
+        maxW={"full"}
         p={8}
+        alignItems={"start"}
+        spacing={8}
         sx={{
           ".markdown p": { py: 4 },
           ".markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5":
@@ -46,12 +50,12 @@ export const ProposalContent: FC<ProposalContentProps> = ({ proposal }) => {
           children={proposal.description.replace(`# ${proposal.title}`, "")}
           remarkPlugins={[remarkBreaks]}
         />
-        <Heading as={"h2"} textStyle={"h2"}>
+        <Heading as={"h2"} textStyle={"h2"} fontSize="4xl">
           Proposed Transactions
         </Heading>
-        <OrderedList>
+        <OrderedList spacing={8} listStylePosition={"inside"}>
           {transactions.map(([target, signature, value, calldata]) => (
-            <ListItem>
+            <ListItem maxW="xl">
               <Transaction
                 target={target}
                 signature={signature}
@@ -61,7 +65,7 @@ export const ProposalContent: FC<ProposalContentProps> = ({ proposal }) => {
             </ListItem>
           ))}
         </OrderedList>
-      </Box>
+      </VStack>
     </>
   )
 }
