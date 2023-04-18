@@ -14,6 +14,7 @@ import { MeshResolvedSource } from '@graphql-mesh/runtime';
 import { MeshTransform, MeshPlugin } from '@graphql-mesh/types';
 import GraphqlHandler from "@graphql-mesh/graphql"
 import UsePollingLive from "@graphprotocol/client-polling-live";
+import BlockTrackingTransform from "@graphprotocol/client-block-tracking";
 import StitchingMerger from "@graphql-mesh/merger-stitching";
 import { printWithCache } from '@graphql-mesh/utils';
 import { createMeshHTTPHandler, MeshHTTPHandler } from '@graphql-mesh/http';
@@ -21,8 +22,8 @@ import { getMesh, ExecuteMeshFn, SubscribeMeshFn, MeshContext as BaseMeshContext
 import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
 import { path as pathModule } from '@graphql-mesh/cross-helpers';
 import { ImportFn } from '@graphql-mesh/types';
-import type { NounsTypes } from './sources/nouns/types';
 import type { GnarsTypes } from './sources/gnars/types';
+import type { NounsTypes } from './sources/nouns/types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -3802,11 +3803,6 @@ sources[0] = {
           handler: nounsHandler,
           transforms: nounsTransforms
         }
-sources[1] = {
-          name: 'gnars',
-          handler: gnarsHandler,
-          transforms: gnarsTransforms
-        }
 additionalEnvelopPlugins[0] = await UsePollingLive({
           ...({
   "defaultInterval": 12000
@@ -3817,6 +3813,20 @@ additionalEnvelopPlugins[0] = await UsePollingLive({
           baseDir,
           importFn,
         })
+gnarsTransforms[0] = new BlockTrackingTransform({
+                  apiName: "gnars",
+                  config: {"validateSchema":true},
+                  baseDir,
+                  cache,
+                  pubsub,
+                  importFn,
+                  logger,
+                });
+sources[1] = {
+          name: 'gnars',
+          handler: gnarsHandler,
+          transforms: gnarsTransforms
+        }
 const additionalResolvers = await Promise.all([
         import("../queries/resolvers")
             .then(m => m.resolvers || m.default || m)
