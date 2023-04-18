@@ -9,7 +9,6 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import Menu from "../components/Menu"
-import Gnar from "../components/Gnar"
 import { usePlaygroundState } from "../hooks/usePlaygroundState"
 import { Generator } from "../components/Playground/Generator"
 import { Claiming } from "../components/Claiming"

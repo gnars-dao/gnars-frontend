@@ -14,7 +14,6 @@ import {
   WrapItem,
 } from "@chakra-ui/react"
 import { useWalletOgGnars } from "../hooks/useWalletOgGnars"
-import Gnar from "./Gnar"
 import { getGnartwork } from "../utils"
 import { useEffect, useState } from "react"
 import {
@@ -25,6 +24,7 @@ import { is } from "date-fns/locale"
 import { BigNumber } from "ethers"
 import { ContractActionButton } from "./ContractActionButton"
 import { mainnet } from "wagmi/chains"
+import { GnarImage } from "./GnarImage"
 
 export const Claiming = () => {
   const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" })
@@ -159,13 +159,11 @@ export const Claiming = () => {
                     OG Gnar {ogGnar.id}
                   </Text>
                   <SimpleGrid>
-                    <Gnar
+                    <GnarImage
                       gridArea={"1/1"}
-                      gnarId={`${ogGnar.id}`}
                       isOg={true}
                       gnartwork={gnartWork}
                       boxSize={gnarSize}
-                      withButtons={false}
                     />
                     {ogGnar.wasClaimed && (
                       <Box

@@ -14,11 +14,9 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import Menu from "../../components/Menu"
-import Gnar from "../../components/Gnar"
 import { usePlaygroundState } from "../../hooks/usePlaygroundState"
 import { Generator } from "../../components/Playground/Generator"
 import { GnarImage } from "../../components/GnarImage"
-import { mockProposals } from "../../mock/mockProposals"
 import {
   execute,
   ProposalsDocument,

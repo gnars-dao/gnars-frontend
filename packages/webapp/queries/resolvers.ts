@@ -4,8 +4,10 @@ import { Resolvers } from "../.graphclient"
 const resolvers: Resolvers = {
   Query: {
     proposals: async (root, args, context, info) =>
+      // @ts-ignore
       await context.nouns.Query.proposals({ root, args, context, info }),
     proposal: async (root, args, context, info) =>
+      // @ts-ignore
       await context.nouns.Query.proposal({ root, args, context, info }),
   },
 }

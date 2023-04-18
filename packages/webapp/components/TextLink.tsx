@@ -1,6 +1,7 @@
-import Link from "next/link"
+import Link, { LinkProps } from "next/link"
+import { PropsWithChildren } from "react"
 
-export default function TextLink(props) {
+export default function TextLink(props: PropsWithChildren<LinkProps>) {
   const { href, children } = props
   return (
     <Link href={href} passHref legacyBehavior>

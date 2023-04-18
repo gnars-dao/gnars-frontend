@@ -4,7 +4,7 @@ import { cloneDeep, some } from "lodash"
 import { Provider } from "@ethersproject/providers"
 import { useQuery } from "@tanstack/react-query"
 
-export const useNnsNameWithEnsFallback = (address?: string) => {
+export const useNnsNameWithEnsFallback = (address: string) => {
   const provider = useProvider()
   const chainId = provider.network.chainId
   const nnsProvider = useMemo<Provider | undefined>(() => {

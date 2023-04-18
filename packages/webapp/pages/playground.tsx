@@ -8,10 +8,11 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import Menu from "../components/Menu"
-import Gnar from "../components/Gnar"
 import { usePlaygroundState } from "../hooks/usePlaygroundState"
 import { Generator } from "../components/Playground/Generator"
 import { GnarImage } from "../components/GnarImage"
+import { GnarToolbar } from "components/GnarToolbar"
+import PlaygroundGnar from "components/Playground/PlaygroundGnar"
 
 export default function Playground() {
   const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" }) ?? "96px"
@@ -45,28 +46,10 @@ export default function Playground() {
             >
               {generatedGnars.map((gnar) => {
                 return (
-                  <GnarImage
-                    key={`playground-gnar-${gnar.id}`}
-                    isOg={false}
-                    gnartwork={gnar.gnartWork}
+                  <PlaygroundGnar
+                    gnartwork={gnar.gnartwork}
+                    playgroundGnarId={gnar.id}
                   />
-                  // <Gnar
-                  //   key={`playground-gnar-${gnar.id}`}
-                  //   gnarId={`playground-${gnar.id}`}
-                  //   isOg={false}
-                  //   gnartwork={gnar.gnartWork}
-                  //   boxSize={gnarSize}
-                  //   buttonProps={{ size: "xs" }}
-                  //   buttonsStackProps={{ bottom: -8 }}
-                  //   gridProps={{
-                  //     templateColumns: "24px 1fr",
-                  //     fontSize: "sm",
-                  //     gap: 0,
-                  //     p: 1,
-                  //   }}
-                  //   popoverProps={{ placement: "bottom-start" }}
-                  //   mb={6}
-                  // />
                 )
               })}
             </SimpleGrid>

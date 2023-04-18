@@ -45,11 +45,9 @@ export const PartPicker: FC<PartPickerProps> = ({
     clearSelection,
   } = usePlaygroundState()
   const chosenPartImage = useMemo(() => {
-    if (!selectedParts) {
+    if (!selectedParts || selectedParts.length === 0) {
       return <FaRandom size={"32px"} />
     }
-
-    console.log({ selectedParts })
 
     const imageUrl = buildSvg([selectedParts[0]], gnarDataV2.palette)
     return <Image src={imageUrl} />

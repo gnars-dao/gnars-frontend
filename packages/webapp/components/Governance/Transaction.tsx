@@ -70,12 +70,14 @@ export const Transaction: FC<TransactionProps> = ({
         {BigNumber.from(value).isZero()
           ? "Call "
           : `Send ${formatEther(value)} to `}
-        <Address
-          address={target}
-          withLink
-          truncate={false}
-          display="inline-flex"
-        />
+        {
+          <Address
+            address={target}
+            withLink
+            truncate={false}
+            display="inline-flex"
+          />
+        }
         .{func.name}(<br />
       </Text>
       <SimpleGrid

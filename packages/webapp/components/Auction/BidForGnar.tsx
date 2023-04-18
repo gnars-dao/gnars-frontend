@@ -34,7 +34,7 @@ import { FaCaretDown, FaCaretUp } from "react-icons/all"
 import { ConnectKitButton } from "connectkit"
 import { ContractActionButton } from "../ContractActionButton"
 import { mainnet } from "wagmi/chains"
-import useDebounce from "hooks/useDebounce"
+import { useDebounce } from "usehooks-ts"
 
 const minBidIncrementPercentage = 5
 
@@ -89,6 +89,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
     overrides: { value: parseEther(debouncedBidAmount) },
     chainId: mainnet.id,
   })
+
   const { isLoading, write } = useGnarsV2AuctionHouseCreateBid({
     ...config,
     request: {
