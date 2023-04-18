@@ -6,6 +6,7 @@ import gnarDataV2 from "../data/image-data-V2.json"
 import ogGnarData from "../data/image-data.json"
 import { V2_START_ID } from "./contracts"
 import { random } from "lodash"
+import { GnarData } from "../hooks/useGnarData"
 
 export const queryClient = new QueryClient()
 
@@ -96,6 +97,19 @@ export type Gnartwork = {
   background: string
 }
 
+export const getGnarBgColor = (
+  isOg: boolean,
+  fallback: string,
+  gnarInfo?: GnarData
+) => {
+  if (!gnarInfo) {
+    return fallback
+  }
+
+  const gnarData = isOg ? ogGnarData : gnarDataV2
+  return `#${gnarData.bgcolors[gnarInfo.gnar.seed.background]}`
+}
+
 export const getGnartwork = (isOg: boolean, seed: GnarSeed): Gnartwork => {
   const gnarData = isOg ? ogGnarData : gnarDataV2
   const { bodies, accessories, heads, glasses } = gnarData.images
@@ -145,7 +159,7 @@ export const isBgDark = (color: string) => {
   }
 }
 
-export const is10thGnar = (gnarId) => (gnarId - V2_START_ID) % 10 === 0
+export const is10thGnar = (gnarId: number) => (gnarId - V2_START_ID) % 10 === 0
 
 export const shortAddress = (address: string) =>
   [address.substring(0, 6), address.substring(38)].join("…")

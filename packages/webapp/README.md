@@ -7,6 +7,9 @@ install dependencies
 yarn
 ```
 
+copy `.env.example` to `.env` and fill in `NEXT_PUBLIC_ALCHEMY_API_KEY`
+
+
 run dev server
 ```
 yarn dev

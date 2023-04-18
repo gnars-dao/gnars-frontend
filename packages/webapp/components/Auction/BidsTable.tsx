@@ -1,4 +1,4 @@
-import { Bid, GnarInfo } from "../../hooks/useGnarInfo"
+import { Bid, GnarData } from "../../hooks/useGnarData"
 import {
   Link,
   SimpleGrid,
@@ -17,7 +17,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { FC } from "react"
-import { AvatarWallet } from "./AvatarWallet"
+import { AvatarWallet } from "../AvatarWallet"
 import { formatEther } from "ethers/lib/utils"
 import { HiExternalLink } from "react-icons/all"
 

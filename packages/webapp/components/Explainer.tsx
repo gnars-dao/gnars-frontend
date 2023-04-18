@@ -208,13 +208,6 @@ export default function Explainer() {
                     transaction as the new higher bid.
                   </div>
                 </div>
-                <div>
-                  Bids at the very last minute DO NOT increase the auction time.
-                  Instead, you have the opportunity to snipe the auction with a
-                  winning bid during the final moments. Sometimes, multiple bids
-                  are sent at the same time, but only one will be accepted by
-                  the auction house contract.
-                </div>
                 <div className="flex flex-col">
                   <div className="font-bold text-xl">Bid Refunds</div>
                   <div>

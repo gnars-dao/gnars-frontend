@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, FormEvent, useEffect, useRef, useState } from "react"
 import {
   Button,
   ButtonGroup,
@@ -34,19 +34,21 @@ import { FaCaretDown, FaCaretUp } from "react-icons/all"
 import { ConnectKitButton } from "connectkit"
 import { ContractActionButton } from "../ContractActionButton"
 import { mainnet } from "wagmi/chains"
+import useDebounce from "hooks/useDebounce"
 
 const minBidIncrementPercentage = 5
 
 export type BidForGnarProps = {
   gnarId: string
-  currentBid: string
+  latestBid?: string | null
 } & StackProps
 export const BidForGnar: FC<BidForGnarProps> = ({
   gnarId,
-  currentBid,
+  latestBid,
   ...props
 }) => {
   const RESERVE_PRICE = parseEther("0.01") // @TODO add this info to the subgraph so it's always up-to-date
+  const currentBid = latestBid ?? "0"
   const incrementedBid = BigNumber.from(currentBid)
     .mul(minBidIncrementPercentage)
     .div(100)
@@ -73,13 +75,27 @@ export const BidForGnar: FC<BidForGnarProps> = ({
   const inc = getIncrementButtonProps()
   const dec = getDecrementButtonProps()
   const input = getInputProps()
-  // @TODO use typechain instead
+
+  const debouncedFounderAllocation = useDebounce(founderAllocation, 500)
+  const debouncedTreasuryAllocation = useDebounce(treasuryAllocation, 500)
+  const debouncedBidAmount = useDebounce(bidAmount, 500)
+
   const { config } = usePrepareGnarsV2AuctionHouseCreateBid({
-    args: [BigNumber.from(gnarId), founderAllocation, treasuryAllocation],
-    overrides: { value: parseEther(bidAmount) },
+    args: [
+      BigNumber.from(gnarId),
+      debouncedFounderAllocation,
+      debouncedTreasuryAllocation,
+    ],
+    overrides: { value: parseEther(debouncedBidAmount) },
     chainId: mainnet.id,
   })
-  const { isLoading, write } = useGnarsV2AuctionHouseCreateBid(config)
+  const { isLoading, write } = useGnarsV2AuctionHouseCreateBid({
+    ...config,
+    request: {
+      ...config.request,
+      gasLimit: config.request.gasLimit.mul(115).div(100), // add 15% gas buffer to avoid tx rejections due to auction extensions
+    },
+  })
 
   return (
     <Stack direction={{ base: "column", md: "row" }} spacing={4} {...props}>

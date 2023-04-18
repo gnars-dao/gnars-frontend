@@ -12,21 +12,23 @@ import {
 } from "@chakra-ui/react"
 import { FC, useMemo } from "react"
 import { useEnsAvatar } from "wagmi"
-import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
+import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 // @ts-ignore
 import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync.mjs"
-import { shortAddress } from "../../utils"
+import { shortAddress } from "../utils"
 import { HiExternalLink } from "react-icons/all"
 
 export type AvatarWalletProps = {
   address: string
   withLink?: boolean
+  truncateAddress?: boolean
   variant?: AvatarProps["variant"]
 } & StackProps
 
 export const AvatarWallet: FC<AvatarWalletProps> = ({
   address,
   withLink = false,
+  truncateAddress = true,
   variant,
   ...props
 }) => {
@@ -53,7 +55,7 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({
         />
       )}
       <Text whiteSpace={"nowrap"}>
-        {nnsOrEnsName ?? shortAddress(address)}
+        {nnsOrEnsName ?? (truncateAddress ? shortAddress(address) : address)}
         {withLink && (
           <HiExternalLink
             style={{
