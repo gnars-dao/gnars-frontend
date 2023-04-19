@@ -54,7 +54,7 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({
           boxSize={"36px"}
         />
       )}
-      <Text whiteSpace={"nowrap"}>
+      <Text whiteSpace={"nowrap"} px={2}>
         {nnsOrEnsName ?? (truncateAddress ? shortAddress(address) : address)}
         {withLink && (
           <HiExternalLink

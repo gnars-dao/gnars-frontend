@@ -16,10 +16,12 @@ import {
   Link as ExternalLink,
   Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react"
 import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
 import { AvatarWallet } from "./AvatarWallet"
 import { OGNogglesIcon, ShredIcon } from "./Icons"
+import { WalletButton } from "./WalletButton"
 
 export type MenuProps = CenterProps
 
@@ -34,12 +36,17 @@ export default function Menu(props: MenuProps) {
       <Stack
         direction={{ base: "column", lg: "row" }}
         justifyContent={"space-between"}
+        alignItems={"start"}
         w={"full"}
         spacing={6}
         p={4}
         maxW={"1116px"}
       >
-        <HStack justifyContent={"space-between"}>
+        <HStack
+          justifyContent={"space-between"}
+          alignItems={"end"}
+          w={{ base: "full", lg: "fit-content" }}
+        >
           <HStack flexShrink={0} spacing={6}>
             <Link href="/">
               <Image
@@ -72,36 +79,39 @@ export default function Menu(props: MenuProps) {
             }
             fontSize="20px"
             aria-label="Show menu"
-            display={{ base: undefined, lg: "none" }}
+            hideFrom={"lg"}
+            justifySelf={"end"}
             onClick={() => setShowMenu(!showMenu)}
           />
         </HStack>
-        <Box display={{ base: showMenu ? "initial" : "none", lg: "initial" }}>
-          <Stack
-            spacing={{ base: 1, lg: 3 }}
-            direction={{ base: "column", lg: "row" }}
+        <Stack
+          spacing={{ base: 1, lg: 3 }}
+          direction={{ base: "column", lg: "row" }}
+          display={{ base: showMenu ? "flex" : "none", lg: "flex" }}
+          h={"fit-content"}
+          w={{ base: "full", lg: "fit-content" }}
+        >
+          <Link href="/claim">
+            <Button w={"full"} variant={"outline"} leftIcon={<ShredIcon />}>
+              Claim
+            </Button>
+          </Link>
+          <ExternalLink
+            href="https://snapshot.org/#/gnars.eth"
+            isExternal
+            rel="noopener noreferrer"
           >
-            <Link href="/claim">
-              <Button w={"full"} variant={"outline"} leftIcon={<ShredIcon />}>
-                Claim
-              </Button>
-            </Link>
-            <ExternalLink
-              href="https://snapshot.org/#/gnars.eth"
-              isExternal
-              rel="noopener noreferrer"
+            <Button
+              w={"full"}
+              variant={"outline"}
+              verticalAlign={"center"}
+              leftIcon={<FaUsers size={"1em"} />}
             >
-              <Button
-                w={"full"}
-                variant={"outline"}
-                verticalAlign={"center"}
-                leftIcon={<FaUsers size={"1em"} />}
-              >
-                DAO
-              </Button>
-            </ExternalLink>
+              DAO
+            </Button>
+          </ExternalLink>
 
-            {/* <Link
+          {/* <Link
               href="/dao/proposals"
             >
               <Button
@@ -113,39 +123,24 @@ export default function Menu(props: MenuProps) {
                 DAO
               </Button>
             </Link> */}
-            {/* @TODO change for link to DAO section */}
-            <ExternalLink
-              href="https://gnars.com"
-              isExternal
-              rel="noopener noreferrer"
-            >
-              <Button w={"full"} variant={"outline"} leftIcon={<FaBookOpen />}>
-                About
-              </Button>
-            </ExternalLink>
-            <Link href="/playground">
-              <Button w={"full"} variant={"outline"} leftIcon={<FaPlay />}>
-                Playground
-              </Button>
-            </Link>
-
-            <ConnectKitButton.Custom>
-              {({ isConnected, address, show }) => {
-                return (
-                  <HStack>
-                    <Button w={"full"} onClick={show}>
-                      {isConnected && address ? (
-                        <AvatarWallet address={address} />
-                      ) : (
-                        <Text>Connect Wallet</Text>
-                      )}
-                    </Button>
-                  </HStack>
-                )
-              }}
-            </ConnectKitButton.Custom>
-          </Stack>
-        </Box>
+          {/* @TODO change for link to DAO section */}
+          <ExternalLink
+            href="https://gnars.com"
+            isExternal
+            rel="noopener noreferrer"
+          >
+            <Button w={"full"} variant={"outline"} leftIcon={<FaBookOpen />}>
+              About
+            </Button>
+          </ExternalLink>
+          <Link href="/playground">
+            <Button w={"full"} variant={"outline"} leftIcon={<FaPlay />}>
+              Playground
+            </Button>
+          </Link>
+          <WalletButton hideFrom={"lg"} w="full" />
+        </Stack>
+        <WalletButton hideBelow={"md"} />
       </Stack>
     </Center>
   )
