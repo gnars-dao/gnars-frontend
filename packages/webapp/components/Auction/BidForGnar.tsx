@@ -79,7 +79,10 @@ export const BidForGnar: FC<BidForGnarProps> = ({
   const { isLoading, write: placeBid } = useGnarsV2AuctionHouseCreateBid({
     mode: "recklesslyUnprepared",
     args: [BigNumber.from(gnarId), founderAllocation, treasuryAllocation],
-    overrides: { value: parseEther(bidAmount) },
+    overrides: {
+      value: parseEther(bidAmount),
+      gasLimit: BigNumber.from(77_820), // to prevent out of gas errors with auction extensions
+    },
     chainId: mainnet.id,
   })
 
