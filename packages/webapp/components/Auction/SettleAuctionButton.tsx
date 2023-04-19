@@ -11,19 +11,18 @@ import { mainnet } from "wagmi/chains"
 
 export type SettleAuctionButtonProps = ButtonProps
 export const SettleAuctionButton: FC<SettleAuctionButtonProps> = (props) => {
-  const { config } =
-    usePrepareGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction({
+  const { isLoading, write: settle } =
+    useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction({
+      mode: "recklesslyUnprepared",
       chainId: mainnet.id,
     })
-  const { isLoading, write } =
-    useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction(config)
 
   return (
     <ContractActionButton
       isLoading={isLoading}
       loadingText={"Settling Auction"}
-      isDisabled={!write}
-      onClick={() => write?.()}
+      isDisabled={!settle}
+      onClick={() => settle()}
       {...props}
     >
       Settle Auction
