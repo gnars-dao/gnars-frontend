@@ -145,14 +145,14 @@ export const getGnartwork = (isOg: boolean, seed: GnarSeed): Gnartwork => {
 
 export const isBgDark = (color: string) => {
   switch (color) {
-    case "008080":
-    case "688679":
-    case "2f3635":
-    case "0827f5":
-    case "5d8585":
-    case "7d7d7d":
-    case "2b2a30":
-    case "666f5c":
+    case "#008080":
+    case "#688679":
+    case "#2f3635":
+    case "#0827f5":
+    case "#5d8585":
+    case "#7d7d7d":
+    case "#2b2a30":
+    case "#666f5c":
       return true
     default:
       return false
