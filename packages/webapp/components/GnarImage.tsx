@@ -14,7 +14,6 @@ interface GnarImageProps extends ImageProps {
 
 export const GnarImage = forwardRef<GnarImageProps, "img">(
   ({ isOg, gnartwork, ...props }, ref) => {
-    console.log({ isOg, gnartwork, ...props })
     const image = useMemo(() => {
       if (!gnartwork) {
         return null

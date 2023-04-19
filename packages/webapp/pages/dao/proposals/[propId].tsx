@@ -23,7 +23,6 @@ export default function Proposal() {
     { keepPreviousData: true }
   )
 
-  console.log({ propId, proposal })
   return (
     <DarkMode>
       <VStack
