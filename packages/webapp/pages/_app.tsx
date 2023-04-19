@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
         >
           <QueryClientProvider client={queryClient}>
             <DarkMode>
-              <VStack h={"full"} spacing={0}>
+              <VStack minH={"full"} spacing={0}>
                 <Component {...pageProps} />
                 <Footer />
               </VStack>

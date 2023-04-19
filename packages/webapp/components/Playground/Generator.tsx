@@ -1,4 +1,4 @@
-import { Button, VStack, Wrap, WrapItem } from "@chakra-ui/react"
+import { Button, CenterProps, VStack, Wrap, WrapItem } from "@chakra-ui/react"
 import { PartPicker } from "./PartPicker"
 import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "../Icons"
 import { FaSquareFull } from "react-icons/all"
@@ -7,7 +7,7 @@ import { FC } from "react"
 import * as CSS from "csstype"
 
 export type GeneratorProps = {
-  buttonSize: CSS.Property.Width | CSS.Property.Height | number
+  buttonSize: CenterProps["width"]
 }
 
 export const Generator: FC<GeneratorProps> = ({ buttonSize }) => {

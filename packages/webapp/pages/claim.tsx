@@ -18,9 +18,10 @@ export default function Claim() {
     <DarkMode>
       <VStack
         w={"full"}
+        flexGrow={1}
         h={"fit-content"}
         color={"chakra-body-text"}
-        spacing={6}
+        spacing={20}
       >
         <Menu />
         <Heading>Claim Gnars</Heading>

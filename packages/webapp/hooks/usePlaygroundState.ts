@@ -34,12 +34,15 @@ export const usePlaygroundState = create<PlaygroundState>((set) => ({
     set(({ selectedParts }) => ({
       selectedParts: {
         ...selectedParts,
-        [partKind]: [...(selectedParts[partKind] ?? []), part],
+        [partKind]: [part],
       },
     })),
   clearSelection: (partKind) =>
     set(({ selectedParts }) => ({
-      selectedParts: { ...selectedParts, clearedPart: [] },
+      selectedParts: {
+        ...selectedParts,
+        [partKind]: [],
+      },
     })),
   generate: () => {
     set(({ selectedParts, parts, counter, generatedGnars }) => {

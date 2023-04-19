@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Center,
+  CenterProps,
   Image,
   Modal,
   ModalBody,
@@ -28,7 +29,7 @@ export type PartPickerProps = {
   part: string
   partKind: PartKind
   icon: JSX.Element
-  size: CSS.Property.Width | CSS.Property.Height | number
+  size: CenterProps["width"]
 } & StackProps
 export const PartPicker: FC<PartPickerProps> = ({
   part,

@@ -22,8 +22,9 @@ export default function Playground() {
       <VStack
         w={"full"}
         h={"fit-content"}
+        flexGrow={1}
         color={"chakra-body-text"}
-        spacing={6}
+        spacing={20}
       >
         <Menu />
         <Heading>Playground</Heading>
@@ -34,7 +35,7 @@ export default function Playground() {
           py={{ base: 4, lg: 20 }}
           px={{ base: 4, lg: 20 }}
         >
-          <Generator buttonSize={gnarSize} />
+          <Generator buttonSize={["96px"]} />
           <Box minW={{ base: "full", lg: "4xl" }} maxW={"full"}>
             <SimpleGrid
               justifyContent={"center"}
