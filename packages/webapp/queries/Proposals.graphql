@@ -1,22 +1,29 @@
 query Proposals {
-    proposals(orderBy: createdTimestamp, orderDirection: desc, first: 1000) {
-        id
-        createdTimestamp
-        startBlock
-        endBlock
-        executionETA
-        title
-        status
-        proposer {
-            id
-        }
-        forVotes
-        abstainVotes
-        againstVotes
-        quorumVotes
-        totalSupply
-        minQuorumVotesBPS
-        maxQuorumVotesBPS
-        quorumCoefficient
+  _meta {
+    block {
+      number
+      timestamp
     }
+  }
+
+  proposals(orderBy: createdTimestamp, orderDirection: desc, first: 1000) {
+    id
+    createdTimestamp
+    startBlock
+    endBlock
+    executionETA
+    title
+    status
+    proposer {
+      id
+    }
+    forVotes
+    abstainVotes
+    againstVotes
+    quorumVotes
+    totalSupply
+    minQuorumVotesBPS
+    maxQuorumVotesBPS
+    quorumCoefficient
+  }
 }

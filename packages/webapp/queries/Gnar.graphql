@@ -1,4 +1,11 @@
 query Gnar($filter: Gnar_filter) {
+  _meta {
+    block {
+      number
+      timestamp
+    }
+  }
+
   gnars(
     first: 1
     orderBy: creationTimestamp
@@ -36,7 +43,11 @@ query Gnar($filter: Gnar_filter) {
     }
   }
 
-  latestGnar: gnars(first: 1, orderBy: creationTimestamp, orderDirection: desc) {
+  latestGnar: gnars(
+    first: 1
+    orderBy: creationTimestamp
+    orderDirection: desc
+  ) {
     id
   }
 

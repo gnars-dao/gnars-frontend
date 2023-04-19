@@ -3583,7 +3583,7 @@ export type GnarQueryVariables = Exact<{
 }>;
 
 
-export type GnarQuery = { gnars: Array<(
+export type GnarQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, gnars: Array<(
     Pick<Gnar, 'id' | 'creationTimestamp'>
     & { owner: Pick<Account, 'id'>, auction?: Maybe<(
       Pick<Auction, 'settled' | 'startTime' | 'endTime' | 'amount'>
@@ -3599,7 +3599,7 @@ export type OGGnarQueryVariables = Exact<{
 }>;
 
 
-export type OGGnarQuery = { ogAuction?: Maybe<(
+export type OGGnarQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, ogAuction?: Maybe<(
     Pick<OgAuction, 'amount' | 'bidder' | 'id'>
     & { bids: Array<Pick<OgBid, 'amount' | 'bidder' | 'blockTimestamp' | 'id'>>, gnar: Pick<OgGnar, 'accessory' | 'background' | 'body' | 'glasses' | 'head' | 'owner'> }
   )>, latestGnar: Array<Pick<Gnar, 'id'>>, latestAuction: Array<Pick<Auction, 'id'>> };
@@ -3609,7 +3609,7 @@ export type ProposalQueryVariables = Exact<{
 }>;
 
 
-export type ProposalQuery = { proposal?: Maybe<(
+export type ProposalQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, proposal?: Maybe<(
     Pick<Proposal, 'id' | 'createdTimestamp' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'description' | 'targets' | 'values' | 'signatures' | 'calldatas' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes' | 'totalSupply' | 'minQuorumVotesBPS' | 'maxQuorumVotesBPS' | 'quorumCoefficient'>
     & { proposer: Pick<Delegate, 'id'>, votes: Array<(
       Pick<Vote, 'supportDetailed' | 'reason'>
@@ -3620,7 +3620,7 @@ export type ProposalQuery = { proposal?: Maybe<(
 export type ProposalsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProposalsQuery = { proposals: Array<(
+export type ProposalsQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, proposals: Array<(
     Pick<Proposal, 'id' | 'createdTimestamp' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes' | 'totalSupply' | 'minQuorumVotesBPS' | 'maxQuorumVotesBPS' | 'quorumCoefficient'>
     & { proposer: Pick<Delegate, 'id'> }
   )> };
@@ -3635,6 +3635,12 @@ export type WalletOgGnarsQuery = { ogGnars: Array<Pick<OgGnar, 'id' | 'wasClaime
 
 export const GnarDocument = gql`
     query Gnar($filter: Gnar_filter) {
+  _meta {
+    block {
+      number
+      timestamp
+    }
+  }
   gnars(
     first: 1
     orderBy: creationTimestamp
@@ -3681,6 +3687,12 @@ export const GnarDocument = gql`
     ` as unknown as DocumentNode<GnarQuery, GnarQueryVariables>;
 export const OGGnarDocument = gql`
     query OGGnar($gnarId: ID!) {
+  _meta {
+    block {
+      number
+      timestamp
+    }
+  }
   ogAuction(id: $gnarId) {
     amount
     bidder
@@ -3710,6 +3722,12 @@ export const OGGnarDocument = gql`
     ` as unknown as DocumentNode<OGGnarQuery, OGGnarQueryVariables>;
 export const ProposalDocument = gql`
     query Proposal($id: ID!) {
+  _meta {
+    block {
+      number
+      timestamp
+    }
+  }
   proposal(id: $id) {
     id
     createdTimestamp
@@ -3746,6 +3764,12 @@ export const ProposalDocument = gql`
     ` as unknown as DocumentNode<ProposalQuery, ProposalQueryVariables>;
 export const ProposalsDocument = gql`
     query Proposals {
+  _meta {
+    block {
+      number
+      timestamp
+    }
+  }
   proposals(orderBy: createdTimestamp, orderDirection: desc, first: 1000) {
     id
     createdTimestamp

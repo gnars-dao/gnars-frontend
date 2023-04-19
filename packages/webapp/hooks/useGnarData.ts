@@ -5,7 +5,7 @@ import {
   UseQueryResult,
 } from "@tanstack/react-query"
 import { V2_START_ID } from "../utils/contracts"
-import { getBuiltGraphSDK } from "../.graphclient"
+import { getBuiltGraphSDK, GnarQuery } from "../.graphclient"
 
 export type Bid = {
   bidder: string
@@ -59,6 +59,7 @@ export type GnarV2 = Gnar & {
 }
 
 export type GnarData = {
+  block: NonNullable<GnarQuery["_meta"]>["block"]
   gnar: GnarV2 | OGGnar
   latestGnarId: string
   latestAuctionGnarId: string
@@ -86,6 +87,7 @@ export const fetchGnarData = async (
     }
 
     return {
+      block: ogGnarQueryResponse._meta!.block,
       latestGnarId: ogGnarQueryResponse.latestGnar["0"].id,
       latestAuctionGnarId: ogGnarQueryResponse.latestAuction["0"].id,
       gnar: {
@@ -104,6 +106,10 @@ export const fetchGnarData = async (
     }
   }
 
+  const gnarQueryResponse = await sdk.Gnar({
+    filter: desiredGnarId ? { id: `${desiredGnarId}` } : { auction_not: null },
+  })
+
   const {
     latestGnar: {
       [0]: { id: latestGnarId },
@@ -119,9 +125,7 @@ export const fetchGnarData = async (
         auction: auctionData,
       },
     },
-  } = await sdk.Gnar({
-    filter: desiredGnarId ? { id: `${desiredGnarId}` } : { auction_not: null },
-  })
+  } = gnarQueryResponse
 
   const auction = auctionData
     ? {
@@ -140,6 +144,7 @@ export const fetchGnarData = async (
     : null
 
   return {
+    block: gnarQueryResponse._meta!.block,
     latestGnarId,
     latestAuctionGnarId,
     gnar: {

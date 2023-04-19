@@ -43,6 +43,8 @@ export const GnarInfo: FC<GnarInfoProps> = ({
     ...(gnarData.gnar.auction ?? {}),
   }
 
+  const { block } = gnarData
+
   // @TODO show how many auctions are left until next gnarving
   // @TODO add slide animation when changing Gnar
   // @TODO add fake loader like https://github.com/rstacruz/nprogress
@@ -50,7 +52,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({
   const { data: ownerName } = useNnsNameWithEnsFallback(gnarData.gnar.owner)
 
   const auctionEnded = endTimestamp
-    ? isPast(new Date(endTimestamp * 1000))
+    ? isPast(new Date(endTimestamp * 1000)) && block.timestamp! > endTimestamp
     : true
   const isTreasuryGnar = is10thGnar(parseInt(gnarData.gnar.gnarId))
   const winner = isTreasuryGnar ? TREASURY_ADDRESS : latestBidder
