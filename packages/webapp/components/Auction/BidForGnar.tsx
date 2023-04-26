@@ -3,6 +3,7 @@ import {
   Button,
   ButtonGroup,
   ButtonProps,
+  FormControl,
   HStack,
   IconButton,
   Input,
@@ -21,6 +22,7 @@ import {
   Stack,
   StackProps,
   Text,
+  Tooltip,
   useNumberInput,
   useSlider,
 } from "@chakra-ui/react"
@@ -70,11 +72,13 @@ export const BidForGnar: FC<BidForGnarProps> = ({
     min: minBidEth,
     step: minBidEth * 0.05,
     precision: 7,
+    id: "bid-input",
   })
 
   const inc = getIncrementButtonProps()
   const dec = getDecrementButtonProps()
   const input = getInputProps()
+  const isValidBid = BigNumber.from(parseEther(bidAmount)).gte(minBid)
 
   const { isLoading, write: placeBid } = useGnarsV2AuctionHouseCreateBid({
     mode: "recklesslyUnprepared",
@@ -104,6 +108,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
 
         <InputGroup variant={"outline"} size={"lg"}>
           <Input
+            isInvalid={!isValidBid}
             variant={"outline"}
             textAlign={"end"}
             pr={10}
@@ -194,10 +199,10 @@ export const BidForGnar: FC<BidForGnarProps> = ({
         px={10}
         isLoading={isLoading}
         loadingText={"Bidding"}
-        isDisabled={!placeBid}
+        isDisabled={!placeBid || !isValidBid}
         onClick={() => placeBid()}
       >
-        Place Bid
+        {!isValidBid ? "Bid too low" : "Place Bid"}
       </ContractActionButton>
     </Stack>
   )

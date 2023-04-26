@@ -22,7 +22,7 @@ export const ContractActionButton: FC<ContractActionButtonProps> = ({
           onClick={
             isConnected ? (unsupported ? openSwitchNetworks : onClick) : show
           }
-          isDisabled={isConnected && !unsupported && isDisabled}
+          isDisabled={(isConnected && !unsupported) || isDisabled}
         />
       )}
     </ConnectKitButton.Custom>

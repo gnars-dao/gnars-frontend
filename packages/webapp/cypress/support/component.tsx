@@ -19,8 +19,14 @@ import "./commands"
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
+import "../../styles/global.css"
+
 import { mount } from "cypress/react18"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { Box, ChakraProvider, DarkMode } from "@chakra-ui/react"
+import theme from "../../theme"
+import { WagmiConfig, createClient, mainnet } from "wagmi"
+import { ConnectKitProvider, getDefaultClient } from "connectkit"
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -35,16 +41,38 @@ declare global {
 }
 
 Cypress.Commands.add("mount", (component, options = {}) => {
+  const client = createClient({
+    ...getDefaultClient({
+      appName: "Gnars",
+      alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+      chains: [mainnet],
+    }),
+    persister: null,
+  })
+
   const queryClient = new QueryClient()
 
   const wrapped = (
-    <QueryClientProvider client={queryClient}>{component}</QueryClientProvider>
+    <ChakraProvider theme={theme}>
+      <WagmiConfig client={client}>
+        <ConnectKitProvider
+          theme={"midnight"}
+          options={{ enforceSupportedChains: false, initialChainId: 1 }}
+        >
+          <QueryClientProvider client={queryClient}>
+            <DarkMode>
+              <Box color={"chakra-body-text"} bgColor={"chakra-body-bg"} p={2}>
+                {component}
+              </Box>
+            </DarkMode>
+          </QueryClientProvider>
+        </ConnectKitProvider>
+      </WagmiConfig>
+    </ChakraProvider>
   )
 
   return mount(wrapped, options)
 })
-
-Cypress.Commands.add("mount", (c) => {})
 
 // Example use:
 // cy.mount(<MyComponent />)
