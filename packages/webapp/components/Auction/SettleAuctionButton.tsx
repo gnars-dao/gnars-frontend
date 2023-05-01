@@ -21,7 +21,6 @@ export const SettleAuctionButton: FC<SettleAuctionButtonProps> = (props) => {
     <ContractActionButton
       isLoading={isLoading}
       loadingText={"Settling Auction"}
-      isDisabled={!settle}
       onClick={() => settle()}
       {...props}
     >
