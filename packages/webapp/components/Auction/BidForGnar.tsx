@@ -85,7 +85,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
     args: [BigNumber.from(gnarId), founderAllocation, treasuryAllocation],
     overrides: {
       value: parseEther(bidAmount),
-      gasLimit: BigNumber.from(77_820), // to prevent out of gas errors with auction extensions
+      gasLimit: BigNumber.from(100_000), // to prevent out of gas errors with auction extensions
     },
     chainId: mainnet.id,
   })
