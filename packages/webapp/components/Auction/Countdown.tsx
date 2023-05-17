@@ -8,16 +8,24 @@ export type CountdownProps = {
 }
 
 export const Countdown: FC<CountdownProps> = ({ timestamp }) => {
-  const [timeLeft, setTimeLeft] = useState<string>("")
+  const [timeLeft, setTimeLeft] = useState<string>(
+    getCountdown(new Date(timestamp * 1000))
+  )
 
   useEffect(() => {
     const endDate = new Date(timestamp * 1000)
+    setTimeLeft(getCountdown(endDate))
+
     if (isPast(endDate)) {
       return
     }
 
-    setTimeLeft(getCountdown(endDate))
-    const interval = setInterval(() => setTimeLeft(getCountdown(endDate)), 1000)
+    const interval = setInterval(() => {
+      setTimeLeft(getCountdown(endDate))
+      if (isPast(endDate)) {
+        clearInterval(interval)
+      }
+    }, 1000)
 
     return () => clearInterval(interval)
   }, [timestamp])
@@ -28,16 +36,21 @@ export const Countdown: FC<CountdownProps> = ({ timestamp }) => {
 const getCountdown = (endDate: Date) => {
   const duration = intervalToDuration({ start: Date.now(), end: endDate })
 
-  let timeLeft = ""
-  if (duration?.hours && duration.hours > 0) {
-    timeLeft = `${duration.hours}h `
+  if (isPast(endDate)) {
+    return "next block"
   }
-  if (
-    (duration?.hours && duration.hours > 0) ||
-    (duration?.minutes && duration?.minutes > 0)
-  ) {
+
+  let timeLeft = ""
+  if (duration?.days && duration.days > 0) {
+    timeLeft = `${duration.days}d `
+  }
+  if (timeLeft !== "" || (duration?.hours && duration.hours > 0)) {
+    timeLeft += `${duration.hours}h `
+  }
+  if (timeLeft !== "" || (duration?.minutes && duration?.minutes > 0)) {
     timeLeft += `${duration.minutes}m `
   }
   timeLeft += `${duration.seconds}s`
+
   return timeLeft
 }
