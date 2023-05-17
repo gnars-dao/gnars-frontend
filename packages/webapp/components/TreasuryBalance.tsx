@@ -1,5 +1,3 @@
-"use client"
-
 import { Spinner } from "@chakra-ui/react"
 import { nFormatter } from "utils"
 import { TREASURY_ADDRESS } from "utils/contracts"

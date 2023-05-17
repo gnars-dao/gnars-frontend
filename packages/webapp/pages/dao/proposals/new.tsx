@@ -1,5 +1,3 @@
-"use client"
-
 import { Container, DarkMode, VStack } from "@chakra-ui/react"
 import {
   ProposalCreationContextProvider,

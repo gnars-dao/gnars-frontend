@@ -1,5 +1,3 @@
-"use client"
-
 import { Button, ButtonProps, Text } from "@chakra-ui/react"
 import { ConnectKitButton } from "connectkit"
 import { AvatarWallet } from "./AvatarWallet"

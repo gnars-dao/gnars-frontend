@@ -1,5 +1,3 @@
-"use client"
-
 import { ChakraProvider, DarkMode, VStack } from "@chakra-ui/react"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { Analytics } from "@vercel/analytics/react"
