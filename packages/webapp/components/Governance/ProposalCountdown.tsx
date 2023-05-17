@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { HStack, Spinner, Text, Tooltip } from "@chakra-ui/react"
 import { EffectiveProposalStatus } from "../../utils/governanceUtils"
-import { RiTimeFill } from "react-icons/all"
+import { RiTimeFill } from "react-icons/ri"
 import { ProposalsQuery } from "../../.graphclient"
 import { useBlock } from "../../hooks/useBlock"
 import locale from "date-fns/locale/en-US"
@@ -15,12 +15,16 @@ import {
 
 export interface ProposalCountdownProps {
   effectiveStatus: EffectiveProposalStatus
-  proposal: ProposalsQuery["proposals"][0]
+  executionETA?: number
+  startBlock: number
+  endBlock: number
 }
 
 export const ProposalCountdown: FC<ProposalCountdownProps> = ({
   effectiveStatus,
-  proposal,
+  executionETA,
+  startBlock,
+  endBlock,
 }) => {
   const block = useBlock()
   if (
@@ -28,6 +32,13 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
     effectiveStatus !== "PENDING" &&
     effectiveStatus !== "ACTIVE" &&
     effectiveStatus !== "EXECUTABLE"
+  ) {
+    return <></>
+  }
+
+  if (
+    (effectiveStatus === "QUEUED" || effectiveStatus === "EXECUTABLE") &&
+    !executionETA
   ) {
     return <></>
   }
@@ -48,10 +59,10 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
 
   const estimatedDate = new Date(
     {
-      QUEUED: proposal.executionETA,
-      PENDING: block.timestamp + 12 * (proposal.startBlock - block.number),
-      ACTIVE: block.timestamp + 12 * (proposal.endBlock - block.number),
-      EXECUTABLE: proposal.executionETA + 14 * secondsInDay,
+      PENDING: block.timestamp + 12 * (startBlock - block.number),
+      ACTIVE: block.timestamp + 12 * (endBlock - block.number),
+      QUEUED: executionETA!,
+      EXECUTABLE: executionETA! + 14 * secondsInDay,
     }[effectiveStatus] * 1000
   )
 

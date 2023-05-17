@@ -22,14 +22,12 @@ import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
 import { AvatarWallet } from "./AvatarWallet"
 import { OGNogglesIcon, ShredIcon } from "./Icons"
 import { WalletButton } from "./WalletButton"
+import { TreasuryBalance } from "./TreasuryBalance"
 
 export type MenuProps = CenterProps
 
 export default function Menu(props: MenuProps) {
   const [showMenu, setShowMenu] = useState(false)
-  const { data: balanceData, isSuccess: isSuccessBalance } = useBalance({
-    address: TREASURY_ADDRESS,
-  })
 
   return (
     <Center w={"full"} {...props}>
@@ -55,22 +53,18 @@ export default function Menu(props: MenuProps) {
                 src="/images/logo.png"
               />
             </Link>
-            {isSuccessBalance && (
-              <ExternalLink
-                href={`https://etherscan.io/address/${TREASURY_ADDRESS}`}
-                isExternal
-                rel="noopener noreferrer"
-              >
-                <Button variant={"outline"}>
-                  <HStack>
-                    <div>Treasury</div>
-                    <div className="whitespace-nowrap">
-                      Ξ {nFormatter(Number(balanceData?.formatted), 3)}
-                    </div>
-                  </HStack>
-                </Button>
-              </ExternalLink>
-            )}
+            <ExternalLink
+              href={`https://etherscan.io/address/${TREASURY_ADDRESS}`}
+              isExternal
+              rel="noopener noreferrer"
+            >
+              <Button variant={"outline"}>
+                <HStack>
+                  <div>Treasury</div>
+                  <TreasuryBalance />
+                </HStack>
+              </Button>
+            </ExternalLink>
           </HStack>
           <IconButton
             variant={"outline"}

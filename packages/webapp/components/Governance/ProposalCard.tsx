@@ -5,39 +5,44 @@ import {
   StackProps,
   Text,
   Tooltip,
-  useBreakpointValue,
   VStack,
 } from "@chakra-ui/react"
-import { ProposalsQuery } from "../../.graphclient"
-import { useBlock } from "../../hooks/useBlock"
 import { FC } from "react"
 import {
-  getProposalEffectiveStatus,
-  getQuorumVotes,
+  EffectiveProposalStatus,
   isFinalized,
+  QuorumVotes,
+  Votes,
 } from "../../utils/governanceUtils"
-import { ProposalStatusBadge } from "./ProposalStatusBadge"
 import { ProposalCountdown } from "./ProposalCountdown"
+import { useProposalCreationContext } from "./ProposalCreationContext"
+import { ProposalStatusBadge } from "./ProposalStatusBadge"
 
 export interface ProposalCardProps extends StackProps {
-  proposal: ProposalsQuery["proposals"][0]
+  id: string
+  title: string
+  status: EffectiveProposalStatus
+  quorumVotes?: QuorumVotes
+  votes?: Votes
+  executionETA?: number
+  startBlock?: number
+  endBlock?: number
 }
 
 export const ProposalCard: FC<ProposalCardProps> = ({
-  proposal,
+  id,
+  title,
+  status,
+  quorumVotes,
+  votes,
+  startBlock,
+  endBlock,
+  executionETA,
   children,
   ...props
 }) => {
-  const block = useBlock()
-  const effectiveStatus = getProposalEffectiveStatus(
-    proposal,
-    block?.number,
-    block?.timestamp
-  )
-
-  const proposalFinalized = isFinalized(effectiveStatus)
-  const quorumVotes = getQuorumVotes(proposal)
-  const isMobile = useBreakpointValue([true, false]) ?? true
+  const proposalFinalized = isFinalized(status)
+  const proposalCreation = useProposalCreationContext()
   return (
     <VStack
       w={"full"}
@@ -69,7 +74,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             borderRightRadius={"md"}
             fontWeight={"bold"}
           >
-            {proposal.id}
+            {id}
           </Badge>
           <Text
             lineHeight={1.8}
@@ -80,7 +85,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             pl={"16px"}
             // textIndent={"-16px"}
           >
-            {proposal.title}
+            {title}
           </Text>
         </Box>
 
@@ -92,12 +97,16 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             borderRadius={0}
             borderTopRightRadius={"md"}
             borderBottomLeftRadius={"2xl"}
-            status={effectiveStatus}
+            status={status}
           />
-          <ProposalCountdown
-            effectiveStatus={effectiveStatus}
-            proposal={proposal}
-          />
+          {startBlock && endBlock && (
+            <ProposalCountdown
+              effectiveStatus={status}
+              startBlock={startBlock}
+              endBlock={endBlock}
+              executionETA={executionETA}
+            />
+          )}
         </VStack>
       </HStack>
       <Text
@@ -107,9 +116,9 @@ export const ProposalCard: FC<ProposalCardProps> = ({
         fontWeight={"semibold"}
         lineHeight={1.8}
       >
-        {proposal.title}
+        {title}
       </Text>
-      {!proposalFinalized && effectiveStatus !== "PENDING" && (
+      {votes && !proposalFinalized && status !== "PENDING" && (
         <HStack
           opacity={proposalFinalized ? 0 : 1}
           _hover={{ opacity: 1 }}
@@ -122,50 +131,44 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             hasArrow
             color={"white"}
             bgColor={"green.500"}
-            label={`${proposal.forVotes} FOR`}
+            label={`${votes.forVotes} FOR`}
           >
             <Box
               h={"full"}
               bgColor={"green.500"}
-              w={`${
-                (100 * parseInt(proposal.forVotes)) / proposal.totalSupply
-              }%`}
+              w={`${(100 * votes.forVotes) / votes.totalSupply}%`}
             />
           </Tooltip>
-          <Tooltip
-            hasArrow
-            color={"white"}
-            bgColor={"green.900"}
-            label={`${quorumVotes.current} REQUIRED`}
-          >
-            <Box
-              h={"full"}
-              opacity={0.5}
+          {quorumVotes && (
+            <Tooltip
+              hasArrow
+              color={"white"}
               bgColor={"green.900"}
-              w={`${
-                (100 *
-                  Math.max(
-                    quorumVotes.current - parseInt(proposal.forVotes),
-                    0
-                  )) /
-                proposal.totalSupply
-              }%`}
-            />
-          </Tooltip>
+              label={`${quorumVotes.current} REQUIRED`}
+            >
+              <Box
+                h={"full"}
+                opacity={0.5}
+                bgColor={"green.900"}
+                w={`${
+                  (100 * Math.max(quorumVotes.current - votes.forVotes, 0)) /
+                  votes.totalSupply
+                }%`}
+              />
+            </Tooltip>
+          )}
           <Box h={"full"} flexGrow={1} />
 
           <Tooltip
             hasArrow
             color={"white"}
             bgColor={"gray.500"}
-            label={`${proposal.abstainVotes} ABSTAIN`}
+            label={`${votes.abstainVotes} ABSTAIN`}
           >
             <Box
               h={"full"}
               bgColor={"gray.500"}
-              w={`${
-                (100 * parseInt(proposal.abstainVotes)) / proposal.totalSupply
-              }%`}
+              w={`${(100 * votes.abstainVotes) / votes.totalSupply}%`}
             />
           </Tooltip>
           <Box h={"full"} flexGrow={1} />
@@ -173,14 +176,12 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             hasArrow
             color={"white"}
             bgColor={"red.400"}
-            label={`${proposal.againstVotes} AGAINST`}
+            label={`${votes.againstVotes} AGAINST`}
           >
             <Box
               h={"full"}
               bgColor={"red.400"}
-              w={`${
-                (100 * parseInt(proposal.againstVotes)) / proposal.totalSupply
-              }%`}
+              w={`${(100 * votes.againstVotes) / votes.totalSupply}%`}
             />
           </Tooltip>
         </HStack>

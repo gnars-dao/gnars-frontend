@@ -22,7 +22,7 @@ import {
 import { FaInfo } from "react-icons/fa"
 import { MdFileDownload } from "react-icons/md"
 import { FC, useRef } from "react"
-import { FaSquareFull } from "react-icons/all"
+import { FaSquareFull } from "react-icons/fa"
 import { Gnartwork } from "utils"
 import { GnarImage } from "components/GnarImage"
 import { GnarToolbar } from "components/GnarToolbar"

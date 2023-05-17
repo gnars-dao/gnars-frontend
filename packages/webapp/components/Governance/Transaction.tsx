@@ -7,51 +7,42 @@ import {
   ListItem,
   OrderedList,
   SimpleGrid,
+  StackProps,
   Text,
   UnorderedList,
   VStack,
 } from "@chakra-ui/react"
-import { defaultAbiCoder, formatEther, getAddress } from "ethers/lib/utils"
-import { AvatarWallet } from "../AvatarWallet"
+import {
+  defaultAbiCoder,
+  formatEther,
+  getAddress,
+  ParamType,
+} from "ethers/lib/utils"
 import { BigNumber, Contract, utils } from "ethers"
 import { Address } from "../Address"
 import { chakra } from "@chakra-ui/react"
 import { useQuery } from "wagmi"
+import { AvatarWallet } from "components/AvatarWallet"
+import { TransactionData } from "utils/governanceUtils"
 
-export interface TransactionProps {
-  target: string
-  signature?: string
-  value: string
-  calldata: string
+export interface TransactionProps extends StackProps {
+  data: TransactionData
 }
 
 export const Transaction: FC<TransactionProps> = ({
-  target,
-  signature,
-  value,
-  calldata,
+  data: { calldata, signature, target, value },
+  ...props
 }) => {
   const address = getAddress(target) // Ensures address is in checksum format
-  const { data: contractIface } = useQuery(["abi", target], () => {
-    return Promise.all([
-      fetch(
-        `https://repo.sourcify.dev/contracts/full_match/1/${address}/metadata.json`
-      ),
-      fetch(
-        `https://repo.sourcify.dev/contracts/partial_match/1/${address}/metadata.json`
-      ),
-    ])
-      .then(([fullMatch, partialMatch]) => fullMatch ?? partialMatch)
-      .then((res) => (res ? res.json() : null))
-      .then((abi) => (abi ? new Contract(address, abi).interface : null))
-  })
 
-  if (!signature && calldata === "0x") {
+  if (!signature) {
     return (
-      <Text>
-        Transfer <strong>{formatEther(value)}</strong> ETH to
+      <VStack alignItems={"start"} {...props}>
+        <Text>
+          Transfer <strong>{formatEther(value)}</strong> ETH to
+        </Text>
         <AvatarWallet withLink truncateAddress={false} address={target} />
-      </Text>
+      </VStack>
     )
   }
 
@@ -62,65 +53,74 @@ export const Transaction: FC<TransactionProps> = ({
     iface.getSighash(signature!) + calldata.replace("0x", "")
   )
 
-  const params = decodedData.toString().split(",")
-
   return (
-    <VStack alignItems={"start"}>
+    <VStack alignItems={"start"} {...props}>
       <Text>
-        {BigNumber.from(value).isZero()
-          ? "Call "
-          : `Send ${formatEther(value)} to `}
-        {
-          <Address
-            address={target}
-            withLink
-            truncate={false}
-            display="inline-flex"
-          />
-        }
-        .{func.name}(<br />
+        Call <strong>{func.name}</strong>{" "}
+        {BigNumber.from(value).gt(0)
+          ? ` with ${formatEther(value)} ETH on`
+          : " on"}
       </Text>
-      <SimpleGrid
-        gridGap={"1px"}
-        columns={1}
-        p={2}
-        alignItems={"start"}
-        bgColor={"whiteAlpha.50"}
-        borderWidth={1}
-      >
-        {params.flatMap((param, i) => [
-          <Text
-            py={1}
-            lineHeight={1}
-            fontSize={"sm"}
-            fontWeight={"bold"}
-            color={"whiteAlpha.600"}
-          >
-            {contractIface
-              ? contractIface.getFunction(func.name).inputs[i].name
-              : `parameter ${i}`}
-          </Text>,
+      <AvatarWallet withLink truncateAddress={false} address={target} />
 
-          <Text
-            pb={i < params.length - 1 ? 2 : 1}
-            lineHeight={1}
-            borderBottomWidth={i < params.length - 1 ? 1 : 0}
-          >
-            {param}
-          </Text>,
-        ])}
-      </SimpleGrid>
-      <Text>)</Text>
-    </VStack>
-  )
+      {signature && (
+        <SimpleGrid
+          minW={"md"}
+          gridGap={"1px"}
+          columns={1}
+          p={2}
+          alignItems={"start"}
+          bgColor={"whiteAlpha.50"}
+          borderWidth={1}
+          sx={{
+            ".param-value": {
+              pb: 2,
+              // pb={i < params.length - 1 ? 2 : 1}
+              "&:not(:last-child)": {
+                borderBottomWidth: 1,
+                pb: 2,
+              },
+              "&:last-child": {
+                pb: 1,
+              },
+            },
+          }}
+        >
+          {func.inputs.flatMap((param, i) => {
+            const paramDescription =
+              param.type === "tuple"
+                ? `tuple(${param.components.map((c) => c.type).join(",")})`
+                : param.type
 
-  return (
-    <VStack alignItems={"start"}>
-      <Text>
-        Send <strong>{formatEther(value)}</strong>ETH to{" "}
-        <Address address={target} withLink truncate={false} />.{signature}
-      </Text>
-      <Text wordBreak={"break-word"}>With: {calldata}</Text>
+            const paramValue =
+              param.type === "tuple"
+                ? decodedData[i].map((v: any) => v.toString()).join(", ")
+                : decodedData[i].toString()
+
+            return [
+              <Text
+                className="param-description"
+                key={`param-${i}-description`}
+                py={1}
+                lineHeight={1}
+                fontSize={"sm"}
+                fontWeight={"bold"}
+                color={"whiteAlpha.600"}
+              >
+                {i}: {paramDescription}
+              </Text>,
+
+              <Text
+                className="param-value"
+                key={`param-${i}-value`}
+                lineHeight={1}
+              >
+                {paramValue}
+              </Text>,
+            ]
+          })}
+        </SimpleGrid>
+      )}
     </VStack>
   )
 }

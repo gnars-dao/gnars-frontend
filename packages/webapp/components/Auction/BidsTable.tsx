@@ -19,7 +19,7 @@ import {
 import { FC } from "react"
 import { AvatarWallet } from "../AvatarWallet"
 import { formatEther } from "ethers/lib/utils"
-import { HiExternalLink } from "react-icons/all"
+import { HiExternalLink } from "react-icons/hi"
 
 export type BidsProps = {
   bids: Bid[]

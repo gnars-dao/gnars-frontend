@@ -23,7 +23,14 @@ export const ProposalStatusBadge: FC<ProposalStatusBadgeProps> = ({
       {...props}
     >
       {status}
-      {["QUEUED", "EXECUTED", "SUCCEEDED"].includes(status) && (
+      {[
+        "QUEUED",
+        "EXECUTED",
+        "SUCCEEDED",
+        "EXECUTABLE",
+        "NEW",
+        "PREVIEW",
+      ].includes(status) && (
         <ShredIcon position={"absolute"} right={1} bottom={1} />
       )}
     </Badge>
@@ -39,20 +46,14 @@ const getProposalStyle = (
         colorScheme: "orange",
         variant: "subtle",
       }
-    //   return {
-    //     opacity: 0.7,
-    //     fontWeight: "bold",
-    //     bgColor: "transparent",
-    //     // boxShadow: "blue 0px 0px 0px 1px inset",
-    //     color: "blue",
-    //   }
     case "ACTIVE":
       return { colorScheme: "purple" }
     case "CANCELLED":
     case "UNDETERMINED":
-      return { colorScheme: "gray" }
+      return { colorScheme: "gray", color: "gray.300" }
     case "EXECUTED":
     case "QUEUED":
+    case "SUCCEEDED":
       return {
         colorScheme: "green",
       }
@@ -60,8 +61,10 @@ const getProposalStyle = (
       return { colorScheme: "red" }
     case "DEFEATED":
       return { colorScheme: "red" }
+    case "NEW":
+    case "PREVIEW":
+      return { colorScheme: "pink" }
     // case "EXPIRED":
-    // case "SUCCEEDED":
     default:
       return {}
   }

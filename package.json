@@ -8,8 +8,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "api:build": "turbo run build --filter=api",
-    "api:start": "yarn workspace api start"
+    "api:build": "turbo run build --filter=api"
   },
   "devDependencies": {
     "turbo": "^1.8.3"

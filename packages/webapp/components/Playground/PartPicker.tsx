@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react"
 import { FC, useMemo } from "react"
 import { usePlaygroundState } from "../../hooks/usePlaygroundState"
-import { FaRandom } from "react-icons/all"
+import { FaRandom } from "react-icons/fa"
 
 export type PartPickerProps = {
   part: string

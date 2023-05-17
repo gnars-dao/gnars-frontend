@@ -1,5 +1,10 @@
-import { ProposalsQuery, ProposalStatus } from "../.graphclient"
-import { BigNumber } from "ethers"
+import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../.graphclient"
+import { BigNumber, BigNumberish, BytesLike } from "ethers"
+import { zip } from "lodash"
+
+export type ProposalData = ProposalsQuery["proposals"][0]
+
+export type NewProposalData = {}
 
 export type EffectiveProposalStatus =
   | ProposalStatus
@@ -8,9 +13,36 @@ export type EffectiveProposalStatus =
   | "EXPIRED"
   | "UNDETERMINED"
   | "EXECUTABLE"
+  | "NEW"
+  | "PREVIEW"
+
+export type DetailedProposalData = NonNullable<ProposalQuery["proposal"]>
+
+export type TransactionData = {
+  target: `0x${string}`
+  signature: string
+  value: BigNumberish
+  calldata: string
+}
+
+export const getTransactions = (
+  proposal: DetailedProposalData
+): TransactionData[] => {
+  return zip(
+    proposal.targets,
+    proposal.signatures,
+    proposal.values,
+    proposal.calldatas
+  ).map(([target, signature, value, calldata]) => ({
+    target,
+    signature,
+    value,
+    calldata,
+  }))
+}
 
 export const getProposalEffectiveStatus = (
-  proposal: ProposalsQuery["proposals"][0],
+  proposal: ProposalData,
   blockNumber: number | undefined,
   blockTimestamp: number | undefined
 ): EffectiveProposalStatus => {
@@ -53,6 +85,17 @@ export const isFinalized = (effectiveStatus: EffectiveProposalStatus) =>
     "CANCELLED",
     "VETOED",
   ].includes(effectiveStatus)
+
+export type QuorumVotes = ReturnType<typeof getQuorumVotes>
+
+export interface Votes {
+  forVotes: number
+  againstVotes: number
+  abstainVotes: number
+  totalSupply: number
+}
+
+export interface Dates {}
 
 export const getQuorumVotes = (prop: ProposalsQuery["proposals"][0]) => {
   const againstVotesBPS =

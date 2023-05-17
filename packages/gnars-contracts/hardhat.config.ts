@@ -40,7 +40,9 @@ const config: HardhatUserConfig = {
     mainnet: {
       url: "https://eth-mainnet.alchemyapi.io/v2/DLaAUbKUZDJjAnUJNWxO7rDgI-8Ko5Cf",
       chainId: 1,
-      accounts: [process.env.DEPLOYER_PRIVATE_KEY!],
+      accounts: process.env.DEPLOYER_PRIVATE_KEY
+        ? [process.env.DEPLOYER_PRIVATE_KEY]
+        : undefined,
     },
   },
   abiExporter: {

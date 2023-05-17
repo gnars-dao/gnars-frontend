@@ -14,7 +14,7 @@ import { FC, useMemo } from "react"
 import { useEnsAvatar } from "wagmi"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 import { shortAddress } from "../utils"
-import { HiExternalLink } from "react-icons/all"
+import { HiExternalLink } from "react-icons/hi"
 
 export type AddressProps = {
   address: string

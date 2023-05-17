@@ -16,7 +16,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { FC } from "react"
-import { FaInfoCircle } from "react-icons/all"
+import { FaInfoCircle } from "react-icons/fa"
 
 interface BiddingAndSettlingModalProps {}
 

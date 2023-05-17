@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Avatar,
   AvatarProps,
@@ -16,7 +18,7 @@ import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 // @ts-ignore
 import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync.mjs"
 import { shortAddress } from "../utils"
-import { HiExternalLink } from "react-icons/all"
+import { HiExternalLink } from "react-icons/hi"
 
 export type AvatarWalletProps = {
   address: string

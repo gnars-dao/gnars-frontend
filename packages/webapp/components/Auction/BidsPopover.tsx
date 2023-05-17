@@ -9,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@chakra-ui/react"
-import { RiAuctionLine } from "react-icons/all"
+import { RiAuctionLine } from "react-icons/ri"
 import { BidsTable } from "./BidsTable"
 
 export type BidsPopoverProps = {
