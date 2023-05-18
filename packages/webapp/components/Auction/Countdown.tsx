@@ -1,56 +1,35 @@
-import { FC, useEffect, useState } from "react"
-import { intervalToDuration, isPast } from "date-fns"
-import { is } from "date-fns/locale"
 import { Text } from "@chakra-ui/react"
+import { useSecondsUntil } from "hooks/useSecondsUntil"
+import { FC } from "react"
 
 export type CountdownProps = {
   timestamp: number
 }
 
 export const Countdown: FC<CountdownProps> = ({ timestamp }) => {
-  const [timeLeft, setTimeLeft] = useState<string>(
-    getCountdown(new Date(timestamp * 1000))
-  )
+  const secondsUntil = useSecondsUntil(timestamp)
 
-  useEffect(() => {
-    const endDate = new Date(timestamp * 1000)
-    setTimeLeft(getCountdown(endDate))
-
-    if (isPast(endDate)) {
-      return
-    }
-
-    const interval = setInterval(() => {
-      setTimeLeft(getCountdown(endDate))
-      if (isPast(endDate)) {
-        clearInterval(interval)
-      }
-    }, 1000)
-
-    return () => clearInterval(interval)
-  }, [timestamp])
-
-  return <Text>{timeLeft}</Text>
-}
-
-const getCountdown = (endDate: Date) => {
-  const duration = intervalToDuration({ start: Date.now(), end: endDate })
-
-  if (isPast(endDate)) {
-    return "next block"
+  if (secondsUntil === null) {
+    return <Text>ended</Text>
   }
 
   let timeLeft = ""
-  if (duration?.days && duration.days > 0) {
-    timeLeft = `${duration.days}d `
+  const daysLeft = Math.floor(secondsUntil / 86400)
+  if (daysLeft > 0) {
+    timeLeft = `${daysLeft}d `
   }
-  if (timeLeft !== "" || (duration?.hours && duration.hours > 0)) {
-    timeLeft += `${duration.hours}h `
+  const hoursLeft = Math.floor((secondsUntil % 86400) / 3600)
+  if (timeLeft !== "" || hoursLeft > 0) {
+    timeLeft += `${hoursLeft}h `
   }
-  if (timeLeft !== "" || (duration?.minutes && duration?.minutes > 0)) {
-    timeLeft += `${duration.minutes}m `
-  }
-  timeLeft += `${duration.seconds}s`
 
-  return timeLeft
+  const minutesLeft = Math.floor((secondsUntil % 3600) / 60)
+  if (timeLeft !== "" || minutesLeft > 0) {
+    timeLeft += `${minutesLeft}m `
+  }
+
+  const secondsLeft = Math.floor(secondsUntil % 60)
+  timeLeft += `${secondsLeft}s`
+
+  return <Text>{timeLeft}</Text>
 }

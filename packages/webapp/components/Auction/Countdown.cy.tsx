@@ -1,12 +1,16 @@
-import { add, addDays, addHours, addSeconds, subSeconds } from "date-fns"
+import { addDays, addSeconds, subSeconds } from "date-fns"
 import React, { ReactElement, useEffect } from "react"
 import { Countdown } from "./Countdown"
+
+const referenceDate = new Date("2020-01-01 12:00:00")
 
 describe("<Countdown />", () => {
   it("Displays only the required units depending on the time left", () => {
     // see: https://on.cypress.io/mounting-react
-    cy.clock(new Date())
-    cy.mount(<Countdown timestamp={addDays(new Date(), 1).getTime() / 1000} />)
+    cy.clock(referenceDate)
+    cy.mount(
+      <Countdown timestamp={addDays(referenceDate, 1).getTime() / 1000} />
+    )
     cy.contains("1d 0h 0m 0s")
     cy.tick(1000)
     cy.contains("23h 59m 59s")
@@ -22,12 +26,12 @@ describe("<Countdown />", () => {
     cy.contains("0s")
   })
 
-  it("Displays 'next block' when the time is past", () => {
-    cy.clock(new Date())
+  it("Displays 'ended' when the time is past", () => {
+    cy.clock(referenceDate)
     cy.mount(
-      <Countdown timestamp={subSeconds(new Date(), 1).getTime() / 1000} />
+      <Countdown timestamp={subSeconds(referenceDate, 1).getTime() / 1000} />
     )
-    cy.contains("next block")
+    cy.contains("ended")
   })
 
   it("Updates the countdown correctly when timestamp changes", () => {
@@ -37,7 +41,7 @@ describe("<Countdown />", () => {
       children: ({ timestamp }: { timestamp: number }) => ReactElement
     }) => {
       const [timestamp, setTimestamp] = React.useState<number>(
-        addSeconds(new Date(), 20).getTime() / 1000
+        addSeconds(referenceDate, 20).getTime() / 1000
       )
       useEffect(() => {
         setTimestamp(addSeconds(new Date(), 90).getTime() / 1000)
@@ -45,7 +49,7 @@ describe("<Countdown />", () => {
 
       return children({ timestamp })
     }
-    cy.clock(new Date())
+    cy.clock(referenceDate)
     cy.mount(
       <TimestampContext>
         {({ timestamp }) => <Countdown timestamp={timestamp} />}

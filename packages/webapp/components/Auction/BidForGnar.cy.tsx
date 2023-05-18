@@ -1,7 +1,7 @@
+import { VStack } from "@chakra-ui/react"
+import { parseEther } from "ethers/lib/utils.js"
 import React, { ReactElement, useEffect } from "react"
 import { BidForGnar } from "./BidForGnar"
-import { Box, Square, Text, VStack } from "@chakra-ui/react"
-import { parseEther } from "ethers/lib/utils.js"
 
 describe("<BidForGnar />", () => {
   it("Defaults to min bid of 0.0100000 ETH", () => {

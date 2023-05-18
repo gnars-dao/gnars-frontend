@@ -1,8 +1,8 @@
-import { FC } from "react"
 import { Box, Stack, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
-import { SubtleStackDivider } from "../SubtleStackDivider"
+import { FC } from "react"
 import { truncatedAmount } from "../../utils"
 import { AvatarWallet } from "../AvatarWallet"
+import { SubtleStackDivider } from "../SubtleStackDivider"
 import { Countdown } from "./Countdown"
 
 interface AuctionStatusProps {
@@ -27,7 +27,6 @@ export const AuctionStatus: FC<AuctionStatusProps> = ({
   const divider = useBreakpointValue({
     md: <SubtleStackDivider />,
   })
-
   return (
     <Stack
       spacing={10}
