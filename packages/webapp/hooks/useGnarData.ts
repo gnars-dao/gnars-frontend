@@ -1,11 +1,6 @@
-import {
-  QueryFunction,
-  QueryKey,
-  useQuery,
-  UseQueryResult,
-} from "@tanstack/react-query"
-import { V2_START_ID } from "../utils/contracts"
+import { useQuery, UseQueryResult } from "@tanstack/react-query"
 import { getBuiltGraphSDK, GnarQuery } from "../.graphclient"
+import { V2_START_ID } from "../utils/contracts"
 
 export type Bid = {
   bidder: string
@@ -166,7 +161,7 @@ export default function useGnarData(
     ["gnar", desiredGnarId],
     () => fetchGnarData(desiredGnarId),
     {
-      refetchInterval: 12000,
+      refetchInterval: 2000,
       initialData,
     }
   )
