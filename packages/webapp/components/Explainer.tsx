@@ -123,7 +123,9 @@ export default function Explainer() {
                 </ul>
               </div>
 
-              <h2 className="text-4xl font-secondary">Gnarving Auctions</h2>
+              <h2 className="text-4xl font-secondary" id="gnarving">
+                Gnarving Auctions
+              </h2>
               <Stack
                 direction={{ base: "column", xl: "row-reverse" }}
                 className="flex flex-col gap-8 pt-8 pb-10 mb-10 border-b-2 border-borderColor"

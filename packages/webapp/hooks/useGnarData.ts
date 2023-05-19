@@ -9,6 +9,12 @@ export type Bid = {
   id: string
 }
 
+export interface GnarvingData {
+  auctionDuration: number
+  auctionsBetweenGnarvings: number
+  auctionsUntilNextGnarving: number
+}
+
 export type Gnar = {
   gnarId: string
   isLatestGnar: boolean
@@ -58,6 +64,7 @@ export type GnarData = {
   gnar: GnarV2 | OGGnar
   latestGnarId: string
   latestAuctionGnarId: string
+  gnarving: GnarvingData
 }
 
 export const fetchGnarData = async (
@@ -98,6 +105,7 @@ export const fetchGnarData = async (
           settled: true,
         },
       } as OGGnar,
+      gnarving: ogGnarQueryResponse.gnarving!,
     }
   }
 
@@ -120,6 +128,7 @@ export const fetchGnarData = async (
         auction: auctionData,
       },
     },
+    gnarving,
   } = gnarQueryResponse
 
   const auction = auctionData
@@ -150,6 +159,7 @@ export const fetchGnarData = async (
       owner,
       auction,
     } as GnarV2,
+    gnarving: gnarving!,
   }
 }
 

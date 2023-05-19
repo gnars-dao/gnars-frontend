@@ -28,6 +28,7 @@ import { BidForGnar } from "./BidForGnar"
 import { BidsPopover } from "./BidsPopover"
 import { BidsTable } from "./BidsTable"
 import { GnarNavigation } from "./GnarNavigation"
+import { GnarvingTracker } from "./GnarvingTracker"
 import { SettleAuctionButton } from "./SettleAuctionButton"
 
 interface GnarInfoProps extends StackProps {
@@ -81,6 +82,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({
       maxW={{ base: "full", lg: "500px", xl: "xl" }}
       {...props}
     >
+      <GnarvingTracker gnarvingData={gnarData.gnarving} w={"full"} />
       <Wrap
         color={"chakra-body-text"}
         w={"full"}

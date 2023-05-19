@@ -163,6 +163,51 @@ export type AuctionbidsArgs = {
   where?: InputMaybe<Bid_filter>;
 };
 
+export type AuctionHouse = {
+  /** Unique entity used to keep track of AuctionHouse settings */
+  id: Scalars['ID'];
+  /** The minimum value for bids */
+  reservePrice: Scalars['BigInt'];
+  /** The minimum time left on an Auction after a new bid is placed */
+  timeBuffer: Scalars['BigInt'];
+};
+
+export type AuctionHouse_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  reservePrice?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_not?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_gt?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_lt?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_gte?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_lte?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  reservePrice_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  timeBuffer?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_not?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_gt?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_lt?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_gte?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_lte?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  timeBuffer_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<AuctionHouse_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<AuctionHouse_filter>>>;
+};
+
+export type AuctionHouse_orderBy =
+  | 'id'
+  | 'reservePrice'
+  | 'timeBuffer';
+
 export type Auction_filter = {
   id?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
@@ -868,6 +913,84 @@ export type Gnar_orderBy =
   | 'auction__startTime'
   | 'auction__endTime'
   | 'auction__settled';
+
+export type Gnarving = {
+  /** Unique entity used to keep track of the Gnarving events */
+  id: Scalars['ID'];
+  /** Amount of Gnarvings that have happened */
+  gnarvings: Scalars['BigInt'];
+  /** Amount of auctions that separate Gnarvings */
+  auctionsBetweenGnarvings: Scalars['BigInt'];
+  /** Amount of auctions left until next gnarving */
+  auctionsUntilNextGnarving: Scalars['BigInt'];
+  /** Auction duration at launch */
+  initialAuctionDuration: Scalars['BigInt'];
+  /** Current auction duration */
+  auctionDuration: Scalars['BigInt'];
+};
+
+export type Gnarving_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  gnarvings?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_not?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_gt?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_lt?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_gte?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_lte?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  gnarvings_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionsBetweenGnarvings?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_not?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_gt?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_lt?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_gte?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_lte?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionsBetweenGnarvings_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionsUntilNextGnarving?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_not?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_gt?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_lt?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_gte?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_lte?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionsUntilNextGnarving_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  initialAuctionDuration?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_not?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_gt?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_lt?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_gte?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_lte?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  initialAuctionDuration_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionDuration?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_not?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_gt?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_lt?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_gte?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_lte?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionDuration_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Gnarving_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Gnarving_filter>>>;
+};
+
+export type Gnarving_orderBy =
+  | 'id'
+  | 'gnarvings'
+  | 'auctionsBetweenGnarvings'
+  | 'auctionsUntilNextGnarving'
+  | 'initialAuctionDuration'
+  | 'auctionDuration';
 
 export type Governance = {
   /** Unique entity used to keep track of common aggregated data */
@@ -1798,6 +1921,10 @@ export type Query = {
   bids: Array<Bid>;
   auction?: Maybe<Auction>;
   auctions: Array<Auction>;
+  auctionHouse?: Maybe<AuctionHouse>;
+  auctionHouses: Array<AuctionHouse>;
+  gnarving?: Maybe<Gnarving>;
+  gnarvings: Array<Gnarving>;
   account?: Maybe<Account>;
   accounts: Array<Account>;
   delegate?: Maybe<Delegate>;
@@ -1989,6 +2116,42 @@ export type QueryauctionsArgs = {
   orderBy?: InputMaybe<Auction_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   where?: InputMaybe<Auction_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryauctionHouseArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryauctionHousesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<AuctionHouse_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<AuctionHouse_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygnarvingArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygnarvingsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Gnarving_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Gnarving_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -2198,6 +2361,10 @@ export type Subscription = {
   bids: Array<Bid>;
   auction?: Maybe<Auction>;
   auctions: Array<Auction>;
+  auctionHouse?: Maybe<AuctionHouse>;
+  auctionHouses: Array<AuctionHouse>;
+  gnarving?: Maybe<Gnarving>;
+  gnarvings: Array<Gnarving>;
   account?: Maybe<Account>;
   accounts: Array<Account>;
   delegate?: Maybe<Delegate>;
@@ -2389,6 +2556,42 @@ export type SubscriptionauctionsArgs = {
   orderBy?: InputMaybe<Auction_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   where?: InputMaybe<Auction_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionauctionHouseArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionauctionHousesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<AuctionHouse_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<AuctionHouse_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongnarvingArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongnarvingsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Gnarving_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Gnarving_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -2888,6 +3091,14 @@ export type _SubgraphErrorPolicy_ =
   /** null **/
   auctions: InContextSdkMethod<Query['auctions'], QueryauctionsArgs, MeshContext>,
   /** null **/
+  auctionHouse: InContextSdkMethod<Query['auctionHouse'], QueryauctionHouseArgs, MeshContext>,
+  /** null **/
+  auctionHouses: InContextSdkMethod<Query['auctionHouses'], QueryauctionHousesArgs, MeshContext>,
+  /** null **/
+  gnarving: InContextSdkMethod<Query['gnarving'], QuerygnarvingArgs, MeshContext>,
+  /** null **/
+  gnarvings: InContextSdkMethod<Query['gnarvings'], QuerygnarvingsArgs, MeshContext>,
+  /** null **/
   account: InContextSdkMethod<Query['account'], QueryaccountArgs, MeshContext>,
   /** null **/
   accounts: InContextSdkMethod<Query['accounts'], QueryaccountsArgs, MeshContext>,
@@ -2958,6 +3169,14 @@ export type _SubgraphErrorPolicy_ =
   auction: InContextSdkMethod<Subscription['auction'], SubscriptionauctionArgs, MeshContext>,
   /** null **/
   auctions: InContextSdkMethod<Subscription['auctions'], SubscriptionauctionsArgs, MeshContext>,
+  /** null **/
+  auctionHouse: InContextSdkMethod<Subscription['auctionHouse'], SubscriptionauctionHouseArgs, MeshContext>,
+  /** null **/
+  auctionHouses: InContextSdkMethod<Subscription['auctionHouses'], SubscriptionauctionHousesArgs, MeshContext>,
+  /** null **/
+  gnarving: InContextSdkMethod<Subscription['gnarving'], SubscriptiongnarvingArgs, MeshContext>,
+  /** null **/
+  gnarvings: InContextSdkMethod<Subscription['gnarvings'], SubscriptiongnarvingsArgs, MeshContext>,
   /** null **/
   account: InContextSdkMethod<Subscription['account'], SubscriptionaccountArgs, MeshContext>,
   /** null **/

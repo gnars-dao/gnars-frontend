@@ -6,6 +6,12 @@ query OGGnar($gnarId: ID!) {
     }
   }
 
+  gnarving(id: "GNARVING") {
+    auctionDuration
+    auctionsBetweenGnarvings
+    auctionsUntilNextGnarving
+  }
+
   ogAuction(id: $gnarId) {
     amount
     bidder

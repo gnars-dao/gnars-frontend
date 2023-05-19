@@ -81,6 +81,10 @@ export type Query = {
   ogAuctions: Array<OgAuction>;
   gnar?: Maybe<Gnar>;
   gnars: Array<Gnar>;
+  auctionHouse?: Maybe<AuctionHouse>;
+  auctionHouses: Array<AuctionHouse>;
+  gnarving?: Maybe<Gnarving>;
+  gnarvings: Array<Gnarving>;
 };
 
 
@@ -387,6 +391,42 @@ export type QuerygnarsArgs = {
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
+
+export type QueryauctionHouseArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryauctionHousesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<AuctionHouse_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<AuctionHouse_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygnarvingArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygnarvingsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Gnarving_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Gnarving_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
 export type Subscription = {
   delegationEvent?: Maybe<DelegationEvent>;
   delegationEvents: Array<DelegationEvent>;
@@ -423,6 +463,10 @@ export type Subscription = {
   ogAuctions: Array<OgAuction>;
   gnar?: Maybe<Gnar>;
   gnars: Array<Gnar>;
+  auctionHouse?: Maybe<AuctionHouse>;
+  auctionHouses: Array<AuctionHouse>;
+  gnarving?: Maybe<Gnarving>;
+  gnarvings: Array<Gnarving>;
 };
 
 
@@ -725,6 +769,42 @@ export type SubscriptiongnarsArgs = {
   orderBy?: InputMaybe<Gnar_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   where?: InputMaybe<Gnar_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionauctionHouseArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionauctionHousesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<AuctionHouse_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<AuctionHouse_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongnarvingArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongnarvingsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Gnarving_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Gnarving_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -2563,6 +2643,51 @@ export type _SubgraphErrorPolicy_ =
   /** If the subgraph has indexing errors, data will be omitted. The default. */
   | 'deny';
 
+export type AuctionHouse = {
+  /** Unique entity used to keep track of AuctionHouse settings */
+  id: Scalars['ID'];
+  /** The minimum value for bids */
+  reservePrice: Scalars['BigInt'];
+  /** The minimum time left on an Auction after a new bid is placed */
+  timeBuffer: Scalars['BigInt'];
+};
+
+export type AuctionHouse_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  reservePrice?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_not?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_gt?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_lt?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_gte?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_lte?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  reservePrice_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  timeBuffer?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_not?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_gt?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_lt?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_gte?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_lte?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  timeBuffer_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<AuctionHouse_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<AuctionHouse_filter>>>;
+};
+
+export type AuctionHouse_orderBy =
+  | 'id'
+  | 'reservePrice'
+  | 'timeBuffer';
+
 export type Gnar = {
   /** The Gnar's ERC721 token id */
   id: Scalars['ID'];
@@ -2697,6 +2822,84 @@ export type Gnar_orderBy =
   | 'auction__startTime'
   | 'auction__endTime'
   | 'auction__settled';
+
+export type Gnarving = {
+  /** Unique entity used to keep track of the Gnarving events */
+  id: Scalars['ID'];
+  /** Amount of Gnarvings that have happened */
+  gnarvings: Scalars['BigInt'];
+  /** Amount of auctions that separate Gnarvings */
+  auctionsBetweenGnarvings: Scalars['BigInt'];
+  /** Amount of auctions left until next gnarving */
+  auctionsUntilNextGnarving: Scalars['BigInt'];
+  /** Auction duration at launch */
+  initialAuctionDuration: Scalars['BigInt'];
+  /** Current auction duration */
+  auctionDuration: Scalars['BigInt'];
+};
+
+export type Gnarving_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  gnarvings?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_not?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_gt?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_lt?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_gte?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_lte?: InputMaybe<Scalars['BigInt']>;
+  gnarvings_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  gnarvings_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionsBetweenGnarvings?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_not?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_gt?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_lt?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_gte?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_lte?: InputMaybe<Scalars['BigInt']>;
+  auctionsBetweenGnarvings_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionsBetweenGnarvings_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionsUntilNextGnarving?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_not?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_gt?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_lt?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_gte?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_lte?: InputMaybe<Scalars['BigInt']>;
+  auctionsUntilNextGnarving_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionsUntilNextGnarving_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  initialAuctionDuration?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_not?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_gt?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_lt?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_gte?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_lte?: InputMaybe<Scalars['BigInt']>;
+  initialAuctionDuration_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  initialAuctionDuration_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionDuration?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_not?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_gt?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_lt?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_gte?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_lte?: InputMaybe<Scalars['BigInt']>;
+  auctionDuration_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  auctionDuration_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Gnarving_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Gnarving_filter>>>;
+};
+
+export type Gnarving_orderBy =
+  | 'id'
+  | 'gnarvings'
+  | 'auctionsBetweenGnarvings'
+  | 'auctionsUntilNextGnarving'
+  | 'initialAuctionDuration'
+  | 'auctionDuration';
 
 export type OgAuction = {
   /** The OG Gnar's ERC721 token id */
@@ -3299,9 +3502,15 @@ export type ResolversTypes = ResolversObject<{
   _Block_: ResolverTypeWrapper<_Block_>;
   _Meta_: ResolverTypeWrapper<_Meta_>;
   _SubgraphErrorPolicy_: _SubgraphErrorPolicy_;
+  AuctionHouse: ResolverTypeWrapper<AuctionHouse>;
+  AuctionHouse_filter: AuctionHouse_filter;
+  AuctionHouse_orderBy: AuctionHouse_orderBy;
   Gnar: ResolverTypeWrapper<Gnar>;
   Gnar_filter: Gnar_filter;
   Gnar_orderBy: Gnar_orderBy;
+  Gnarving: ResolverTypeWrapper<Gnarving>;
+  Gnarving_filter: Gnarving_filter;
+  Gnarving_orderBy: Gnarving_orderBy;
   OgAuction: ResolverTypeWrapper<OgAuction>;
   OgAuction_filter: OgAuction_filter;
   OgAuction_orderBy: OgAuction_orderBy;
@@ -3356,8 +3565,12 @@ export type ResolversParentTypes = ResolversObject<{
   Vote_filter: Vote_filter;
   _Block_: _Block_;
   _Meta_: _Meta_;
+  AuctionHouse: AuctionHouse;
+  AuctionHouse_filter: AuctionHouse_filter;
   Gnar: Gnar;
   Gnar_filter: Gnar_filter;
+  Gnarving: Gnarving;
+  Gnarving_filter: Gnarving_filter;
   OgAuction: OgAuction;
   OgAuction_filter: OgAuction_filter;
   OgBid: OgBid;
@@ -3419,6 +3632,10 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   ogAuctions?: Resolver<Array<ResolversTypes['OgAuction']>, ParentType, ContextType, RequireFields<QueryogAuctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
   gnar?: Resolver<Maybe<ResolversTypes['Gnar']>, ParentType, ContextType, RequireFields<QuerygnarArgs, 'id' | 'subgraphError'>>;
   gnars?: Resolver<Array<ResolversTypes['Gnar']>, ParentType, ContextType, RequireFields<QuerygnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  auctionHouse?: Resolver<Maybe<ResolversTypes['AuctionHouse']>, ParentType, ContextType, RequireFields<QueryauctionHouseArgs, 'id' | 'subgraphError'>>;
+  auctionHouses?: Resolver<Array<ResolversTypes['AuctionHouse']>, ParentType, ContextType, RequireFields<QueryauctionHousesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  gnarving?: Resolver<Maybe<ResolversTypes['Gnarving']>, ParentType, ContextType, RequireFields<QuerygnarvingArgs, 'id' | 'subgraphError'>>;
+  gnarvings?: Resolver<Array<ResolversTypes['Gnarving']>, ParentType, ContextType, RequireFields<QuerygnarvingsArgs, 'skip' | 'first' | 'subgraphError'>>;
 }>;
 
 export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
@@ -3456,6 +3673,10 @@ export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends 
   ogAuctions?: SubscriptionResolver<Array<ResolversTypes['OgAuction']>, "ogAuctions", ParentType, ContextType, RequireFields<SubscriptionogAuctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
   gnar?: SubscriptionResolver<Maybe<ResolversTypes['Gnar']>, "gnar", ParentType, ContextType, RequireFields<SubscriptiongnarArgs, 'id' | 'subgraphError'>>;
   gnars?: SubscriptionResolver<Array<ResolversTypes['Gnar']>, "gnars", ParentType, ContextType, RequireFields<SubscriptiongnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  auctionHouse?: SubscriptionResolver<Maybe<ResolversTypes['AuctionHouse']>, "auctionHouse", ParentType, ContextType, RequireFields<SubscriptionauctionHouseArgs, 'id' | 'subgraphError'>>;
+  auctionHouses?: SubscriptionResolver<Array<ResolversTypes['AuctionHouse']>, "auctionHouses", ParentType, ContextType, RequireFields<SubscriptionauctionHousesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  gnarving?: SubscriptionResolver<Maybe<ResolversTypes['Gnarving']>, "gnarving", ParentType, ContextType, RequireFields<SubscriptiongnarvingArgs, 'id' | 'subgraphError'>>;
+  gnarvings?: SubscriptionResolver<Array<ResolversTypes['Gnarving']>, "gnarvings", ParentType, ContextType, RequireFields<SubscriptiongnarvingsArgs, 'skip' | 'first' | 'subgraphError'>>;
 }>;
 
 export type AccountResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = ResolversObject<{
@@ -3641,6 +3862,13 @@ export type _Meta_Resolvers<ContextType = MeshContext, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type AuctionHouseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['AuctionHouse'] = ResolversParentTypes['AuctionHouse']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  reservePrice?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  timeBuffer?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type GnarResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Gnar'] = ResolversParentTypes['Gnar']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   creationTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
@@ -3648,6 +3876,16 @@ export type GnarResolvers<ContextType = MeshContext, ParentType extends Resolver
   owner?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
   votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<GnarvotesArgs, 'skip' | 'first'>>;
   auction?: Resolver<Maybe<ResolversTypes['Auction']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type GnarvingResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Gnarving'] = ResolversParentTypes['Gnarving']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  gnarvings?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  auctionsBetweenGnarvings?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  auctionsUntilNextGnarving?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  initialAuctionDuration?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  auctionDuration?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3717,7 +3955,9 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   Vote?: VoteResolvers<ContextType>;
   _Block_?: _Block_Resolvers<ContextType>;
   _Meta_?: _Meta_Resolvers<ContextType>;
+  AuctionHouse?: AuctionHouseResolvers<ContextType>;
   Gnar?: GnarResolvers<ContextType>;
+  Gnarving?: GnarvingResolvers<ContextType>;
   OgAuction?: OgAuctionResolvers<ContextType>;
   OgBid?: OgBidResolvers<ContextType>;
   OgGnar?: OgGnarResolvers<ContextType>;
@@ -3939,7 +4179,7 @@ export type GnarQueryVariables = Exact<{
 }>;
 
 
-export type GnarQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, gnars: Array<(
+export type GnarQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, gnarving?: Maybe<Pick<Gnarving, 'auctionDuration' | 'auctionsBetweenGnarvings' | 'auctionsUntilNextGnarving'>>, gnars: Array<(
     Pick<Gnar, 'id' | 'creationTimestamp'>
     & { owner: Pick<Account, 'id'>, auction?: Maybe<(
       Pick<Auction, 'settled' | 'startTime' | 'endTime' | 'amount'>
@@ -3955,7 +4195,7 @@ export type OGGnarQueryVariables = Exact<{
 }>;
 
 
-export type OGGnarQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, ogAuction?: Maybe<(
+export type OGGnarQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, gnarving?: Maybe<Pick<Gnarving, 'auctionDuration' | 'auctionsBetweenGnarvings' | 'auctionsUntilNextGnarving'>>, ogAuction?: Maybe<(
     Pick<OgAuction, 'amount' | 'bidder' | 'id'>
     & { bids: Array<Pick<OgBid, 'amount' | 'bidder' | 'blockTimestamp' | 'id'>>, gnar: Pick<OgGnar, 'accessory' | 'background' | 'body' | 'glasses' | 'head' | 'owner'> }
   )>, latestGnar: Array<Pick<Gnar, 'id'>>, latestAuction: Array<Pick<Auction, 'id'>> };
@@ -4011,6 +4251,11 @@ export const GnarDocument = gql`
       timestamp
     }
   }
+  gnarving(id: "GNARVING") {
+    auctionDuration
+    auctionsBetweenGnarvings
+    auctionsUntilNextGnarving
+  }
   gnars(
     first: 1
     orderBy: creationTimestamp
@@ -4062,6 +4307,11 @@ export const OGGnarDocument = gql`
       number
       timestamp
     }
+  }
+  gnarving(id: "GNARVING") {
+    auctionDuration
+    auctionsBetweenGnarvings
+    auctionsUntilNextGnarving
   }
   ogAuction(id: $gnarId) {
     amount

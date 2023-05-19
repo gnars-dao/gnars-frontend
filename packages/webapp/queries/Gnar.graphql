@@ -6,6 +6,12 @@ query Gnar($filter: Gnar_filter) {
     }
   }
 
+  gnarving(id: "GNARVING") {
+    auctionDuration
+    auctionsBetweenGnarvings
+    auctionsUntilNextGnarving
+  }
+
   gnars(
     first: 1
     orderBy: creationTimestamp

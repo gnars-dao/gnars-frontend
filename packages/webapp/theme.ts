@@ -18,6 +18,15 @@ const outline = defineStyle({
   },
 })
 
+const colors = defineStyle({
+  gnars: {
+    logo: {
+      yellow: "#fee761",
+      orange: "#fb912b",
+    },
+  },
+})
+
 const solid = defineStyle({
   bg: "whiteAlpha.800",
   _hover: {
@@ -129,6 +138,7 @@ const Slider = defineSliderMultiStyleConfig({
 
 const theme = extendTheme({
   ...config,
+  colors,
   components: { Button, Avatar, Heading, StackDivider, Input, Slider },
   textStyles: {
     h1: {
@@ -150,6 +160,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: { bg: "gray.800" },
+      html: { scrollBehavior: "smooth" },
       "html, body, #__next": {
         height: "100%",
       },
