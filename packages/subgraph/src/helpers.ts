@@ -161,6 +161,7 @@ export function getGnarvingEntity(event: ethereum.Event): Gnarving {
     gnarving.initialAuctionDuration = initialAuctionDuration
     gnarving.auctionDuration = initialAuctionDuration
     gnarving.auctionsBetweenGnarvings = auctionsBetweenGnarvings
+    gnarving.auctionsUntilNextGnarving = auctionsBetweenGnarvings
     gnarving.gnarvings = new BigInt(0)
   }
 
