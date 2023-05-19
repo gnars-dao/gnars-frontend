@@ -1,7 +1,9 @@
-import { EffectiveProposalStatus } from "../../utils/governanceUtils"
 import { Badge, BadgeProps } from "@chakra-ui/react"
-import { isFinalized } from "../../utils/governanceUtils"
 import { FC } from "react"
+import {
+  EffectiveProposalStatus,
+  isFinalized,
+} from "../../utils/governanceUtils"
 import { ShredIcon } from "../Icons"
 
 export interface ProposalStatusBadgeProps extends BadgeProps {
@@ -23,16 +25,9 @@ export const ProposalStatusBadge: FC<ProposalStatusBadgeProps> = ({
       {...props}
     >
       {status}
-      {[
-        "QUEUED",
-        "EXECUTED",
-        "SUCCEEDED",
-        "EXECUTABLE",
-        "NEW",
-        "PREVIEW",
-      ].includes(status) && (
-        <ShredIcon position={"absolute"} right={1} bottom={1} />
-      )}
+      {["QUEUED", "EXECUTED", "SUCCEEDED", "EXECUTABLE", "PREVIEW"].includes(
+        status
+      ) && <ShredIcon position={"absolute"} right={1} bottom={1} />}
     </Badge>
   )
 }
@@ -61,7 +56,6 @@ const getProposalStyle = (
       return { colorScheme: "red" }
     case "DEFEATED":
       return { colorScheme: "red" }
-    case "NEW":
     case "PREVIEW":
       return { colorScheme: "pink" }
     // case "EXPIRED":

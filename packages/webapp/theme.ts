@@ -1,10 +1,10 @@
+import { avatarAnatomy, inputAnatomy, sliderAnatomy } from "@chakra-ui/anatomy"
 import {
   createMultiStyleConfigHelpers,
   defineStyle,
   defineStyleConfig,
   extendTheme,
 } from "@chakra-ui/react"
-import { avatarAnatomy, inputAnatomy, sliderAnatomy } from "@chakra-ui/anatomy"
 
 const config = {
   initialColorMode: "dark",
@@ -60,11 +60,11 @@ const avatarDelimitedVariant = defineAvatarPartsStyle({
   },
 })
 
-export const Avatar = defineAvatarMultiStyleConfig({
+const Avatar = defineAvatarMultiStyleConfig({
   variants: { delimited: avatarDelimitedVariant },
 })
 
-export const Button = defineStyleConfig({
+const Button = defineStyleConfig({
   variants: { outline, solid },
   baseStyle: {
     boxSizing: "border-box",

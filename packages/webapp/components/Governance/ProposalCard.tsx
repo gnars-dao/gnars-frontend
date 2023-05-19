@@ -15,7 +15,6 @@ import {
   Votes,
 } from "../../utils/governanceUtils"
 import { ProposalCountdown } from "./ProposalCountdown"
-import { useProposalCreationContext } from "./ProposalCreationContext"
 import { ProposalStatusBadge } from "./ProposalStatusBadge"
 
 export interface ProposalCardProps extends StackProps {
@@ -42,7 +41,6 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   ...props
 }) => {
   const proposalFinalized = isFinalized(status)
-  const proposalCreation = useProposalCreationContext()
   return (
     <VStack
       w={"full"}

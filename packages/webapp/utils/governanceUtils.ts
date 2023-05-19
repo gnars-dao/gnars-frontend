@@ -1,6 +1,6 @@
-import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../.graphclient"
-import { BigNumber, BigNumberish, BytesLike } from "ethers"
+import { BigNumber, BigNumberish } from "ethers"
 import { zip } from "lodash"
+import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../.graphclient"
 
 export type ProposalData = ProposalsQuery["proposals"][0]
 
@@ -13,7 +13,6 @@ export type EffectiveProposalStatus =
   | "EXPIRED"
   | "UNDETERMINED"
   | "EXECUTABLE"
-  | "NEW"
   | "PREVIEW"
 
 export type DetailedProposalData = NonNullable<ProposalQuery["proposal"]>

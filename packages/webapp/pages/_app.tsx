@@ -7,6 +7,7 @@ import type { AppProps } from "next/app"
 import { createClient, WagmiConfig } from "wagmi"
 import "../styles/global.css"
 
+import { ProposalCreationContextProvider } from "contexts/ProposalCreationContext"
 import Head from "next/head"
 import { queryClient } from "utils"
 import { mainnet } from "wagmi/chains"
@@ -30,16 +31,18 @@ export default function App({ Component, pageProps }: AppProps) {
           options={{ enforceSupportedChains: false, initialChainId: 1 }}
         >
           <QueryClientProvider client={queryClient}>
-            <DarkMode>
-              <VStack minH={"full"} spacing={0}>
-                <Head>
-                  <title>Gnars DAO</title>
-                </Head>
-                <Component {...pageProps} />
-                <Footer />
-              </VStack>
-              <Analytics debug={false} />
-            </DarkMode>
+            <ProposalCreationContextProvider>
+              <DarkMode>
+                <VStack minH={"full"} spacing={0}>
+                  <Head>
+                    <title>Gnars DAO</title>
+                  </Head>
+                  <Component {...pageProps} />
+                  <Footer />
+                </VStack>
+                <Analytics debug={false} />
+              </DarkMode>
+            </ProposalCreationContextProvider>
           </QueryClientProvider>
         </ConnectKitProvider>
       </WagmiConfig>

@@ -3,28 +3,24 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  Box,
   Container,
   DarkMode,
-  Heading,
-  Text,
-  VStack,
   Link as ChakraLink,
+  VStack,
 } from "@chakra-ui/react"
-import Menu from "../../../components/Menu"
-import { useRouter } from "next/router"
 import { useQuery } from "@tanstack/react-query"
-import { execute, ProposalDocument } from "../../../.graphclient"
-import { ProposalCard } from "../../../components/Governance/ProposalCard"
-import ProposalContent from "../../../components/Governance/ProposalContent"
+import { useBlock } from "hooks/useBlock"
+import { useRouter } from "next/router"
 import {
   DetailedProposalData,
   getProposalEffectiveStatus,
   getQuorumVotes,
   getTransactions,
-  ProposalData,
 } from "utils/governanceUtils"
-import { useBlock } from "hooks/useBlock"
+import { execute, ProposalDocument } from "../../../.graphclient"
+import { ProposalCard } from "../../../components/Governance/ProposalCard"
+import ProposalContent from "../../../components/Governance/ProposalContent"
+import Menu from "../../../components/Menu"
 
 export default function Proposal() {
   const router = useRouter()
