@@ -82,29 +82,35 @@ export const GnarInfo: FC<GnarInfoProps> = ({
       maxW={{ base: "full", lg: "500px", xl: "xl" }}
       {...props}
     >
-      <GnarvingTracker gnarvingData={gnarData.gnarving} w={"full"} />
-      <Wrap
-        color={"chakra-body-text"}
-        w={"full"}
-        justify={"space-between"}
-        spacing={6}
-        overflow={"visible"}
-      >
-        <WrapItem>
-          <HStack
-            lineHeight={"80%"}
-            fontFamily={`"Londrina Solid", sans-serif`}
-            fontSize={{ base: "5xl", xl: "6xl" }}
-          >
-            {/*@TODO add OG crown*/}
-            {isOg && <Text position={"relative"}>OG</Text>}
-            {gnarData ? <Text>Gnar {gnarData.gnar.gnarId}</Text> : <Spinner />}
-          </HStack>
-        </WrapItem>
-        <WrapItem alignSelf={"end"}>
-          <GnarNavigation gnarData={gnarData} />
-        </WrapItem>
-      </Wrap>
+      <VStack w="full">
+        <GnarvingTracker gnarvingData={gnarData.gnarving} w={"full"} />
+        <Wrap
+          color={"chakra-body-text"}
+          w={"full"}
+          justify={"space-between"}
+          spacing={6}
+          overflow={"visible"}
+        >
+          <WrapItem>
+            <HStack
+              lineHeight={"80%"}
+              fontFamily={`"Londrina Solid", sans-serif`}
+              fontSize={{ base: "5xl", xl: "6xl" }}
+            >
+              {/*@TODO add OG crown*/}
+              {isOg && <Text position={"relative"}>OG</Text>}
+              {gnarData ? (
+                <Text>Gnar {gnarData.gnar.gnarId}</Text>
+              ) : (
+                <Spinner />
+              )}
+            </HStack>
+          </WrapItem>
+          <WrapItem alignSelf={"end"}>
+            <GnarNavigation gnarData={gnarData} />
+          </WrapItem>
+        </Wrap>
+      </VStack>
       <VStack alignItems={"start"} spacing={10} w={"full"}>
         <AuctionStatus
           endTimestamp={endTimestamp}
