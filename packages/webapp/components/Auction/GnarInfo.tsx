@@ -64,11 +64,10 @@ export const GnarInfo: FC<GnarInfoProps> = ({
 
   const { data: ownerName } = useNnsNameWithEnsFallback(gnarData.gnar.owner)
 
-  const auctionEnded = endTimestamp
-    ? isPast(new Date(endTimestamp * 1000)) &&
-      blockTimestamp &&
-      blockTimestamp > endTimestamp
-    : true
+  const auctionEnded =
+    endTimestamp && blockTimestamp
+      ? isPast(new Date(endTimestamp * 1000)) && blockTimestamp > endTimestamp
+      : true
 
   const isTreasuryGnar = is10thGnar(parseInt(gnarData.gnar.gnarId))
   const winner = isTreasuryGnar ? TREASURY_ADDRESS : latestBidder
