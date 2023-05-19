@@ -42,7 +42,7 @@ export const GnarToolbar: FC<GnarToolbarProps> = ({
   const imageIsHovered = useHover(gnarImageRef)
   useEffect(() => {
     imageIsHovered ? onOpen() : onClose()
-  }, [imageIsHovered])
+  }, [imageIsHovered, onOpen, onClose])
 
   return (
     <DarkMode>

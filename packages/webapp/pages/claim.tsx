@@ -1,16 +1,6 @@
-import {
-  Box,
-  DarkMode,
-  Heading,
-  SimpleGrid,
-  Text,
-  useBreakpointValue,
-  VStack,
-} from "@chakra-ui/react"
-import Menu from "../components/Menu"
-import { usePlaygroundState } from "../hooks/usePlaygroundState"
-import { Generator } from "../components/Playground/Generator"
+import { DarkMode, Heading, Text, VStack } from "@chakra-ui/react"
 import { Claiming } from "../components/Claiming"
+import Menu from "../components/Menu"
 
 export default function Claim() {
   return (
@@ -26,20 +16,20 @@ export default function Claim() {
         <Heading>Claim Gnars</Heading>
         <VStack maxW={"6xl"} px={[4, 20]} alignItems={"start"}>
           <Text>
-            Gnars is now a DAO but it didn't start as one. Up until Gnar 626 we
+            {`Gnars is now a DAO but it didn't start as one. Up until Gnar 626 we
             had a different NFT contract. But it wasn't cut out for what we
-            wanted to do in future.
+            wanted to do in future.`}
           </Text>
           <Text>
-            The original Gnars are known as OGs and differ in appearance to the
+            {`The original Gnars are known as OGs and differ in appearance to the
             current Gnars NFTs. Since we've upgraded to fully onchain
-            governance, we're amalgamating voting into one token.
+            governance, we're amalgamating voting into one token.`}
           </Text>
           <Text>
-            For every OG you own, you can claim 2 brand new Gnars (for free) to
+            {`For every OG you own, you can claim 2 brand new Gnars (for free) to
             maintain your OG voting power. This can be done once per OG and you
             get to keep it (no burning) as the digital collectible it was always
-            intended to be!
+            intended to be!`}
           </Text>
         </VStack>
         <Claiming />

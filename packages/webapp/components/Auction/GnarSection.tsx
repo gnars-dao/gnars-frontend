@@ -1,8 +1,5 @@
 import { getGnarBgColor, isBgDark } from "utils"
 
-import Gnar from "../Gnar"
-import Menu from "../Menu"
-import useGnarData, { GnarData } from "../../hooks/useGnarData"
 import {
   AspectRatio,
   Box,
@@ -15,10 +12,12 @@ import {
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react"
-import { V2_START_ID } from "../../utils/contracts"
 import { FC } from "react"
+import useGnarData, { GnarData } from "../../hooks/useGnarData"
+import { V2_START_ID } from "../../utils/contracts"
+import Gnar from "../Gnar"
+import Menu from "../Menu"
 import { GnarInfo } from "./GnarInfo"
-import { motion } from "framer-motion"
 
 interface AuctionProps {
   desiredGnarId?: number
@@ -39,7 +38,11 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarData }) => {
 
   return (
     <ColorModeProvider value={hasDarkBg ? "dark" : "light"}>
-      <Box color={"chakra-body-text"} w={"full"}>
+      <Box
+        color={"chakra-body-text"}
+        w={"full"}
+        sx={{ "--gnar-bg-color": gnarBgColor }}
+      >
         <Menu bgColor={gnarBgColor} />
         <Stack
           w={"full"}

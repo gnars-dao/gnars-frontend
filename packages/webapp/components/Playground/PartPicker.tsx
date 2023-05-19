@@ -1,10 +1,4 @@
-import { memoize, some } from "lodash"
-import { GnarPart, PartKind } from "../../utils"
-import buildSvg from "../../utils/buildSvg"
-import gnarDataV2 from "../../data/image-data-V2.json"
-import * as CSS from "csstype"
 import {
-  Box,
   Button,
   Center,
   CenterProps,
@@ -21,9 +15,13 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react"
+import { memoize, some } from "lodash"
 import { FC, useMemo } from "react"
-import { usePlaygroundState } from "../../hooks/usePlaygroundState"
 import { FaRandom } from "react-icons/fa"
+import gnarDataV2 from "../../data/image-data-V2.json"
+import { usePlaygroundState } from "../../hooks/usePlaygroundState"
+import { GnarPart, PartKind } from "../../utils"
+import buildSvg from "../../utils/buildSvg"
 
 export type PartPickerProps = {
   part: string
@@ -51,7 +49,7 @@ export const PartPicker: FC<PartPickerProps> = ({
     }
 
     const imageUrl = buildSvg([selectedParts[0]], gnarDataV2.palette)
-    return <Image src={imageUrl} />
+    return <Image src={imageUrl} alt={""} />
   }, [selectedParts])
   return (
     <>
@@ -139,7 +137,7 @@ export const PartPicker: FC<PartPickerProps> = ({
                         onClose()
                       }}
                     >
-                      <Image src={imageUrl} />
+                      <Image src={imageUrl} alt={""} />
                     </Button>
                   </VStack>
                 )

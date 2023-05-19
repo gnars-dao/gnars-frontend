@@ -1,20 +1,17 @@
-import TextLink from "./TextLink"
 import {
+  AspectRatio,
   Box,
-  DarkMode,
+  chakra,
+  Code,
   Heading,
   HStack,
   Image,
-  LightMode,
   SimpleGrid,
+  Stack,
   Text,
   VStack,
-  chakra,
-  AspectRatio,
-  Stack,
-  Code,
 } from "@chakra-ui/react"
-import Link from "next/link"
+import TextLink from "./TextLink"
 
 export default function Explainer() {
   return (
@@ -64,18 +61,19 @@ export default function Explainer() {
             <div className="text-6xl font-secondary">WTF?</div>
             <div className="flex flex-col gap-8 pt-8 pb-10 mb-10 border-b-2 border-borderColor">
               <p>
-                <TextLink href="https://gnars.com"> Gnars</TextLink> is a
+                <TextLink href="https://gnars.com"> Gnars</TextLink>{" "}
+                {`is a
                 community owned (and run) extreme sports club. We prefer a world
-                where kids aren’t shilled energy drinks by their heroes. So as a
-                community of action sports enthusiasts, we’ve formed a DAO to
-                rethink how shredders get sponsored.
+                where kids aren't shilled energy drinks by their heroes. So as a
+                community of action sports enthusiasts, we've formed a DAO to
+                rethink how shredders get sponsored.`}
               </p>
 
               <p>
-                Based on Nouns open source code and CC0 artwork, they’re stored
+                {`Based on Nouns open source code and CC0 artwork, they're stored
                 fully on-chain on Ethereum with no external dependencies (not
-                even IPFS), and each one represents a DAO vote. We’re changing
-                the way extreme sport is funded with{" "}
+                even IPFS), and each one represents a DAO vote. We're changing
+                the way extreme sport is funded with `}
                 <TextLink href="https://nouns.wtf/vote/51">
                   backing from Nouns DAO
                 </TextLink>
@@ -133,7 +131,12 @@ export default function Explainer() {
               >
                 <VStack flexShrink={0} w={{ base: "full", sm: "sm" }}>
                   <Heading>Auctions</Heading>
-                  <Image src="/images/auction-chart.png" />
+                  <Image
+                    src="/images/auction-chart.png"
+                    alt={
+                      "a chart depicting the increasing gnars auction duration as a function of the amount of auctions"
+                    }
+                  />
                   <SimpleGrid
                     columns={2}
                     w={"full"}
@@ -240,10 +243,10 @@ export default function Explainer() {
               <h2 className="text-4xl font-secondary">Gnar Traits</h2>
               <div className="flex flex-col gap-8 pt-8 pb-10 mb-10 border-b-2 border-borderColor">
                 <p>
-                  Gnars are generated randomly based on Ethereum block hashes.
+                  {`Gnars are generated randomly based on Ethereum block hashes.
                   There are no 'if' statements or other rules governing Gnar
                   trait scarcity, which makes all Gnars equally rare. As of this
-                  writing, Gnars are made up of:
+                  writing, Gnars are made up of:`}
                 </p>
                 <ul className="list-disc list-inside leading-8 sm:leading-10">
                   <li>backgrounds (12)</li>

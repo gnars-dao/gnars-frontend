@@ -1,12 +1,7 @@
 import Link from "next/link"
 import { useState } from "react"
-import { useBalance } from "wagmi"
-import { ChainIcon, ConnectKitButton, useModal } from "connectkit"
 
-import { nFormatter } from "utils"
-import { TREASURY_ADDRESS } from "utils/contracts"
 import {
-  Box,
   Button,
   Center,
   CenterProps,
@@ -15,14 +10,12 @@ import {
   Image,
   Link as ExternalLink,
   Stack,
-  Text,
-  VStack,
 } from "@chakra-ui/react"
 import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
-import { AvatarWallet } from "./AvatarWallet"
-import { OGNogglesIcon, ShredIcon } from "./Icons"
-import { WalletButton } from "./WalletButton"
+import { TREASURY_ADDRESS } from "utils/contracts"
+import { ShredIcon } from "./Icons"
 import { TreasuryBalance } from "./TreasuryBalance"
+import { WalletButton } from "./WalletButton"
 
 export type MenuProps = CenterProps
 
@@ -48,6 +41,7 @@ export default function Menu(props: MenuProps) {
           <HStack flexShrink={0} spacing={6}>
             <Link href="/">
               <Image
+                alt="Gnars logo"
                 filter={"drop-shadow(0 0 1px #0005)"}
                 h={"40px"}
                 src="/images/logo.png"

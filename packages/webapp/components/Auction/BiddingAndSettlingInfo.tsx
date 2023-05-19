@@ -1,5 +1,5 @@
 import {
-  Box,
+  Badge,
   Button,
   DarkMode,
   Heading,
@@ -7,10 +7,9 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Portal,
+  Stack,
   Text,
   useDisclosure,
   VStack,
@@ -25,15 +24,42 @@ export const BiddingAndSettlingInfo: FC<
 > = ({}) => {
   const { isOpen, onClose, getButtonProps } = useDisclosure()
   return (
-    <>
+    <Stack
+      alignItems={"start"}
+      direction={{ base: "column", sm: "row" }}
+      w={"full"}
+      spacing={{ base: 2, sm: 8 }}
+    >
       <Button
         color={"chakra-body-text"}
-        size={"sm"}
-        leftIcon={<FaInfoCircle />}
+        size={"xs"}
+        leftIcon={<FaInfoCircle size={16} />}
         variant={"link"}
         {...getButtonProps()}
       >
-        bidding and settling
+        BIDDING AND SETTLING
+      </Button>
+      <Button
+        as={"a"}
+        target={"_blank"}
+        color={"chakra-body-text"}
+        href={"https://www.settle.wtf/"}
+        size={"xs"}
+        leftIcon={
+          <Badge
+            fontSize={"2xs"}
+            borderRadius={"sm"}
+            py={"1px"}
+            px={"2px"}
+            color={{ base: "chakra-body-bg", lg: "var(--gnar-bg-color)" }}
+            bgColor={"chakra-body-text"}
+          >
+            NEW!
+          </Badge>
+        }
+        variant={"link"}
+      >
+        PICK THE NEXT GNAR
       </Button>
       <DarkMode>
         <Modal
@@ -96,6 +122,6 @@ export const BiddingAndSettlingInfo: FC<
           </ModalContent>
         </Modal>
       </DarkMode>
-    </>
+    </Stack>
   )
 }

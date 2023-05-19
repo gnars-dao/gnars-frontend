@@ -1,22 +1,10 @@
-import React, { FC, Fragment } from "react"
+import { Heading, ListItem, OrderedList, Text, VStack } from "@chakra-ui/react"
+import { FC } from "react"
 import ReactMarkdown from "react-markdown"
 import remarkBreaks from "remark-breaks"
-import { ProposalQuery, ProposalsQuery } from "../../.graphclient"
-import {
-  Box,
-  Code,
-  Divider,
-  Heading,
-  HStack,
-  ListItem,
-  OrderedList,
-  Text,
-  VStack,
-} from "@chakra-ui/react"
-import { zip } from "lodash"
-import { Transaction } from "./Transaction"
+import { TransactionData } from "utils/governanceUtils"
 import { AvatarWallet } from "../AvatarWallet"
-import { DetailedProposalData, TransactionData } from "utils/governanceUtils"
+import { Transaction } from "./Transaction"
 
 export interface ProposalContentProps {
   transactions: TransactionData[]
@@ -46,17 +34,15 @@ export const ProposalContent: FC<ProposalContentProps> = ({
             { fontWeight: "bold", py: 4 },
         }}
       >
-        <ReactMarkdown
-          className={"markdown"}
-          children={description}
-          remarkPlugins={[remarkBreaks]}
-        />
+        <ReactMarkdown className={"markdown"} remarkPlugins={[remarkBreaks]}>
+          {description}
+        </ReactMarkdown>
         <Heading as={"h2"} textStyle={"h2"} fontSize="4xl">
           Proposed Transactions
         </Heading>
         <OrderedList pl={4} spacing={8} listStylePosition={"outside"}>
-          {transactions.map((transaction) => (
-            <ListItem w="full" maxW="2xl">
+          {transactions.map((transaction, i) => (
+            <ListItem w="full" maxW="2xl" key={`transaction-${i + 1}`}>
               <Transaction w={"full"} data={transaction} />
             </ListItem>
           ))}

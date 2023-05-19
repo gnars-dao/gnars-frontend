@@ -3,35 +3,21 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  Badge,
-  BadgeProps,
-  Box,
   Container,
   DarkMode,
   Divider,
   Heading,
   HStack,
-  Progress,
-  PropsOf,
-  SimpleGrid,
-  Text,
-  useBreakpointValue,
-  VStack,
   Link as ChakraLink,
+  VStack,
 } from "@chakra-ui/react"
+import { useQuery } from "@tanstack/react-query"
+import { isObject, partition } from "lodash"
+import Link from "next/link"
+import { execute, ProposalsDocument } from "../.graphclient"
+import { ProposalCard } from "../components/Governance/ProposalCard"
 import Menu from "../components/Menu"
-import { usePlaygroundState } from "../hooks/usePlaygroundState"
-import { Generator } from "../components/Playground/Generator"
-import { GnarImage } from "../components/GnarImage"
-import {
-  execute,
-  ProposalsDocument,
-  ProposalsQuery,
-  ProposalStatus,
-} from "../.graphclient"
-import { BigNumber } from "ethers"
 import { useBlock } from "../hooks/useBlock"
-import { ca } from "date-fns/locale"
 import {
   EffectiveProposalStatus,
   getProposalEffectiveStatus,
@@ -39,12 +25,6 @@ import {
   isFinalized,
   ProposalData,
 } from "../utils/governanceUtils"
-import { ProposalStatusBadge } from "../components/Governance/ProposalStatusBadge"
-import { ProposalCard } from "../components/Governance/ProposalCard"
-import { useQuery } from "@tanstack/react-query"
-import { groupBy, isArray, isObject, partition } from "lodash"
-import { useRouter } from "next/router"
-import Link from "next/link"
 
 export default function Proposals() {
   const block = useBlock()
@@ -122,6 +102,7 @@ export default function Proposals() {
                 </HStack>
                 {proposals[0].map((prop) => (
                   <Link
+                    key={"active-prop-" + prop.id}
                     href={`/dao/proposals/${prop.id}`}
                     style={{ width: "100%" }}
                   >
@@ -155,6 +136,7 @@ export default function Proposals() {
                 </HStack>
                 {proposals[1].map((prop) => (
                   <Link
+                    key={"finalized-prop-" + prop.id}
                     href={`/dao/proposals/${prop.id}`}
                     style={{ width: "100%" }}
                   >

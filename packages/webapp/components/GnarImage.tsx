@@ -25,7 +25,7 @@ export const GnarImage = forwardRef<GnarImageProps, "img">(
         palette,
         gnartwork.background
       )
-    }, [gnartwork])
+    }, [gnartwork, isOg])
 
     if (!image) {
       return (

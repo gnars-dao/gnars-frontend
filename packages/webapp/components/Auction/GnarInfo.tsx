@@ -1,12 +1,3 @@
-import { FC } from "react"
-import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
-import { isPast } from "date-fns"
-import { is10thGnar, shortAddress } from "../../utils"
-import {
-  OG_GNAR_ADDRESS,
-  TREASURY_ADDRESS,
-  V2_GNAR_ADDRESS,
-} from "../../utils/contracts"
 import {
   HStack,
   IconButton,
@@ -18,17 +9,26 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react"
-import { GnarNavigation } from "./GnarNavigation"
-import { AuctionStatus } from "./AuctionStatus"
+import { isPast } from "date-fns"
+import { FC, useEffect, useState } from "react"
 import { FiInfo } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
-import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons"
-import { SettleAuctionButton } from "./SettleAuctionButton"
-import { BidForGnar } from "./BidForGnar"
-import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"
-import { BidsTable } from "./BidsTable"
-import { BidsPopover } from "./BidsPopover"
 import { GnarData } from "../../hooks/useGnarData"
+import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
+import { is10thGnar, shortAddress } from "../../utils"
+import {
+  OG_GNAR_ADDRESS,
+  TREASURY_ADDRESS,
+  V2_GNAR_ADDRESS,
+} from "../../utils/contracts"
+import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons"
+import { AuctionStatus } from "./AuctionStatus"
+import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"
+import { BidForGnar } from "./BidForGnar"
+import { BidsPopover } from "./BidsPopover"
+import { BidsTable } from "./BidsTable"
+import { GnarNavigation } from "./GnarNavigation"
+import { SettleAuctionButton } from "./SettleAuctionButton"
 
 interface GnarInfoProps extends StackProps {
   isOg: boolean
@@ -46,6 +46,18 @@ export const GnarInfo: FC<GnarInfoProps> = ({
 
   const { block } = gnarData
 
+  const [blockTimestamp, setBlockTimestamp] = useState<
+    number | null | undefined
+  >(block?.timestamp)
+
+  useEffect(() => {
+    // sometimes the timestamp of new blocks is null. In that case, we keep the last known timestamp
+    // the next refetch should update it
+    if (block?.timestamp) {
+      setBlockTimestamp(block.timestamp)
+    }
+  }, [block?.timestamp])
+
   // @TODO show how many auctions are left until next gnarving
   // @TODO add slide animation when changing Gnar
   // @TODO add fake loader like https://github.com/rstacruz/nprogress
@@ -53,8 +65,11 @@ export const GnarInfo: FC<GnarInfoProps> = ({
   const { data: ownerName } = useNnsNameWithEnsFallback(gnarData.gnar.owner)
 
   const auctionEnded = endTimestamp
-    ? isPast(new Date(endTimestamp * 1000)) && block.timestamp! > endTimestamp
+    ? isPast(new Date(endTimestamp * 1000)) &&
+      blockTimestamp &&
+      blockTimestamp > endTimestamp
     : true
+
   const isTreasuryGnar = is10thGnar(parseInt(gnarData.gnar.gnarId))
   const winner = isTreasuryGnar ? TREASURY_ADDRESS : latestBidder
   const isBurned = !!gnarData.gnar.auction && auctionEnded && !winner

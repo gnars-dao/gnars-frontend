@@ -6,12 +6,10 @@ import {
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react"
-import Menu from "../components/Menu"
-import { usePlaygroundState } from "../hooks/usePlaygroundState"
-import { Generator } from "../components/Playground/Generator"
-import { GnarImage } from "../components/GnarImage"
-import { GnarToolbar } from "components/GnarToolbar"
 import PlaygroundGnar from "components/Playground/PlaygroundGnar"
+import Menu from "../components/Menu"
+import { Generator } from "../components/Playground/Generator"
+import { usePlaygroundState } from "../hooks/usePlaygroundState"
 
 export default function Playground() {
   const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" }) ?? "96px"
@@ -47,6 +45,7 @@ export default function Playground() {
               {generatedGnars.map((gnar) => {
                 return (
                   <PlaygroundGnar
+                    key={gnar.id}
                     gnartwork={gnar.gnartwork}
                     playgroundGnarId={gnar.id}
                   />
