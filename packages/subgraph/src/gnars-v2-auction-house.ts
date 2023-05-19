@@ -3,11 +3,24 @@ import {
   AuctionBid,
   AuctionCreated,
   AuctionExtended,
+  AuctionReservePriceUpdated,
   AuctionSettled,
+  AuctionTimeBufferUpdated,
+  GnarsV2AuctionHouse,
+  InitializeCall,
   OGGnarClaimed,
 } from "../generated/GnarsV2AuctionHouse/GnarsV2AuctionHouse"
-import { Auction, Bid, Gnar, OgGnar } from "../generated/schema"
+import {
+  Auction,
+  AuctionHouse,
+  Bid,
+  Gnar,
+  Gnarving,
+  OgGnar,
+} from "../generated/schema"
 import { getOrCreateAccount } from "./helpers"
+
+let gnarving: Gnarving | null // Use WebAssembly global due to lack of closure support https://www.assemblyscript.org/status.html#on-closures
 
 export function handleAuctionCreated(event: AuctionCreated): void {
   let gnarId = event.params.gnarId.toString()
@@ -31,6 +44,33 @@ export function handleAuctionCreated(event: AuctionCreated): void {
 
   gnar.auction = auction.id
   gnar.save()
+
+  gnarving = Gnarving.load("GNARVING")
+
+  if (gnarving == null) {
+    const auction = GnarsV2AuctionHouse.bind(event.address)
+
+    const initialAuctionDuration = auction.baseAuctionTime()
+    const auctionsBetweenGnarvings = auction.timeDoublingCount()
+
+    gnarving = new Gnarving("GNARVING")
+    gnarving.initialAuctionDuration = initialAuctionDuration
+    gnarving.auctionDuration = initialAuctionDuration
+    gnarving.auctionsBetweenGnarvings = auctionsBetweenGnarvings
+    gnarving.gnarvings = new BigInt(0)
+  }
+
+  if (gnarving.auctionsUntilNextGnarving.isZero()) {
+    gnarving.auctionsUntilNextGnarving = gnarving.auctionsBetweenGnarvings
+    gnarving.gnarvings = gnarving.gnarvings.plus(BigInt.fromI32(1))
+    gnarving.auctionDuration = gnarving.auctionDuration.times(BigInt.fromI32(2))
+  }
+
+  gnarving.auctionsUntilNextGnarving = gnarving.auctionsUntilNextGnarving.minus(
+    BigInt.fromI32(1)
+  )
+
+  gnarving.save()
 }
 
 export function handleAuctionBid(event: AuctionBid): void {
@@ -110,4 +150,39 @@ export function handleOGClaim(event: OGGnarClaimed): void {
 
   ogGnar.wasClaimed = true
   ogGnar.save()
+}
+
+export function handleInitialize(call: InitializeCall): void {
+  let auctionHouse = new AuctionHouse("AUCTION_HOUSE")
+  auctionHouse.reservePrice = call.inputs._reservePrice
+  auctionHouse.timeBuffer = call.inputs._timeBuffer
+  auctionHouse.save()
+}
+
+export function handleAuctionReservePriceUpdated(
+  event: AuctionReservePriceUpdated
+): void {
+  let auctionHouse = AuctionHouse.load("AUCTION_HOUSE")
+  if (auctionHouse === null) {
+    log.error("AUCTION_HOUSE not found. Tx: {}", [
+      event.transaction.hash.toHex(),
+    ])
+    return
+  }
+  auctionHouse.reservePrice = event.params.reservePrice
+  auctionHouse.save()
+}
+
+export function handleAuctionTimeBufferUpdated(
+  event: AuctionTimeBufferUpdated
+): void {
+  let auctionHouse = AuctionHouse.load("AUCTION_HOUSE")
+  if (auctionHouse === null) {
+    log.error("AUCTION_HOUSE not found. Tx: {}", [
+      event.transaction.hash.toHex(),
+    ])
+    return
+  }
+  auctionHouse.timeBuffer = event.params.timeBuffer
+  auctionHouse.save()
 }

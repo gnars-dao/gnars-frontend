@@ -903,6 +903,133 @@ export class Auction extends Entity {
   }
 }
 
+export class AuctionHouse extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save AuctionHouse entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type AuctionHouse must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("AuctionHouse", id.toString(), this);
+    }
+  }
+
+  static load(id: string): AuctionHouse | null {
+    return changetype<AuctionHouse | null>(store.get("AuctionHouse", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get reservePrice(): BigInt {
+    let value = this.get("reservePrice");
+    return value!.toBigInt();
+  }
+
+  set reservePrice(value: BigInt) {
+    this.set("reservePrice", Value.fromBigInt(value));
+  }
+
+  get timeBuffer(): BigInt {
+    let value = this.get("timeBuffer");
+    return value!.toBigInt();
+  }
+
+  set timeBuffer(value: BigInt) {
+    this.set("timeBuffer", Value.fromBigInt(value));
+  }
+}
+
+export class Gnarving extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Gnarving entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Gnarving must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Gnarving", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Gnarving | null {
+    return changetype<Gnarving | null>(store.get("Gnarving", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get gnarvings(): BigInt {
+    let value = this.get("gnarvings");
+    return value!.toBigInt();
+  }
+
+  set gnarvings(value: BigInt) {
+    this.set("gnarvings", Value.fromBigInt(value));
+  }
+
+  get auctionsBetweenGnarvings(): BigInt {
+    let value = this.get("auctionsBetweenGnarvings");
+    return value!.toBigInt();
+  }
+
+  set auctionsBetweenGnarvings(value: BigInt) {
+    this.set("auctionsBetweenGnarvings", Value.fromBigInt(value));
+  }
+
+  get auctionsUntilNextGnarving(): BigInt {
+    let value = this.get("auctionsUntilNextGnarving");
+    return value!.toBigInt();
+  }
+
+  set auctionsUntilNextGnarving(value: BigInt) {
+    this.set("auctionsUntilNextGnarving", Value.fromBigInt(value));
+  }
+
+  get initialAuctionDuration(): BigInt {
+    let value = this.get("initialAuctionDuration");
+    return value!.toBigInt();
+  }
+
+  set initialAuctionDuration(value: BigInt) {
+    this.set("initialAuctionDuration", Value.fromBigInt(value));
+  }
+
+  get auctionDuration(): BigInt {
+    let value = this.get("auctionDuration");
+    return value!.toBigInt();
+  }
+
+  set auctionDuration(value: BigInt) {
+    this.set("auctionDuration", Value.fromBigInt(value));
+  }
+}
+
 export class Account extends Entity {
   constructor(id: string) {
     super();

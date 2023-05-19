@@ -1,13 +1,13 @@
 import { BigInt } from "@graphprotocol/graph-ts"
-import { ZERO_ADDRESS, BIGINT_ZERO, BIGINT_ONE } from "./constants"
 import {
   Account,
   Delegate,
   DynamicQuorumParams,
   Governance,
   Proposal,
-  Vote
+  Vote,
 } from "../generated/schema"
+import { BIGINT_ONE, BIGINT_ZERO, ZERO_ADDRESS } from "./constants"
 
 export function getOrCreateAccount(
   id: string,

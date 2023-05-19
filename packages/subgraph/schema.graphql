@@ -96,7 +96,6 @@ type OgAuction @entity {
   bids: [OgBid!]! @derivedFrom(field: "auction")
 }
 
-
 type DelegationEvent @entity {
   "The txn hash of this event + gnarId"
   id: ID!
@@ -227,6 +226,37 @@ type Auction @entity {
 
   "The auction bids"
   bids: [Bid!]! @derivedFrom(field: "auction")
+}
+
+type AuctionHouse @entity {
+  "Unique entity used to keep track of AuctionHouse settings"
+  id: ID!
+
+  "The minimum value for bids"
+  reservePrice: BigInt!
+
+  "The minimum time left on an Auction after a new bid is placed"
+  timeBuffer: BigInt!
+}
+
+type Gnarving @entity {
+  "Unique entity used to keep track of the Gnarving events"
+  id: ID!
+
+  "Amount of Gnarvings that have happened"
+  gnarvings: BigInt!
+
+  "Amount of auctions that separate Gnarvings"
+  auctionsBetweenGnarvings: BigInt!
+
+  "Amount of auctions left until next gnarving"
+  auctionsUntilNextGnarving: BigInt!
+
+  "Auction duration at launch"
+  initialAuctionDuration: BigInt!
+
+  "Current auction duration"
+  auctionDuration: BigInt!
 }
 
 enum ProposalStatus {

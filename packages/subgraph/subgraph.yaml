@@ -78,6 +78,8 @@ dataSources:
         - Bid
         - Auction
         - Gnar
+        - Gnarving
+        - AuctionHouse
       abis:
         - name: GnarsV2AuctionHouse
           file: ./abis/GnarsV2AuctionHouse.json
@@ -92,4 +94,11 @@ dataSources:
           handler: handleAuctionExtended
         - event: OGGnarClaimed(indexed uint256,uint256)
           handler: handleOGClaim
+        - event: AuctionReservePriceUpdated(uint256)
+          handler: handleAuctionReservePriceUpdated
+        - event: AuctionTimeBufferUpdated(uint256)
+          handler: handleAuctionTimeBufferUpdated
+      callHandlers:
+        - function: initialize(address,address,address,address,uint256,uint8,uint256,uint256,uint256)
+          handler: handleInitialize
       file: ./src/gnars-v2-auction-house.ts
