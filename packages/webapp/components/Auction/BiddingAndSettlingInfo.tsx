@@ -3,6 +3,7 @@ import {
   Button,
   DarkMode,
   Heading,
+  keyframes,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -18,6 +19,30 @@ import { FC } from "react"
 import { FaInfoCircle } from "react-icons/fa"
 
 interface BiddingAndSettlingModalProps {}
+
+const pulsate = keyframes`
+0%,
+  20% {
+    transform: translateX(0);
+  }
+  2%,
+  6%,
+  10%,
+  14% {
+    transform: translateX(-2px);
+  }
+  4%,
+  8%,
+  12% {
+    transform: translateX(2px);
+  }
+  16% {
+    transform: translateX(1px);
+  }
+  18% {
+    transform: translateX(-1px);
+  }
+`
 
 export const BiddingAndSettlingInfo: FC<
   BiddingAndSettlingModalProps
@@ -40,6 +65,7 @@ export const BiddingAndSettlingInfo: FC<
         BIDDING AND SETTLING
       </Button>
       <Button
+        animation={`${pulsate} 3s infinite`}
         as={"a"}
         target={"_blank"}
         color={"chakra-body-text"}
