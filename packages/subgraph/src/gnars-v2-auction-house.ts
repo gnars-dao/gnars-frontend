@@ -6,21 +6,11 @@ import {
   AuctionReservePriceUpdated,
   AuctionSettled,
   AuctionTimeBufferUpdated,
-  GnarsV2AuctionHouse,
   InitializeCall,
   OGGnarClaimed,
 } from "../generated/GnarsV2AuctionHouse/GnarsV2AuctionHouse"
-import {
-  Auction,
-  AuctionHouse,
-  Bid,
-  Gnar,
-  Gnarving,
-  OgGnar,
-} from "../generated/schema"
-import { getOrCreateAccount } from "./helpers"
-
-let gnarving: Gnarving | null // Use WebAssembly global due to lack of closure support https://www.assemblyscript.org/status.html#on-closures
+import { Auction, AuctionHouse, Bid, Gnar, OgGnar } from "../generated/schema"
+import { getGnarvingEntity, getOrCreateAccount } from "./helpers"
 
 export function handleAuctionCreated(event: AuctionCreated): void {
   let gnarId = event.params.gnarId.toString()
@@ -45,31 +35,20 @@ export function handleAuctionCreated(event: AuctionCreated): void {
   gnar.auction = auction.id
   gnar.save()
 
-  gnarving = Gnarving.load("GNARVING")
-
-  if (gnarving == null) {
-    const auction = GnarsV2AuctionHouse.bind(event.address)
-
-    const initialAuctionDuration = auction.baseAuctionTime()
-    const auctionsBetweenGnarvings = auction.timeDoublingCount()
-
-    gnarving = new Gnarving("GNARVING")
-    gnarving.initialAuctionDuration = initialAuctionDuration
-    gnarving.auctionDuration = initialAuctionDuration
-    gnarving.auctionsBetweenGnarvings = auctionsBetweenGnarvings
-    gnarving.gnarvings = new BigInt(0)
-  }
+  let gnarving = getGnarvingEntity(event)
 
   if (gnarving.auctionsUntilNextGnarving.isZero()) {
-    gnarving.auctionsUntilNextGnarving = gnarving.auctionsBetweenGnarvings
+    gnarving.auctionsUntilNextGnarving =
+      gnarving.auctionsBetweenGnarvings.minus(BigInt.fromI32(1))
     gnarving.gnarvings = gnarving.gnarvings.plus(BigInt.fromI32(1))
     gnarving.auctionDuration = gnarving.auctionDuration.times(BigInt.fromI32(2))
+    gnarving.save()
+    return
   }
 
   gnarving.auctionsUntilNextGnarving = gnarving.auctionsUntilNextGnarving.minus(
     BigInt.fromI32(1)
   )
-
   gnarving.save()
 }
 

@@ -1,8 +1,10 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigInt, ethereum } from "@graphprotocol/graph-ts"
+import { GnarsV2AuctionHouse } from "../generated/GnarsV2AuctionHouse/GnarsV2AuctionHouse"
 import {
   Account,
   Delegate,
   DynamicQuorumParams,
+  Gnarving,
   Governance,
   Proposal,
   Vote,
@@ -143,4 +145,24 @@ export function getOrCreateDynamicQuorumParams(
   }
 
   return params as DynamicQuorumParams
+}
+
+export function getGnarvingEntity(event: ethereum.Event): Gnarving {
+  let gnarving = Gnarving.load("GNARVING")
+
+  if (gnarving == null) {
+    gnarving = new Gnarving("GNARVING")
+    const auction = GnarsV2AuctionHouse.bind(event.address)
+
+    const initialAuctionDuration = auction.baseAuctionTime()
+    const auctionsBetweenGnarvings = auction.timeDoublingCount()
+
+    gnarving = new Gnarving("GNARVING")
+    gnarving.initialAuctionDuration = initialAuctionDuration
+    gnarving.auctionDuration = initialAuctionDuration
+    gnarving.auctionsBetweenGnarvings = auctionsBetweenGnarvings
+    gnarving.gnarvings = new BigInt(0)
+  }
+
+  return gnarving as Gnarving
 }
