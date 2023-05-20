@@ -59,7 +59,6 @@ export const GnarInfo: FC<GnarInfoProps> = ({
     }
   }, [block?.timestamp])
 
-  // @TODO show how many auctions are left until next gnarving
   // @TODO add slide animation when changing Gnar
   // @TODO add fake loader like https://github.com/rstacruz/nprogress
 
