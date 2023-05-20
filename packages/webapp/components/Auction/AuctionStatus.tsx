@@ -1,11 +1,10 @@
-import { Box, Stack, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
+import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react"
 import { FC } from "react"
 import { truncatedAmount } from "../../utils"
 import { AvatarWallet } from "../AvatarWallet"
-import { SubtleStackDivider } from "../SubtleStackDivider"
 import { Countdown } from "./Countdown"
 
-interface AuctionStatusProps {
+interface AuctionStatusProps extends StackProps {
   endTimestamp?: number
   auctionEnded: boolean
   isBurned: boolean
@@ -23,19 +22,17 @@ export const AuctionStatus: FC<AuctionStatusProps> = ({
   isClaimedGnar,
   latestBid,
   winner,
+  ...props
 }) => {
-  const divider = useBreakpointValue({
-    md: <SubtleStackDivider />,
-  })
   return (
     <Stack
-      spacing={10}
-      direction={{ base: "column", md: "row" }}
-      divider={divider}
-      justifyItems={"start"}
-      alignItems={"start"}
+      direction={{ base: "column", sm: "row" }}
+      justifyItems={["center", "start"]}
+      justifyContent={["center", "space-between"]}
+      alignItems={["center", "start"]}
+      {...props}
     >
-      <VStack alignItems={"start"}>
+      <VStack alignItems={["center", "start"]} flexShrink={0}>
         <Text>{auctionEnded ? "Winning bid" : "Current bid"}</Text>
         <Text fontSize={"3xl"} fontWeight={"bold"} lineHeight={1}>
           {isBurned || isTreasuryGnar || isClaimedGnar || !latestBid
@@ -44,7 +41,7 @@ export const AuctionStatus: FC<AuctionStatusProps> = ({
         </Text>
       </VStack>
 
-      <VStack alignItems={"start"}>
+      <VStack alignItems={["center", "start"]} alignSelf={["center", "end"]}>
         <Text>
           {isBurned
             ? "Outcome"
@@ -54,7 +51,7 @@ export const AuctionStatus: FC<AuctionStatusProps> = ({
             ? "Winner"
             : "Auction ends in"}
         </Text>
-        <Box fontSize={"3xl"} fontWeight={"bold"} lineHeight={1}>
+        <Box fontSize={["2xl", "3xl"]} fontWeight={"bold"} lineHeight={1}>
           {isBurned ? (
             <Text>Burned 🔥</Text>
           ) : auctionEnded || !endTimestamp ? (

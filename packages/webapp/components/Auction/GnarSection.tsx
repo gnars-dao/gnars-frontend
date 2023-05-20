@@ -56,7 +56,7 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarData }) => {
             flex={"auto"}
             justifyContent={"center"}
           >
-            <AspectRatio ratio={1 / 1} w={"full"} maxW={"570px"}>
+            <AspectRatio ratio={1 / 1} w={"full"} maxW={["320px", "512px"]}>
               <Gnar isOg={isOg} gnarData={gnarData} />
             </AspectRatio>
           </HStack>

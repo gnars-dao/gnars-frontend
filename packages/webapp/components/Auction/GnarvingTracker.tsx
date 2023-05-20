@@ -1,18 +1,17 @@
 import {
-  HStack,
   Link,
   Progress,
-  StackProps,
+  SimpleGrid,
+  SimpleGridProps,
   Text,
   TypographyProps,
-  VStack,
   type SystemProps,
 } from "@chakra-ui/react"
 import { GnarvingData } from "hooks/useGnarData"
 import { FC } from "react"
 import { formatConciseDurationInDays } from "utils/dateTimeFormat"
 
-export interface GnarvingTrackerProps extends StackProps {
+export interface GnarvingTrackerProps extends SimpleGridProps {
   gnarvingData: GnarvingData
 }
 
@@ -33,17 +32,31 @@ export const GnarvingTracker: FC<GnarvingTrackerProps> = ({
   ...props
 }) => {
   return (
-    <VStack spacing={0} {...props}>
-      <HStack w="full" justifyContent={"space-between"}>
-        <Link {...typographyProps} href={"#gnarving"}>
-          {auctionsUntilNextGnarving} auctions until Gnarving (?)
-        </Link>
-        <Text {...typographyProps}>
-          current auction duration:{" "}
-          {formatConciseDurationInDays(auctionDuration)}
-        </Text>
-      </HStack>
+    <SimpleGrid
+      templateAreas={{
+        base: `"counter" "progress" "duration"`,
+        sm: `"progress progress" "counter duration"`,
+      }}
+      spacing={0}
+      {...props}
+    >
+      <Link
+        gridArea={"counter"}
+        justifySelf={["center", "start"]}
+        {...typographyProps}
+        href={"#gnarving"}
+      >
+        {auctionsUntilNextGnarving} auctions until Gnarving (?)
+      </Link>
+      <Text
+        textAlign={["center", "end"]}
+        gridArea={"duration"}
+        {...typographyProps}
+      >
+        current auction duration: {formatConciseDurationInDays(auctionDuration)}
+      </Text>
       <Progress
+        gridArea={"progress"}
         sx={{
           "div[role='progressbar']": {
             bgColor: "chakra-body-text",
@@ -57,6 +70,6 @@ export const GnarvingTracker: FC<GnarvingTrackerProps> = ({
         _light={{ bgColor: "blackAlpha.200" }}
         _dark={{ bgColor: "whiteAlpha.500" }}
       />
-    </VStack>
+    </SimpleGrid>
   )
 }

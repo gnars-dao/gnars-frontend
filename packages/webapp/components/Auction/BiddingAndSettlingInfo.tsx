@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
+  StackProps,
   Text,
   useDisclosure,
   VStack,
@@ -18,7 +19,7 @@ import {
 import { FC } from "react"
 import { FaInfoCircle } from "react-icons/fa"
 
-interface BiddingAndSettlingModalProps {}
+interface BiddingAndSettlingInfoProps extends StackProps {}
 
 const pulsate = keyframes`
 0%,
@@ -44,16 +45,16 @@ const pulsate = keyframes`
   }
 `
 
-export const BiddingAndSettlingInfo: FC<
-  BiddingAndSettlingModalProps
-> = ({}) => {
+export const BiddingAndSettlingInfo: FC<BiddingAndSettlingInfoProps> = ({
+  ...props
+}) => {
   const { isOpen, onClose, getButtonProps } = useDisclosure()
   return (
     <Stack
-      alignItems={"start"}
+      pt={[4, 0]}
       direction={{ base: "column", sm: "row" }}
-      w={"full"}
       spacing={{ base: 2, sm: 8 }}
+      {...props}
     >
       <Button
         color={"chakra-body-text"}

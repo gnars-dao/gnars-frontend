@@ -2,12 +2,11 @@ import {
   HStack,
   IconButton,
   Link,
+  SimpleGrid,
   Spinner,
   StackProps,
   Text,
   VStack,
-  Wrap,
-  WrapItem,
 } from "@chakra-ui/react"
 import { isPast } from "date-fns"
 import { FC, useEffect, useState } from "react"
@@ -81,37 +80,43 @@ export const GnarInfo: FC<GnarInfoProps> = ({
       maxW={{ base: "full", lg: "500px", xl: "xl" }}
       {...props}
     >
-      <VStack w="full">
-        <GnarvingTracker gnarvingData={gnarData.gnarving} w={"full"} />
-        <Wrap
-          color={"chakra-body-text"}
+      <SimpleGrid
+        w="full"
+        rowGap={[4, 2]}
+        columnGap={0}
+        templateAreas={{
+          base: `"gnarId" "navigation" "auction" "gnarvingTracker" `,
+          sm: `"gnarId navigation" "gnarvingTracker gnarvingTracker" "auction auction"`,
+        }}
+        color={"chakra-body-text"}
+        spacing={6}
+        overflow={"visible"}
+      >
+        <GnarvingTracker
+          justifySelf={"stretch"}
+          gridArea={"gnarvingTracker"}
+          gnarvingData={gnarData.gnarving}
           w={"full"}
-          justify={"space-between"}
-          spacing={6}
-          overflow={"visible"}
+        />
+        <HStack
+          justifySelf={["center", "start"]}
+          gridArea={"gnarId"}
+          lineHeight={"80%"}
+          fontFamily={`"Londrina Solid", sans-serif`}
+          fontSize={{ base: "5xl", xl: "6xl" }}
         >
-          <WrapItem>
-            <HStack
-              lineHeight={"80%"}
-              fontFamily={`"Londrina Solid", sans-serif`}
-              fontSize={{ base: "5xl", xl: "6xl" }}
-            >
-              {/*@TODO add OG crown*/}
-              {isOg && <Text position={"relative"}>OG</Text>}
-              {gnarData ? (
-                <Text>Gnar {gnarData.gnar.gnarId}</Text>
-              ) : (
-                <Spinner />
-              )}
-            </HStack>
-          </WrapItem>
-          <WrapItem alignSelf={"end"}>
-            <GnarNavigation gnarData={gnarData} />
-          </WrapItem>
-        </Wrap>
-      </VStack>
-      <VStack alignItems={"start"} spacing={10} w={"full"}>
+          {isOg && <Text position={"relative"}>OG</Text>}
+          {gnarData ? <Text>Gnar {gnarData.gnar.gnarId}</Text> : <Spinner />}
+        </HStack>
+        <GnarNavigation
+          gridArea={"navigation"}
+          alignSelf={"end"}
+          justifySelf={["center", "end"]}
+          gnarData={gnarData}
+        />
         <AuctionStatus
+          gridArea={"auction"}
+          justifySelf={"stretch"}
           endTimestamp={endTimestamp}
           auctionEnded={auctionEnded}
           isBurned={isBurned}
@@ -120,6 +125,8 @@ export const GnarInfo: FC<GnarInfoProps> = ({
           latestBid={latestBid}
           winner={winner}
         />
+      </SimpleGrid>
+      <VStack alignItems={"start"} spacing={10} w={"full"}>
         {(isTreasuryGnar || isOg || isClaimedGnar) && (
           <VStack alignItems={"start"} spacing={1}>
             <Text fontSize={"md"} lineHeight={1.1}>
@@ -174,7 +181,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({
             </HStack>
           )}
         {gnarData.gnar.auction && !settled && (
-          <VStack w={"full"} alignItems={"start"} spacing={1}>
+          <VStack w={"full"} justifyContent={"center"} spacing={1}>
             {auctionEnded ? (
               <SettleAuctionButton size={"lg"} w={"full"} />
             ) : (
