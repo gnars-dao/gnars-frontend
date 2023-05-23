@@ -51,8 +51,8 @@ export const GnarInfo: FC<GnarInfoProps> = ({
   >(block?.timestamp)
 
   useEffect(() => {
-    // sometimes the timestamp of new blocks is null. In that case, we keep the last known timestamp
-    // the next refetch should update it
+    // sometimes the timestamp of new blocks is null (https://github.com/graphprotocol/support/issues/104).
+    // In that case, we keep the last known timestamp. The next refetch should update it
     if (block?.timestamp) {
       setBlockTimestamp(block.timestamp)
     }
