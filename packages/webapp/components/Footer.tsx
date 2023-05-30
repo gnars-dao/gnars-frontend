@@ -1,10 +1,13 @@
-import { Box, Link } from "@chakra-ui/react"
+import { HStack, Link } from "@chakra-ui/react"
 
 export default function Footer() {
   return (
-    <Box
+    <HStack
+      spacing={3}
+      py={8}
+      justifyContent={"center"}
+      fontSize={{ base: "xs", sm: "lg" }}
       color={"chakra-body-text"}
-      className="flex gap-3 font-primary text-xs sm:text-lg justify-center py-8"
     >
       <Link
         href="https://discord.gg/XBeZuMxmst"
@@ -27,6 +30,6 @@ export default function Footer() {
       >
         Etherscan
       </Link>
-    </Box>
+    </HStack>
   )
 }

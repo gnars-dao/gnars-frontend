@@ -1,4 +1,4 @@
-import { Spinner } from "@chakra-ui/react"
+import { Box, Spinner } from "@chakra-ui/react"
 import { nFormatter } from "utils"
 import { TREASURY_ADDRESS } from "utils/contracts"
 import { useBalance } from "wagmi"
@@ -13,8 +13,8 @@ export const TreasuryBalance = () => {
   }
 
   return (
-    <div className="whitespace-nowrap">
+    <Box whiteSpace={"nowrap"}>
       Ξ {nFormatter(Number(balanceData?.formatted), 3)}
-    </div>
+    </Box>
   )
 }
