@@ -1,6 +1,6 @@
 import { Container, DarkMode, Stack, VStack } from "@chakra-ui/react"
 import { ProposalCreationForm } from "components/Governance/ProposalCreationForm"
-import { useProposalCreationContext } from "contexts/ProposalCreationContext"
+import { useProposalCreationState } from "components/Governance/ProposalCreationForm.state"
 import { constants } from "ethers"
 
 import dynamic from "next/dynamic"
@@ -12,7 +12,7 @@ import Menu from "../../../components/Menu"
 function NewProposal() {
   const { address } = useAccount()
 
-  const { title, description, transactions } = useProposalCreationContext()
+  const { title, description, transactions } = useProposalCreationState()
 
   return (
     <DarkMode>

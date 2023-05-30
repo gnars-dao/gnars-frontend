@@ -7,12 +7,13 @@ import {
   StackProps,
   Text,
   Textarea,
-  useDisclosure,
   VStack,
 } from "@chakra-ui/react"
-import { useProposalCreationContext } from "contexts/ProposalCreationContext"
 import { FC } from "react"
 import { AddTransactionForm } from "./AddTransactionForm"
+import { useAddTransactionFormState } from "./AddTransactionForm.state"
+import { useProposalCreationState } from "./ProposalCreationForm.state"
+import { TransactionCard } from "./TransactionCard"
 
 export interface ProposalCreationFormProps extends StackProps {}
 
@@ -26,8 +27,8 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
     setDescription,
     transactions,
     setTransactions,
-  } = useProposalCreationContext()
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  } = useProposalCreationState()
+  const { isOpen: isAddTxOpen, open: openAddTx } = useAddTransactionFormState()
   return (
     <VStack
       bgColor={"blackAlpha.300"}
@@ -68,19 +69,27 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
           w={"full"}
           borderWidth={1}
           borderRadius={"md"}
-          justifyContent="center"
+          justifyContent={"center"}
           p={4}
         >
-          {transactions.length === 0 && (
+          {transactions.length === 0 ? (
             <Text py={10} color={"whiteAlpha.400"} alignSelf={"center"}>
               None yet. Add at least one transaction to submit
             </Text>
+          ) : (
+            transactions.map((tx, i) => (
+              <TransactionCard
+                w={"full"}
+                key={`proposal-creation-tx-${i + 1}`}
+                data={tx}
+                index={i + 1}
+              />
+            ))
           )}
-          {isOpen ? (
+          {isAddTxOpen ? (
             <AddTransactionForm
               w={"full"}
               onAddTransaction={(tx) => setTransactions([...transactions, tx])}
-              onCancel={onClose}
             />
           ) : (
             <Button
@@ -88,7 +97,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
               bgColor={"whiteAlpha.50"}
               w={"full"}
               aria-label="Add transaction"
-              onClick={onOpen}
+              onClick={openAddTx}
             >
               Add transaction
             </Button>

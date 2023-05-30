@@ -1,10 +1,10 @@
-import { useProvider } from "wagmi"
-import { useEffect, useMemo, useState } from "react"
-import { cloneDeep, some } from "lodash"
 import { Provider } from "@ethersproject/providers"
 import { useQuery } from "@tanstack/react-query"
+import { cloneDeep } from "lodash"
+import { useMemo } from "react"
+import { useProvider } from "wagmi"
 
-export const useNnsNameWithEnsFallback = (address: string) => {
+export const useNnsNameWithEnsFallback = (address?: string) => {
   const provider = useProvider()
   const chainId = provider.network.chainId
   const nnsProvider = useMemo<Provider | undefined>(() => {
@@ -20,6 +20,7 @@ export const useNnsNameWithEnsFallback = (address: string) => {
   return useQuery(
     ["nnsOrEnsName", address, chainId],
     () => {
+      if (!address) return null
       return Promise.all([
         nnsProvider?.lookupAddress(address),
         provider.lookupAddress(address),

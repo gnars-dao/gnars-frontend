@@ -61,9 +61,7 @@ const avatarDelimitedVariant = defineAvatarPartsStyle({
   container: {
     borderWidth: "2px",
     borderColor: "blackAlpha.800",
-    bg: "whiteAlpha.800",
     _dark: {
-      bg: "whiteAlpha.500",
       borderColor: "whiteAlpha.800",
     },
   },
