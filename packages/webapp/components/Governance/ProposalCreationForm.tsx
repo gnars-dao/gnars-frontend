@@ -3,13 +3,20 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  IconButton,
   Input,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
   StackProps,
   Text,
   Textarea,
   VStack,
 } from "@chakra-ui/react"
 import { FC } from "react"
+import { FaTrashAlt } from "react-icons/fa"
 import { AddTransactionForm } from "./AddTransactionForm"
 import { useAddTransactionFormState } from "./AddTransactionForm.state"
 import { useProposalCreationState } from "./ProposalCreationForm.state"
@@ -67,10 +74,11 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
           mt={4}
           minH={20}
           w={"full"}
-          borderWidth={1}
+          borderWidth={0}
           borderRadius={"md"}
           justifyContent={"center"}
-          p={4}
+          p={0}
+          spacing={4}
         >
           {transactions.length === 0 ? (
             <Text py={10} color={"whiteAlpha.400"} alignSelf={"center"}>
@@ -79,6 +87,41 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
           ) : (
             transactions.map((tx, i) => (
               <TransactionCard
+                controls={
+                  <Popover size={"xs"}>
+                    <PopoverTrigger>
+                      <IconButton
+                        variant={"ghost"}
+                        size={"sm"}
+                        p={0}
+                        aria-label={"remove"}
+                        icon={<FaTrashAlt />}
+                      />
+                    </PopoverTrigger>
+                    <PopoverContent w={"fit-content"}>
+                      <PopoverArrow />
+                      <PopoverBody p={0}>
+                        <Button
+                          variant={"ghost"}
+                          aria-label="remove"
+                          onClick={() =>
+                            setTransactions(
+                              transactions.filter(
+                                (t) =>
+                                  t.calldata !== tx.calldata ||
+                                  t.signature !== tx.signature ||
+                                  t.target !== tx.target ||
+                                  t.value !== tx.value
+                              )
+                            )
+                          }
+                        >
+                          Remove
+                        </Button>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                }
                 w={"full"}
                 key={`proposal-creation-tx-${i + 1}`}
                 data={tx}

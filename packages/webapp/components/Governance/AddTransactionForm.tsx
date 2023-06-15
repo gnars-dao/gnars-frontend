@@ -9,22 +9,33 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  forwardRef,
   HStack,
   Input,
   InputGroup,
   InputRightElement,
-  SimpleGrid as VStack,
+  Select,
+  SimpleGrid,
   Text,
   Textarea,
+  TextareaProps,
+  VStack,
 } from "@chakra-ui/react"
+import { AbiParameter } from "abitype"
 import { AccountAddress } from "components/AccountAddress"
 import { AccountAvatar } from "components/AccountAvatar"
-import { isValidName, parseEther } from "ethers/lib/utils.js"
+import { ParamSpec, ParamsTable } from "components/ParamsTable"
+import { Interface, isValidName, parseEther } from "ethers/lib/utils.js"
 import { useAccountQuery } from "hooks/useAccountQuery"
-import { FC } from "react"
+import { useFunctions } from "hooks/useFunctions"
+import { FC, useMemo } from "react"
 import { useDebounce } from "usehooks-ts"
 import { TransactionData } from "utils/governanceUtils"
-import { useAddTransactionFormState } from "./AddTransactionForm.state"
+import { encodeFunctionData } from "viem"
+import {
+  getFuncParam,
+  useAddTransactionFormState,
+} from "./AddTransactionForm.state"
 import { useProposalCreationState } from "./ProposalCreationForm.state"
 
 export interface AddTransactionFormProps extends CardProps {
@@ -52,7 +63,7 @@ const PickTransactionKind = ({}) => {
   return (
     <>
       <CardBody>
-        <VStack w="full" columns={{ base: 1, md: 2 }} gap={2}>
+        <SimpleGrid w="full" columns={{ base: 1, md: 2 }} gap={2}>
           <Button
             h={20}
             variant={"outline"}
@@ -69,7 +80,7 @@ const PickTransactionKind = ({}) => {
           >
             Call contract
           </Button>
-        </VStack>
+        </SimpleGrid>
       </CardBody>
       <CardFooter justifyContent={"space-between"}>
         <Button
@@ -101,7 +112,24 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
     setEthValue,
     abi,
     setAbi,
+    func,
+    setFunc,
+    funcParams,
   } = useAddTransactionFormState()
+  const functions = useFunctions(abi)
+  const calldata = useMemo(() => {
+    if (!func || !abi || !funcParams) return undefined
+
+    try {
+      return encodeFunctionData({
+        abi: JSON.parse(abi),
+        functionName: func.name,
+        args: funcParams,
+      })
+    } catch (e) {
+      return undefined
+    }
+  }, [abi, func, funcParams])
 
   const debouncedAccountQuery = useDebounce(accountQuery, 600)
   const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(
@@ -110,11 +138,16 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
 
   const isValidEthValue = !!ethValue && parseFloat(ethValue) > 0
   const isValidTx =
-    txKind === "Send ETH" ? isValidEthValue && address !== undefined : false
+    txKind === "Send ETH"
+      ? isValidEthValue && address !== undefined
+      : !!calldata &&
+        address !== undefined &&
+        func !== undefined &&
+        (func.stateMutability === "payable" ? ethValue !== "" : true)
   return (
     <>
-      <CardBody>
-        <VStack w="full" spacing={4} justifyContent={"center"}>
+      <CardBody p={10}>
+        <VStack w="full" spacing={4} alignItems={"start"}>
           <FormControl isRequired>
             <FormLabel>Destination</FormLabel>
             <Input
@@ -156,35 +189,80 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
             </VStack>
           </HStack>
           <Divider />
-          <FormControl isRequired>
-            <FormLabel>Value</FormLabel>
-            <InputGroup maxW={60}>
-              <Input
-                type={"number"}
-                placeholder="0.001"
-                value={ethValue}
-                onChange={(e) => {
-                  setEthValue(e.target.value)
-                }}
-                min={0}
-              />
-              <InputRightElement mr={2}>ETH</InputRightElement>
-            </InputGroup>
-            <FormHelperText>
-              The ETH value to be sent to the destination.
-              {txKind === "Send ETH" ? "Must be > 0" : ""}
-            </FormHelperText>
-          </FormControl>
+
           {txKind === "Call contract" && (
+            <>
+              <FormControl isRequired>
+                <FormLabel>Abi</FormLabel>
+                <Textarea
+                  id={"abi"}
+                  value={abi}
+                  placeholder={"Enter the ABI of the contract to be called."}
+                  onChange={(e) => setAbi(e.target.value)}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel>Function</FormLabel>
+                <Select
+                  id={"function"}
+                  value={func?.name ?? ""}
+                  onChange={(e) =>
+                    setFunc(
+                      functions?.filter((f) => f.name === e.target.value)[0]! ??
+                        undefined
+                    )
+                  }
+                  isDisabled={!abi || !functions}
+                >
+                  <option value={""}>
+                    {functions ? "Select a function" : "Insert a valid ABI"}
+                  </option>
+                  {functions &&
+                    functions
+                      .filter(
+                        (f) =>
+                          f.stateMutability !== "pure" &&
+                          f.stateMutability !== "view"
+                      )
+                      .map((f) => (
+                        <option value={f.name} key={f.name}>
+                          {f.name}
+                        </option>
+                      ))}
+                </Select>
+              </FormControl>
+            </>
+          )}
+          {(txKind === "Send ETH" || func?.stateMutability === "payable") && (
             <FormControl isRequired>
-              <FormLabel>Abi</FormLabel>
-              <Textarea
-                id={"abi"}
-                value={abi}
-                placeholder={"Enter the ABI of the contract to be called."}
-                onChange={(e) => setAbi(e.target.value)}
-              />
+              <FormLabel>Value</FormLabel>
+              <InputGroup>
+                <Input
+                  type={"number"}
+                  placeholder="0.001"
+                  value={ethValue}
+                  onChange={(e) => {
+                    setEthValue(e.target.value)
+                  }}
+                  min={0}
+                />
+                <InputRightElement mr={2}>ETH</InputRightElement>
+              </InputGroup>
+              <FormHelperText>
+                The ETH value to be sent to the destination.
+                {txKind === "Send ETH" ? "Must be > 0" : ""}
+              </FormHelperText>
             </FormControl>
+          )}
+          {func && func.inputs.length > 0 && (
+            <VStack w={"full"} spacing={2} alignItems={"start"}>
+              <FormLabel>Parameters</FormLabel>
+              <ParamsTable
+                w={"full"}
+                params={getInputFields(func.inputs)}
+                bgColor={"transparent"}
+              />
+            </VStack>
           )}
         </VStack>
       </CardBody>
@@ -218,21 +296,32 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
             onClick={() => {
               if (!isValidTx) return
 
-              if (txKind === "Send ETH") {
-                setTransactions([
-                  ...transactions,
-                  {
-                    calldata: "0x",
-                    signature: "",
-                    target: address!,
-                    value: parseEther(ethValue),
-                  },
-                ])
-                close()
-                clear()
-                pickKind()
-                return
-              }
+              setTransactions([
+                ...transactions,
+                {
+                  calldata:
+                    txKind === "Send ETH"
+                      ? "0x"
+                      : "0x" + calldata!.substring(10),
+                  signature:
+                    txKind === "Send ETH"
+                      ? ""
+                      : new Interface(JSON.parse(abi))
+                          .getFunction(func!.name)
+                          .format("sighash"),
+                  target: address!,
+                  value:
+                    txKind === "Send ETH"
+                      ? parseEther(ethValue)
+                      : func?.stateMutability === "payable"
+                      ? parseEther(ethValue)
+                      : parseEther("0"),
+                },
+              ])
+              // close()
+              // clear()
+              // pickKind()
+              return
             }}
           >
             Add
@@ -242,3 +331,50 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
     </>
   )
 }
+
+const getInputFields = (
+  params: readonly AbiParameter[],
+  indices: number[] = []
+): ParamSpec[] => {
+  return params.map((input, i) => ({
+    description: `${input.name}(${input.type})`,
+    value:
+      "components" in input ? (
+        getInputFields(input.components, [...indices, i])
+      ) : (
+        <ParamInput
+          param={input}
+          indices={[...indices, i]}
+          key={`param-${[...indices, i].join("-")}`}
+        />
+      ),
+  }))
+}
+
+interface ParamInputProps extends TextareaProps {
+  param: AbiParameter
+  indices: number[]
+}
+const ParamInput = forwardRef<ParamInputProps, "textarea">(
+  ({ param, indices, ...props }, ref) => {
+    const { funcParams, setFuncParam } = useAddTransactionFormState()
+    return (
+      <Textarea
+        minH={8}
+        pt={"6px"}
+        px={2}
+        pb={0}
+        // p={"6px 8px 0 8px"}
+        resize={"vertical"}
+        size={"sm"}
+        borderRadius={"md"}
+        ref={ref}
+        variant={"filled"}
+        placeholder={`${param.name}(${param.type})`}
+        value={getFuncParam(funcParams, indices) as string}
+        onChange={(e) => setFuncParam(indices, e.target.value)}
+        {...props}
+      />
+    )
+  }
+)

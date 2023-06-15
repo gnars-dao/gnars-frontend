@@ -1,28 +1,9 @@
-import { FC } from "react"
-import {
-  Center,
-  Code,
-  HStack,
-  List,
-  ListItem,
-  OrderedList,
-  SimpleGrid,
-  StackProps,
-  Text,
-  UnorderedList,
-  VStack,
-} from "@chakra-ui/react"
-import {
-  defaultAbiCoder,
-  formatEther,
-  getAddress,
-  ParamType,
-} from "ethers/lib/utils"
-import { BigNumber, Contract, utils } from "ethers"
-import { Address } from "../Address"
-import { chakra } from "@chakra-ui/react"
-import { useQuery } from "wagmi"
+import { StackProps, Text, VStack } from "@chakra-ui/react"
 import { AvatarWallet } from "components/AvatarWallet"
+import { ParamSpec, ParamsTable } from "components/ParamsTable"
+import { BigNumber, utils } from "ethers"
+import { formatEther, getAddress, ParamType, Result } from "ethers/lib/utils"
+import { FC } from "react"
 import { TransactionData } from "utils/governanceUtils"
 
 export interface TransactionProps extends StackProps {
@@ -54,7 +35,7 @@ export const Transaction: FC<TransactionProps> = ({
   )
 
   return (
-    <VStack alignItems={"start"} {...props}>
+    <VStack alignItems={"start"} spacing={4} {...props}>
       <Text>
         Call <strong>{func.name}</strong>{" "}
         {BigNumber.from(value).gt(0)
@@ -63,64 +44,23 @@ export const Transaction: FC<TransactionProps> = ({
       </Text>
       <AvatarWallet withLink truncateAddress={false} address={target} />
 
-      {signature && (
-        <SimpleGrid
-          minW={"md"}
-          gridGap={"1px"}
-          columns={1}
-          p={2}
-          alignItems={"start"}
-          bgColor={"whiteAlpha.50"}
-          borderWidth={1}
-          sx={{
-            ".param-value": {
-              pb: 2,
-              // pb={i < params.length - 1 ? 2 : 1}
-              "&:not(:last-child)": {
-                borderBottomWidth: 1,
-                pb: 2,
-              },
-              "&:last-child": {
-                pb: 1,
-              },
-            },
-          }}
-        >
-          {func.inputs.flatMap((param, i) => {
-            const paramDescription =
-              param.type === "tuple"
-                ? `tuple(${param.components.map((c) => c.type).join(",")})`
-                : param.type
-
-            const paramValue =
-              param.type === "tuple"
-                ? decodedData[i].map((v: any) => v.toString()).join(", ")
-                : decodedData[i].toString()
-
-            return [
-              <Text
-                className="param-description"
-                key={`param-${i}-description`}
-                py={1}
-                lineHeight={1}
-                fontSize={"sm"}
-                fontWeight={"bold"}
-                color={"whiteAlpha.600"}
-              >
-                {i}: {paramDescription}
-              </Text>,
-
-              <Text
-                className="param-value"
-                key={`param-${i}-value`}
-                lineHeight={1}
-              >
-                {paramValue}
-              </Text>,
-            ]
-          })}
-        </SimpleGrid>
+      {signature && func.inputs.length > 0 && (
+        <ParamsTable
+          params={func.inputs.map((f, i) => toParamSpec(f, i, decodedData))}
+        />
       )}
     </VStack>
   )
 }
+
+const toParamSpec = (
+  param: ParamType,
+  i: number,
+  decodedData: Result
+): ParamSpec => ({
+  description: param.type,
+  value:
+    param.type === "tuple"
+      ? param.components.map((c, j) => toParamSpec(c, j, decodedData[i]))
+      : decodedData[i].toString(),
+})
