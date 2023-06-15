@@ -1,42 +1,26 @@
-import { FC, FormEvent, useEffect, useRef, useState } from "react"
 import {
-  Button,
   ButtonGroup,
-  ButtonProps,
-  FormControl,
   HStack,
   IconButton,
   Input,
   InputGroup,
   InputRightElement,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Slider,
-  SliderFilledTrack,
   SliderMark,
   SliderThumb,
   SliderTrack,
   Stack,
   StackProps,
   Text,
-  Tooltip,
   useNumberInput,
-  useSlider,
 } from "@chakra-ui/react"
-import {
-  useGnarsV2AuctionHouseCreateBid,
-  usePrepareGnarsV2AuctionHouseCreateBid,
-} from "../../utils/sdk"
 import { BigNumber } from "ethers"
 import { formatEther, parseEther } from "ethers/lib/utils"
+import { FC, useState } from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa"
-import { ConnectKitButton } from "connectkit"
-import { ContractActionButton } from "../ContractActionButton"
 import { mainnet } from "wagmi/chains"
-import { useDebounce } from "usehooks-ts"
+import { useGnarsV2AuctionHouseCreateBid } from "../../utils/sdk"
+import { ContractActionButton } from "../ContractActionButton"
 
 const minBidIncrementPercentage = 5
 
@@ -161,10 +145,10 @@ export const BidForGnar: FC<BidForGnarProps> = ({
         </SliderMark>
         <SliderMark
           value={0}
-          top={"70%"}
+          top={"75%"}
           fontWeight={"bold"}
           fontSize={9}
-          lineHeight={1}
+          lineHeight={0.5}
           filter={"opacity(30%)"}
           maxW={"50%"}
         >
@@ -175,8 +159,8 @@ export const BidForGnar: FC<BidForGnarProps> = ({
         </SliderMark>
         <SliderMark
           value={0}
-          lineHeight={1}
-          top={"70%"}
+          lineHeight={0.5}
+          top={"75%"}
           left={"auto!important"}
           right={0}
           fontWeight={"bold"}
