@@ -1,4 +1,4 @@
-import { HStack, StackProps, Text, VStack } from "@chakra-ui/react"
+import { StackProps, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
 import { AbiFunction, AbiParameter } from "abitype"
 import { AccountAddress } from "components/AccountAddress"
 import { AccountWithAvatar } from "components/AccountWithAvatar"
@@ -32,6 +32,8 @@ export const Transaction: FC<TransactionProps> = ({
     address: target as `0x${string}`,
   })
 
+  const truncateAddress = useBreakpointValue({ base: true, md: false })
+
   const effectiveAbi = contractInfo ? getEffectiveAbi(contractInfo) : undefined
 
   if (!signature) {
@@ -47,14 +49,10 @@ export const Transaction: FC<TransactionProps> = ({
           address={target}
           avatarImg={ensAvatar ?? undefined}
         >
-          <HStack divider={<Text px={2}>-</Text>}>
-            {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
-            {contractInfo && (
-              <ContractBreadcrumbs contractInfo={contractInfo} />
-            )}
-          </HStack>
-          <AccountAddress address={target} />
+          {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
+          <AccountAddress address={target} truncate={truncateAddress} />
         </AccountWithAvatar>
+        {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
       </VStack>
     )
   }
@@ -85,12 +83,10 @@ export const Transaction: FC<TransactionProps> = ({
         address={target}
         avatarImg={ensAvatar ?? undefined}
       >
-        <HStack divider={<Text px={2}>-</Text>}>
-          {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
-          {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
-        </HStack>
-        <AccountAddress address={target} />
+        {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
+        <AccountAddress address={target} truncate={truncateAddress} />
       </AccountWithAvatar>
+      {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
 
       {signature && func.inputs.length > 0 && (
         <ParamsTable

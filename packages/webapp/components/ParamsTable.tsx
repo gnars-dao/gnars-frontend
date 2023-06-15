@@ -16,7 +16,6 @@ export const ParamsTable: FC<ParamsTableProps> = ({ params, ...props }) => {
     <SimpleGrid
       w={"full"}
       overflowX={"scroll"}
-      minW={"md"}
       gridGap={"1px"}
       columns={1}
       p={4}
@@ -64,7 +63,6 @@ const toGridItem = ({ description, value }: ParamSpec, i: number) => [
     <Box pl={2} className="param-value">
       <SimpleGrid
         key={`param-${i}-value`}
-        // ml={2}
         gridGap={"1px"}
         columns={1}
         p={2}

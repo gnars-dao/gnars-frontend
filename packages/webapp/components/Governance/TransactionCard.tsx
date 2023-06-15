@@ -16,8 +16,20 @@ export const TransactionCard: FC<TransactionCardProps> = ({
   ...props
 }) => {
   return (
-    <Card {...props} w={"full"} variant={"outline"} bgColor={"blackAlpha.100"}>
-      <HStack w={"full"} justifyContent={"space-between"} alignItems={"start"}>
+    <Card
+      {...props}
+      w={"full"}
+      variant={"outline"}
+      bgColor={"blackAlpha.100"}
+      overflowX={"scroll"}
+    >
+      <HStack
+        w={"full"}
+        position={"sticky"}
+        left={0}
+        justifyContent={"space-between"}
+        alignItems={"start"}
+      >
         <Badge
           w={"fit-content"}
           color={"whiteAlpha.600"}
@@ -31,7 +43,7 @@ export const TransactionCard: FC<TransactionCardProps> = ({
         </Badge>
         {controls}
       </HStack>
-      <CardBody p={6}>
+      <CardBody w={"fit-content"} p={6}>
         <Transaction data={data} />
       </CardBody>
     </Card>

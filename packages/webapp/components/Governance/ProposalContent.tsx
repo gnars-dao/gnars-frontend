@@ -28,7 +28,7 @@ export const ProposalContent: FC<ProposalContentProps> = ({
       </VStack>
       <VStack
         w={"full"}
-        p={8}
+        p={[4, 8]}
         alignItems={"start"}
         spacing={8}
         fontSize={["sm", "md", "lg"]}
@@ -42,7 +42,7 @@ export const ProposalContent: FC<ProposalContentProps> = ({
         <Heading
           as={"h2"}
           textStyle={"h2"}
-          fontSize="4xl"
+          fontSize="1.5em"
           className={inter.className}
           fontFamily={inter.style.fontFamily}
           fontWeight={700}
