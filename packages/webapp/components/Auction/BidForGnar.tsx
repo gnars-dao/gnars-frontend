@@ -1,42 +1,26 @@
-import { FC, FormEvent, useEffect, useRef, useState } from "react"
 import {
-  Button,
   ButtonGroup,
-  ButtonProps,
-  FormControl,
   HStack,
   IconButton,
   Input,
   InputGroup,
   InputRightElement,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Slider,
-  SliderFilledTrack,
   SliderMark,
   SliderThumb,
   SliderTrack,
   Stack,
   StackProps,
   Text,
-  Tooltip,
   useNumberInput,
-  useSlider,
 } from "@chakra-ui/react"
-import {
-  useGnarsV2AuctionHouseCreateBid,
-  usePrepareGnarsV2AuctionHouseCreateBid,
-} from "../../utils/sdk"
 import { BigNumber } from "ethers"
 import { formatEther, parseEther } from "ethers/lib/utils"
+import { FC, useState } from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa"
-import { ConnectKitButton } from "connectkit"
-import { ContractActionButton } from "../ContractActionButton"
 import { mainnet } from "wagmi/chains"
-import { useDebounce } from "usehooks-ts"
+import { useGnarsV2AuctionHouseCreateBid } from "../../utils/sdk"
+import { ContractActionButton } from "../ContractActionButton"
 
 const minBidIncrementPercentage = 5
 
@@ -59,7 +43,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
     ? incrementedBid
     : RESERVE_PRICE
 
-  const minBidEth = parseFloat(formatEther(minBid))
+  const minBidEth = parseFloat(formatEther(minBid)).toPrecision(7)
   const [treasuryAllocation, setTreasuryAllocation] = useState<number>(90)
   const founderAllocation = 100 - treasuryAllocation
   const {
