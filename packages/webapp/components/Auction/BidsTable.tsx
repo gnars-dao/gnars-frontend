@@ -1,25 +1,19 @@
-import { Bid, GnarData } from "../../hooks/useGnarData"
 import {
   Link,
-  SimpleGrid,
-  SimpleGridProps,
   Table,
-  TableCaption,
   TableContainer,
   TableContainerProps,
   Tbody,
   Td,
   Text,
-  Th,
-  Thead,
   Tr,
   useColorMode,
-  VStack,
 } from "@chakra-ui/react"
-import { FC } from "react"
-import { AvatarWallet } from "../AvatarWallet"
 import { formatEther } from "ethers/lib/utils"
+import { FC } from "react"
 import { HiExternalLink } from "react-icons/hi"
+import { Bid } from "../../hooks/useGnarData"
+import { AvatarWallet } from "../AvatarWallet"
 
 export type BidsProps = {
   bids: Bid[]
@@ -47,12 +41,7 @@ export const BidsTable: FC<BidsProps> = ({ bids, ...props }) => {
                 borderColor={borderColor}
                 borderBottomWidth={i === amountBids - 1 ? 0 : 1}
               >
-                <AvatarWallet
-                  withLink
-                  variant={"delimited"}
-                  address={bid.bidder}
-                  justifySelf={"start"}
-                />
+                <AvatarWallet address={bid.bidder} justifySelf={"start"} />
               </Td>
               <Td
                 borderColor={borderColor}

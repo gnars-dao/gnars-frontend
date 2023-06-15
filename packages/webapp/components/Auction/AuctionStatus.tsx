@@ -56,7 +56,7 @@ export const AuctionStatus: FC<AuctionStatusProps> = ({
             <Text>Burned 🔥</Text>
           ) : auctionEnded || !endTimestamp ? (
             !!winner ? (
-              <AvatarWallet withLink variant={"delimited"} address={winner} />
+              <AvatarWallet address={winner} />
             ) : (
               "N/A"
             )
