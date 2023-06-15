@@ -1,4 +1,4 @@
-import { StackProps, Text, VStack } from "@chakra-ui/react"
+import { HStack, StackProps, Text, VStack } from "@chakra-ui/react"
 import { AbiFunction, AbiParameter } from "abitype"
 import { AccountAddress } from "components/AccountAddress"
 import { AccountWithAvatar } from "components/AccountWithAvatar"
@@ -47,8 +47,12 @@ export const Transaction: FC<TransactionProps> = ({
           address={target}
           avatarImg={ensAvatar ?? undefined}
         >
-          {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
-          {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
+          <HStack divider={<Text px={2}>-</Text>}>
+            {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
+            {contractInfo && (
+              <ContractBreadcrumbs contractInfo={contractInfo} />
+            )}
+          </HStack>
           <AccountAddress address={target} />
         </AccountWithAvatar>
       </VStack>
@@ -81,8 +85,10 @@ export const Transaction: FC<TransactionProps> = ({
         address={target}
         avatarImg={ensAvatar ?? undefined}
       >
-        {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
-        {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
+        <HStack divider={<Text px={2}>-</Text>}>
+          {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
+          {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
+        </HStack>
         <AccountAddress address={target} />
       </AccountWithAvatar>
 

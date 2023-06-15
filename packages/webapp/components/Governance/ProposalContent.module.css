@@ -17,8 +17,6 @@
 .markdown h6 {
   color: var(--chakra-colors-white);
   font-weight: 700;
-  padding-bottom: 2em;
-  padding-top: 2em;
 }
 
 .markdown h1 {
@@ -46,8 +44,7 @@
   /* color: white; */
 }
 
-.markdown li,
-.markdown ol {
+.markdown li {
   /* margin-block-start: 1em; */
   margin-block-end: 0.2em;
   margin-inline-start: 0px;
