@@ -9,13 +9,19 @@ import {
 import { FC } from "react"
 // @ts-ignore
 import { FiCopy, FiExternalLink } from "react-icons/fi"
+import { getAddress } from "viem"
 import { shortAddress } from "../utils"
 
 export type AccountAddress = {
   address: `0x${string}`
+  truncate?: boolean
 } & StackProps
 
-export const AccountAddress: FC<AccountAddress> = ({ address, ...props }) => {
+export const AccountAddress: FC<AccountAddress> = ({
+  address,
+  truncate = false,
+  ...props
+}) => {
   const {
     isOpen: isCopiedTooltipOpen,
     onClose: hideCopiedTooltip,
@@ -23,8 +29,16 @@ export const AccountAddress: FC<AccountAddress> = ({ address, ...props }) => {
   } = useDisclosure()
   return (
     <HStack spacing={1} p={0}>
-      <Tooltip hasArrow placement="bottom" label={address} maxW={"fit-content"}>
-        <Text whiteSpace={"nowrap"}>{shortAddress(address)}</Text>
+      <Tooltip
+        isDisabled={!truncate}
+        hasArrow
+        placement="bottom"
+        label={address}
+        maxW={"fit-content"}
+      >
+        <Text whiteSpace={"nowrap"}>
+          {truncate ? shortAddress(address) : getAddress(address)}
+        </Text>
       </Tooltip>
       <Tooltip
         hasArrow

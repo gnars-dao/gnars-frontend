@@ -1,10 +1,20 @@
 import { StackProps, Text, VStack } from "@chakra-ui/react"
-import { AvatarWallet } from "components/AvatarWallet"
+import { AbiFunction, AbiParameter } from "abitype"
+import { AccountAddress } from "components/AccountAddress"
+import { AccountWithAvatar } from "components/AccountWithAvatar"
+import { ContractBreadcrumbs } from "components/ContractBreadcrumbs"
 import { ParamSpec, ParamsTable } from "components/ParamsTable"
 import { BigNumber, utils } from "ethers"
-import { formatEther, getAddress, ParamType, Result } from "ethers/lib/utils"
+import { formatEther, ParamType, Result } from "ethers/lib/utils"
+import {
+  getEffectiveAbi,
+  useEtherscanContractInfo,
+} from "hooks/useEtherscanContractInfo"
+import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback"
 import { FC } from "react"
 import { TransactionData } from "utils/governanceUtils"
+import { getAbiItem } from "viem"
+import { useEnsAvatar } from "wagmi"
 
 export interface TransactionProps extends StackProps {
   data: TransactionData
@@ -14,7 +24,15 @@ export const Transaction: FC<TransactionProps> = ({
   data: { calldata, signature, target, value },
   ...props
 }) => {
-  const address = getAddress(target) // Ensures address is in checksum format
+  const { data: contractInfo, isLoading: isLoadingContractInfo } =
+    useEtherscanContractInfo(target)
+  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } =
+    useNnsNameWithEnsFallback(target)
+  const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
+    address: target as `0x${string}`,
+  })
+
+  const effectiveAbi = contractInfo ? getEffectiveAbi(contractInfo) : undefined
 
   if (!signature) {
     return (
@@ -22,7 +40,20 @@ export const Transaction: FC<TransactionProps> = ({
         <Text>
           Transfer <strong>{formatEther(value)}</strong> ETH to
         </Text>
-        <AvatarWallet withLink truncateAddress={false} address={target} />
+        <AccountWithAvatar
+          isLoading={
+            isLoadingContractInfo || isLoadingNnsOrEnsName || isLoadingEnsAvatar
+          }
+          address={target}
+          avatarImg={ensAvatar ?? undefined}
+        >
+          {contractInfo ? (
+            <ContractBreadcrumbs contractInfo={contractInfo} />
+          ) : (
+            nnsOrEnsName && <Text>{nnsOrEnsName}</Text>
+          )}
+          <AccountAddress address={target} />
+        </AccountWithAvatar>
       </VStack>
     )
   }
@@ -34,6 +65,10 @@ export const Transaction: FC<TransactionProps> = ({
     iface.getSighash(signature!) + calldata.replace("0x", "")
   )
 
+  const fullFunc = effectiveAbi
+    ? (getAbiItem({ abi: effectiveAbi, name: func.name }) as AbiFunction)
+    : undefined
+
   return (
     <VStack alignItems={"start"} spacing={4} {...props}>
       <Text>
@@ -42,11 +77,26 @@ export const Transaction: FC<TransactionProps> = ({
           ? ` with ${formatEther(value)} ETH on`
           : " on"}
       </Text>
-      <AvatarWallet withLink truncateAddress={false} address={target} />
+      <AccountWithAvatar
+        isLoading={
+          isLoadingContractInfo || isLoadingNnsOrEnsName || isLoadingEnsAvatar
+        }
+        address={target}
+        avatarImg={ensAvatar ?? undefined}
+      >
+        {contractInfo ? (
+          <ContractBreadcrumbs contractInfo={contractInfo} />
+        ) : (
+          nnsOrEnsName && <Text>{nnsOrEnsName}</Text>
+        )}
+        <AccountAddress address={target} />
+      </AccountWithAvatar>
 
       {signature && func.inputs.length > 0 && (
         <ParamsTable
-          params={func.inputs.map((f, i) => toParamSpec(f, i, decodedData))}
+          params={(fullFunc ?? func).inputs.map((f, i) =>
+            toParamSpec(f, i, decodedData)
+          )}
         />
       )}
     </VStack>
@@ -54,13 +104,13 @@ export const Transaction: FC<TransactionProps> = ({
 }
 
 const toParamSpec = (
-  param: ParamType,
+  param: ParamType | AbiParameter,
   i: number,
   decodedData: Result
 ): ParamSpec => ({
-  description: param.type,
+  description: `${param.name ?? i} (${param.type})`,
   value:
-    param.type === "tuple"
+    "components" in param && param.components !== null
       ? param.components.map((c, j) => toParamSpec(c, j, decodedData[i]))
       : decodedData[i].toString(),
 })

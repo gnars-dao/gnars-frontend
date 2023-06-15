@@ -14,6 +14,7 @@ export interface ParamsTableProps extends SimpleGridProps {
 export const ParamsTable: FC<ParamsTableProps> = ({ params, ...props }) => {
   return (
     <SimpleGrid
+      w={"full"}
       overflowX={"scroll"}
       minW={"md"}
       gridGap={"1px"}

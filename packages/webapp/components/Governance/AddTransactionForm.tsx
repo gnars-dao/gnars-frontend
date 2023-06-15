@@ -23,10 +23,12 @@ import {
 } from "@chakra-ui/react"
 import { AbiParameter } from "abitype"
 import { AccountAddress } from "components/AccountAddress"
-import { AccountAvatar } from "components/AccountAvatar"
+import { AccountWithAvatar } from "components/AccountWithAvatar"
+import { ContractBreadcrumbs } from "components/ContractBreadcrumbs"
 import { ParamSpec, ParamsTable } from "components/ParamsTable"
 import { Interface, isValidName, parseEther } from "ethers/lib/utils.js"
 import { useAccountQuery } from "hooks/useAccountQuery"
+import { useEtherscanContractInfo } from "hooks/useEtherscanContractInfo"
 import { useFunctions } from "hooks/useFunctions"
 import { FC, useMemo } from "react"
 import { useDebounce } from "usehooks-ts"
@@ -144,6 +146,7 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
         address !== undefined &&
         func !== undefined &&
         (func.stateMutability === "payable" ? ethValue !== "" : true)
+  const { data: contractInfo } = useEtherscanContractInfo(address)
   return (
     <>
       <CardBody p={10}>
@@ -163,31 +166,32 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
               You can use an address or an ENS name
             </FormHelperText>
           </FormControl>
-          <HStack w={"fit-content"}>
-            <AccountAvatar
-              isLoading={isLoading}
-              address={address}
-              avatarImg={ensAvatar}
-            />
-            <VStack alignItems={"start"} spacing={0}>
-              {!address && (
-                <Text>
-                  {!!accountQuery
-                    ? accountQuery
-                    : "Enter the destination account"}
-                </Text>
-              )}
-              {accountQuery && !address && !isLoading && (
-                <Text color={"red.300"}>
-                  {isValidName(accountQuery)
-                    ? "Account not found"
-                    : "Invalid query. Use an address or ens name"}
-                </Text>
-              )}
-              {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
-              {address && <AccountAddress address={address} />}
-            </VStack>
-          </HStack>
+          <AccountWithAvatar
+            isLoading={isLoading}
+            address={address}
+            avatarImg={ensAvatar}
+          >
+            {!address && (
+              <Text>
+                {!!accountQuery
+                  ? accountQuery
+                  : "Enter the destination account"}
+              </Text>
+            )}
+            {accountQuery && !address && !isLoading && (
+              <Text color={"red.300"}>
+                {isValidName(accountQuery)
+                  ? "Account not found"
+                  : "Invalid query. Use an address or ens name"}
+              </Text>
+            )}
+            {contractInfo ? (
+              <ContractBreadcrumbs contractInfo={contractInfo} />
+            ) : (
+              nnsOrEnsName && <Text>{nnsOrEnsName}</Text>
+            )}
+            {address && <AccountAddress address={address} />}
+          </AccountWithAvatar>
           <Divider />
 
           {txKind === "Call contract" && (

@@ -1,22 +1,19 @@
 import {
   Avatar,
   AvatarProps,
-  Box,
   HStack,
-  Image,
   Link,
-  PropsOf,
   Spinner,
   StackProps,
   Text,
 } from "@chakra-ui/react"
-import { FC, useMemo } from "react"
+import { FC } from "react"
 import { useEnsAvatar } from "wagmi"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 // @ts-ignore
 import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync.mjs"
-import { shortAddress } from "../utils"
 import { HiExternalLink } from "react-icons/hi"
+import { shortAddress } from "../utils"
 
 export type AvatarWalletProps = {
   address: string

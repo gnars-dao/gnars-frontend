@@ -43,7 +43,6 @@ export const ProposalContent: FC<ProposalContentProps> = ({
         {transactions.map((transaction, i) => (
           <TransactionCard
             w={"full"}
-            maxW="2xl"
             key={`proposal-tx-${i + 1}`}
             data={transaction}
             index={i + 1}
