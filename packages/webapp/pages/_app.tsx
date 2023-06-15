@@ -5,7 +5,6 @@ import Footer from "components/Footer"
 import { ConnectKitProvider, getDefaultClient } from "connectkit"
 import type { AppProps } from "next/app"
 import { createClient, WagmiConfig } from "wagmi"
-import "../styles/global.css"
 
 import Head from "next/head"
 import { queryClient } from "utils"

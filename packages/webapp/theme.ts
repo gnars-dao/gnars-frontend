@@ -6,6 +6,12 @@ import {
   extendTheme,
 } from "@chakra-ui/react"
 
+import { Londrina_Solid } from "next/font/google"
+const londrinaSolid = Londrina_Solid({
+  weight: "400",
+  subsets: ["latin"],
+})
+
 const config = {
   initialColorMode: "dark",
   useSystemColorMode: false,
@@ -80,7 +86,7 @@ const Button = defineStyleConfig({
 
 const Heading = defineStyleConfig({
   baseStyle: {
-    fontFamily: '"Londrina Solid", sans-serif',
+    fontFamily: londrinaSolid.style.fontFamily,
     fontWeight: "normal",
   },
   defaultProps: {
@@ -140,17 +146,17 @@ const theme = extendTheme({
   components: { Button, Avatar, Heading, StackDivider, Input, Slider },
   textStyles: {
     h1: {
-      fontFamily: '"Londrina Solid", sans-serif',
+      fontFamily: londrinaSolid.style.fontFamily,
       fontSize: { base: "5xl", sm: "8xl" },
       lineHeight: "120%",
     },
     h2: {
-      fontFamily: '"Londrina Solid", sans-serif',
+      fontFamily: londrinaSolid.style.fontFamily,
       fontSize: "3xl",
       lineHeight: "100%",
     },
     h3: {
-      fontFamily: '"Londrina Solid", sans-serif',
+      fontFamily: londrinaSolid.style.fontFamily,
       fontSize: "2xl",
       lineHeight: "100%",
     },

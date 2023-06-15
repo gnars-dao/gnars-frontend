@@ -14,11 +14,13 @@ import { shortAddress } from "../utils"
 
 export type AccountAddress = {
   address: `0x${string}`
+  nnsOrEnsName?: string
   truncate?: boolean
 } & StackProps
 
 export const AccountAddress: FC<AccountAddress> = ({
   address,
+  nnsOrEnsName,
   truncate = false,
   ...props
 }) => {
@@ -28,7 +30,7 @@ export const AccountAddress: FC<AccountAddress> = ({
     onOpen: showCopiedTooltip,
   } = useDisclosure()
   return (
-    <HStack spacing={1} p={0}>
+    <HStack spacing={1} p={0} {...props}>
       <Tooltip
         isDisabled={!truncate}
         hasArrow
@@ -37,7 +39,11 @@ export const AccountAddress: FC<AccountAddress> = ({
         maxW={"fit-content"}
       >
         <Text whiteSpace={"nowrap"}>
-          {truncate ? shortAddress(address) : getAddress(address)}
+          {nnsOrEnsName
+            ? nnsOrEnsName
+            : truncate
+            ? shortAddress(address)
+            : getAddress(address)}
         </Text>
       </Tooltip>
       <Tooltip

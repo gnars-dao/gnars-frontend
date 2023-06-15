@@ -1,78 +1,71 @@
-import {
-  Avatar,
-  AvatarProps,
-  HStack,
-  Link,
-  Spinner,
-  StackProps,
-  Text,
-} from "@chakra-ui/react"
 import { FC } from "react"
 import { useEnsAvatar } from "wagmi"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 // @ts-ignore
-import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync.mjs"
-import { HiExternalLink } from "react-icons/hi"
-import { shortAddress } from "../utils"
+import { AccountAddress } from "./AccountAddress"
+import { AccountWithAvatar, AccountWithAvatarProps } from "./AccountWithAvatar"
 
 export type AvatarWalletProps = {
   address: string
-  withLink?: boolean
-  truncateAddress?: boolean
-  variant?: AvatarProps["variant"]
-} & StackProps
+} & AccountWithAvatarProps
 
-export const AvatarWallet: FC<AvatarWalletProps> = ({
-  address,
-  withLink = false,
-  truncateAddress = true,
-  variant,
-  ...props
-}) => {
-  const { data: nnsOrEnsName } = useNnsNameWithEnsFallback(address)
-  const {
-    isLoading: isLoadingEnsAvatar,
-    isFetched: isFetchedEnsAvatar,
-    data: ensAvatar,
-  } = useEnsAvatar({
+export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
+  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } =
+    useNnsNameWithEnsFallback(address)
+  const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
     address: address as `0x${string}`,
   })
 
-  const content = (
-    <HStack {...props}>
-      {isLoadingEnsAvatar && <Spinner boxSize={"36px"} thickness={"2px"} />}
-      {isFetchedEnsAvatar && (
-        <Avatar
-          variant={variant}
-          src={ensAvatar ?? undefined}
-          icon={<BlockiesSvgSync address={address} />}
-          loading={"eager"}
-          overflow={"clip"}
-          boxSize={"36px"}
-        />
-      )}
-      <Text whiteSpace={"nowrap"} px={2}>
-        {nnsOrEnsName ?? (truncateAddress ? shortAddress(address) : address)}
-        {withLink && (
-          <HiExternalLink
-            style={{
-              display: "inline",
-              marginBottom: "-2px",
-              maxWidth: "18px",
-              maxHeight: "18px",
-              verticalAlign: "baseline",
-            }}
-          />
-        )}
-      </Text>
-    </HStack>
+  return (
+    <AccountWithAvatar
+      address={address}
+      avatarImg={ensAvatar ?? undefined}
+      isLoading={isLoadingNnsOrEnsName || isLoadingEnsAvatar}
+      {...props}
+    >
+      <AccountAddress
+        truncate
+        address={address as `0x${string}`}
+        nnsOrEnsName={nnsOrEnsName ?? undefined}
+      />
+    </AccountWithAvatar>
   )
 
-  return withLink ? (
-    <Link isExternal href={`https://etherscan.io/address/${address}`}>
-      {content}
-    </Link>
-  ) : (
-    content
-  )
+  // const content = (
+  //   <HStack {...props}>
+  //     {isLoadingEnsAvatar && <Spinner boxSize={"36px"} thickness={"2px"} />}
+  //     {isFetchedEnsAvatar && (
+  //       <Avatar
+  //         variant={variant}
+  //         src={ensAvatar ?? undefined}
+  //         icon={<BlockiesSvgSync address={address} />}
+  //         loading={"eager"}
+  //         overflow={"clip"}
+  //         boxSize={"36px"}
+  //       />
+  //     )}
+  //     <Text whiteSpace={"nowrap"} px={2}>
+  //       {nnsOrEnsName ?? (truncateAddress ? shortAddress(address) : address)}
+  //       {withLink && (
+  //         <HiExternalLink
+  //           style={{
+  //             display: "inline",
+  //             marginBottom: "-2px",
+  //             maxWidth: "18px",
+  //             maxHeight: "18px",
+  //             verticalAlign: "baseline",
+  //           }}
+  //         />
+  //       )}
+  //     </Text>
+  //   </HStack>
+  // )
+
+  // return withLink ? (
+  //   <Link isExternal href={`https://etherscan.io/address/${address}`}>
+  //     {content}
+  //   </Link>
+  // ) : (
+  //   content
+  // )
 }

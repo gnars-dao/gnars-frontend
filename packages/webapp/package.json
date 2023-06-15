@@ -40,7 +40,7 @@
     "react-icons": "^4.9.0",
     "react-inlinesvg": "^3.0.1",
     "react-markdown": "^8.0.6",
-    "remark-breaks": "^3.0.2",
+    "remark-gfm": "^3.0.1",
     "typechain": "^8.1.0",
     "usehooks-ts": "^2.9.1",
     "viem": "^1.0.7",

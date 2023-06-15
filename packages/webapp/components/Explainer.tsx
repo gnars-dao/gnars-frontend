@@ -15,8 +15,13 @@ import {
   UnorderedList,
   VStack,
 } from "@chakra-ui/react"
+import { Londrina_Solid } from "next/font/google"
 import { FC } from "react"
 import TextLink from "./TextLink"
+const londrinaSolid = Londrina_Solid({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 export default function Explainer() {
   return (
@@ -160,7 +165,7 @@ export default function Explainer() {
                   columns={2}
                   w={"full"}
                   px={8}
-                  fontFamily={'"Londrina Solid", sans-serif'}
+                  fontFamily={londrinaSolid.style.fontFamily}
                   fontSize={["2xl", "3xl"]}
                 >
                   <HStack>

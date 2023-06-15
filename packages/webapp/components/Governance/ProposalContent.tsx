@@ -1,11 +1,13 @@
 import { Heading, Text, VStack } from "@chakra-ui/react"
 import { AvatarWallet } from "components/AvatarWallet"
+import { Inter } from "next/font/google"
 import { FC } from "react"
 import ReactMarkdown from "react-markdown"
-import remarkBreaks from "remark-breaks"
+import remarkGfm from "remark-gfm"
 import { TransactionData } from "utils/governanceUtils"
 import styles from "./ProposalContent.module.css"
 import { TransactionCard } from "./TransactionCard"
+const inter = Inter({ subsets: ["latin"] })
 
 export interface ProposalContentProps {
   transactions: TransactionData[]
@@ -22,7 +24,7 @@ export const ProposalContent: FC<ProposalContentProps> = ({
     <>
       <VStack p={8} alignSelf={"start"} alignItems={"start"}>
         <Text fontWeight={"bold"}>Proposed by</Text>
-        <AvatarWallet withLink address={proposer} />
+        <AvatarWallet address={proposer} />
       </VStack>
       <VStack
         w={"full"}
@@ -32,12 +34,19 @@ export const ProposalContent: FC<ProposalContentProps> = ({
         fontSize={["sm", "md", "lg"]}
       >
         <ReactMarkdown
-          className={styles.markdown}
-          remarkPlugins={[remarkBreaks]}
+          className={`${styles.markdown} ${inter.className}`}
+          remarkPlugins={[remarkGfm]}
         >
           {description}
         </ReactMarkdown>
-        <Heading as={"h2"} textStyle={"h2"} fontSize="4xl">
+        <Heading
+          as={"h2"}
+          textStyle={"h2"}
+          fontSize="4xl"
+          className={inter.className}
+          fontFamily={inter.style.fontFamily}
+          fontWeight={700}
+        >
           Proposed Transactions
         </Heading>
         {transactions.map((transaction, i) => (

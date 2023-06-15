@@ -9,6 +9,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { isPast } from "date-fns"
+import { Londrina_Solid } from "next/font/google"
 import { FC, useEffect, useState } from "react"
 import { FiInfo } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
@@ -29,6 +30,11 @@ import { BidsTable } from "./BidsTable"
 import { GnarNavigation } from "./GnarNavigation"
 import { GnarvingTracker } from "./GnarvingTracker"
 import { SettleAuctionButton } from "./SettleAuctionButton"
+
+const londrinaSolid = Londrina_Solid({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 interface GnarInfoProps extends StackProps {
   isOg: boolean
@@ -102,7 +108,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({
           justifySelf={["center", "start"]}
           gridArea={"gnarId"}
           lineHeight={"80%"}
-          fontFamily={`"Londrina Solid", sans-serif`}
+          fontFamily={londrinaSolid.style.fontFamily}
           fontSize={{ base: "5xl", xl: "6xl" }}
         >
           {isOg && <Text position={"relative"}>OG</Text>}

@@ -47,11 +47,8 @@ export const Transaction: FC<TransactionProps> = ({
           address={target}
           avatarImg={ensAvatar ?? undefined}
         >
-          {contractInfo ? (
-            <ContractBreadcrumbs contractInfo={contractInfo} />
-          ) : (
-            nnsOrEnsName && <Text>{nnsOrEnsName}</Text>
-          )}
+          {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
+          {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
           <AccountAddress address={target} />
         </AccountWithAvatar>
       </VStack>
@@ -84,11 +81,8 @@ export const Transaction: FC<TransactionProps> = ({
         address={target}
         avatarImg={ensAvatar ?? undefined}
       >
-        {contractInfo ? (
-          <ContractBreadcrumbs contractInfo={contractInfo} />
-        ) : (
-          nnsOrEnsName && <Text>{nnsOrEnsName}</Text>
-        )}
+        {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
+        {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
         <AccountAddress address={target} />
       </AccountWithAvatar>
 

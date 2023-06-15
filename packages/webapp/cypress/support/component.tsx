@@ -19,8 +19,6 @@ import "./commands"
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import "../../styles/global.css"
-
 import { mount } from "cypress/react18"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Box, ChakraProvider, DarkMode } from "@chakra-ui/react"

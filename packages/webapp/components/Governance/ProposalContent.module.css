@@ -1,7 +1,8 @@
 .markdown {
-  font-family: "PT Root UI";
   max-width: 100%;
   padding: 1em 0;
+  color: var(--chakra-colors-gray-300);
+  font-weight: 300;
 }
 
 .markdown > * {
@@ -14,14 +15,35 @@
 .markdown h4,
 .markdown h5,
 .markdown h6 {
-  font-weight: bold;
+  color: var(--chakra-colors-white);
+  font-weight: 700;
   padding-bottom: 2em;
+  padding-top: 2em;
 }
 
 .markdown h1 {
   font-size: 1.7em;
-  margin-top: 1em;
-  font-weight: bold;
+}
+
+.markdown h2 {
+  font-size: 1.5em;
+}
+
+.markdown h3 {
+  font-size: 1.3em;
+}
+.markdown h4 {
+  font-size: 1.2em;
+}
+.markdown h5 {
+  font-size: 1.1em;
+}
+.markdown h6 {
+  font-size: 1em;
+}
+
+.markdown strong {
+  /* color: white; */
 }
 
 .markdown li,
@@ -40,17 +62,6 @@
     { fontWeight: "bold", py: 4 },
 }} */
 
-.markdown h2 {
-  font-size: 1.5em;
-  margin-top: 1em;
-  font-weight: bold;
-}
-
-.markdown h3 {
-  font-weight: bold;
-  font-size: 1.3em;
-}
-
 .markdown p {
   font-size: 1em;
   max-width: 100%;
@@ -59,4 +70,17 @@
 .markdown img {
   max-width: 100%;
   height: auto;
+}
+
+.markdown a {
+  color: var(--chakra-colors-red-400);
+  text-decoration: underline;
+}
+
+.markdown a:hover {
+  color: var(--chakra-colors-red-300);
+}
+
+.markdown a:visited {
+  color: var(--chakra-colors-red-700);
 }
