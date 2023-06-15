@@ -85,7 +85,7 @@ export default function Proposal() {
                   `# ${proposal.title}`,
                   ""
                 )}
-                proposer={proposal.proposer.id}
+                proposer={proposal.proposer.id as `0x${string}`}
                 transactions={getTransactions(proposal)}
               />
             </ProposalCard>

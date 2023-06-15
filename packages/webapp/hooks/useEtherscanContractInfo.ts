@@ -17,3 +17,5 @@
 //     return .then((res) => res.json())
 //     .then((res) => JSON.parse(res.result))
 //   })
+
+export {}
