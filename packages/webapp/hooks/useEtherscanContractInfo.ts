@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { Provider } from "@wagmi/core"
 import { Abi } from "abitype"
+import { etherscanApiKey } from "constants/env"
 import { isAddress } from "viem"
 import { useProvider } from "wagmi"
 
@@ -37,7 +38,7 @@ const fetchContractInfo = async (
 ): Promise<ContractInfo | null> => {
   try {
     const contractInfo = await fetch(
-      `https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY}`,
+      `https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${etherscanApiKey}`,
       { signal }
     ).then((res) => res.json())
 

@@ -10,11 +10,12 @@ import Head from "next/head"
 import { queryClient } from "utils"
 import { mainnet } from "wagmi/chains"
 import theme from "../theme"
+import { alchemyApiKey } from "constants/env"
 
 const client = createClient({
   ...getDefaultClient({
     appName: "Gnars",
-    alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+    alchemyId: alchemyApiKey,
     chains: [mainnet],
   }),
   persister: null,
