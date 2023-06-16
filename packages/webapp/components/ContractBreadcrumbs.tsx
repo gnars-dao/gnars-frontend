@@ -3,7 +3,6 @@ import {
   forwardRef,
   HStack,
   Link,
-  Stack,
   StackProps,
   Text,
 } from "@chakra-ui/react"
@@ -24,7 +23,7 @@ export const ContractBreadcrumbs = forwardRef<ContractBreadcrumbsProps, "div">(
         ref={ref}
         wrap={"wrap"}
         divider={
-          <Text color={"gray.300"} style={{ margin: "auto 6px" }}>
+          <Text color={"gray.300"} fontSize={"xs"} px={2}>
             {">"}
           </Text>
         }
@@ -33,12 +32,13 @@ export const ContractBreadcrumbs = forwardRef<ContractBreadcrumbsProps, "div">(
         {...props}
       >
         {getProxyAndImplementations(contractInfo).map((contractInfo, i) => (
-          <Link
-            key={contractInfo.address}
-            color={i > 0 ? "gray.500" : "white"}
-            href={`https://etherscan.io/address/${contractInfo.address}#code`}
-          >
-            {contractInfo.name}{" "}
+          <HStack key={contractInfo.address}>
+            <Link
+              color={i > 0 ? "gray.500" : "white"}
+              href={`https://etherscan.io/address/${contractInfo.address}#code`}
+            >
+              <Text>{contractInfo.name}</Text>
+            </Link>
             {isProxy(contractInfo) && (
               <Badge
                 fontSize={"2xs"}
@@ -48,7 +48,7 @@ export const ContractBreadcrumbs = forwardRef<ContractBreadcrumbsProps, "div">(
                 Proxy
               </Badge>
             )}
-          </Link>
+          </HStack>
         ))}
       </HStack>
     )
