@@ -1,10 +1,11 @@
 import {
   Badge,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbProps,
   forwardRef,
+  HStack,
+  Link,
+  Stack,
+  StackProps,
+  Text,
 } from "@chakra-ui/react"
 import {
   ContractInfo,
@@ -12,16 +13,28 @@ import {
   isProxy,
 } from "hooks/useEtherscanContractInfo"
 
-export interface ContractBreadcrumbsProps extends BreadcrumbProps {
+export interface ContractBreadcrumbsProps extends StackProps {
   contractInfo: ContractInfo
 }
 
 export const ContractBreadcrumbs = forwardRef<ContractBreadcrumbsProps, "div">(
-  ({ contractInfo, ...props }, ref) => (
-    <Breadcrumb ref={ref} color={"gray.500"} {...props}>
-      {getProxyAndImplementations(contractInfo).map((contractInfo, i) => (
-        <BreadcrumbItem key={contractInfo.address}>
-          <BreadcrumbLink
+  ({ contractInfo, ...props }, ref) => {
+    return (
+      <HStack
+        ref={ref}
+        wrap={"wrap"}
+        divider={
+          <Text color={"gray.300"} style={{ margin: "auto 6px" }}>
+            {">"}
+          </Text>
+        }
+        spacing={2}
+        color={"gray.500"}
+        {...props}
+      >
+        {getProxyAndImplementations(contractInfo).map((contractInfo, i) => (
+          <Link
+            key={contractInfo.address}
             color={i > 0 ? "gray.500" : "white"}
             href={`https://etherscan.io/address/${contractInfo.address}#code`}
           >
@@ -35,9 +48,9 @@ export const ContractBreadcrumbs = forwardRef<ContractBreadcrumbsProps, "div">(
                 Proxy
               </Badge>
             )}
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-      ))}
-    </Breadcrumb>
-  )
+          </Link>
+        ))}
+      </HStack>
+    )
+  }
 )
