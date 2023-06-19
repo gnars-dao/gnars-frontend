@@ -1,10 +1,10 @@
 import { Badge, Card, CardBody, CardProps, HStack } from "@chakra-ui/react"
 import { FC } from "react"
-import { TransactionData } from "utils/governanceUtils"
+import { NounsTransactionData } from "utils/governanceUtils"
 import { Transaction } from "./Transaction"
 
 export interface TransactionCardProps extends CardProps {
-  data: TransactionData
+  data: NounsTransactionData
   controls?: React.ReactNode
   index: number
 }

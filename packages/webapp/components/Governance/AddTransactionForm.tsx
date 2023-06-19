@@ -28,11 +28,14 @@ import { ContractBreadcrumbs } from "components/ContractBreadcrumbs"
 import { ParamSpec, ParamsTable } from "components/ParamsTable"
 import { Interface, isValidName, parseEther } from "ethers/lib/utils.js"
 import { useAccountQuery } from "hooks/useAccountQuery"
-import { useEtherscanContractInfo } from "hooks/useEtherscanContractInfo"
+import {
+  getEffectiveAbi,
+  useEtherscanContractInfo,
+} from "hooks/useEtherscanContractInfo"
 import { useFunctions } from "hooks/useFunctions"
-import { FC, useMemo } from "react"
+import { FC, useEffect, useMemo } from "react"
 import { useDebounce } from "usehooks-ts"
-import { TransactionData } from "utils/governanceUtils"
+import { NounsTransactionData } from "utils/governanceUtils"
 import { encodeFunctionData } from "viem"
 import {
   getFuncParam,
@@ -41,7 +44,7 @@ import {
 import { useProposalCreationState } from "./ProposalCreationForm.state"
 
 export interface AddTransactionFormProps extends CardProps {
-  onAddTransaction: (transaction: TransactionData) => void
+  onAddTransaction: (transaction: NounsTransactionData) => void
 }
 
 export const AddTransactionForm: FC<AddTransactionFormProps> = ({
@@ -88,7 +91,6 @@ const PickTransactionKind = ({}) => {
         <Button
           onClick={() => {
             close()
-            pickKind()
             clear()
           }}
         >
@@ -137,6 +139,16 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
   const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(
     debouncedAccountQuery
   )
+  const { data: contractInfo } = useEtherscanContractInfo(address)
+
+  useEffect(() => {
+    if (!contractInfo) {
+      setAbi("")
+      return
+    }
+
+    setAbi(JSON.stringify(getEffectiveAbi(contractInfo)))
+  }, [contractInfo, setAbi])
 
   const isValidEthValue = !!ethValue && parseFloat(ethValue) > 0
   const isValidTx =
@@ -146,7 +158,7 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
         address !== undefined &&
         func !== undefined &&
         (func.stateMutability === "payable" ? ethValue !== "" : true)
-  const { data: contractInfo } = useEtherscanContractInfo(address)
+
   return (
     <>
       <CardBody p={10}>
@@ -282,7 +294,6 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
           </Button>
           <Button
             onClick={() => {
-              pickKind()
               clear()
             }}
           >
@@ -322,9 +333,8 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
                       : parseEther("0"),
                 },
               ])
-              // close()
-              // clear()
-              // pickKind()
+              close()
+              clear()
               return
             }}
           >

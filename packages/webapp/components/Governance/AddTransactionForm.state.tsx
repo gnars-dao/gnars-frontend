@@ -59,7 +59,13 @@ export const useAddTransactionFormState = create<AddTransactionFormState>()(
       txKind: undefined,
       pickKind: (txKind) => set({ txKind }),
       clear: () =>
-        set({ accountQuery: "", ethValue: "", abi: "", func: undefined }),
+        set({
+          accountQuery: "",
+          ethValue: "",
+          abi: "",
+          func: undefined,
+          txKind: undefined,
+        }),
     }),
     { name: "add-tx-form-state" }
   )

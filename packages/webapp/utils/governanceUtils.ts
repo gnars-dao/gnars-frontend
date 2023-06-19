@@ -17,7 +17,7 @@ export type EffectiveProposalStatus =
 
 export type DetailedProposalData = NonNullable<ProposalQuery["proposal"]>
 
-export type TransactionData = {
+export type NounsTransactionData = {
   target: `0x${string}`
   signature: string
   value: BigNumberish
@@ -26,7 +26,7 @@ export type TransactionData = {
 
 export const getTransactions = (
   proposal: DetailedProposalData
-): TransactionData[] => {
+): NounsTransactionData[] => {
   return zip(
     proposal.targets,
     proposal.signatures,

@@ -62,6 +62,7 @@
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.3",
     "eslint-plugin-storybook": "^0.6.12",
+    "prettier": "^2.8.8",
     "storybook": "^7.0.17"
   }
 }

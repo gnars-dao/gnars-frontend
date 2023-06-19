@@ -4,13 +4,13 @@ import { Inter } from "next/font/google"
 import { FC } from "react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
-import { TransactionData } from "utils/governanceUtils"
+import { NounsTransactionData } from "utils/governanceUtils"
 import styles from "./ProposalContent.module.css"
 import { TransactionCard } from "./TransactionCard"
 const inter = Inter({ subsets: ["latin"] })
 
 export interface ProposalContentProps {
-  transactions: TransactionData[]
+  transactions: NounsTransactionData[]
   proposer: `0x${string}`
   description: string
 }

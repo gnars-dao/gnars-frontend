@@ -49,7 +49,6 @@ export default function Proposals() {
         ),
     { keepPreviousData: true }
   )
-  console.log(proposals)
   return (
     <DarkMode>
       <VStack

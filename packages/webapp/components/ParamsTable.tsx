@@ -60,9 +60,8 @@ const toGridItem = ({ description, value }: ParamSpec, i: number) => [
       {value}
     </Text>
   ) : (
-    <Box pl={2} className="param-value">
+    <Box pl={2} className="param-value" key={`param-${i}-value`}>
       <SimpleGrid
-        key={`param-${i}-value`}
         gridGap={"1px"}
         columns={1}
         p={2}

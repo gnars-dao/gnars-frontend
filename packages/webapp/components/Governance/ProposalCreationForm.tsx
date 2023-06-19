@@ -13,10 +13,16 @@ import {
   StackProps,
   Text,
   Textarea,
+  useToast,
   VStack,
 } from "@chakra-ui/react"
-import { FC } from "react"
+import { BigNumber } from "ethers"
+import { useRouter } from "next/router"
+import { FC, useMemo } from "react"
 import { FaTrashAlt } from "react-icons/fa"
+import { DAO_ADDRESS } from "utils/contracts"
+import { useContractWrite, usePrepareContractWrite } from "wagmi"
+import gnarsDaoLogicV2Abi from "../../abis/GnarsDAOLogicV2"
 import { AddTransactionForm } from "./AddTransactionForm"
 import { useAddTransactionFormState } from "./AddTransactionForm.state"
 import { useProposalCreationState } from "./ProposalCreationForm.state"
@@ -34,8 +40,56 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
     setDescription,
     transactions,
     setTransactions,
+    clear,
   } = useProposalCreationState()
   const { isOpen: isAddTxOpen, open: openAddTx } = useAddTransactionFormState()
+  const isInvalid = !title || !description || transactions.length === 0
+  const { push } = useRouter()
+  const { targets, values, signatures, calldatas } = useMemo(
+    () =>
+      isInvalid
+        ? { targets: [], values: [], signatures: [], calldatas: [] }
+        : transactions.reduce(
+            (transactions, transaction) => ({
+              targets: [
+                ...transactions.targets,
+                transaction.target as `0x${string}`,
+              ],
+              values: [
+                ...transactions.values,
+                BigNumber.from(transaction.value),
+              ],
+              signatures: [...transactions.signatures, transaction.signature],
+              calldatas: [
+                ...transactions.calldatas,
+                transaction.calldata as `0x${string}`,
+              ],
+            }),
+            {
+              targets: [] as `0x${string}`[],
+              values: [] as BigNumber[],
+              signatures: [] as string[],
+              calldatas: [] as `0x${string}`[],
+            }
+          ),
+    [transactions, isInvalid]
+  )
+  const proposalDescription = useMemo(
+    () => `# ${title}\n\n${description}`,
+    [title, description]
+  )
+  const { config } = usePrepareContractWrite({
+    address: DAO_ADDRESS,
+    abi: gnarsDaoLogicV2Abi,
+    functionName: "propose",
+    args: [targets, values, signatures, calldatas, proposalDescription],
+    enabled: !isInvalid,
+    cacheTime: 2000,
+  })
+
+  const { writeAsync: propose } = useContractWrite(config)
+  const toast = useToast()
+
   return (
     <VStack
       bgColor={"blackAlpha.300"}
@@ -151,8 +205,33 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
         _dark={{
           bg: "pink.700",
         }}
-        isDisabled={!title || !description || transactions.length === 0}
+        isDisabled={isInvalid || !propose}
         alignSelf={"end"}
+        onClick={() =>
+          propose?.()
+            .then((tx) => tx.wait())
+            .then(() => {
+              toast({
+                title: "Proposal submitted",
+                status: "success",
+                description:
+                  "Your proposal has been submitted successfully. Redirecting to proposals page ...",
+                duration: 3000,
+                onCloseComplete: () => {
+                  clear()
+                  push("/dao")
+                },
+              })
+            })
+            .catch(() => {
+              toast({
+                title: "Submission failed",
+                status: "error",
+                description:
+                  "Something went wrong. Check your wallet for details.",
+              })
+            })
+        }
       >
         Submit proposal
       </Button>

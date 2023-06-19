@@ -12,12 +12,12 @@ import {
 } from "hooks/useEtherscanContractInfo"
 import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback"
 import { FC } from "react"
-import { TransactionData } from "utils/governanceUtils"
+import { NounsTransactionData } from "utils/governanceUtils"
 import { getAbiItem } from "viem"
 import { useEnsAvatar } from "wagmi"
 
 export interface TransactionProps extends StackProps {
-  data: TransactionData
+  data: NounsTransactionData
 }
 
 export const Transaction: FC<TransactionProps> = ({
