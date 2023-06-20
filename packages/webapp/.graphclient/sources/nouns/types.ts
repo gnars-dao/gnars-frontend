@@ -19,13 +19,14 @@ export type Scalars = {
   BigDecimal: any;
   BigInt: any;
   Bytes: any;
+  Int8: any;
 };
 
 export type Account = {
   /** An Account is any address that holds any amount of Nouns, the id used is the blockchain address. */
   id: Scalars['ID'];
   /** Delegate address of the token holder which will participate in votings. Delegates don't need to hold any tokens and can even be the token holder itself. */
-  delegate?: Maybe<Delegate>;
+  delegate: Delegate;
   /** Noun balance of this address expressed in the smallest unit of the Nouns ERC721 Token */
   tokenBalanceRaw: Scalars['BigInt'];
   /** Noun balance of this address expressed as a BigInt normalized value for the Nouns ERC721 Token */

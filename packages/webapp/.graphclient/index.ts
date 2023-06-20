@@ -43,6 +43,7 @@ export type Scalars = {
   BigDecimal: any;
   BigInt: any;
   Bytes: any;
+  Int8: any;
 };
 
 export type Query = {
@@ -3481,6 +3482,7 @@ export type ResolversTypes = ResolversObject<{
   Governance_orderBy: Governance_orderBy;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Int8: ResolverTypeWrapper<Scalars['Int8']>;
   Noun: ResolverTypeWrapper<Noun>;
   Noun_filter: Noun_filter;
   Noun_orderBy: Noun_orderBy;
@@ -3552,6 +3554,7 @@ export type ResolversParentTypes = ResolversObject<{
   Governance_filter: Governance_filter;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
+  Int8: Scalars['Int8'];
   Noun: Noun;
   Noun_filter: Noun_filter;
   Proposal: Proposal;
@@ -3775,6 +3778,10 @@ export type GovernanceResolvers<ContextType = MeshContext, ParentType extends Re
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export interface Int8ScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Int8'], any> {
+  name: 'Int8';
+}
+
 export type NounResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Noun'] = ResolversParentTypes['Noun']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   seed?: Resolver<Maybe<ResolversTypes['Seed']>, ParentType, ContextType>;
@@ -3948,6 +3955,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   DelegationEvent?: DelegationEventResolvers<ContextType>;
   DynamicQuorumParams?: DynamicQuorumParamsResolvers<ContextType>;
   Governance?: GovernanceResolvers<ContextType>;
+  Int8?: GraphQLScalarType;
   Noun?: NounResolvers<ContextType>;
   Proposal?: ProposalResolvers<ContextType>;
   Seed?: SeedResolvers<ContextType>;
@@ -4091,11 +4099,11 @@ const merger = new(StitchingMerger as any)({
     get documents() {
       return [
       {
-        document: AccountVotesDocument,
+        document: DelegateDocument,
         get rawSDL() {
-          return printWithCache(AccountVotesDocument);
+          return printWithCache(DelegateDocument);
         },
-        location: 'AccountVotesDocument.graphql'
+        location: 'DelegateDocument.graphql'
       },{
         document: GnarDocument,
         get rawSDL() {
@@ -4164,15 +4172,18 @@ export function getBuiltGraphSDK<TGlobalContext = any, TOperationContext = any>(
   const sdkRequester$ = getBuiltGraphClient().then(({ sdkRequesterFactory }) => sdkRequesterFactory(globalContext));
   return getSdk<TOperationContext, TGlobalContext>((...args) => sdkRequester$.then(sdkRequester => sdkRequester(...args)));
 }
-export type AccountVotesQueryVariables = Exact<{
+export type DelegateQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type AccountVotesQuery = { account?: Maybe<(
+export type DelegateQuery = { account?: Maybe<(
     Pick<Account, 'tokenBalance'>
     & { delegate?: Maybe<Pick<Delegate, 'id'>> }
-  )>, delegate?: Maybe<Pick<Delegate, 'delegatedVotes' | 'tokenHoldersRepresentedAmount'>> };
+  )>, delegate?: Maybe<(
+    Pick<Delegate, 'delegatedVotes' | 'tokenHoldersRepresentedAmount'>
+    & { tokenHoldersRepresented: Array<Pick<Account, 'id' | 'tokenBalance'>> }
+  )> };
 
 export type GnarQueryVariables = Exact<{
   filter?: InputMaybe<Gnar_filter>;
@@ -4229,20 +4240,24 @@ export type WalletOgGnarsQueryVariables = Exact<{
 export type WalletOgGnarsQuery = { ogGnars: Array<Pick<OgGnar, 'id' | 'wasClaimed' | 'accessory' | 'background' | 'body' | 'glasses' | 'head'>> };
 
 
-export const AccountVotesDocument = gql`
-    query AccountVotes($id: ID!) {
-  account(id: "0x387a161c6b25aa854100abaed39274e51aaffffd") {
+export const DelegateDocument = gql`
+    query Delegate($id: ID!) {
+  account(id: $id) {
     delegate {
       id
     }
     tokenBalance
   }
-  delegate(id: "0x387a161c6b25aa854100abaed39274e51aaffffd") {
+  delegate(id: $id) {
     delegatedVotes
     tokenHoldersRepresentedAmount
+    tokenHoldersRepresented {
+      id
+      tokenBalance
+    }
   }
 }
-    ` as unknown as DocumentNode<AccountVotesQuery, AccountVotesQueryVariables>;
+    ` as unknown as DocumentNode<DelegateQuery, DelegateQueryVariables>;
 export const GnarDocument = gql`
     query Gnar($filter: Gnar_filter) {
   _meta {
@@ -4435,8 +4450,8 @@ export const WalletOgGnarsDocument = gql`
 export type Requester<C = {}, E = unknown> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C, E>(requester: Requester<C, E>) {
   return {
-    AccountVotes(variables: AccountVotesQueryVariables, options?: C): Promise<AccountVotesQuery> {
-      return requester<AccountVotesQuery, AccountVotesQueryVariables>(AccountVotesDocument, variables, options) as Promise<AccountVotesQuery>;
+    Delegate(variables: DelegateQueryVariables, options?: C): Promise<DelegateQuery> {
+      return requester<DelegateQuery, DelegateQueryVariables>(DelegateDocument, variables, options) as Promise<DelegateQuery>;
     },
     Gnar(variables?: GnarQueryVariables, options?: C): Promise<GnarQuery> {
       return requester<GnarQuery, GnarQueryVariables>(GnarDocument, variables, options) as Promise<GnarQuery>;

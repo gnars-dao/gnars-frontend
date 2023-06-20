@@ -12,6 +12,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useQuery } from "@tanstack/react-query"
+import { UserVotesSection } from "components/Governance/Delegation/UserVotesSection"
 import { isObject, partition } from "lodash"
 import Link from "next/link"
 import { execute, ProposalsDocument } from "../.graphclient"
@@ -61,10 +62,10 @@ export default function Proposals() {
         <Container centerContent maxW={"container.lg"}>
           <VStack spacing={20}>
             <Heading>Governance</Heading>
+            <UserVotesSection minW={{ md: "md" }} />
             <Heading as={"h2"} fontSize="5xl">
               Proposals
             </Heading>
-            x
           </VStack>
 
           {/*@TODO add buttons to add proposal and change delegation*/}

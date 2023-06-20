@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react"
 import { FC } from "react"
 import { useEnsAvatar } from "wagmi"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
@@ -23,11 +24,8 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
       isLoading={isLoadingNnsOrEnsName || isLoadingEnsAvatar}
       {...props}
     >
-      <AccountAddress
-        truncate
-        address={address as `0x${string}`}
-        nnsOrEnsName={nnsOrEnsName ?? undefined}
-      />
+      {nnsOrEnsName && <Text whiteSpace={"nowrap"}>{nnsOrEnsName}</Text>}
+      <AccountAddress truncate address={address as `0x${string}`} />
     </AccountWithAvatar>
   )
 

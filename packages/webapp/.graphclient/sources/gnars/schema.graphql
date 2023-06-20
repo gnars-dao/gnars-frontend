@@ -1071,6 +1071,12 @@ enum Governance_orderBy {
   proposalsQueued
 }
 
+"""
+8 bytes signed integer
+
+"""
+scalar Int8
+
 type OgAuction {
   """The OG Gnar's ERC721 token id"""
   id: ID!

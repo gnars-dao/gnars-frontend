@@ -1890,6 +1890,12 @@ enum Governance_orderBy {
   proposalsQueued
 }
 
+"""
+8 bytes signed integer
+
+"""
+scalar Int8
+
 type Noun {
   """The Noun's ERC721 token id"""
   id: ID!

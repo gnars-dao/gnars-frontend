@@ -20,7 +20,7 @@ type Account {
   """
   Delegate address of the token holder which will participate in votings. Delegates don't need to hold any tokens and can even be the token holder itself.
   """
-  delegate: Delegate
+  delegate: Delegate!
   """
   Noun balance of this address expressed in the smallest unit of the Nouns ERC721 Token
   """
@@ -815,6 +815,12 @@ enum Governance_orderBy {
   delegatedVotes
   proposalsQueued
 }
+
+"""
+8 bytes signed integer
+
+"""
+scalar Int8
 
 type Noun {
   """The Noun's ERC721 token id"""

@@ -12,6 +12,10 @@ const resolvers: Resolvers = {
       await context.gnars.Query.auctions({ root, args, context, info }),
     _meta: async (root, args, context, info) =>
       await context.gnars.Query._meta({ root, args, context, info }),
+    delegate: async (root, args, context, info) =>
+      await context.gnars.Query.delegate({ root, args, context, info }),
+    account: async (root, args, context, info) =>
+      await context.gnars.Query.account({ root, args, context, info }),
   },
 }
 
