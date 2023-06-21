@@ -33,12 +33,12 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        url: "https://eth-mainnet.alchemyapi.io/v2/DLaAUbKUZDJjAnUJNWxO7rDgI-8Ko5Cf",
+        url: process.env.JSON_RPC_URL!,
         blockNumber: 16819216,
       },
     },
     mainnet: {
-      url: "https://eth-mainnet.alchemyapi.io/v2/DLaAUbKUZDJjAnUJNWxO7rDgI-8Ko5Cf",
+      url: process.env.JSON_RPC_URL,
       chainId: 1,
       accounts: process.env.DEPLOYER_PRIVATE_KEY
         ? [process.env.DEPLOYER_PRIVATE_KEY]
