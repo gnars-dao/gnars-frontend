@@ -64,7 +64,7 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({
             <FormControl>
               <FormLabel>Current delegate</FormLabel>
 
-              <AvatarWallet address={delegation.account.delegate.id} />
+              <AvatarWallet address={delegation?.account?.delegate?.id} />
             </FormControl>
             <FormControl>
               <FormLabel>New delegate</FormLabel>

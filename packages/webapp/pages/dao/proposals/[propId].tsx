@@ -102,7 +102,7 @@ export default function Proposal() {
               All proposals
             </Button>
           </Link>
-          {/* TODO add back button */}
+          {/* TODO add proposal not found */}
           {proposal && (
             <ProposalCard
               id={proposal.id}
