@@ -1,9 +1,7 @@
-import { useAccount } from "wagmi"
 import {
   Box,
   Button,
   Center,
-  HStack,
   SimpleGrid,
   Spinner,
   Tag,
@@ -13,17 +11,14 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react"
+import { BigNumber } from "ethers"
+import { useEffect, useState } from "react"
+import { useAccount, useContractWrite } from "wagmi"
+import { mainnet } from "wagmi/chains"
 import { useWalletOgGnars } from "../hooks/useWalletOgGnars"
 import { getGnartwork } from "../utils"
-import { useEffect, useState } from "react"
-import {
-  useGnarsV2AuctionHouseClaimGnars,
-  usePrepareGnarsV2AuctionHouseClaimGnars,
-} from "../utils/sdk"
-import { is } from "date-fns/locale"
-import { BigNumber } from "ethers"
+import { usePrepareGnarsV2AuctionHouseClaimGnars } from "../utils/sdk"
 import { ContractActionButton } from "./ContractActionButton"
-import { mainnet } from "wagmi/chains"
 import { GnarImage } from "./GnarImage"
 
 export const Claiming = () => {
@@ -45,8 +40,7 @@ export const Claiming = () => {
     enabled: selectedOgGnars.length > 0,
     chainId: mainnet.id,
   })
-  const { write: claimGnars, isLoading: isClaiming } =
-    useGnarsV2AuctionHouseClaimGnars(config)
+  const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config)
 
   if (isDisconnected) {
     return <Center flexGrow={1}>Connect to claim</Center>

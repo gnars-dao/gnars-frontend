@@ -184,7 +184,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
         isLoading={isLoading}
         loadingText={"Bidding"}
         isDisabled={!isValidBid}
-        onClick={() => placeBid()}
+        onClick={() => placeBid?.()}
       >
         {!isValidBid ? "Bid too low" : "Place Bid"}
       </ContractActionButton>

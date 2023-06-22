@@ -54,7 +54,7 @@ export const useProposalCreationState = create<ProposalCreationState>()(
       setTransactions: (transactions) => set({ transactions }),
       clear: () => set(emptyState),
     }),
-    { name: "prop-creation-state" }
+    { name: "prop-creation-state", version: 1 }
   )
 )
 

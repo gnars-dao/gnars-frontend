@@ -6,10 +6,10 @@ sources:
     transforms:
       - blockTracking:
           validateSchema: true
-  - name: nouns
-    handler:
-      graphql:
-        endpoint: https://api.thegraph.com/subgraphs/name/nounsdao/nouns-subgraph
+  # - name: nouns
+  #   handler:
+  #     graphql:
+  #       endpoint: https://api.thegraph.com/subgraphs/name/nounsdao/nouns-subgraph
 documents:
   - "./queries/**/*.graphql"
 plugins:

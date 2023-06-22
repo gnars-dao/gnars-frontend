@@ -1,13 +1,8 @@
+import { ButtonProps } from "@chakra-ui/react"
 import { FC } from "react"
-import { Button, ButtonProps } from "@chakra-ui/react"
-import {
-  useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction,
-  usePrepareGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction,
-} from "../../utils/sdk"
-import { useAccount } from "wagmi"
-import { ConnectKitButton } from "connectkit"
-import { ContractActionButton } from "../ContractActionButton"
 import { mainnet } from "wagmi/chains"
+import { useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction } from "../../utils/sdk"
+import { ContractActionButton } from "../ContractActionButton"
 
 export type SettleAuctionButtonProps = ButtonProps
 export const SettleAuctionButton: FC<SettleAuctionButtonProps> = (props) => {
@@ -21,7 +16,7 @@ export const SettleAuctionButton: FC<SettleAuctionButtonProps> = (props) => {
     <ContractActionButton
       isLoading={isLoading}
       loadingText={"Settling Auction"}
-      onClick={() => settle()}
+      onClick={() => settle?.()}
       {...props}
     >
       Settle Auction

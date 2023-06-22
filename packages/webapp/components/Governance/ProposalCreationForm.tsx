@@ -20,9 +20,8 @@ import { BigNumber } from "ethers"
 import { useRouter } from "next/router"
 import { FC, useMemo } from "react"
 import { FaTrashAlt } from "react-icons/fa"
-import { DAO_ADDRESS } from "utils/contracts"
-import { useContractWrite, usePrepareContractWrite } from "wagmi"
-import gnarsDaoLogicV2Abi from "../../abis/GnarsDAOLogicV2"
+import { usePrepareGnarsDaoPropose } from "utils/sdk"
+import { useContractWrite } from "wagmi"
 import { AddTransactionForm } from "./AddTransactionForm"
 import { useAddTransactionFormState } from "./AddTransactionForm.state"
 import { useProposalCreationState } from "./ProposalCreationForm.state"
@@ -78,10 +77,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
     () => `# ${title}\n\n${description}`,
     [title, description]
   )
-  const { config } = usePrepareContractWrite({
-    address: DAO_ADDRESS,
-    abi: gnarsDaoLogicV2Abi,
-    functionName: "propose",
+  const { config } = usePrepareGnarsDaoPropose({
     args: [targets, values, signatures, calldatas, proposalDescription],
     enabled: !isInvalid,
     cacheTime: 2000,
@@ -95,7 +91,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
       bgColor={"blackAlpha.300"}
       flexGrow={1}
       borderRadius={"md"}
-      p={10}
+      p={{ base: 4, sm: 10 }}
       borderWidth={1}
       spacing={6}
       {...props}

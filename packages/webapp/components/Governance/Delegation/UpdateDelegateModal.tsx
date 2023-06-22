@@ -16,27 +16,31 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react"
-import { QueryKey, useQueryClient } from "@tanstack/react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import { AccountAddress } from "components/AccountAddress"
 import { AccountWithAvatar } from "components/AccountWithAvatar"
+import { AvatarWallet } from "components/AvatarWallet"
 import { isValidName } from "ethers/lib/utils.js"
 import { useAccountQuery } from "hooks/useAccountQuery"
+import {
+  delegationInfoQueryKey,
+  useDelegationInfo,
+} from "hooks/useDelegationInfo"
 import { FC, useState } from "react"
 import { useDebounce } from "usehooks-ts"
 import { useGnarsV2TokenDelegate } from "utils/sdk"
-import { mainnet } from "wagmi"
+import { mainnet, useAccount } from "wagmi"
 
-export interface UpdateDelegateModalProps extends Omit<ModalProps, "children"> {
-  delegationQueryKey: QueryKey
-  currentDelegate: string
-}
+export interface UpdateDelegateModalProps
+  extends Omit<ModalProps, "children"> {}
 
 export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({
-  delegationQueryKey,
-  currentDelegate,
   onClose,
   ...props
 }) => {
+  const { address: userAddress } = useAccount()
+  const { data: delegation } = useDelegationInfo(userAddress)
+  const currentDelegate = delegation?.account?.delegate?.id
   const { invalidateQueries } = useQueryClient()
   const [accountQuery, setAccountQuery] = useState<string>("")
   const debouncedAccountQuery = useDebounce(accountQuery, 600)
@@ -58,7 +62,12 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({
         <ModalBody>
           <VStack alignItems={"start"} spacing={10}>
             <FormControl>
-              <FormLabel>Delegate</FormLabel>
+              <FormLabel>Current delegate</FormLabel>
+
+              <AvatarWallet address={delegation.account.delegate.id} />
+            </FormControl>
+            <FormControl>
+              <FormLabel>New delegate</FormLabel>
               <Input
                 id={"destination"}
                 value={accountQuery}
@@ -110,10 +119,10 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({
                 currentDelegate.toLowerCase() === address.toLowerCase()
               }
               onClick={() =>
-                delegate()
+                delegate?.()
                   .then((tx) => tx.wait())
                   .then(() => {
-                    invalidateQueries(delegationQueryKey)
+                    invalidateQueries(delegationInfoQueryKey(userAddress))
                     setAccountQuery("")
                     onClose()
                   })

@@ -30,6 +30,7 @@ query Proposal($id: ID!) {
     minQuorumVotesBPS
     maxQuorumVotesBPS
     quorumCoefficient
+    proposalThreshold
 
     votes(where: { reason_not: null }) {
       voter {

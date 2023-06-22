@@ -6,14 +6,17 @@
     "codegen": "graph codegen",
     "build": "graph build",
     "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ gnars-subgraph",
-    "create-local": "graph create --node http://localhost:8020/ gnars-subgraph",
-    "remove-local": "graph remove --node http://localhost:8020/ gnars-subgraph",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 gnars-subgraph",
+    "auth-hosted-service": "dotenv cross-var -- graph auth --product hosted-service %HOSTED_SERVICE_ACCESS_TOKEN%",
+    "deploy-hosted-service": "graph deploy --product hosted-service gnarsdao/gnars",
     "test": "graph test"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.38.0",
     "@graphprotocol/graph-ts": "0.29.1"
   },
-  "devDependencies": { "matchstick-as": "0.5.0" }
+  "devDependencies": {
+    "cross-var": "^1.1.0",
+    "dotenv-cli": "^7.2.1",
+    "matchstick-as": "0.5.0"
+  }
 }

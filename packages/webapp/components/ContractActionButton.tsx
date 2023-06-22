@@ -1,9 +1,6 @@
-import { ConnectKitButton, useModal } from "connectkit"
 import { Button, ButtonProps } from "@chakra-ui/react"
+import { ConnectKitButton, useModal } from "connectkit"
 import { FC } from "react"
-import { is } from "date-fns/locale"
-import { c } from "@wagmi/cli/dist/config-c09a23a5"
-import { useNetwork } from "wagmi"
 
 export interface ContractActionButtonProps extends ButtonProps {}
 

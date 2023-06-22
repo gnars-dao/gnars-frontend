@@ -1,7 +1,7 @@
-import { Heading, Text, VStack } from "@chakra-ui/react"
+import { Heading, Stack, Text, VStack } from "@chakra-ui/react"
 import { AvatarWallet } from "components/AvatarWallet"
 import { Inter } from "next/font/google"
-import { FC } from "react"
+import { FC, ReactNode } from "react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { NounsTransactionData } from "utils/governanceUtils"
@@ -10,22 +10,33 @@ import { TransactionCard } from "./TransactionCard"
 const inter = Inter({ subsets: ["latin"] })
 
 export interface ProposalContentProps {
+  actions?: ReactNode
   transactions: NounsTransactionData[]
   proposer: `0x${string}`
   description: string
 }
 
 export const ProposalContent: FC<ProposalContentProps> = ({
+  actions,
   transactions,
   proposer,
   description,
 }) => {
   return (
     <>
-      <VStack p={8} alignSelf={"start"} alignItems={"start"}>
-        <Text fontWeight={"bold"}>Proposed by</Text>
-        <AvatarWallet address={proposer} />
-      </VStack>
+      <Stack
+        spacing={4}
+        p={[4, 8]}
+        w={"full"}
+        direction={{ base: "column", md: "row" }}
+        justifyContent={"space-between"}
+      >
+        <VStack alignSelf={"start"} alignItems={"start"}>
+          <Text fontWeight={"bold"}>Proposed by</Text>
+          <AvatarWallet address={proposer} />
+        </VStack>
+        {actions}
+      </Stack>
       <VStack
         w={"full"}
         p={[4, 8]}

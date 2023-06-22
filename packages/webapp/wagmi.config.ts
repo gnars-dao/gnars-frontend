@@ -1,8 +1,9 @@
+import { ContractConfig, defineConfig } from "@wagmi/cli"
 import { etherscan, react } from "@wagmi/cli/plugins"
 import { mainnet } from "wagmi/chains"
-import { ContractConfig, defineConfig } from "@wagmi/cli"
 
-import gnarsV2AuctionHouseABI from "../../packages/gnars-contracts/abi/contracts/gnarsV2/auctionHouse/v2/SkateContractV2AuctionHouseV2.sol/SkateContractV2AuctionHouseV2.json"
+import gnarsDaoAbi from "./abis/GnarsDAOLogicV2.json"
+import gnarsV2AuctionHouseABI from "./abis/SkateContractV2AuctionHouseV2.json"
 
 export default defineConfig({
   out: "utils/sdk.ts",
@@ -13,6 +14,14 @@ export default defineConfig({
       address: {
         [mainnet.id as 1]:
           "0xC28e0d3c00296dD8c5C3F2E9707361920f92a209" as `0x${string}`,
+      },
+    },
+    {
+      name: "GnarsDAO",
+      abi: gnarsDaoAbi as ContractConfig["abi"],
+      address: {
+        [mainnet.id as 1]:
+          "0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3" as `0x${string}`,
       },
     },
   ],

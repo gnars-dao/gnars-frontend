@@ -28,7 +28,7 @@ function NewProposal() {
             direction={{ base: "column", "2xl": "row" }}
             w="full"
             spacing={10}
-            px={10}
+            px={{ md: 10 }}
             alignItems={"start"}
           >
             <ProposalCreationForm flexGrow={1} maxW={"container.lg"} w="full" />

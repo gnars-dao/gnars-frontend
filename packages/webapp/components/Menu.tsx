@@ -84,11 +84,7 @@ export default function Menu(props: MenuProps) {
               Claim
             </Button>
           </Link>
-          <ExternalLink
-            href="https://snapshot.org/#/gnars.eth"
-            isExternal
-            rel="noopener noreferrer"
-          >
+          <Link href="/dao">
             <Button
               w={"full"}
               variant={"outline"}
@@ -97,7 +93,7 @@ export default function Menu(props: MenuProps) {
             >
               DAO
             </Button>
-          </ExternalLink>
+          </Link>
 
           {/* <Link
               href="/dao/proposals"

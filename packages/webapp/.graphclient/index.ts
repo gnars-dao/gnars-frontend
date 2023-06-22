@@ -15,14 +15,13 @@ import { MeshTransform, MeshPlugin } from '@graphql-mesh/types';
 import GraphqlHandler from "@graphql-mesh/graphql"
 import UsePollingLive from "@graphprotocol/client-polling-live";
 import BlockTrackingTransform from "@graphprotocol/client-block-tracking";
-import StitchingMerger from "@graphql-mesh/merger-stitching";
+import BareMerger from "@graphql-mesh/merger-bare";
 import { printWithCache } from '@graphql-mesh/utils';
 import { createMeshHTTPHandler, MeshHTTPHandler } from '@graphql-mesh/http';
 import { getMesh, ExecuteMeshFn, SubscribeMeshFn, MeshContext as BaseMeshContext, MeshInstance } from '@graphql-mesh/runtime';
 import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
 import { path as pathModule } from '@graphql-mesh/cross-helpers';
 import { ImportFn } from '@graphql-mesh/types';
-import type { NounsTypes } from './sources/nouns/types';
 import type { GnarsTypes } from './sources/gnars/types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -46,770 +45,6 @@ export type Scalars = {
   Int8: any;
 };
 
-export type Query = {
-  delegationEvent?: Maybe<DelegationEvent>;
-  delegationEvents: Array<DelegationEvent>;
-  transferEvent?: Maybe<TransferEvent>;
-  transferEvents: Array<TransferEvent>;
-  seed?: Maybe<Seed>;
-  seeds: Array<Seed>;
-  noun?: Maybe<Noun>;
-  nouns: Array<Noun>;
-  bid?: Maybe<Bid>;
-  bids: Array<Bid>;
-  auction?: Maybe<Auction>;
-  auctions: Array<Auction>;
-  account?: Maybe<Account>;
-  accounts: Array<Account>;
-  delegate?: Maybe<Delegate>;
-  delegates: Array<Delegate>;
-  proposal?: Maybe<Proposal>;
-  proposals: Array<Proposal>;
-  vote?: Maybe<Vote>;
-  votes: Array<Vote>;
-  governance?: Maybe<Governance>;
-  governances: Array<Governance>;
-  dynamicQuorumParams: Array<DynamicQuorumParams>;
-  /** Access to subgraph metadata */
-  _meta?: Maybe<_Meta_>;
-  ogTransferEvent?: Maybe<OgTransferEvent>;
-  ogTransferEvents: Array<OgTransferEvent>;
-  ogGnar?: Maybe<OgGnar>;
-  ogGnars: Array<OgGnar>;
-  ogBid?: Maybe<OgBid>;
-  ogBids: Array<OgBid>;
-  ogAuction?: Maybe<OgAuction>;
-  ogAuctions: Array<OgAuction>;
-  gnar?: Maybe<Gnar>;
-  gnars: Array<Gnar>;
-  auctionHouse?: Maybe<AuctionHouse>;
-  auctionHouses: Array<AuctionHouse>;
-  gnarving?: Maybe<Gnarving>;
-  gnarvings: Array<Gnarving>;
-};
-
-
-export type QuerydelegationEventArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerydelegationEventsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<DelegationEvent_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<DelegationEvent_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerytransferEventArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerytransferEventsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<TransferEvent_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<TransferEvent_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryseedArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryseedsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Seed_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Seed_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerynounArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerynounsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Noun_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Noun_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerybidArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerybidsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Bid_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Bid_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryauctionArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryauctionsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Auction_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Auction_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryaccountArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryaccountsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Account_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Account_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerydelegateArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerydelegatesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Delegate_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Delegate_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryproposalArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryproposalsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Proposal_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Proposal_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryvoteArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryvotesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Vote_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Vote_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerygovernanceArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerygovernancesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Governance_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Governance_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerydynamicQuorumParamsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<DynamicQuorumParams_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<DynamicQuorumParams_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type Query_metaArgs = {
-  block?: InputMaybe<Block_height>;
-};
-
-
-export type QueryogTransferEventArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryogTransferEventsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<OgTransferEvent_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<OgTransferEvent_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryogGnarArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryogGnarsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<OgGnar_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<OgGnar_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryogBidArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryogBidsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<OgBid_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<OgBid_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryogAuctionArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryogAuctionsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<OgAuction_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<OgAuction_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerygnarArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerygnarsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Gnar_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Gnar_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryauctionHouseArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QueryauctionHousesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<AuctionHouse_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<AuctionHouse_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerygnarvingArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type QuerygnarvingsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Gnarving_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Gnarving_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-export type Subscription = {
-  delegationEvent?: Maybe<DelegationEvent>;
-  delegationEvents: Array<DelegationEvent>;
-  transferEvent?: Maybe<TransferEvent>;
-  transferEvents: Array<TransferEvent>;
-  seed?: Maybe<Seed>;
-  seeds: Array<Seed>;
-  noun?: Maybe<Noun>;
-  nouns: Array<Noun>;
-  bid?: Maybe<Bid>;
-  bids: Array<Bid>;
-  auction?: Maybe<Auction>;
-  auctions: Array<Auction>;
-  account?: Maybe<Account>;
-  accounts: Array<Account>;
-  delegate?: Maybe<Delegate>;
-  delegates: Array<Delegate>;
-  proposal?: Maybe<Proposal>;
-  proposals: Array<Proposal>;
-  vote?: Maybe<Vote>;
-  votes: Array<Vote>;
-  governance?: Maybe<Governance>;
-  governances: Array<Governance>;
-  dynamicQuorumParams: Array<DynamicQuorumParams>;
-  /** Access to subgraph metadata */
-  _meta?: Maybe<_Meta_>;
-  ogTransferEvent?: Maybe<OgTransferEvent>;
-  ogTransferEvents: Array<OgTransferEvent>;
-  ogGnar?: Maybe<OgGnar>;
-  ogGnars: Array<OgGnar>;
-  ogBid?: Maybe<OgBid>;
-  ogBids: Array<OgBid>;
-  ogAuction?: Maybe<OgAuction>;
-  ogAuctions: Array<OgAuction>;
-  gnar?: Maybe<Gnar>;
-  gnars: Array<Gnar>;
-  auctionHouse?: Maybe<AuctionHouse>;
-  auctionHouses: Array<AuctionHouse>;
-  gnarving?: Maybe<Gnarving>;
-  gnarvings: Array<Gnarving>;
-};
-
-
-export type SubscriptiondelegationEventArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiondelegationEventsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<DelegationEvent_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<DelegationEvent_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiontransferEventArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiontransferEventsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<TransferEvent_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<TransferEvent_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionseedArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionseedsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Seed_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Seed_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionnounArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionnounsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Noun_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Noun_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionbidArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionbidsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Bid_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Bid_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionauctionArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionauctionsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Auction_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Auction_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionaccountArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionaccountsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Account_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Account_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiondelegateArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiondelegatesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Delegate_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Delegate_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionproposalArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionproposalsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Proposal_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Proposal_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionvoteArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionvotesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Vote_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Vote_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiongovernanceArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiongovernancesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Governance_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Governance_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiondynamicQuorumParamsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<DynamicQuorumParams_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<DynamicQuorumParams_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type Subscription_metaArgs = {
-  block?: InputMaybe<Block_height>;
-};
-
-
-export type SubscriptionogTransferEventArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionogTransferEventsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<OgTransferEvent_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<OgTransferEvent_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionogGnarArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionogGnarsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<OgGnar_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<OgGnar_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionogBidArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionogBidsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<OgBid_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<OgBid_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionogAuctionArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionogAuctionsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<OgAuction_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<OgAuction_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiongnarArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiongnarsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Gnar_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Gnar_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionauctionHouseArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptionauctionHousesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<AuctionHouse_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<AuctionHouse_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiongnarvingArgs = {
-  id: Scalars['ID'];
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
-
-export type SubscriptiongnarvingsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Gnarving_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Gnarving_filter>;
-  block?: InputMaybe<Block_height>;
-  subgraphError?: _SubgraphErrorPolicy_;
-};
-
 export type Account = {
   /** An Account is any address that holds any amount of Gnars, the id used is the blockchain address. */
   id: Scalars['ID'];
@@ -823,19 +58,8 @@ export type Account = {
   totalTokensHeldRaw: Scalars['BigInt'];
   /** Total amount of Gnars ever held by this address expressed as a BigInt normalized value for the Gnars ERC721 Token */
   totalTokensHeld: Scalars['BigInt'];
-  /** The Nouns owned by this account */
-  nouns: Array<Noun>;
   /** The Gnars owned by this account */
   gnars: Array<Gnar>;
-};
-
-
-export type AccountnounsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Noun_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Noun_filter>;
 };
 
 
@@ -909,17 +133,6 @@ export type Account_filter = {
   totalTokensHeld_lte?: InputMaybe<Scalars['BigInt']>;
   totalTokensHeld_in?: InputMaybe<Array<Scalars['BigInt']>>;
   totalTokensHeld_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  nouns?: InputMaybe<Array<Scalars['String']>>;
-  nouns_not?: InputMaybe<Array<Scalars['String']>>;
-  nouns_contains?: InputMaybe<Array<Scalars['String']>>;
-  nouns_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  nouns_not_contains?: InputMaybe<Array<Scalars['String']>>;
-  nouns_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  nouns_?: InputMaybe<Noun_filter>;
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<Account_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<Account_filter>>>;
   gnars?: InputMaybe<Array<Scalars['String']>>;
   gnars_not?: InputMaybe<Array<Scalars['String']>>;
   gnars_contains?: InputMaybe<Array<Scalars['String']>>;
@@ -927,6 +140,10 @@ export type Account_filter = {
   gnars_not_contains?: InputMaybe<Array<Scalars['String']>>;
   gnars_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
   gnars_?: InputMaybe<Gnar_filter>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Account_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Account_filter>>>;
 };
 
 export type Account_orderBy =
@@ -940,14 +157,13 @@ export type Account_orderBy =
   | 'tokenBalance'
   | 'totalTokensHeldRaw'
   | 'totalTokensHeld'
-  | 'nouns'
   | 'gnars';
 
 export type Auction = {
   /** The Gnar's ERC721 token id */
   id: Scalars['ID'];
-  /** The Noun */
-  noun: Noun;
+  /** The Gnar */
+  gnar: Gnar;
   /** The current highest bid amount */
   amount: Scalars['BigInt'];
   /** The time that the auction started */
@@ -960,8 +176,6 @@ export type Auction = {
   settled: Scalars['Boolean'];
   /** The auction bids */
   bids: Array<Bid>;
-  /** The Gnar */
-  gnar: Gnar;
 };
 
 
@@ -973,6 +187,51 @@ export type AuctionbidsArgs = {
   where?: InputMaybe<Bid_filter>;
 };
 
+export type AuctionHouse = {
+  /** Unique entity used to keep track of AuctionHouse settings */
+  id: Scalars['ID'];
+  /** The minimum value for bids */
+  reservePrice: Scalars['BigInt'];
+  /** The minimum time left on an Auction after a new bid is placed */
+  timeBuffer: Scalars['BigInt'];
+};
+
+export type AuctionHouse_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  reservePrice?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_not?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_gt?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_lt?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_gte?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_lte?: InputMaybe<Scalars['BigInt']>;
+  reservePrice_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  reservePrice_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  timeBuffer?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_not?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_gt?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_lt?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_gte?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_lte?: InputMaybe<Scalars['BigInt']>;
+  timeBuffer_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  timeBuffer_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<AuctionHouse_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<AuctionHouse_filter>>>;
+};
+
+export type AuctionHouse_orderBy =
+  | 'id'
+  | 'reservePrice'
+  | 'timeBuffer';
+
 export type Auction_filter = {
   id?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
@@ -982,27 +241,27 @@ export type Auction_filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_in?: InputMaybe<Array<Scalars['ID']>>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  noun?: InputMaybe<Scalars['String']>;
-  noun_not?: InputMaybe<Scalars['String']>;
-  noun_gt?: InputMaybe<Scalars['String']>;
-  noun_lt?: InputMaybe<Scalars['String']>;
-  noun_gte?: InputMaybe<Scalars['String']>;
-  noun_lte?: InputMaybe<Scalars['String']>;
-  noun_in?: InputMaybe<Array<Scalars['String']>>;
-  noun_not_in?: InputMaybe<Array<Scalars['String']>>;
-  noun_contains?: InputMaybe<Scalars['String']>;
-  noun_contains_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_contains?: InputMaybe<Scalars['String']>;
-  noun_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  noun_starts_with?: InputMaybe<Scalars['String']>;
-  noun_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_starts_with?: InputMaybe<Scalars['String']>;
-  noun_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_ends_with?: InputMaybe<Scalars['String']>;
-  noun_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_ends_with?: InputMaybe<Scalars['String']>;
-  noun_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_?: InputMaybe<Noun_filter>;
+  gnar?: InputMaybe<Scalars['String']>;
+  gnar_not?: InputMaybe<Scalars['String']>;
+  gnar_gt?: InputMaybe<Scalars['String']>;
+  gnar_lt?: InputMaybe<Scalars['String']>;
+  gnar_gte?: InputMaybe<Scalars['String']>;
+  gnar_lte?: InputMaybe<Scalars['String']>;
+  gnar_in?: InputMaybe<Array<Scalars['String']>>;
+  gnar_not_in?: InputMaybe<Array<Scalars['String']>>;
+  gnar_contains?: InputMaybe<Scalars['String']>;
+  gnar_contains_nocase?: InputMaybe<Scalars['String']>;
+  gnar_not_contains?: InputMaybe<Scalars['String']>;
+  gnar_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  gnar_starts_with?: InputMaybe<Scalars['String']>;
+  gnar_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_not_starts_with?: InputMaybe<Scalars['String']>;
+  gnar_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_ends_with?: InputMaybe<Scalars['String']>;
+  gnar_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_not_ends_with?: InputMaybe<Scalars['String']>;
+  gnar_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_?: InputMaybe<Gnar_filter>;
   amount?: InputMaybe<Scalars['BigInt']>;
   amount_not?: InputMaybe<Scalars['BigInt']>;
   amount_gt?: InputMaybe<Scalars['BigInt']>;
@@ -1057,6 +316,53 @@ export type Auction_filter = {
   _change_block?: InputMaybe<BlockChangedFilter>;
   and?: InputMaybe<Array<InputMaybe<Auction_filter>>>;
   or?: InputMaybe<Array<InputMaybe<Auction_filter>>>;
+};
+
+export type Auction_orderBy =
+  | 'id'
+  | 'gnar'
+  | 'gnar__id'
+  | 'gnar__creationTimestamp'
+  | 'amount'
+  | 'startTime'
+  | 'endTime'
+  | 'bidder'
+  | 'bidder__id'
+  | 'bidder__tokenBalanceRaw'
+  | 'bidder__tokenBalance'
+  | 'bidder__totalTokensHeldRaw'
+  | 'bidder__totalTokensHeld'
+  | 'settled'
+  | 'bids';
+
+export type Bid = {
+  /** Bid transaction hash */
+  id: Scalars['ID'];
+  /** The Gnar being bid on */
+  gnar: Gnar;
+  /** Bid amount */
+  amount: Scalars['BigInt'];
+  /** Bidder account */
+  bidder?: Maybe<Account>;
+  /** Block number of the bid */
+  blockNumber: Scalars['BigInt'];
+  /** Index of transaction within block */
+  txIndex: Scalars['BigInt'];
+  /** The auction being bid in */
+  auction: Auction;
+  /** The timestamp of the block the bid is in */
+  blockTimestamp: Scalars['BigInt'];
+};
+
+export type Bid_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
   gnar?: InputMaybe<Scalars['String']>;
   gnar_not?: InputMaybe<Scalars['String']>;
   gnar_gt?: InputMaybe<Scalars['String']>;
@@ -1078,78 +384,6 @@ export type Auction_filter = {
   gnar_not_ends_with?: InputMaybe<Scalars['String']>;
   gnar_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
   gnar_?: InputMaybe<Gnar_filter>;
-};
-
-export type Auction_orderBy =
-  | 'id'
-  | 'noun'
-  | 'noun__id'
-  | 'amount'
-  | 'startTime'
-  | 'endTime'
-  | 'bidder'
-  | 'bidder__id'
-  | 'bidder__tokenBalanceRaw'
-  | 'bidder__tokenBalance'
-  | 'bidder__totalTokensHeldRaw'
-  | 'bidder__totalTokensHeld'
-  | 'settled'
-  | 'bids'
-  | 'gnar'
-  | 'gnar__id'
-  | 'gnar__creationTimestamp';
-
-export type Bid = {
-  /** Bid transaction hash */
-  id: Scalars['ID'];
-  /** The Noun being bid on */
-  noun: Noun;
-  /** Bid amount */
-  amount: Scalars['BigInt'];
-  /** Bidder account */
-  bidder?: Maybe<Account>;
-  /** Block number of the bid */
-  blockNumber: Scalars['BigInt'];
-  /** Index of transaction within block */
-  txIndex: Scalars['BigInt'];
-  /** The auction being bid in */
-  auction: Auction;
-  /** The timestamp of the block the bid is in */
-  blockTimestamp: Scalars['BigInt'];
-  /** The Gnar being bid on */
-  gnar: Gnar;
-};
-
-export type Bid_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  noun?: InputMaybe<Scalars['String']>;
-  noun_not?: InputMaybe<Scalars['String']>;
-  noun_gt?: InputMaybe<Scalars['String']>;
-  noun_lt?: InputMaybe<Scalars['String']>;
-  noun_gte?: InputMaybe<Scalars['String']>;
-  noun_lte?: InputMaybe<Scalars['String']>;
-  noun_in?: InputMaybe<Array<Scalars['String']>>;
-  noun_not_in?: InputMaybe<Array<Scalars['String']>>;
-  noun_contains?: InputMaybe<Scalars['String']>;
-  noun_contains_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_contains?: InputMaybe<Scalars['String']>;
-  noun_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  noun_starts_with?: InputMaybe<Scalars['String']>;
-  noun_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_starts_with?: InputMaybe<Scalars['String']>;
-  noun_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_ends_with?: InputMaybe<Scalars['String']>;
-  noun_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_ends_with?: InputMaybe<Scalars['String']>;
-  noun_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_?: InputMaybe<Noun_filter>;
   amount?: InputMaybe<Scalars['BigInt']>;
   amount_not?: InputMaybe<Scalars['BigInt']>;
   amount_gt?: InputMaybe<Scalars['BigInt']>;
@@ -1228,33 +462,13 @@ export type Bid_filter = {
   _change_block?: InputMaybe<BlockChangedFilter>;
   and?: InputMaybe<Array<InputMaybe<Bid_filter>>>;
   or?: InputMaybe<Array<InputMaybe<Bid_filter>>>;
-  gnar?: InputMaybe<Scalars['String']>;
-  gnar_not?: InputMaybe<Scalars['String']>;
-  gnar_gt?: InputMaybe<Scalars['String']>;
-  gnar_lt?: InputMaybe<Scalars['String']>;
-  gnar_gte?: InputMaybe<Scalars['String']>;
-  gnar_lte?: InputMaybe<Scalars['String']>;
-  gnar_in?: InputMaybe<Array<Scalars['String']>>;
-  gnar_not_in?: InputMaybe<Array<Scalars['String']>>;
-  gnar_contains?: InputMaybe<Scalars['String']>;
-  gnar_contains_nocase?: InputMaybe<Scalars['String']>;
-  gnar_not_contains?: InputMaybe<Scalars['String']>;
-  gnar_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  gnar_starts_with?: InputMaybe<Scalars['String']>;
-  gnar_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_not_starts_with?: InputMaybe<Scalars['String']>;
-  gnar_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_ends_with?: InputMaybe<Scalars['String']>;
-  gnar_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_not_ends_with?: InputMaybe<Scalars['String']>;
-  gnar_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_?: InputMaybe<Gnar_filter>;
 };
 
 export type Bid_orderBy =
   | 'id'
-  | 'noun'
-  | 'noun__id'
+  | 'gnar'
+  | 'gnar__id'
+  | 'gnar__creationTimestamp'
   | 'amount'
   | 'bidder'
   | 'bidder__id'
@@ -1270,10 +484,7 @@ export type Bid_orderBy =
   | 'auction__startTime'
   | 'auction__endTime'
   | 'auction__settled'
-  | 'blockTimestamp'
-  | 'gnar'
-  | 'gnar__id'
-  | 'gnar__creationTimestamp';
+  | 'blockTimestamp';
 
 export type BlockChangedFilter = {
   number_gte: Scalars['Int'];
@@ -1295,14 +506,12 @@ export type Delegate = {
   tokenHoldersRepresentedAmount: Scalars['Int'];
   /** Token holders that this delegate represents */
   tokenHoldersRepresented: Array<Account>;
-  /** Nouns that this delegate represents */
-  nounsRepresented: Array<Noun>;
+  /** Gnars that this delegate represents */
+  gnarsRepresented: Array<Gnar>;
   /** Votes that a delegate has made in different proposals */
   votes: Array<Vote>;
   /** Proposals that the delegate has created */
   proposals: Array<Proposal>;
-  /** Gnars that this delegate represents */
-  gnarsRepresented: Array<Gnar>;
 };
 
 
@@ -1315,12 +524,12 @@ export type DelegatetokenHoldersRepresentedArgs = {
 };
 
 
-export type DelegatenounsRepresentedArgs = {
+export type DelegategnarsRepresentedArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Noun_orderBy>;
+  orderBy?: InputMaybe<Gnar_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Noun_filter>;
+  where?: InputMaybe<Gnar_filter>;
 };
 
 
@@ -1339,15 +548,6 @@ export type DelegateproposalsArgs = {
   orderBy?: InputMaybe<Proposal_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   where?: InputMaybe<Proposal_filter>;
-};
-
-
-export type DelegategnarsRepresentedArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Gnar_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Gnar_filter>;
 };
 
 export type Delegate_filter = {
@@ -1384,19 +584,6 @@ export type Delegate_filter = {
   tokenHoldersRepresentedAmount_in?: InputMaybe<Array<Scalars['Int']>>;
   tokenHoldersRepresentedAmount_not_in?: InputMaybe<Array<Scalars['Int']>>;
   tokenHoldersRepresented_?: InputMaybe<Account_filter>;
-  nounsRepresented?: InputMaybe<Array<Scalars['String']>>;
-  nounsRepresented_not?: InputMaybe<Array<Scalars['String']>>;
-  nounsRepresented_contains?: InputMaybe<Array<Scalars['String']>>;
-  nounsRepresented_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  nounsRepresented_not_contains?: InputMaybe<Array<Scalars['String']>>;
-  nounsRepresented_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  nounsRepresented_?: InputMaybe<Noun_filter>;
-  votes_?: InputMaybe<Vote_filter>;
-  proposals_?: InputMaybe<Proposal_filter>;
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<Delegate_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<Delegate_filter>>>;
   gnarsRepresented?: InputMaybe<Array<Scalars['String']>>;
   gnarsRepresented_not?: InputMaybe<Array<Scalars['String']>>;
   gnarsRepresented_contains?: InputMaybe<Array<Scalars['String']>>;
@@ -1404,6 +591,12 @@ export type Delegate_filter = {
   gnarsRepresented_not_contains?: InputMaybe<Array<Scalars['String']>>;
   gnarsRepresented_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
   gnarsRepresented_?: InputMaybe<Gnar_filter>;
+  votes_?: InputMaybe<Vote_filter>;
+  proposals_?: InputMaybe<Proposal_filter>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Delegate_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Delegate_filter>>>;
 };
 
 export type Delegate_orderBy =
@@ -1412,16 +605,15 @@ export type Delegate_orderBy =
   | 'delegatedVotes'
   | 'tokenHoldersRepresentedAmount'
   | 'tokenHoldersRepresented'
-  | 'nounsRepresented'
+  | 'gnarsRepresented'
   | 'votes'
-  | 'proposals'
-  | 'gnarsRepresented';
+  | 'proposals';
 
 export type DelegationEvent = {
   /** The txn hash of this event + gnarId */
   id: Scalars['ID'];
-  /** The Noun being delegated */
-  noun: Noun;
+  /** The Gnar being delegated */
+  gnar: Gnar;
   /** Previous delegate address */
   previousDelegate: Delegate;
   /** New delegate address */
@@ -1430,8 +622,6 @@ export type DelegationEvent = {
   blockNumber: Scalars['BigInt'];
   /** The timestamp of the block the event is in */
   blockTimestamp: Scalars['BigInt'];
-  /** The Gnar being delegated */
-  gnar: Gnar;
 };
 
 export type DelegationEvent_filter = {
@@ -1443,27 +633,27 @@ export type DelegationEvent_filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_in?: InputMaybe<Array<Scalars['ID']>>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  noun?: InputMaybe<Scalars['String']>;
-  noun_not?: InputMaybe<Scalars['String']>;
-  noun_gt?: InputMaybe<Scalars['String']>;
-  noun_lt?: InputMaybe<Scalars['String']>;
-  noun_gte?: InputMaybe<Scalars['String']>;
-  noun_lte?: InputMaybe<Scalars['String']>;
-  noun_in?: InputMaybe<Array<Scalars['String']>>;
-  noun_not_in?: InputMaybe<Array<Scalars['String']>>;
-  noun_contains?: InputMaybe<Scalars['String']>;
-  noun_contains_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_contains?: InputMaybe<Scalars['String']>;
-  noun_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  noun_starts_with?: InputMaybe<Scalars['String']>;
-  noun_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_starts_with?: InputMaybe<Scalars['String']>;
-  noun_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_ends_with?: InputMaybe<Scalars['String']>;
-  noun_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_ends_with?: InputMaybe<Scalars['String']>;
-  noun_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_?: InputMaybe<Noun_filter>;
+  gnar?: InputMaybe<Scalars['String']>;
+  gnar_not?: InputMaybe<Scalars['String']>;
+  gnar_gt?: InputMaybe<Scalars['String']>;
+  gnar_lt?: InputMaybe<Scalars['String']>;
+  gnar_gte?: InputMaybe<Scalars['String']>;
+  gnar_lte?: InputMaybe<Scalars['String']>;
+  gnar_in?: InputMaybe<Array<Scalars['String']>>;
+  gnar_not_in?: InputMaybe<Array<Scalars['String']>>;
+  gnar_contains?: InputMaybe<Scalars['String']>;
+  gnar_contains_nocase?: InputMaybe<Scalars['String']>;
+  gnar_not_contains?: InputMaybe<Scalars['String']>;
+  gnar_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  gnar_starts_with?: InputMaybe<Scalars['String']>;
+  gnar_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_not_starts_with?: InputMaybe<Scalars['String']>;
+  gnar_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_ends_with?: InputMaybe<Scalars['String']>;
+  gnar_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_not_ends_with?: InputMaybe<Scalars['String']>;
+  gnar_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_?: InputMaybe<Gnar_filter>;
   previousDelegate?: InputMaybe<Scalars['String']>;
   previousDelegate_not?: InputMaybe<Scalars['String']>;
   previousDelegate_gt?: InputMaybe<Scalars['String']>;
@@ -1526,33 +716,13 @@ export type DelegationEvent_filter = {
   _change_block?: InputMaybe<BlockChangedFilter>;
   and?: InputMaybe<Array<InputMaybe<DelegationEvent_filter>>>;
   or?: InputMaybe<Array<InputMaybe<DelegationEvent_filter>>>;
-  gnar?: InputMaybe<Scalars['String']>;
-  gnar_not?: InputMaybe<Scalars['String']>;
-  gnar_gt?: InputMaybe<Scalars['String']>;
-  gnar_lt?: InputMaybe<Scalars['String']>;
-  gnar_gte?: InputMaybe<Scalars['String']>;
-  gnar_lte?: InputMaybe<Scalars['String']>;
-  gnar_in?: InputMaybe<Array<Scalars['String']>>;
-  gnar_not_in?: InputMaybe<Array<Scalars['String']>>;
-  gnar_contains?: InputMaybe<Scalars['String']>;
-  gnar_contains_nocase?: InputMaybe<Scalars['String']>;
-  gnar_not_contains?: InputMaybe<Scalars['String']>;
-  gnar_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  gnar_starts_with?: InputMaybe<Scalars['String']>;
-  gnar_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_not_starts_with?: InputMaybe<Scalars['String']>;
-  gnar_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_ends_with?: InputMaybe<Scalars['String']>;
-  gnar_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_not_ends_with?: InputMaybe<Scalars['String']>;
-  gnar_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_?: InputMaybe<Gnar_filter>;
 };
 
 export type DelegationEvent_orderBy =
   | 'id'
-  | 'noun'
-  | 'noun__id'
+  | 'gnar'
+  | 'gnar__id'
+  | 'gnar__creationTimestamp'
   | 'previousDelegate'
   | 'previousDelegate__id'
   | 'previousDelegate__delegatedVotesRaw'
@@ -1564,10 +734,7 @@ export type DelegationEvent_orderBy =
   | 'newDelegate__delegatedVotes'
   | 'newDelegate__tokenHoldersRepresentedAmount'
   | 'blockNumber'
-  | 'blockTimestamp'
-  | 'gnar'
-  | 'gnar__id'
-  | 'gnar__creationTimestamp';
+  | 'blockTimestamp';
 
 export type DynamicQuorumParams = {
   /** Unique entity used to store the latest dynamic quorum params */
@@ -1635,1059 +802,6 @@ export type DynamicQuorumParams_orderBy =
   | 'maxQuorumVotesBPS'
   | 'quorumCoefficient'
   | 'dynamicQuorumStartBlock';
-
-export type Governance = {
-  /** Unique entity used to keep track of common aggregated data */
-  id: Scalars['ID'];
-  /** Number of proposals created */
-  proposals: Scalars['BigInt'];
-  /** Total number of token holders currently */
-  currentTokenHolders: Scalars['BigInt'];
-  /** Total number of delegates participating on the governance currently */
-  currentDelegates: Scalars['BigInt'];
-  /** Total number of token holders */
-  totalTokenHolders: Scalars['BigInt'];
-  /** Total number of delegates that held delegated votes */
-  totalDelegates: Scalars['BigInt'];
-  /** Total number of votes delegated expressed in the smallest unit of the Gnars ERC721 Token */
-  delegatedVotesRaw: Scalars['BigInt'];
-  /** Total number of votes delegated expressed as a BigInt normalized value for the Gnars ERC721 Token */
-  delegatedVotes: Scalars['BigInt'];
-  /** Number of proposals currently queued for execution */
-  proposalsQueued: Scalars['BigInt'];
-};
-
-export type Governance_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  proposals?: InputMaybe<Scalars['BigInt']>;
-  proposals_not?: InputMaybe<Scalars['BigInt']>;
-  proposals_gt?: InputMaybe<Scalars['BigInt']>;
-  proposals_lt?: InputMaybe<Scalars['BigInt']>;
-  proposals_gte?: InputMaybe<Scalars['BigInt']>;
-  proposals_lte?: InputMaybe<Scalars['BigInt']>;
-  proposals_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  proposals_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  currentTokenHolders?: InputMaybe<Scalars['BigInt']>;
-  currentTokenHolders_not?: InputMaybe<Scalars['BigInt']>;
-  currentTokenHolders_gt?: InputMaybe<Scalars['BigInt']>;
-  currentTokenHolders_lt?: InputMaybe<Scalars['BigInt']>;
-  currentTokenHolders_gte?: InputMaybe<Scalars['BigInt']>;
-  currentTokenHolders_lte?: InputMaybe<Scalars['BigInt']>;
-  currentTokenHolders_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  currentTokenHolders_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  currentDelegates?: InputMaybe<Scalars['BigInt']>;
-  currentDelegates_not?: InputMaybe<Scalars['BigInt']>;
-  currentDelegates_gt?: InputMaybe<Scalars['BigInt']>;
-  currentDelegates_lt?: InputMaybe<Scalars['BigInt']>;
-  currentDelegates_gte?: InputMaybe<Scalars['BigInt']>;
-  currentDelegates_lte?: InputMaybe<Scalars['BigInt']>;
-  currentDelegates_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  currentDelegates_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  totalTokenHolders?: InputMaybe<Scalars['BigInt']>;
-  totalTokenHolders_not?: InputMaybe<Scalars['BigInt']>;
-  totalTokenHolders_gt?: InputMaybe<Scalars['BigInt']>;
-  totalTokenHolders_lt?: InputMaybe<Scalars['BigInt']>;
-  totalTokenHolders_gte?: InputMaybe<Scalars['BigInt']>;
-  totalTokenHolders_lte?: InputMaybe<Scalars['BigInt']>;
-  totalTokenHolders_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  totalTokenHolders_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  totalDelegates?: InputMaybe<Scalars['BigInt']>;
-  totalDelegates_not?: InputMaybe<Scalars['BigInt']>;
-  totalDelegates_gt?: InputMaybe<Scalars['BigInt']>;
-  totalDelegates_lt?: InputMaybe<Scalars['BigInt']>;
-  totalDelegates_gte?: InputMaybe<Scalars['BigInt']>;
-  totalDelegates_lte?: InputMaybe<Scalars['BigInt']>;
-  totalDelegates_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  totalDelegates_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  delegatedVotesRaw?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotesRaw_not?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotesRaw_gt?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotesRaw_lt?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotesRaw_gte?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotesRaw_lte?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotesRaw_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  delegatedVotesRaw_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  delegatedVotes?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotes_not?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotes_gt?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotes_lt?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotes_gte?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotes_lte?: InputMaybe<Scalars['BigInt']>;
-  delegatedVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  delegatedVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  proposalsQueued?: InputMaybe<Scalars['BigInt']>;
-  proposalsQueued_not?: InputMaybe<Scalars['BigInt']>;
-  proposalsQueued_gt?: InputMaybe<Scalars['BigInt']>;
-  proposalsQueued_lt?: InputMaybe<Scalars['BigInt']>;
-  proposalsQueued_gte?: InputMaybe<Scalars['BigInt']>;
-  proposalsQueued_lte?: InputMaybe<Scalars['BigInt']>;
-  proposalsQueued_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  proposalsQueued_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<Governance_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<Governance_filter>>>;
-};
-
-export type Governance_orderBy =
-  | 'id'
-  | 'proposals'
-  | 'currentTokenHolders'
-  | 'currentDelegates'
-  | 'totalTokenHolders'
-  | 'totalDelegates'
-  | 'delegatedVotesRaw'
-  | 'delegatedVotes'
-  | 'proposalsQueued';
-
-export type Noun = {
-  /** The Noun's ERC721 token id */
-  id: Scalars['ID'];
-  /** The seed used to determine the Noun's traits */
-  seed?: Maybe<Seed>;
-  /** The owner of the Noun */
-  owner: Account;
-  /** Historical votes for the Noun */
-  votes: Array<Vote>;
-};
-
-
-export type NounvotesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Vote_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Vote_filter>;
-};
-
-export type Noun_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  seed?: InputMaybe<Scalars['String']>;
-  seed_not?: InputMaybe<Scalars['String']>;
-  seed_gt?: InputMaybe<Scalars['String']>;
-  seed_lt?: InputMaybe<Scalars['String']>;
-  seed_gte?: InputMaybe<Scalars['String']>;
-  seed_lte?: InputMaybe<Scalars['String']>;
-  seed_in?: InputMaybe<Array<Scalars['String']>>;
-  seed_not_in?: InputMaybe<Array<Scalars['String']>>;
-  seed_contains?: InputMaybe<Scalars['String']>;
-  seed_contains_nocase?: InputMaybe<Scalars['String']>;
-  seed_not_contains?: InputMaybe<Scalars['String']>;
-  seed_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  seed_starts_with?: InputMaybe<Scalars['String']>;
-  seed_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  seed_not_starts_with?: InputMaybe<Scalars['String']>;
-  seed_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  seed_ends_with?: InputMaybe<Scalars['String']>;
-  seed_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  seed_not_ends_with?: InputMaybe<Scalars['String']>;
-  seed_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  seed_?: InputMaybe<Seed_filter>;
-  owner?: InputMaybe<Scalars['String']>;
-  owner_not?: InputMaybe<Scalars['String']>;
-  owner_gt?: InputMaybe<Scalars['String']>;
-  owner_lt?: InputMaybe<Scalars['String']>;
-  owner_gte?: InputMaybe<Scalars['String']>;
-  owner_lte?: InputMaybe<Scalars['String']>;
-  owner_in?: InputMaybe<Array<Scalars['String']>>;
-  owner_not_in?: InputMaybe<Array<Scalars['String']>>;
-  owner_contains?: InputMaybe<Scalars['String']>;
-  owner_contains_nocase?: InputMaybe<Scalars['String']>;
-  owner_not_contains?: InputMaybe<Scalars['String']>;
-  owner_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  owner_starts_with?: InputMaybe<Scalars['String']>;
-  owner_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  owner_not_starts_with?: InputMaybe<Scalars['String']>;
-  owner_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  owner_ends_with?: InputMaybe<Scalars['String']>;
-  owner_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  owner_not_ends_with?: InputMaybe<Scalars['String']>;
-  owner_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  owner_?: InputMaybe<Account_filter>;
-  votes_?: InputMaybe<Vote_filter>;
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<Noun_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<Noun_filter>>>;
-};
-
-export type Noun_orderBy =
-  | 'id'
-  | 'seed'
-  | 'seed__id'
-  | 'seed__background'
-  | 'seed__body'
-  | 'seed__accessory'
-  | 'seed__head'
-  | 'seed__glasses'
-  | 'owner'
-  | 'owner__id'
-  | 'owner__tokenBalanceRaw'
-  | 'owner__tokenBalance'
-  | 'owner__totalTokensHeldRaw'
-  | 'owner__totalTokensHeld'
-  | 'votes';
-
-/** Defines the order direction, either ascending or descending */
-export type OrderDirection =
-  | 'asc'
-  | 'desc';
-
-export type Proposal = {
-  /** Internal proposal ID, in this implementation it seems to be a autoincremental id */
-  id: Scalars['ID'];
-  /** Delegate that proposed the change */
-  proposer: Delegate;
-  /** Targets data for the change */
-  targets?: Maybe<Array<Scalars['Bytes']>>;
-  /** Values data for the change */
-  values?: Maybe<Array<Scalars['BigInt']>>;
-  /** Signature data for the change */
-  signatures?: Maybe<Array<Scalars['String']>>;
-  /** Call data for the change */
-  calldatas?: Maybe<Array<Scalars['Bytes']>>;
-  /** The proposal creation timestamp */
-  createdTimestamp: Scalars['BigInt'];
-  /** The proposal creation block */
-  createdBlock: Scalars['BigInt'];
-  /** The proposal creation transaction hash */
-  createdTransactionHash: Scalars['Bytes'];
-  /** Block number from where the voting starts */
-  startBlock: Scalars['BigInt'];
-  /** Block number from where the voting ends */
-  endBlock: Scalars['BigInt'];
-  /** The proposal threshold at the time of proposal creation */
-  proposalThreshold: Scalars['BigInt'];
-  /** The required number of votes for quorum at the time of proposal creation */
-  quorumVotes: Scalars['BigInt'];
-  /** The number of votes in favor of the proposal */
-  forVotes: Scalars['BigInt'];
-  /** The number of votes against of the proposal */
-  againstVotes: Scalars['BigInt'];
-  /** The number of votes to abstain on the proposal */
-  abstainVotes: Scalars['BigInt'];
-  /** The proposal title, parsed from the description */
-  title: Scalars['String'];
-  /** The full proposal description, which includes the title */
-  description: Scalars['String'];
-  /** Status of the proposal */
-  status: ProposalStatus;
-  /** Once the proposal is queued for execution it will have an ETA of the execution */
-  executionETA?: Maybe<Scalars['BigInt']>;
-  /** Votes associated to this proposal */
-  votes: Array<Vote>;
-  /** Total supply when this proposal was created */
-  totalSupply: Scalars['BigInt'];
-  /** Dynamic quorum param snapshot: min quorum basis points */
-  minQuorumVotesBPS: Scalars['Int'];
-  /** Dynamic quorum param snapshot: max quorum basis points */
-  maxQuorumVotesBPS: Scalars['Int'];
-  /** Dynamic quorum param snapshot: the dynamic quorum coefficient */
-  quorumCoefficient: Scalars['BigInt'];
-};
-
-
-export type ProposalvotesArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Vote_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Vote_filter>;
-};
-
-export type ProposalStatus =
-  | 'PENDING'
-  | 'ACTIVE'
-  | 'CANCELLED'
-  | 'VETOED'
-  | 'QUEUED'
-  | 'EXECUTED';
-
-export type Proposal_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  proposer?: InputMaybe<Scalars['String']>;
-  proposer_not?: InputMaybe<Scalars['String']>;
-  proposer_gt?: InputMaybe<Scalars['String']>;
-  proposer_lt?: InputMaybe<Scalars['String']>;
-  proposer_gte?: InputMaybe<Scalars['String']>;
-  proposer_lte?: InputMaybe<Scalars['String']>;
-  proposer_in?: InputMaybe<Array<Scalars['String']>>;
-  proposer_not_in?: InputMaybe<Array<Scalars['String']>>;
-  proposer_contains?: InputMaybe<Scalars['String']>;
-  proposer_contains_nocase?: InputMaybe<Scalars['String']>;
-  proposer_not_contains?: InputMaybe<Scalars['String']>;
-  proposer_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  proposer_starts_with?: InputMaybe<Scalars['String']>;
-  proposer_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  proposer_not_starts_with?: InputMaybe<Scalars['String']>;
-  proposer_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  proposer_ends_with?: InputMaybe<Scalars['String']>;
-  proposer_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  proposer_not_ends_with?: InputMaybe<Scalars['String']>;
-  proposer_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  proposer_?: InputMaybe<Delegate_filter>;
-  targets?: InputMaybe<Array<Scalars['Bytes']>>;
-  targets_not?: InputMaybe<Array<Scalars['Bytes']>>;
-  targets_contains?: InputMaybe<Array<Scalars['Bytes']>>;
-  targets_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
-  targets_not_contains?: InputMaybe<Array<Scalars['Bytes']>>;
-  targets_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
-  values?: InputMaybe<Array<Scalars['BigInt']>>;
-  values_not?: InputMaybe<Array<Scalars['BigInt']>>;
-  values_contains?: InputMaybe<Array<Scalars['BigInt']>>;
-  values_contains_nocase?: InputMaybe<Array<Scalars['BigInt']>>;
-  values_not_contains?: InputMaybe<Array<Scalars['BigInt']>>;
-  values_not_contains_nocase?: InputMaybe<Array<Scalars['BigInt']>>;
-  signatures?: InputMaybe<Array<Scalars['String']>>;
-  signatures_not?: InputMaybe<Array<Scalars['String']>>;
-  signatures_contains?: InputMaybe<Array<Scalars['String']>>;
-  signatures_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  signatures_not_contains?: InputMaybe<Array<Scalars['String']>>;
-  signatures_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  calldatas?: InputMaybe<Array<Scalars['Bytes']>>;
-  calldatas_not?: InputMaybe<Array<Scalars['Bytes']>>;
-  calldatas_contains?: InputMaybe<Array<Scalars['Bytes']>>;
-  calldatas_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
-  calldatas_not_contains?: InputMaybe<Array<Scalars['Bytes']>>;
-  calldatas_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
-  createdTimestamp?: InputMaybe<Scalars['BigInt']>;
-  createdTimestamp_not?: InputMaybe<Scalars['BigInt']>;
-  createdTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
-  createdTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
-  createdTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
-  createdTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
-  createdTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  createdTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  createdBlock?: InputMaybe<Scalars['BigInt']>;
-  createdBlock_not?: InputMaybe<Scalars['BigInt']>;
-  createdBlock_gt?: InputMaybe<Scalars['BigInt']>;
-  createdBlock_lt?: InputMaybe<Scalars['BigInt']>;
-  createdBlock_gte?: InputMaybe<Scalars['BigInt']>;
-  createdBlock_lte?: InputMaybe<Scalars['BigInt']>;
-  createdBlock_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  createdBlock_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  createdTransactionHash?: InputMaybe<Scalars['Bytes']>;
-  createdTransactionHash_not?: InputMaybe<Scalars['Bytes']>;
-  createdTransactionHash_gt?: InputMaybe<Scalars['Bytes']>;
-  createdTransactionHash_lt?: InputMaybe<Scalars['Bytes']>;
-  createdTransactionHash_gte?: InputMaybe<Scalars['Bytes']>;
-  createdTransactionHash_lte?: InputMaybe<Scalars['Bytes']>;
-  createdTransactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  createdTransactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  createdTransactionHash_contains?: InputMaybe<Scalars['Bytes']>;
-  createdTransactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  startBlock?: InputMaybe<Scalars['BigInt']>;
-  startBlock_not?: InputMaybe<Scalars['BigInt']>;
-  startBlock_gt?: InputMaybe<Scalars['BigInt']>;
-  startBlock_lt?: InputMaybe<Scalars['BigInt']>;
-  startBlock_gte?: InputMaybe<Scalars['BigInt']>;
-  startBlock_lte?: InputMaybe<Scalars['BigInt']>;
-  startBlock_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  startBlock_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  endBlock?: InputMaybe<Scalars['BigInt']>;
-  endBlock_not?: InputMaybe<Scalars['BigInt']>;
-  endBlock_gt?: InputMaybe<Scalars['BigInt']>;
-  endBlock_lt?: InputMaybe<Scalars['BigInt']>;
-  endBlock_gte?: InputMaybe<Scalars['BigInt']>;
-  endBlock_lte?: InputMaybe<Scalars['BigInt']>;
-  endBlock_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  endBlock_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  proposalThreshold?: InputMaybe<Scalars['BigInt']>;
-  proposalThreshold_not?: InputMaybe<Scalars['BigInt']>;
-  proposalThreshold_gt?: InputMaybe<Scalars['BigInt']>;
-  proposalThreshold_lt?: InputMaybe<Scalars['BigInt']>;
-  proposalThreshold_gte?: InputMaybe<Scalars['BigInt']>;
-  proposalThreshold_lte?: InputMaybe<Scalars['BigInt']>;
-  proposalThreshold_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  proposalThreshold_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  quorumVotes?: InputMaybe<Scalars['BigInt']>;
-  quorumVotes_not?: InputMaybe<Scalars['BigInt']>;
-  quorumVotes_gt?: InputMaybe<Scalars['BigInt']>;
-  quorumVotes_lt?: InputMaybe<Scalars['BigInt']>;
-  quorumVotes_gte?: InputMaybe<Scalars['BigInt']>;
-  quorumVotes_lte?: InputMaybe<Scalars['BigInt']>;
-  quorumVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  quorumVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  forVotes?: InputMaybe<Scalars['BigInt']>;
-  forVotes_not?: InputMaybe<Scalars['BigInt']>;
-  forVotes_gt?: InputMaybe<Scalars['BigInt']>;
-  forVotes_lt?: InputMaybe<Scalars['BigInt']>;
-  forVotes_gte?: InputMaybe<Scalars['BigInt']>;
-  forVotes_lte?: InputMaybe<Scalars['BigInt']>;
-  forVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  forVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  againstVotes?: InputMaybe<Scalars['BigInt']>;
-  againstVotes_not?: InputMaybe<Scalars['BigInt']>;
-  againstVotes_gt?: InputMaybe<Scalars['BigInt']>;
-  againstVotes_lt?: InputMaybe<Scalars['BigInt']>;
-  againstVotes_gte?: InputMaybe<Scalars['BigInt']>;
-  againstVotes_lte?: InputMaybe<Scalars['BigInt']>;
-  againstVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  againstVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  abstainVotes?: InputMaybe<Scalars['BigInt']>;
-  abstainVotes_not?: InputMaybe<Scalars['BigInt']>;
-  abstainVotes_gt?: InputMaybe<Scalars['BigInt']>;
-  abstainVotes_lt?: InputMaybe<Scalars['BigInt']>;
-  abstainVotes_gte?: InputMaybe<Scalars['BigInt']>;
-  abstainVotes_lte?: InputMaybe<Scalars['BigInt']>;
-  abstainVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  abstainVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  title?: InputMaybe<Scalars['String']>;
-  title_not?: InputMaybe<Scalars['String']>;
-  title_gt?: InputMaybe<Scalars['String']>;
-  title_lt?: InputMaybe<Scalars['String']>;
-  title_gte?: InputMaybe<Scalars['String']>;
-  title_lte?: InputMaybe<Scalars['String']>;
-  title_in?: InputMaybe<Array<Scalars['String']>>;
-  title_not_in?: InputMaybe<Array<Scalars['String']>>;
-  title_contains?: InputMaybe<Scalars['String']>;
-  title_contains_nocase?: InputMaybe<Scalars['String']>;
-  title_not_contains?: InputMaybe<Scalars['String']>;
-  title_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  title_starts_with?: InputMaybe<Scalars['String']>;
-  title_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  title_not_starts_with?: InputMaybe<Scalars['String']>;
-  title_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  title_ends_with?: InputMaybe<Scalars['String']>;
-  title_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  title_not_ends_with?: InputMaybe<Scalars['String']>;
-  title_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  description?: InputMaybe<Scalars['String']>;
-  description_not?: InputMaybe<Scalars['String']>;
-  description_gt?: InputMaybe<Scalars['String']>;
-  description_lt?: InputMaybe<Scalars['String']>;
-  description_gte?: InputMaybe<Scalars['String']>;
-  description_lte?: InputMaybe<Scalars['String']>;
-  description_in?: InputMaybe<Array<Scalars['String']>>;
-  description_not_in?: InputMaybe<Array<Scalars['String']>>;
-  description_contains?: InputMaybe<Scalars['String']>;
-  description_contains_nocase?: InputMaybe<Scalars['String']>;
-  description_not_contains?: InputMaybe<Scalars['String']>;
-  description_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  description_starts_with?: InputMaybe<Scalars['String']>;
-  description_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  description_not_starts_with?: InputMaybe<Scalars['String']>;
-  description_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  description_ends_with?: InputMaybe<Scalars['String']>;
-  description_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  description_not_ends_with?: InputMaybe<Scalars['String']>;
-  description_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<ProposalStatus>;
-  status_not?: InputMaybe<ProposalStatus>;
-  status_in?: InputMaybe<Array<ProposalStatus>>;
-  status_not_in?: InputMaybe<Array<ProposalStatus>>;
-  executionETA?: InputMaybe<Scalars['BigInt']>;
-  executionETA_not?: InputMaybe<Scalars['BigInt']>;
-  executionETA_gt?: InputMaybe<Scalars['BigInt']>;
-  executionETA_lt?: InputMaybe<Scalars['BigInt']>;
-  executionETA_gte?: InputMaybe<Scalars['BigInt']>;
-  executionETA_lte?: InputMaybe<Scalars['BigInt']>;
-  executionETA_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  executionETA_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  votes_?: InputMaybe<Vote_filter>;
-  totalSupply?: InputMaybe<Scalars['BigInt']>;
-  totalSupply_not?: InputMaybe<Scalars['BigInt']>;
-  totalSupply_gt?: InputMaybe<Scalars['BigInt']>;
-  totalSupply_lt?: InputMaybe<Scalars['BigInt']>;
-  totalSupply_gte?: InputMaybe<Scalars['BigInt']>;
-  totalSupply_lte?: InputMaybe<Scalars['BigInt']>;
-  totalSupply_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  totalSupply_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  minQuorumVotesBPS?: InputMaybe<Scalars['Int']>;
-  minQuorumVotesBPS_not?: InputMaybe<Scalars['Int']>;
-  minQuorumVotesBPS_gt?: InputMaybe<Scalars['Int']>;
-  minQuorumVotesBPS_lt?: InputMaybe<Scalars['Int']>;
-  minQuorumVotesBPS_gte?: InputMaybe<Scalars['Int']>;
-  minQuorumVotesBPS_lte?: InputMaybe<Scalars['Int']>;
-  minQuorumVotesBPS_in?: InputMaybe<Array<Scalars['Int']>>;
-  minQuorumVotesBPS_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  maxQuorumVotesBPS?: InputMaybe<Scalars['Int']>;
-  maxQuorumVotesBPS_not?: InputMaybe<Scalars['Int']>;
-  maxQuorumVotesBPS_gt?: InputMaybe<Scalars['Int']>;
-  maxQuorumVotesBPS_lt?: InputMaybe<Scalars['Int']>;
-  maxQuorumVotesBPS_gte?: InputMaybe<Scalars['Int']>;
-  maxQuorumVotesBPS_lte?: InputMaybe<Scalars['Int']>;
-  maxQuorumVotesBPS_in?: InputMaybe<Array<Scalars['Int']>>;
-  maxQuorumVotesBPS_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  quorumCoefficient?: InputMaybe<Scalars['BigInt']>;
-  quorumCoefficient_not?: InputMaybe<Scalars['BigInt']>;
-  quorumCoefficient_gt?: InputMaybe<Scalars['BigInt']>;
-  quorumCoefficient_lt?: InputMaybe<Scalars['BigInt']>;
-  quorumCoefficient_gte?: InputMaybe<Scalars['BigInt']>;
-  quorumCoefficient_lte?: InputMaybe<Scalars['BigInt']>;
-  quorumCoefficient_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  quorumCoefficient_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<Proposal_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<Proposal_filter>>>;
-};
-
-export type Proposal_orderBy =
-  | 'id'
-  | 'proposer'
-  | 'proposer__id'
-  | 'proposer__delegatedVotesRaw'
-  | 'proposer__delegatedVotes'
-  | 'proposer__tokenHoldersRepresentedAmount'
-  | 'targets'
-  | 'values'
-  | 'signatures'
-  | 'calldatas'
-  | 'createdTimestamp'
-  | 'createdBlock'
-  | 'createdTransactionHash'
-  | 'startBlock'
-  | 'endBlock'
-  | 'proposalThreshold'
-  | 'quorumVotes'
-  | 'forVotes'
-  | 'againstVotes'
-  | 'abstainVotes'
-  | 'title'
-  | 'description'
-  | 'status'
-  | 'executionETA'
-  | 'votes'
-  | 'totalSupply'
-  | 'minQuorumVotesBPS'
-  | 'maxQuorumVotesBPS'
-  | 'quorumCoefficient';
-
-export type Seed = {
-  /** The Gnar's ERC721 token id */
-  id: Scalars['ID'];
-  /** The background index */
-  background: Scalars['BigInt'];
-  /** The body index */
-  body: Scalars['BigInt'];
-  /** The accessory index */
-  accessory: Scalars['BigInt'];
-  /** The head index */
-  head: Scalars['BigInt'];
-  /** The glasses index */
-  glasses: Scalars['BigInt'];
-};
-
-export type Seed_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  background?: InputMaybe<Scalars['BigInt']>;
-  background_not?: InputMaybe<Scalars['BigInt']>;
-  background_gt?: InputMaybe<Scalars['BigInt']>;
-  background_lt?: InputMaybe<Scalars['BigInt']>;
-  background_gte?: InputMaybe<Scalars['BigInt']>;
-  background_lte?: InputMaybe<Scalars['BigInt']>;
-  background_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  background_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  body?: InputMaybe<Scalars['BigInt']>;
-  body_not?: InputMaybe<Scalars['BigInt']>;
-  body_gt?: InputMaybe<Scalars['BigInt']>;
-  body_lt?: InputMaybe<Scalars['BigInt']>;
-  body_gte?: InputMaybe<Scalars['BigInt']>;
-  body_lte?: InputMaybe<Scalars['BigInt']>;
-  body_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  body_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  accessory?: InputMaybe<Scalars['BigInt']>;
-  accessory_not?: InputMaybe<Scalars['BigInt']>;
-  accessory_gt?: InputMaybe<Scalars['BigInt']>;
-  accessory_lt?: InputMaybe<Scalars['BigInt']>;
-  accessory_gte?: InputMaybe<Scalars['BigInt']>;
-  accessory_lte?: InputMaybe<Scalars['BigInt']>;
-  accessory_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  accessory_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  head?: InputMaybe<Scalars['BigInt']>;
-  head_not?: InputMaybe<Scalars['BigInt']>;
-  head_gt?: InputMaybe<Scalars['BigInt']>;
-  head_lt?: InputMaybe<Scalars['BigInt']>;
-  head_gte?: InputMaybe<Scalars['BigInt']>;
-  head_lte?: InputMaybe<Scalars['BigInt']>;
-  head_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  head_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  glasses?: InputMaybe<Scalars['BigInt']>;
-  glasses_not?: InputMaybe<Scalars['BigInt']>;
-  glasses_gt?: InputMaybe<Scalars['BigInt']>;
-  glasses_lt?: InputMaybe<Scalars['BigInt']>;
-  glasses_gte?: InputMaybe<Scalars['BigInt']>;
-  glasses_lte?: InputMaybe<Scalars['BigInt']>;
-  glasses_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  glasses_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<Seed_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<Seed_filter>>>;
-};
-
-export type Seed_orderBy =
-  | 'id'
-  | 'background'
-  | 'body'
-  | 'accessory'
-  | 'head'
-  | 'glasses';
-
-export type TransferEvent = {
-  /** The txn hash of this event */
-  id: Scalars['ID'];
-  /** The Noun being transfered */
-  noun: Noun;
-  /** Previous holder address */
-  previousHolder: Account;
-  /** New holder address */
-  newHolder: Account;
-  /** Block number of the event */
-  blockNumber: Scalars['BigInt'];
-  /** The timestamp of the block the event is in */
-  blockTimestamp: Scalars['BigInt'];
-  /** The Gnar being transfered */
-  gnar: Gnar;
-};
-
-export type TransferEvent_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  noun?: InputMaybe<Scalars['String']>;
-  noun_not?: InputMaybe<Scalars['String']>;
-  noun_gt?: InputMaybe<Scalars['String']>;
-  noun_lt?: InputMaybe<Scalars['String']>;
-  noun_gte?: InputMaybe<Scalars['String']>;
-  noun_lte?: InputMaybe<Scalars['String']>;
-  noun_in?: InputMaybe<Array<Scalars['String']>>;
-  noun_not_in?: InputMaybe<Array<Scalars['String']>>;
-  noun_contains?: InputMaybe<Scalars['String']>;
-  noun_contains_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_contains?: InputMaybe<Scalars['String']>;
-  noun_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  noun_starts_with?: InputMaybe<Scalars['String']>;
-  noun_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_starts_with?: InputMaybe<Scalars['String']>;
-  noun_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_ends_with?: InputMaybe<Scalars['String']>;
-  noun_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_not_ends_with?: InputMaybe<Scalars['String']>;
-  noun_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  noun_?: InputMaybe<Noun_filter>;
-  previousHolder?: InputMaybe<Scalars['String']>;
-  previousHolder_not?: InputMaybe<Scalars['String']>;
-  previousHolder_gt?: InputMaybe<Scalars['String']>;
-  previousHolder_lt?: InputMaybe<Scalars['String']>;
-  previousHolder_gte?: InputMaybe<Scalars['String']>;
-  previousHolder_lte?: InputMaybe<Scalars['String']>;
-  previousHolder_in?: InputMaybe<Array<Scalars['String']>>;
-  previousHolder_not_in?: InputMaybe<Array<Scalars['String']>>;
-  previousHolder_contains?: InputMaybe<Scalars['String']>;
-  previousHolder_contains_nocase?: InputMaybe<Scalars['String']>;
-  previousHolder_not_contains?: InputMaybe<Scalars['String']>;
-  previousHolder_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  previousHolder_starts_with?: InputMaybe<Scalars['String']>;
-  previousHolder_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  previousHolder_not_starts_with?: InputMaybe<Scalars['String']>;
-  previousHolder_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  previousHolder_ends_with?: InputMaybe<Scalars['String']>;
-  previousHolder_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  previousHolder_not_ends_with?: InputMaybe<Scalars['String']>;
-  previousHolder_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  previousHolder_?: InputMaybe<Account_filter>;
-  newHolder?: InputMaybe<Scalars['String']>;
-  newHolder_not?: InputMaybe<Scalars['String']>;
-  newHolder_gt?: InputMaybe<Scalars['String']>;
-  newHolder_lt?: InputMaybe<Scalars['String']>;
-  newHolder_gte?: InputMaybe<Scalars['String']>;
-  newHolder_lte?: InputMaybe<Scalars['String']>;
-  newHolder_in?: InputMaybe<Array<Scalars['String']>>;
-  newHolder_not_in?: InputMaybe<Array<Scalars['String']>>;
-  newHolder_contains?: InputMaybe<Scalars['String']>;
-  newHolder_contains_nocase?: InputMaybe<Scalars['String']>;
-  newHolder_not_contains?: InputMaybe<Scalars['String']>;
-  newHolder_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  newHolder_starts_with?: InputMaybe<Scalars['String']>;
-  newHolder_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  newHolder_not_starts_with?: InputMaybe<Scalars['String']>;
-  newHolder_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  newHolder_ends_with?: InputMaybe<Scalars['String']>;
-  newHolder_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  newHolder_not_ends_with?: InputMaybe<Scalars['String']>;
-  newHolder_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  newHolder_?: InputMaybe<Account_filter>;
-  blockNumber?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
-  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
-  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
-  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
-  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
-  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
-  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<TransferEvent_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<TransferEvent_filter>>>;
-  gnar?: InputMaybe<Scalars['String']>;
-  gnar_not?: InputMaybe<Scalars['String']>;
-  gnar_gt?: InputMaybe<Scalars['String']>;
-  gnar_lt?: InputMaybe<Scalars['String']>;
-  gnar_gte?: InputMaybe<Scalars['String']>;
-  gnar_lte?: InputMaybe<Scalars['String']>;
-  gnar_in?: InputMaybe<Array<Scalars['String']>>;
-  gnar_not_in?: InputMaybe<Array<Scalars['String']>>;
-  gnar_contains?: InputMaybe<Scalars['String']>;
-  gnar_contains_nocase?: InputMaybe<Scalars['String']>;
-  gnar_not_contains?: InputMaybe<Scalars['String']>;
-  gnar_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  gnar_starts_with?: InputMaybe<Scalars['String']>;
-  gnar_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_not_starts_with?: InputMaybe<Scalars['String']>;
-  gnar_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_ends_with?: InputMaybe<Scalars['String']>;
-  gnar_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_not_ends_with?: InputMaybe<Scalars['String']>;
-  gnar_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  gnar_?: InputMaybe<Gnar_filter>;
-};
-
-export type TransferEvent_orderBy =
-  | 'id'
-  | 'noun'
-  | 'noun__id'
-  | 'previousHolder'
-  | 'previousHolder__id'
-  | 'previousHolder__tokenBalanceRaw'
-  | 'previousHolder__tokenBalance'
-  | 'previousHolder__totalTokensHeldRaw'
-  | 'previousHolder__totalTokensHeld'
-  | 'newHolder'
-  | 'newHolder__id'
-  | 'newHolder__tokenBalanceRaw'
-  | 'newHolder__tokenBalance'
-  | 'newHolder__totalTokensHeldRaw'
-  | 'newHolder__totalTokensHeld'
-  | 'blockNumber'
-  | 'blockTimestamp'
-  | 'gnar'
-  | 'gnar__id'
-  | 'gnar__creationTimestamp';
-
-export type Vote = {
-  /** Delegate ID + Proposal ID */
-  id: Scalars['ID'];
-  /** Whether the vote is in favour of the proposal */
-  support: Scalars['Boolean'];
-  /** The integer support value: against (0), for (1), or abstain (2) */
-  supportDetailed: Scalars['Int'];
-  /** Amount of votes in favour or against expressed in the smallest unit of the Gnars ERC721 Token */
-  votesRaw: Scalars['BigInt'];
-  /** Amount of votes in favour or against expressed as a BigInt normalized value for the Gnars ERC721 Token */
-  votes: Scalars['BigInt'];
-  /** The optional vote reason */
-  reason?: Maybe<Scalars['String']>;
-  /** Delegate that emitted the vote */
-  voter: Delegate;
-  /** The Nouns used to vote */
-  nouns?: Maybe<Array<Noun>>;
-  /** Proposal that is being voted on */
-  proposal: Proposal;
-  /** Block number of vote */
-  blockNumber: Scalars['BigInt'];
-  /** The Gnars used to vote */
-  gnars?: Maybe<Array<Gnar>>;
-};
-
-
-export type VotenounsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Noun_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Noun_filter>;
-};
-
-
-export type VotegnarsArgs = {
-  skip?: InputMaybe<Scalars['Int']>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Gnar_orderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Gnar_filter>;
-};
-
-export type Vote_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  support?: InputMaybe<Scalars['Boolean']>;
-  support_not?: InputMaybe<Scalars['Boolean']>;
-  support_in?: InputMaybe<Array<Scalars['Boolean']>>;
-  support_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
-  supportDetailed?: InputMaybe<Scalars['Int']>;
-  supportDetailed_not?: InputMaybe<Scalars['Int']>;
-  supportDetailed_gt?: InputMaybe<Scalars['Int']>;
-  supportDetailed_lt?: InputMaybe<Scalars['Int']>;
-  supportDetailed_gte?: InputMaybe<Scalars['Int']>;
-  supportDetailed_lte?: InputMaybe<Scalars['Int']>;
-  supportDetailed_in?: InputMaybe<Array<Scalars['Int']>>;
-  supportDetailed_not_in?: InputMaybe<Array<Scalars['Int']>>;
-  votesRaw?: InputMaybe<Scalars['BigInt']>;
-  votesRaw_not?: InputMaybe<Scalars['BigInt']>;
-  votesRaw_gt?: InputMaybe<Scalars['BigInt']>;
-  votesRaw_lt?: InputMaybe<Scalars['BigInt']>;
-  votesRaw_gte?: InputMaybe<Scalars['BigInt']>;
-  votesRaw_lte?: InputMaybe<Scalars['BigInt']>;
-  votesRaw_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  votesRaw_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  votes?: InputMaybe<Scalars['BigInt']>;
-  votes_not?: InputMaybe<Scalars['BigInt']>;
-  votes_gt?: InputMaybe<Scalars['BigInt']>;
-  votes_lt?: InputMaybe<Scalars['BigInt']>;
-  votes_gte?: InputMaybe<Scalars['BigInt']>;
-  votes_lte?: InputMaybe<Scalars['BigInt']>;
-  votes_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  votes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  reason?: InputMaybe<Scalars['String']>;
-  reason_not?: InputMaybe<Scalars['String']>;
-  reason_gt?: InputMaybe<Scalars['String']>;
-  reason_lt?: InputMaybe<Scalars['String']>;
-  reason_gte?: InputMaybe<Scalars['String']>;
-  reason_lte?: InputMaybe<Scalars['String']>;
-  reason_in?: InputMaybe<Array<Scalars['String']>>;
-  reason_not_in?: InputMaybe<Array<Scalars['String']>>;
-  reason_contains?: InputMaybe<Scalars['String']>;
-  reason_contains_nocase?: InputMaybe<Scalars['String']>;
-  reason_not_contains?: InputMaybe<Scalars['String']>;
-  reason_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  reason_starts_with?: InputMaybe<Scalars['String']>;
-  reason_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  reason_not_starts_with?: InputMaybe<Scalars['String']>;
-  reason_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  reason_ends_with?: InputMaybe<Scalars['String']>;
-  reason_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  reason_not_ends_with?: InputMaybe<Scalars['String']>;
-  reason_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  voter?: InputMaybe<Scalars['String']>;
-  voter_not?: InputMaybe<Scalars['String']>;
-  voter_gt?: InputMaybe<Scalars['String']>;
-  voter_lt?: InputMaybe<Scalars['String']>;
-  voter_gte?: InputMaybe<Scalars['String']>;
-  voter_lte?: InputMaybe<Scalars['String']>;
-  voter_in?: InputMaybe<Array<Scalars['String']>>;
-  voter_not_in?: InputMaybe<Array<Scalars['String']>>;
-  voter_contains?: InputMaybe<Scalars['String']>;
-  voter_contains_nocase?: InputMaybe<Scalars['String']>;
-  voter_not_contains?: InputMaybe<Scalars['String']>;
-  voter_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  voter_starts_with?: InputMaybe<Scalars['String']>;
-  voter_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  voter_not_starts_with?: InputMaybe<Scalars['String']>;
-  voter_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  voter_ends_with?: InputMaybe<Scalars['String']>;
-  voter_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  voter_not_ends_with?: InputMaybe<Scalars['String']>;
-  voter_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  voter_?: InputMaybe<Delegate_filter>;
-  nouns?: InputMaybe<Array<Scalars['String']>>;
-  nouns_not?: InputMaybe<Array<Scalars['String']>>;
-  nouns_contains?: InputMaybe<Array<Scalars['String']>>;
-  nouns_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  nouns_not_contains?: InputMaybe<Array<Scalars['String']>>;
-  nouns_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  nouns_?: InputMaybe<Noun_filter>;
-  proposal?: InputMaybe<Scalars['String']>;
-  proposal_not?: InputMaybe<Scalars['String']>;
-  proposal_gt?: InputMaybe<Scalars['String']>;
-  proposal_lt?: InputMaybe<Scalars['String']>;
-  proposal_gte?: InputMaybe<Scalars['String']>;
-  proposal_lte?: InputMaybe<Scalars['String']>;
-  proposal_in?: InputMaybe<Array<Scalars['String']>>;
-  proposal_not_in?: InputMaybe<Array<Scalars['String']>>;
-  proposal_contains?: InputMaybe<Scalars['String']>;
-  proposal_contains_nocase?: InputMaybe<Scalars['String']>;
-  proposal_not_contains?: InputMaybe<Scalars['String']>;
-  proposal_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  proposal_starts_with?: InputMaybe<Scalars['String']>;
-  proposal_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  proposal_not_starts_with?: InputMaybe<Scalars['String']>;
-  proposal_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  proposal_ends_with?: InputMaybe<Scalars['String']>;
-  proposal_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  proposal_not_ends_with?: InputMaybe<Scalars['String']>;
-  proposal_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  proposal_?: InputMaybe<Proposal_filter>;
-  blockNumber?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
-  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<Vote_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<Vote_filter>>>;
-  gnars?: InputMaybe<Array<Scalars['String']>>;
-  gnars_not?: InputMaybe<Array<Scalars['String']>>;
-  gnars_contains?: InputMaybe<Array<Scalars['String']>>;
-  gnars_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  gnars_not_contains?: InputMaybe<Array<Scalars['String']>>;
-  gnars_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
-  gnars_?: InputMaybe<Gnar_filter>;
-};
-
-export type Vote_orderBy =
-  | 'id'
-  | 'support'
-  | 'supportDetailed'
-  | 'votesRaw'
-  | 'votes'
-  | 'reason'
-  | 'voter'
-  | 'voter__id'
-  | 'voter__delegatedVotesRaw'
-  | 'voter__delegatedVotes'
-  | 'voter__tokenHoldersRepresentedAmount'
-  | 'nouns'
-  | 'proposal'
-  | 'proposal__id'
-  | 'proposal__createdTimestamp'
-  | 'proposal__createdBlock'
-  | 'proposal__createdTransactionHash'
-  | 'proposal__startBlock'
-  | 'proposal__endBlock'
-  | 'proposal__proposalThreshold'
-  | 'proposal__quorumVotes'
-  | 'proposal__forVotes'
-  | 'proposal__againstVotes'
-  | 'proposal__abstainVotes'
-  | 'proposal__title'
-  | 'proposal__description'
-  | 'proposal__status'
-  | 'proposal__executionETA'
-  | 'proposal__totalSupply'
-  | 'proposal__minQuorumVotesBPS'
-  | 'proposal__maxQuorumVotesBPS'
-  | 'proposal__quorumCoefficient'
-  | 'blockNumber'
-  | 'gnars';
-
-export type _Block_ = {
-  /** The hash of the block */
-  hash?: Maybe<Scalars['Bytes']>;
-  /** The block number */
-  number: Scalars['Int'];
-  /** Integer representation of the timestamp stored in blocks for the chain */
-  timestamp?: Maybe<Scalars['Int']>;
-};
-
-/** The type for the top-level _meta field */
-export type _Meta_ = {
-  /**
-   * Information about a specific subgraph block. The hash of the block
-   * will be null if the _meta field has a block constraint that asks for
-   * a block number. It will be filled if the _meta field has no block constraint
-   * and therefore asks for the latest  block
-   *
-   */
-  block: _Block_;
-  /** The deployment ID */
-  deployment: Scalars['String'];
-  /** If `true`, the subgraph encountered indexing errors at some past block */
-  hasIndexingErrors: Scalars['Boolean'];
-};
-
-export type _SubgraphErrorPolicy_ =
-  /** Data will be returned even if the subgraph has indexing errors */
-  | 'allow'
-  /** If the subgraph has indexing errors, data will be omitted. The default. */
-  | 'deny';
-
-export type AuctionHouse = {
-  /** Unique entity used to keep track of AuctionHouse settings */
-  id: Scalars['ID'];
-  /** The minimum value for bids */
-  reservePrice: Scalars['BigInt'];
-  /** The minimum time left on an Auction after a new bid is placed */
-  timeBuffer: Scalars['BigInt'];
-};
-
-export type AuctionHouse_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  reservePrice?: InputMaybe<Scalars['BigInt']>;
-  reservePrice_not?: InputMaybe<Scalars['BigInt']>;
-  reservePrice_gt?: InputMaybe<Scalars['BigInt']>;
-  reservePrice_lt?: InputMaybe<Scalars['BigInt']>;
-  reservePrice_gte?: InputMaybe<Scalars['BigInt']>;
-  reservePrice_lte?: InputMaybe<Scalars['BigInt']>;
-  reservePrice_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  reservePrice_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  timeBuffer?: InputMaybe<Scalars['BigInt']>;
-  timeBuffer_not?: InputMaybe<Scalars['BigInt']>;
-  timeBuffer_gt?: InputMaybe<Scalars['BigInt']>;
-  timeBuffer_lt?: InputMaybe<Scalars['BigInt']>;
-  timeBuffer_gte?: InputMaybe<Scalars['BigInt']>;
-  timeBuffer_lte?: InputMaybe<Scalars['BigInt']>;
-  timeBuffer_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  timeBuffer_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<AuctionHouse_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<AuctionHouse_filter>>>;
-};
-
-export type AuctionHouse_orderBy =
-  | 'id'
-  | 'reservePrice'
-  | 'timeBuffer';
 
 export type Gnar = {
   /** The Gnar's ERC721 token id */
@@ -2901,6 +1015,117 @@ export type Gnarving_orderBy =
   | 'auctionsUntilNextGnarving'
   | 'initialAuctionDuration'
   | 'auctionDuration';
+
+export type Governance = {
+  /** Unique entity used to keep track of common aggregated data */
+  id: Scalars['ID'];
+  /** Number of proposals created */
+  proposals: Scalars['BigInt'];
+  /** Total number of token holders currently */
+  currentTokenHolders: Scalars['BigInt'];
+  /** Total number of delegates participating on the governance currently */
+  currentDelegates: Scalars['BigInt'];
+  /** Total number of token holders */
+  totalTokenHolders: Scalars['BigInt'];
+  /** Total number of delegates that held delegated votes */
+  totalDelegates: Scalars['BigInt'];
+  /** Total number of votes delegated expressed in the smallest unit of the Gnars ERC721 Token */
+  delegatedVotesRaw: Scalars['BigInt'];
+  /** Total number of votes delegated expressed as a BigInt normalized value for the Gnars ERC721 Token */
+  delegatedVotes: Scalars['BigInt'];
+  /** Number of proposals currently queued for execution */
+  proposalsQueued: Scalars['BigInt'];
+};
+
+export type Governance_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  proposals?: InputMaybe<Scalars['BigInt']>;
+  proposals_not?: InputMaybe<Scalars['BigInt']>;
+  proposals_gt?: InputMaybe<Scalars['BigInt']>;
+  proposals_lt?: InputMaybe<Scalars['BigInt']>;
+  proposals_gte?: InputMaybe<Scalars['BigInt']>;
+  proposals_lte?: InputMaybe<Scalars['BigInt']>;
+  proposals_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  proposals_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  currentTokenHolders?: InputMaybe<Scalars['BigInt']>;
+  currentTokenHolders_not?: InputMaybe<Scalars['BigInt']>;
+  currentTokenHolders_gt?: InputMaybe<Scalars['BigInt']>;
+  currentTokenHolders_lt?: InputMaybe<Scalars['BigInt']>;
+  currentTokenHolders_gte?: InputMaybe<Scalars['BigInt']>;
+  currentTokenHolders_lte?: InputMaybe<Scalars['BigInt']>;
+  currentTokenHolders_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  currentTokenHolders_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  currentDelegates?: InputMaybe<Scalars['BigInt']>;
+  currentDelegates_not?: InputMaybe<Scalars['BigInt']>;
+  currentDelegates_gt?: InputMaybe<Scalars['BigInt']>;
+  currentDelegates_lt?: InputMaybe<Scalars['BigInt']>;
+  currentDelegates_gte?: InputMaybe<Scalars['BigInt']>;
+  currentDelegates_lte?: InputMaybe<Scalars['BigInt']>;
+  currentDelegates_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  currentDelegates_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  totalTokenHolders?: InputMaybe<Scalars['BigInt']>;
+  totalTokenHolders_not?: InputMaybe<Scalars['BigInt']>;
+  totalTokenHolders_gt?: InputMaybe<Scalars['BigInt']>;
+  totalTokenHolders_lt?: InputMaybe<Scalars['BigInt']>;
+  totalTokenHolders_gte?: InputMaybe<Scalars['BigInt']>;
+  totalTokenHolders_lte?: InputMaybe<Scalars['BigInt']>;
+  totalTokenHolders_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  totalTokenHolders_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  totalDelegates?: InputMaybe<Scalars['BigInt']>;
+  totalDelegates_not?: InputMaybe<Scalars['BigInt']>;
+  totalDelegates_gt?: InputMaybe<Scalars['BigInt']>;
+  totalDelegates_lt?: InputMaybe<Scalars['BigInt']>;
+  totalDelegates_gte?: InputMaybe<Scalars['BigInt']>;
+  totalDelegates_lte?: InputMaybe<Scalars['BigInt']>;
+  totalDelegates_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  totalDelegates_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  delegatedVotesRaw?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotesRaw_not?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotesRaw_gt?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotesRaw_lt?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotesRaw_gte?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotesRaw_lte?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotesRaw_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  delegatedVotesRaw_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  delegatedVotes?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotes_not?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotes_gt?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotes_lt?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotes_gte?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotes_lte?: InputMaybe<Scalars['BigInt']>;
+  delegatedVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  delegatedVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  proposalsQueued?: InputMaybe<Scalars['BigInt']>;
+  proposalsQueued_not?: InputMaybe<Scalars['BigInt']>;
+  proposalsQueued_gt?: InputMaybe<Scalars['BigInt']>;
+  proposalsQueued_lt?: InputMaybe<Scalars['BigInt']>;
+  proposalsQueued_gte?: InputMaybe<Scalars['BigInt']>;
+  proposalsQueued_lte?: InputMaybe<Scalars['BigInt']>;
+  proposalsQueued_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  proposalsQueued_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Governance_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Governance_filter>>>;
+};
+
+export type Governance_orderBy =
+  | 'id'
+  | 'proposals'
+  | 'currentTokenHolders'
+  | 'currentDelegates'
+  | 'totalTokenHolders'
+  | 'totalDelegates'
+  | 'delegatedVotesRaw'
+  | 'delegatedVotes'
+  | 'proposalsQueued';
 
 export type OgAuction = {
   /** The OG Gnar's ERC721 token id */
@@ -3366,6 +1591,1488 @@ export type OgTransferEvent_orderBy =
   | 'blockNumber'
   | 'blockTimestamp';
 
+/** Defines the order direction, either ascending or descending */
+export type OrderDirection =
+  | 'asc'
+  | 'desc';
+
+export type Proposal = {
+  /** Internal proposal ID, in this implementation it seems to be a autoincremental id */
+  id: Scalars['ID'];
+  /** Delegate that proposed the change */
+  proposer: Delegate;
+  /** Targets data for the change */
+  targets?: Maybe<Array<Scalars['Bytes']>>;
+  /** Values data for the change */
+  values?: Maybe<Array<Scalars['BigInt']>>;
+  /** Signature data for the change */
+  signatures?: Maybe<Array<Scalars['String']>>;
+  /** Call data for the change */
+  calldatas?: Maybe<Array<Scalars['Bytes']>>;
+  /** The proposal creation timestamp */
+  createdTimestamp: Scalars['BigInt'];
+  /** The proposal creation block */
+  createdBlock: Scalars['BigInt'];
+  /** The proposal creation transaction hash */
+  createdTransactionHash: Scalars['Bytes'];
+  /** Block number from where the voting starts */
+  startBlock: Scalars['BigInt'];
+  /** Block number from where the voting ends */
+  endBlock: Scalars['BigInt'];
+  /** The proposal threshold at the time of proposal creation */
+  proposalThreshold: Scalars['BigInt'];
+  /** The required number of votes for quorum at the time of proposal creation */
+  quorumVotes: Scalars['BigInt'];
+  /** The number of votes in favor of the proposal */
+  forVotes: Scalars['BigInt'];
+  /** The number of votes against of the proposal */
+  againstVotes: Scalars['BigInt'];
+  /** The number of votes to abstain on the proposal */
+  abstainVotes: Scalars['BigInt'];
+  /** The proposal title, parsed from the description */
+  title: Scalars['String'];
+  /** The full proposal description, which includes the title */
+  description: Scalars['String'];
+  /** Status of the proposal */
+  status: ProposalStatus;
+  /** Once the proposal is queued for execution it will have an ETA of the execution */
+  executionETA?: Maybe<Scalars['BigInt']>;
+  /** Votes associated to this proposal */
+  votes: Array<Vote>;
+  /** Total supply when this proposal was created */
+  totalSupply: Scalars['BigInt'];
+  /** Dynamic quorum param snapshot: min quorum basis points */
+  minQuorumVotesBPS: Scalars['Int'];
+  /** Dynamic quorum param snapshot: max quorum basis points */
+  maxQuorumVotesBPS: Scalars['Int'];
+  /** Dynamic quorum param snapshot: the dynamic quorum coefficient */
+  quorumCoefficient: Scalars['BigInt'];
+};
+
+
+export type ProposalvotesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vote_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Vote_filter>;
+};
+
+export type ProposalStatus =
+  | 'PENDING'
+  | 'ACTIVE'
+  | 'CANCELLED'
+  | 'VETOED'
+  | 'QUEUED'
+  | 'EXECUTED';
+
+export type Proposal_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  proposer?: InputMaybe<Scalars['String']>;
+  proposer_not?: InputMaybe<Scalars['String']>;
+  proposer_gt?: InputMaybe<Scalars['String']>;
+  proposer_lt?: InputMaybe<Scalars['String']>;
+  proposer_gte?: InputMaybe<Scalars['String']>;
+  proposer_lte?: InputMaybe<Scalars['String']>;
+  proposer_in?: InputMaybe<Array<Scalars['String']>>;
+  proposer_not_in?: InputMaybe<Array<Scalars['String']>>;
+  proposer_contains?: InputMaybe<Scalars['String']>;
+  proposer_contains_nocase?: InputMaybe<Scalars['String']>;
+  proposer_not_contains?: InputMaybe<Scalars['String']>;
+  proposer_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  proposer_starts_with?: InputMaybe<Scalars['String']>;
+  proposer_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  proposer_not_starts_with?: InputMaybe<Scalars['String']>;
+  proposer_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  proposer_ends_with?: InputMaybe<Scalars['String']>;
+  proposer_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  proposer_not_ends_with?: InputMaybe<Scalars['String']>;
+  proposer_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  proposer_?: InputMaybe<Delegate_filter>;
+  targets?: InputMaybe<Array<Scalars['Bytes']>>;
+  targets_not?: InputMaybe<Array<Scalars['Bytes']>>;
+  targets_contains?: InputMaybe<Array<Scalars['Bytes']>>;
+  targets_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
+  targets_not_contains?: InputMaybe<Array<Scalars['Bytes']>>;
+  targets_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
+  values?: InputMaybe<Array<Scalars['BigInt']>>;
+  values_not?: InputMaybe<Array<Scalars['BigInt']>>;
+  values_contains?: InputMaybe<Array<Scalars['BigInt']>>;
+  values_contains_nocase?: InputMaybe<Array<Scalars['BigInt']>>;
+  values_not_contains?: InputMaybe<Array<Scalars['BigInt']>>;
+  values_not_contains_nocase?: InputMaybe<Array<Scalars['BigInt']>>;
+  signatures?: InputMaybe<Array<Scalars['String']>>;
+  signatures_not?: InputMaybe<Array<Scalars['String']>>;
+  signatures_contains?: InputMaybe<Array<Scalars['String']>>;
+  signatures_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
+  signatures_not_contains?: InputMaybe<Array<Scalars['String']>>;
+  signatures_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
+  calldatas?: InputMaybe<Array<Scalars['Bytes']>>;
+  calldatas_not?: InputMaybe<Array<Scalars['Bytes']>>;
+  calldatas_contains?: InputMaybe<Array<Scalars['Bytes']>>;
+  calldatas_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
+  calldatas_not_contains?: InputMaybe<Array<Scalars['Bytes']>>;
+  calldatas_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
+  createdTimestamp?: InputMaybe<Scalars['BigInt']>;
+  createdTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  createdTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  createdTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  createdTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  createdTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  createdTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdBlock?: InputMaybe<Scalars['BigInt']>;
+  createdBlock_not?: InputMaybe<Scalars['BigInt']>;
+  createdBlock_gt?: InputMaybe<Scalars['BigInt']>;
+  createdBlock_lt?: InputMaybe<Scalars['BigInt']>;
+  createdBlock_gte?: InputMaybe<Scalars['BigInt']>;
+  createdBlock_lte?: InputMaybe<Scalars['BigInt']>;
+  createdBlock_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdBlock_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdTransactionHash?: InputMaybe<Scalars['Bytes']>;
+  createdTransactionHash_not?: InputMaybe<Scalars['Bytes']>;
+  createdTransactionHash_gt?: InputMaybe<Scalars['Bytes']>;
+  createdTransactionHash_lt?: InputMaybe<Scalars['Bytes']>;
+  createdTransactionHash_gte?: InputMaybe<Scalars['Bytes']>;
+  createdTransactionHash_lte?: InputMaybe<Scalars['Bytes']>;
+  createdTransactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  createdTransactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  createdTransactionHash_contains?: InputMaybe<Scalars['Bytes']>;
+  createdTransactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  startBlock?: InputMaybe<Scalars['BigInt']>;
+  startBlock_not?: InputMaybe<Scalars['BigInt']>;
+  startBlock_gt?: InputMaybe<Scalars['BigInt']>;
+  startBlock_lt?: InputMaybe<Scalars['BigInt']>;
+  startBlock_gte?: InputMaybe<Scalars['BigInt']>;
+  startBlock_lte?: InputMaybe<Scalars['BigInt']>;
+  startBlock_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  startBlock_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  endBlock?: InputMaybe<Scalars['BigInt']>;
+  endBlock_not?: InputMaybe<Scalars['BigInt']>;
+  endBlock_gt?: InputMaybe<Scalars['BigInt']>;
+  endBlock_lt?: InputMaybe<Scalars['BigInt']>;
+  endBlock_gte?: InputMaybe<Scalars['BigInt']>;
+  endBlock_lte?: InputMaybe<Scalars['BigInt']>;
+  endBlock_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  endBlock_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  proposalThreshold?: InputMaybe<Scalars['BigInt']>;
+  proposalThreshold_not?: InputMaybe<Scalars['BigInt']>;
+  proposalThreshold_gt?: InputMaybe<Scalars['BigInt']>;
+  proposalThreshold_lt?: InputMaybe<Scalars['BigInt']>;
+  proposalThreshold_gte?: InputMaybe<Scalars['BigInt']>;
+  proposalThreshold_lte?: InputMaybe<Scalars['BigInt']>;
+  proposalThreshold_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  proposalThreshold_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  quorumVotes?: InputMaybe<Scalars['BigInt']>;
+  quorumVotes_not?: InputMaybe<Scalars['BigInt']>;
+  quorumVotes_gt?: InputMaybe<Scalars['BigInt']>;
+  quorumVotes_lt?: InputMaybe<Scalars['BigInt']>;
+  quorumVotes_gte?: InputMaybe<Scalars['BigInt']>;
+  quorumVotes_lte?: InputMaybe<Scalars['BigInt']>;
+  quorumVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  quorumVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  forVotes?: InputMaybe<Scalars['BigInt']>;
+  forVotes_not?: InputMaybe<Scalars['BigInt']>;
+  forVotes_gt?: InputMaybe<Scalars['BigInt']>;
+  forVotes_lt?: InputMaybe<Scalars['BigInt']>;
+  forVotes_gte?: InputMaybe<Scalars['BigInt']>;
+  forVotes_lte?: InputMaybe<Scalars['BigInt']>;
+  forVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  forVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  againstVotes?: InputMaybe<Scalars['BigInt']>;
+  againstVotes_not?: InputMaybe<Scalars['BigInt']>;
+  againstVotes_gt?: InputMaybe<Scalars['BigInt']>;
+  againstVotes_lt?: InputMaybe<Scalars['BigInt']>;
+  againstVotes_gte?: InputMaybe<Scalars['BigInt']>;
+  againstVotes_lte?: InputMaybe<Scalars['BigInt']>;
+  againstVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  againstVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  abstainVotes?: InputMaybe<Scalars['BigInt']>;
+  abstainVotes_not?: InputMaybe<Scalars['BigInt']>;
+  abstainVotes_gt?: InputMaybe<Scalars['BigInt']>;
+  abstainVotes_lt?: InputMaybe<Scalars['BigInt']>;
+  abstainVotes_gte?: InputMaybe<Scalars['BigInt']>;
+  abstainVotes_lte?: InputMaybe<Scalars['BigInt']>;
+  abstainVotes_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  abstainVotes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  title?: InputMaybe<Scalars['String']>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_gt?: InputMaybe<Scalars['String']>;
+  title_lt?: InputMaybe<Scalars['String']>;
+  title_gte?: InputMaybe<Scalars['String']>;
+  title_lte?: InputMaybe<Scalars['String']>;
+  title_in?: InputMaybe<Array<Scalars['String']>>;
+  title_not_in?: InputMaybe<Array<Scalars['String']>>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_contains_nocase?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  title_starts_with?: InputMaybe<Scalars['String']>;
+  title_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  title_not_starts_with?: InputMaybe<Scalars['String']>;
+  title_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  title_ends_with?: InputMaybe<Scalars['String']>;
+  title_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  title_not_ends_with?: InputMaybe<Scalars['String']>;
+  title_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  description_not?: InputMaybe<Scalars['String']>;
+  description_gt?: InputMaybe<Scalars['String']>;
+  description_lt?: InputMaybe<Scalars['String']>;
+  description_gte?: InputMaybe<Scalars['String']>;
+  description_lte?: InputMaybe<Scalars['String']>;
+  description_in?: InputMaybe<Array<Scalars['String']>>;
+  description_not_in?: InputMaybe<Array<Scalars['String']>>;
+  description_contains?: InputMaybe<Scalars['String']>;
+  description_contains_nocase?: InputMaybe<Scalars['String']>;
+  description_not_contains?: InputMaybe<Scalars['String']>;
+  description_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  description_starts_with?: InputMaybe<Scalars['String']>;
+  description_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  description_not_starts_with?: InputMaybe<Scalars['String']>;
+  description_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  description_ends_with?: InputMaybe<Scalars['String']>;
+  description_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  description_not_ends_with?: InputMaybe<Scalars['String']>;
+  description_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<ProposalStatus>;
+  status_not?: InputMaybe<ProposalStatus>;
+  status_in?: InputMaybe<Array<ProposalStatus>>;
+  status_not_in?: InputMaybe<Array<ProposalStatus>>;
+  executionETA?: InputMaybe<Scalars['BigInt']>;
+  executionETA_not?: InputMaybe<Scalars['BigInt']>;
+  executionETA_gt?: InputMaybe<Scalars['BigInt']>;
+  executionETA_lt?: InputMaybe<Scalars['BigInt']>;
+  executionETA_gte?: InputMaybe<Scalars['BigInt']>;
+  executionETA_lte?: InputMaybe<Scalars['BigInt']>;
+  executionETA_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  executionETA_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  votes_?: InputMaybe<Vote_filter>;
+  totalSupply?: InputMaybe<Scalars['BigInt']>;
+  totalSupply_not?: InputMaybe<Scalars['BigInt']>;
+  totalSupply_gt?: InputMaybe<Scalars['BigInt']>;
+  totalSupply_lt?: InputMaybe<Scalars['BigInt']>;
+  totalSupply_gte?: InputMaybe<Scalars['BigInt']>;
+  totalSupply_lte?: InputMaybe<Scalars['BigInt']>;
+  totalSupply_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  totalSupply_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  minQuorumVotesBPS?: InputMaybe<Scalars['Int']>;
+  minQuorumVotesBPS_not?: InputMaybe<Scalars['Int']>;
+  minQuorumVotesBPS_gt?: InputMaybe<Scalars['Int']>;
+  minQuorumVotesBPS_lt?: InputMaybe<Scalars['Int']>;
+  minQuorumVotesBPS_gte?: InputMaybe<Scalars['Int']>;
+  minQuorumVotesBPS_lte?: InputMaybe<Scalars['Int']>;
+  minQuorumVotesBPS_in?: InputMaybe<Array<Scalars['Int']>>;
+  minQuorumVotesBPS_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  maxQuorumVotesBPS?: InputMaybe<Scalars['Int']>;
+  maxQuorumVotesBPS_not?: InputMaybe<Scalars['Int']>;
+  maxQuorumVotesBPS_gt?: InputMaybe<Scalars['Int']>;
+  maxQuorumVotesBPS_lt?: InputMaybe<Scalars['Int']>;
+  maxQuorumVotesBPS_gte?: InputMaybe<Scalars['Int']>;
+  maxQuorumVotesBPS_lte?: InputMaybe<Scalars['Int']>;
+  maxQuorumVotesBPS_in?: InputMaybe<Array<Scalars['Int']>>;
+  maxQuorumVotesBPS_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  quorumCoefficient?: InputMaybe<Scalars['BigInt']>;
+  quorumCoefficient_not?: InputMaybe<Scalars['BigInt']>;
+  quorumCoefficient_gt?: InputMaybe<Scalars['BigInt']>;
+  quorumCoefficient_lt?: InputMaybe<Scalars['BigInt']>;
+  quorumCoefficient_gte?: InputMaybe<Scalars['BigInt']>;
+  quorumCoefficient_lte?: InputMaybe<Scalars['BigInt']>;
+  quorumCoefficient_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  quorumCoefficient_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Proposal_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Proposal_filter>>>;
+};
+
+export type Proposal_orderBy =
+  | 'id'
+  | 'proposer'
+  | 'proposer__id'
+  | 'proposer__delegatedVotesRaw'
+  | 'proposer__delegatedVotes'
+  | 'proposer__tokenHoldersRepresentedAmount'
+  | 'targets'
+  | 'values'
+  | 'signatures'
+  | 'calldatas'
+  | 'createdTimestamp'
+  | 'createdBlock'
+  | 'createdTransactionHash'
+  | 'startBlock'
+  | 'endBlock'
+  | 'proposalThreshold'
+  | 'quorumVotes'
+  | 'forVotes'
+  | 'againstVotes'
+  | 'abstainVotes'
+  | 'title'
+  | 'description'
+  | 'status'
+  | 'executionETA'
+  | 'votes'
+  | 'totalSupply'
+  | 'minQuorumVotesBPS'
+  | 'maxQuorumVotesBPS'
+  | 'quorumCoefficient';
+
+export type Query = {
+  ogTransferEvent?: Maybe<OgTransferEvent>;
+  ogTransferEvents: Array<OgTransferEvent>;
+  ogGnar?: Maybe<OgGnar>;
+  ogGnars: Array<OgGnar>;
+  ogBid?: Maybe<OgBid>;
+  ogBids: Array<OgBid>;
+  ogAuction?: Maybe<OgAuction>;
+  ogAuctions: Array<OgAuction>;
+  delegationEvent?: Maybe<DelegationEvent>;
+  delegationEvents: Array<DelegationEvent>;
+  transferEvent?: Maybe<TransferEvent>;
+  transferEvents: Array<TransferEvent>;
+  seed?: Maybe<Seed>;
+  seeds: Array<Seed>;
+  gnar?: Maybe<Gnar>;
+  gnars: Array<Gnar>;
+  bid?: Maybe<Bid>;
+  bids: Array<Bid>;
+  auction?: Maybe<Auction>;
+  auctions: Array<Auction>;
+  auctionHouse?: Maybe<AuctionHouse>;
+  auctionHouses: Array<AuctionHouse>;
+  gnarving?: Maybe<Gnarving>;
+  gnarvings: Array<Gnarving>;
+  account?: Maybe<Account>;
+  accounts: Array<Account>;
+  delegate?: Maybe<Delegate>;
+  delegates: Array<Delegate>;
+  proposal?: Maybe<Proposal>;
+  proposals: Array<Proposal>;
+  vote?: Maybe<Vote>;
+  votes: Array<Vote>;
+  governance?: Maybe<Governance>;
+  governances: Array<Governance>;
+  dynamicQuorumParams: Array<DynamicQuorumParams>;
+  /** Access to subgraph metadata */
+  _meta?: Maybe<_Meta_>;
+};
+
+
+export type QueryogTransferEventArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryogTransferEventsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<OgTransferEvent_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<OgTransferEvent_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryogGnarArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryogGnarsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<OgGnar_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<OgGnar_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryogBidArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryogBidsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<OgBid_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<OgBid_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryogAuctionArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryogAuctionsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<OgAuction_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<OgAuction_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerydelegationEventArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerydelegationEventsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<DelegationEvent_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<DelegationEvent_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerytransferEventArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerytransferEventsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<TransferEvent_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<TransferEvent_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryseedArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryseedsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Seed_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Seed_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygnarArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygnarsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Gnar_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Gnar_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerybidArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerybidsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Bid_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Bid_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryauctionArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryauctionsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Auction_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Auction_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryauctionHouseArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryauctionHousesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<AuctionHouse_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<AuctionHouse_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygnarvingArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygnarvingsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Gnarving_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Gnarving_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryaccountArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryaccountsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Account_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Account_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerydelegateArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerydelegatesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Delegate_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Delegate_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryproposalArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryproposalsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Proposal_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Proposal_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryvoteArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryvotesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vote_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Vote_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygovernanceArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerygovernancesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Governance_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Governance_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerydynamicQuorumParamsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<DynamicQuorumParams_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<DynamicQuorumParams_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type Query_metaArgs = {
+  block?: InputMaybe<Block_height>;
+};
+
+export type Seed = {
+  /** The Gnar's ERC721 token id */
+  id: Scalars['ID'];
+  /** The background index */
+  background: Scalars['BigInt'];
+  /** The body index */
+  body: Scalars['BigInt'];
+  /** The accessory index */
+  accessory: Scalars['BigInt'];
+  /** The head index */
+  head: Scalars['BigInt'];
+  /** The glasses index */
+  glasses: Scalars['BigInt'];
+};
+
+export type Seed_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  background?: InputMaybe<Scalars['BigInt']>;
+  background_not?: InputMaybe<Scalars['BigInt']>;
+  background_gt?: InputMaybe<Scalars['BigInt']>;
+  background_lt?: InputMaybe<Scalars['BigInt']>;
+  background_gte?: InputMaybe<Scalars['BigInt']>;
+  background_lte?: InputMaybe<Scalars['BigInt']>;
+  background_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  background_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  body?: InputMaybe<Scalars['BigInt']>;
+  body_not?: InputMaybe<Scalars['BigInt']>;
+  body_gt?: InputMaybe<Scalars['BigInt']>;
+  body_lt?: InputMaybe<Scalars['BigInt']>;
+  body_gte?: InputMaybe<Scalars['BigInt']>;
+  body_lte?: InputMaybe<Scalars['BigInt']>;
+  body_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  body_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  accessory?: InputMaybe<Scalars['BigInt']>;
+  accessory_not?: InputMaybe<Scalars['BigInt']>;
+  accessory_gt?: InputMaybe<Scalars['BigInt']>;
+  accessory_lt?: InputMaybe<Scalars['BigInt']>;
+  accessory_gte?: InputMaybe<Scalars['BigInt']>;
+  accessory_lte?: InputMaybe<Scalars['BigInt']>;
+  accessory_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  accessory_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  head?: InputMaybe<Scalars['BigInt']>;
+  head_not?: InputMaybe<Scalars['BigInt']>;
+  head_gt?: InputMaybe<Scalars['BigInt']>;
+  head_lt?: InputMaybe<Scalars['BigInt']>;
+  head_gte?: InputMaybe<Scalars['BigInt']>;
+  head_lte?: InputMaybe<Scalars['BigInt']>;
+  head_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  head_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  glasses?: InputMaybe<Scalars['BigInt']>;
+  glasses_not?: InputMaybe<Scalars['BigInt']>;
+  glasses_gt?: InputMaybe<Scalars['BigInt']>;
+  glasses_lt?: InputMaybe<Scalars['BigInt']>;
+  glasses_gte?: InputMaybe<Scalars['BigInt']>;
+  glasses_lte?: InputMaybe<Scalars['BigInt']>;
+  glasses_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  glasses_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Seed_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Seed_filter>>>;
+};
+
+export type Seed_orderBy =
+  | 'id'
+  | 'background'
+  | 'body'
+  | 'accessory'
+  | 'head'
+  | 'glasses';
+
+export type Subscription = {
+  ogTransferEvent?: Maybe<OgTransferEvent>;
+  ogTransferEvents: Array<OgTransferEvent>;
+  ogGnar?: Maybe<OgGnar>;
+  ogGnars: Array<OgGnar>;
+  ogBid?: Maybe<OgBid>;
+  ogBids: Array<OgBid>;
+  ogAuction?: Maybe<OgAuction>;
+  ogAuctions: Array<OgAuction>;
+  delegationEvent?: Maybe<DelegationEvent>;
+  delegationEvents: Array<DelegationEvent>;
+  transferEvent?: Maybe<TransferEvent>;
+  transferEvents: Array<TransferEvent>;
+  seed?: Maybe<Seed>;
+  seeds: Array<Seed>;
+  gnar?: Maybe<Gnar>;
+  gnars: Array<Gnar>;
+  bid?: Maybe<Bid>;
+  bids: Array<Bid>;
+  auction?: Maybe<Auction>;
+  auctions: Array<Auction>;
+  auctionHouse?: Maybe<AuctionHouse>;
+  auctionHouses: Array<AuctionHouse>;
+  gnarving?: Maybe<Gnarving>;
+  gnarvings: Array<Gnarving>;
+  account?: Maybe<Account>;
+  accounts: Array<Account>;
+  delegate?: Maybe<Delegate>;
+  delegates: Array<Delegate>;
+  proposal?: Maybe<Proposal>;
+  proposals: Array<Proposal>;
+  vote?: Maybe<Vote>;
+  votes: Array<Vote>;
+  governance?: Maybe<Governance>;
+  governances: Array<Governance>;
+  dynamicQuorumParams: Array<DynamicQuorumParams>;
+  /** Access to subgraph metadata */
+  _meta?: Maybe<_Meta_>;
+};
+
+
+export type SubscriptionogTransferEventArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionogTransferEventsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<OgTransferEvent_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<OgTransferEvent_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionogGnarArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionogGnarsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<OgGnar_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<OgGnar_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionogBidArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionogBidsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<OgBid_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<OgBid_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionogAuctionArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionogAuctionsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<OgAuction_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<OgAuction_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiondelegationEventArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiondelegationEventsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<DelegationEvent_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<DelegationEvent_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiontransferEventArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiontransferEventsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<TransferEvent_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<TransferEvent_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionseedArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionseedsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Seed_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Seed_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongnarArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongnarsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Gnar_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Gnar_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionbidArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionbidsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Bid_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Bid_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionauctionArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionauctionsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Auction_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Auction_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionauctionHouseArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionauctionHousesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<AuctionHouse_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<AuctionHouse_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongnarvingArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongnarvingsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Gnarving_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Gnarving_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionaccountArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionaccountsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Account_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Account_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiondelegateArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiondelegatesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Delegate_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Delegate_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionproposalArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionproposalsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Proposal_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Proposal_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionvoteArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionvotesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vote_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Vote_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongovernanceArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiongovernancesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Governance_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Governance_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiondynamicQuorumParamsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<DynamicQuorumParams_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<DynamicQuorumParams_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type Subscription_metaArgs = {
+  block?: InputMaybe<Block_height>;
+};
+
+export type TransferEvent = {
+  /** The txn hash of this event */
+  id: Scalars['ID'];
+  /** The Gnar being transfered */
+  gnar: Gnar;
+  /** Previous holder address */
+  previousHolder: Account;
+  /** New holder address */
+  newHolder: Account;
+  /** Block number of the event */
+  blockNumber: Scalars['BigInt'];
+  /** The timestamp of the block the event is in */
+  blockTimestamp: Scalars['BigInt'];
+};
+
+export type TransferEvent_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  gnar?: InputMaybe<Scalars['String']>;
+  gnar_not?: InputMaybe<Scalars['String']>;
+  gnar_gt?: InputMaybe<Scalars['String']>;
+  gnar_lt?: InputMaybe<Scalars['String']>;
+  gnar_gte?: InputMaybe<Scalars['String']>;
+  gnar_lte?: InputMaybe<Scalars['String']>;
+  gnar_in?: InputMaybe<Array<Scalars['String']>>;
+  gnar_not_in?: InputMaybe<Array<Scalars['String']>>;
+  gnar_contains?: InputMaybe<Scalars['String']>;
+  gnar_contains_nocase?: InputMaybe<Scalars['String']>;
+  gnar_not_contains?: InputMaybe<Scalars['String']>;
+  gnar_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  gnar_starts_with?: InputMaybe<Scalars['String']>;
+  gnar_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_not_starts_with?: InputMaybe<Scalars['String']>;
+  gnar_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_ends_with?: InputMaybe<Scalars['String']>;
+  gnar_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_not_ends_with?: InputMaybe<Scalars['String']>;
+  gnar_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  gnar_?: InputMaybe<Gnar_filter>;
+  previousHolder?: InputMaybe<Scalars['String']>;
+  previousHolder_not?: InputMaybe<Scalars['String']>;
+  previousHolder_gt?: InputMaybe<Scalars['String']>;
+  previousHolder_lt?: InputMaybe<Scalars['String']>;
+  previousHolder_gte?: InputMaybe<Scalars['String']>;
+  previousHolder_lte?: InputMaybe<Scalars['String']>;
+  previousHolder_in?: InputMaybe<Array<Scalars['String']>>;
+  previousHolder_not_in?: InputMaybe<Array<Scalars['String']>>;
+  previousHolder_contains?: InputMaybe<Scalars['String']>;
+  previousHolder_contains_nocase?: InputMaybe<Scalars['String']>;
+  previousHolder_not_contains?: InputMaybe<Scalars['String']>;
+  previousHolder_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  previousHolder_starts_with?: InputMaybe<Scalars['String']>;
+  previousHolder_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  previousHolder_not_starts_with?: InputMaybe<Scalars['String']>;
+  previousHolder_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  previousHolder_ends_with?: InputMaybe<Scalars['String']>;
+  previousHolder_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  previousHolder_not_ends_with?: InputMaybe<Scalars['String']>;
+  previousHolder_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  previousHolder_?: InputMaybe<Account_filter>;
+  newHolder?: InputMaybe<Scalars['String']>;
+  newHolder_not?: InputMaybe<Scalars['String']>;
+  newHolder_gt?: InputMaybe<Scalars['String']>;
+  newHolder_lt?: InputMaybe<Scalars['String']>;
+  newHolder_gte?: InputMaybe<Scalars['String']>;
+  newHolder_lte?: InputMaybe<Scalars['String']>;
+  newHolder_in?: InputMaybe<Array<Scalars['String']>>;
+  newHolder_not_in?: InputMaybe<Array<Scalars['String']>>;
+  newHolder_contains?: InputMaybe<Scalars['String']>;
+  newHolder_contains_nocase?: InputMaybe<Scalars['String']>;
+  newHolder_not_contains?: InputMaybe<Scalars['String']>;
+  newHolder_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  newHolder_starts_with?: InputMaybe<Scalars['String']>;
+  newHolder_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  newHolder_not_starts_with?: InputMaybe<Scalars['String']>;
+  newHolder_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  newHolder_ends_with?: InputMaybe<Scalars['String']>;
+  newHolder_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  newHolder_not_ends_with?: InputMaybe<Scalars['String']>;
+  newHolder_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  newHolder_?: InputMaybe<Account_filter>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<TransferEvent_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<TransferEvent_filter>>>;
+};
+
+export type TransferEvent_orderBy =
+  | 'id'
+  | 'gnar'
+  | 'gnar__id'
+  | 'gnar__creationTimestamp'
+  | 'previousHolder'
+  | 'previousHolder__id'
+  | 'previousHolder__tokenBalanceRaw'
+  | 'previousHolder__tokenBalance'
+  | 'previousHolder__totalTokensHeldRaw'
+  | 'previousHolder__totalTokensHeld'
+  | 'newHolder'
+  | 'newHolder__id'
+  | 'newHolder__tokenBalanceRaw'
+  | 'newHolder__tokenBalance'
+  | 'newHolder__totalTokensHeldRaw'
+  | 'newHolder__totalTokensHeld'
+  | 'blockNumber'
+  | 'blockTimestamp';
+
+export type Vote = {
+  /** Delegate ID + Proposal ID */
+  id: Scalars['ID'];
+  /** Whether the vote is in favour of the proposal */
+  support: Scalars['Boolean'];
+  /** The integer support value: against (0), for (1), or abstain (2) */
+  supportDetailed: Scalars['Int'];
+  /** Amount of votes in favour or against expressed in the smallest unit of the Gnars ERC721 Token */
+  votesRaw: Scalars['BigInt'];
+  /** Amount of votes in favour or against expressed as a BigInt normalized value for the Gnars ERC721 Token */
+  votes: Scalars['BigInt'];
+  /** The optional vote reason */
+  reason?: Maybe<Scalars['String']>;
+  /** Delegate that emitted the vote */
+  voter: Delegate;
+  /** The Gnars used to vote */
+  gnars?: Maybe<Array<Gnar>>;
+  /** Proposal that is being voted on */
+  proposal: Proposal;
+  /** Block number of vote */
+  blockNumber: Scalars['BigInt'];
+};
+
+
+export type VotegnarsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Gnar_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Gnar_filter>;
+};
+
+export type Vote_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  support?: InputMaybe<Scalars['Boolean']>;
+  support_not?: InputMaybe<Scalars['Boolean']>;
+  support_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  support_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  supportDetailed?: InputMaybe<Scalars['Int']>;
+  supportDetailed_not?: InputMaybe<Scalars['Int']>;
+  supportDetailed_gt?: InputMaybe<Scalars['Int']>;
+  supportDetailed_lt?: InputMaybe<Scalars['Int']>;
+  supportDetailed_gte?: InputMaybe<Scalars['Int']>;
+  supportDetailed_lte?: InputMaybe<Scalars['Int']>;
+  supportDetailed_in?: InputMaybe<Array<Scalars['Int']>>;
+  supportDetailed_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  votesRaw?: InputMaybe<Scalars['BigInt']>;
+  votesRaw_not?: InputMaybe<Scalars['BigInt']>;
+  votesRaw_gt?: InputMaybe<Scalars['BigInt']>;
+  votesRaw_lt?: InputMaybe<Scalars['BigInt']>;
+  votesRaw_gte?: InputMaybe<Scalars['BigInt']>;
+  votesRaw_lte?: InputMaybe<Scalars['BigInt']>;
+  votesRaw_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  votesRaw_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  votes?: InputMaybe<Scalars['BigInt']>;
+  votes_not?: InputMaybe<Scalars['BigInt']>;
+  votes_gt?: InputMaybe<Scalars['BigInt']>;
+  votes_lt?: InputMaybe<Scalars['BigInt']>;
+  votes_gte?: InputMaybe<Scalars['BigInt']>;
+  votes_lte?: InputMaybe<Scalars['BigInt']>;
+  votes_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  votes_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  reason?: InputMaybe<Scalars['String']>;
+  reason_not?: InputMaybe<Scalars['String']>;
+  reason_gt?: InputMaybe<Scalars['String']>;
+  reason_lt?: InputMaybe<Scalars['String']>;
+  reason_gte?: InputMaybe<Scalars['String']>;
+  reason_lte?: InputMaybe<Scalars['String']>;
+  reason_in?: InputMaybe<Array<Scalars['String']>>;
+  reason_not_in?: InputMaybe<Array<Scalars['String']>>;
+  reason_contains?: InputMaybe<Scalars['String']>;
+  reason_contains_nocase?: InputMaybe<Scalars['String']>;
+  reason_not_contains?: InputMaybe<Scalars['String']>;
+  reason_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  reason_starts_with?: InputMaybe<Scalars['String']>;
+  reason_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  reason_not_starts_with?: InputMaybe<Scalars['String']>;
+  reason_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  reason_ends_with?: InputMaybe<Scalars['String']>;
+  reason_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  reason_not_ends_with?: InputMaybe<Scalars['String']>;
+  reason_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  voter?: InputMaybe<Scalars['String']>;
+  voter_not?: InputMaybe<Scalars['String']>;
+  voter_gt?: InputMaybe<Scalars['String']>;
+  voter_lt?: InputMaybe<Scalars['String']>;
+  voter_gte?: InputMaybe<Scalars['String']>;
+  voter_lte?: InputMaybe<Scalars['String']>;
+  voter_in?: InputMaybe<Array<Scalars['String']>>;
+  voter_not_in?: InputMaybe<Array<Scalars['String']>>;
+  voter_contains?: InputMaybe<Scalars['String']>;
+  voter_contains_nocase?: InputMaybe<Scalars['String']>;
+  voter_not_contains?: InputMaybe<Scalars['String']>;
+  voter_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  voter_starts_with?: InputMaybe<Scalars['String']>;
+  voter_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  voter_not_starts_with?: InputMaybe<Scalars['String']>;
+  voter_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  voter_ends_with?: InputMaybe<Scalars['String']>;
+  voter_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  voter_not_ends_with?: InputMaybe<Scalars['String']>;
+  voter_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  voter_?: InputMaybe<Delegate_filter>;
+  gnars?: InputMaybe<Array<Scalars['String']>>;
+  gnars_not?: InputMaybe<Array<Scalars['String']>>;
+  gnars_contains?: InputMaybe<Array<Scalars['String']>>;
+  gnars_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
+  gnars_not_contains?: InputMaybe<Array<Scalars['String']>>;
+  gnars_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
+  gnars_?: InputMaybe<Gnar_filter>;
+  proposal?: InputMaybe<Scalars['String']>;
+  proposal_not?: InputMaybe<Scalars['String']>;
+  proposal_gt?: InputMaybe<Scalars['String']>;
+  proposal_lt?: InputMaybe<Scalars['String']>;
+  proposal_gte?: InputMaybe<Scalars['String']>;
+  proposal_lte?: InputMaybe<Scalars['String']>;
+  proposal_in?: InputMaybe<Array<Scalars['String']>>;
+  proposal_not_in?: InputMaybe<Array<Scalars['String']>>;
+  proposal_contains?: InputMaybe<Scalars['String']>;
+  proposal_contains_nocase?: InputMaybe<Scalars['String']>;
+  proposal_not_contains?: InputMaybe<Scalars['String']>;
+  proposal_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  proposal_starts_with?: InputMaybe<Scalars['String']>;
+  proposal_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  proposal_not_starts_with?: InputMaybe<Scalars['String']>;
+  proposal_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  proposal_ends_with?: InputMaybe<Scalars['String']>;
+  proposal_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  proposal_not_ends_with?: InputMaybe<Scalars['String']>;
+  proposal_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  proposal_?: InputMaybe<Proposal_filter>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Vote_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Vote_filter>>>;
+};
+
+export type Vote_orderBy =
+  | 'id'
+  | 'support'
+  | 'supportDetailed'
+  | 'votesRaw'
+  | 'votes'
+  | 'reason'
+  | 'voter'
+  | 'voter__id'
+  | 'voter__delegatedVotesRaw'
+  | 'voter__delegatedVotes'
+  | 'voter__tokenHoldersRepresentedAmount'
+  | 'gnars'
+  | 'proposal'
+  | 'proposal__id'
+  | 'proposal__createdTimestamp'
+  | 'proposal__createdBlock'
+  | 'proposal__createdTransactionHash'
+  | 'proposal__startBlock'
+  | 'proposal__endBlock'
+  | 'proposal__proposalThreshold'
+  | 'proposal__quorumVotes'
+  | 'proposal__forVotes'
+  | 'proposal__againstVotes'
+  | 'proposal__abstainVotes'
+  | 'proposal__title'
+  | 'proposal__description'
+  | 'proposal__status'
+  | 'proposal__executionETA'
+  | 'proposal__totalSupply'
+  | 'proposal__minQuorumVotesBPS'
+  | 'proposal__maxQuorumVotesBPS'
+  | 'proposal__quorumCoefficient'
+  | 'blockNumber';
+
+export type _Block_ = {
+  /** The hash of the block */
+  hash?: Maybe<Scalars['Bytes']>;
+  /** The block number */
+  number: Scalars['Int'];
+  /** Integer representation of the timestamp stored in blocks for the chain */
+  timestamp?: Maybe<Scalars['Int']>;
+};
+
+/** The type for the top-level _meta field */
+export type _Meta_ = {
+  /**
+   * Information about a specific subgraph block. The hash of the block
+   * will be null if the _meta field has a block constraint that asks for
+   * a block number. It will be filled if the _meta field has no block constraint
+   * and therefore asks for the latest  block
+   *
+   */
+  block: _Block_;
+  /** The deployment ID */
+  deployment: Scalars['String'];
+  /** If `true`, the subgraph encountered indexing errors at some past block */
+  hasIndexingErrors: Scalars['Boolean'];
+};
+
+export type _SubgraphErrorPolicy_ =
+  /** Data will be returned even if the subgraph has indexing errors */
+  | 'allow'
+  /** If the subgraph has indexing errors, data will be omitted. The default. */
+  | 'deny';
+
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
@@ -3450,12 +3157,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Query: ResolverTypeWrapper<{}>;
-  Subscription: ResolverTypeWrapper<{}>;
   Account: ResolverTypeWrapper<Account>;
   Account_filter: Account_filter;
   Account_orderBy: Account_orderBy;
   Auction: ResolverTypeWrapper<Auction>;
+  AuctionHouse: ResolverTypeWrapper<AuctionHouse>;
+  AuctionHouse_filter: AuctionHouse_filter;
+  AuctionHouse_orderBy: AuctionHouse_orderBy;
   Auction_filter: Auction_filter;
   Auction_orderBy: Auction_orderBy;
   Bid: ResolverTypeWrapper<Bid>;
@@ -3477,42 +3185,18 @@ export type ResolversTypes = ResolversObject<{
   DynamicQuorumParams_filter: DynamicQuorumParams_filter;
   DynamicQuorumParams_orderBy: DynamicQuorumParams_orderBy;
   Float: ResolverTypeWrapper<Scalars['Float']>;
-  Governance: ResolverTypeWrapper<Governance>;
-  Governance_filter: Governance_filter;
-  Governance_orderBy: Governance_orderBy;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  Int8: ResolverTypeWrapper<Scalars['Int8']>;
-  Noun: ResolverTypeWrapper<Noun>;
-  Noun_filter: Noun_filter;
-  Noun_orderBy: Noun_orderBy;
-  OrderDirection: OrderDirection;
-  Proposal: ResolverTypeWrapper<Proposal>;
-  ProposalStatus: ProposalStatus;
-  Proposal_filter: Proposal_filter;
-  Proposal_orderBy: Proposal_orderBy;
-  Seed: ResolverTypeWrapper<Seed>;
-  Seed_filter: Seed_filter;
-  Seed_orderBy: Seed_orderBy;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  TransferEvent: ResolverTypeWrapper<TransferEvent>;
-  TransferEvent_filter: TransferEvent_filter;
-  TransferEvent_orderBy: TransferEvent_orderBy;
-  Vote: ResolverTypeWrapper<Vote>;
-  Vote_filter: Vote_filter;
-  Vote_orderBy: Vote_orderBy;
-  _Block_: ResolverTypeWrapper<_Block_>;
-  _Meta_: ResolverTypeWrapper<_Meta_>;
-  _SubgraphErrorPolicy_: _SubgraphErrorPolicy_;
-  AuctionHouse: ResolverTypeWrapper<AuctionHouse>;
-  AuctionHouse_filter: AuctionHouse_filter;
-  AuctionHouse_orderBy: AuctionHouse_orderBy;
   Gnar: ResolverTypeWrapper<Gnar>;
   Gnar_filter: Gnar_filter;
   Gnar_orderBy: Gnar_orderBy;
   Gnarving: ResolverTypeWrapper<Gnarving>;
   Gnarving_filter: Gnarving_filter;
   Gnarving_orderBy: Gnarving_orderBy;
+  Governance: ResolverTypeWrapper<Governance>;
+  Governance_filter: Governance_filter;
+  Governance_orderBy: Governance_orderBy;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Int8: ResolverTypeWrapper<Scalars['Int8']>;
   OgAuction: ResolverTypeWrapper<OgAuction>;
   OgAuction_filter: OgAuction_filter;
   OgAuction_orderBy: OgAuction_orderBy;
@@ -3525,15 +3209,35 @@ export type ResolversTypes = ResolversObject<{
   OgTransferEvent: ResolverTypeWrapper<OgTransferEvent>;
   OgTransferEvent_filter: OgTransferEvent_filter;
   OgTransferEvent_orderBy: OgTransferEvent_orderBy;
+  OrderDirection: OrderDirection;
+  Proposal: ResolverTypeWrapper<Proposal>;
+  ProposalStatus: ProposalStatus;
+  Proposal_filter: Proposal_filter;
+  Proposal_orderBy: Proposal_orderBy;
+  Query: ResolverTypeWrapper<{}>;
+  Seed: ResolverTypeWrapper<Seed>;
+  Seed_filter: Seed_filter;
+  Seed_orderBy: Seed_orderBy;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  Subscription: ResolverTypeWrapper<{}>;
+  TransferEvent: ResolverTypeWrapper<TransferEvent>;
+  TransferEvent_filter: TransferEvent_filter;
+  TransferEvent_orderBy: TransferEvent_orderBy;
+  Vote: ResolverTypeWrapper<Vote>;
+  Vote_filter: Vote_filter;
+  Vote_orderBy: Vote_orderBy;
+  _Block_: ResolverTypeWrapper<_Block_>;
+  _Meta_: ResolverTypeWrapper<_Meta_>;
+  _SubgraphErrorPolicy_: _SubgraphErrorPolicy_;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Query: {};
-  Subscription: {};
   Account: Account;
   Account_filter: Account_filter;
   Auction: Auction;
+  AuctionHouse: AuctionHouse;
+  AuctionHouse_filter: AuctionHouse_filter;
   Auction_filter: Auction_filter;
   Bid: Bid;
   Bid_filter: Bid_filter;
@@ -3550,30 +3254,15 @@ export type ResolversParentTypes = ResolversObject<{
   DynamicQuorumParams: DynamicQuorumParams;
   DynamicQuorumParams_filter: DynamicQuorumParams_filter;
   Float: Scalars['Float'];
+  Gnar: Gnar;
+  Gnar_filter: Gnar_filter;
+  Gnarving: Gnarving;
+  Gnarving_filter: Gnarving_filter;
   Governance: Governance;
   Governance_filter: Governance_filter;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   Int8: Scalars['Int8'];
-  Noun: Noun;
-  Noun_filter: Noun_filter;
-  Proposal: Proposal;
-  Proposal_filter: Proposal_filter;
-  Seed: Seed;
-  Seed_filter: Seed_filter;
-  String: Scalars['String'];
-  TransferEvent: TransferEvent;
-  TransferEvent_filter: TransferEvent_filter;
-  Vote: Vote;
-  Vote_filter: Vote_filter;
-  _Block_: _Block_;
-  _Meta_: _Meta_;
-  AuctionHouse: AuctionHouse;
-  AuctionHouse_filter: AuctionHouse_filter;
-  Gnar: Gnar;
-  Gnar_filter: Gnar_filter;
-  Gnarving: Gnarving;
-  Gnarving_filter: Gnarving_filter;
   OgAuction: OgAuction;
   OgAuction_filter: OgAuction_filter;
   OgBid: OgBid;
@@ -3582,6 +3271,19 @@ export type ResolversParentTypes = ResolversObject<{
   OgGnar_filter: OgGnar_filter;
   OgTransferEvent: OgTransferEvent;
   OgTransferEvent_filter: OgTransferEvent_filter;
+  Proposal: Proposal;
+  Proposal_filter: Proposal_filter;
+  Query: {};
+  Seed: Seed;
+  Seed_filter: Seed_filter;
+  String: Scalars['String'];
+  Subscription: {};
+  TransferEvent: TransferEvent;
+  TransferEvent_filter: TransferEvent_filter;
+  Vote: Vote;
+  Vote_filter: Vote_filter;
+  _Block_: _Block_;
+  _Meta_: _Meta_;
 }>;
 
 export type entityDirectiveArgs = { };
@@ -3600,88 +3302,6 @@ export type derivedFromDirectiveArgs = {
 
 export type derivedFromDirectiveResolver<Result, Parent, ContextType = MeshContext, Args = derivedFromDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
-export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  delegationEvent?: Resolver<Maybe<ResolversTypes['DelegationEvent']>, ParentType, ContextType, RequireFields<QuerydelegationEventArgs, 'id' | 'subgraphError'>>;
-  delegationEvents?: Resolver<Array<ResolversTypes['DelegationEvent']>, ParentType, ContextType, RequireFields<QuerydelegationEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  transferEvent?: Resolver<Maybe<ResolversTypes['TransferEvent']>, ParentType, ContextType, RequireFields<QuerytransferEventArgs, 'id' | 'subgraphError'>>;
-  transferEvents?: Resolver<Array<ResolversTypes['TransferEvent']>, ParentType, ContextType, RequireFields<QuerytransferEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  seed?: Resolver<Maybe<ResolversTypes['Seed']>, ParentType, ContextType, RequireFields<QueryseedArgs, 'id' | 'subgraphError'>>;
-  seeds?: Resolver<Array<ResolversTypes['Seed']>, ParentType, ContextType, RequireFields<QueryseedsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  noun?: Resolver<Maybe<ResolversTypes['Noun']>, ParentType, ContextType, RequireFields<QuerynounArgs, 'id' | 'subgraphError'>>;
-  nouns?: Resolver<Array<ResolversTypes['Noun']>, ParentType, ContextType, RequireFields<QuerynounsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  bid?: Resolver<Maybe<ResolversTypes['Bid']>, ParentType, ContextType, RequireFields<QuerybidArgs, 'id' | 'subgraphError'>>;
-  bids?: Resolver<Array<ResolversTypes['Bid']>, ParentType, ContextType, RequireFields<QuerybidsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  auction?: Resolver<Maybe<ResolversTypes['Auction']>, ParentType, ContextType, RequireFields<QueryauctionArgs, 'id' | 'subgraphError'>>;
-  auctions?: Resolver<Array<ResolversTypes['Auction']>, ParentType, ContextType, RequireFields<QueryauctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryaccountArgs, 'id' | 'subgraphError'>>;
-  accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryaccountsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  delegate?: Resolver<Maybe<ResolversTypes['Delegate']>, ParentType, ContextType, RequireFields<QuerydelegateArgs, 'id' | 'subgraphError'>>;
-  delegates?: Resolver<Array<ResolversTypes['Delegate']>, ParentType, ContextType, RequireFields<QuerydelegatesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  proposal?: Resolver<Maybe<ResolversTypes['Proposal']>, ParentType, ContextType, RequireFields<QueryproposalArgs, 'id' | 'subgraphError'>>;
-  proposals?: Resolver<Array<ResolversTypes['Proposal']>, ParentType, ContextType, RequireFields<QueryproposalsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  vote?: Resolver<Maybe<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<QueryvoteArgs, 'id' | 'subgraphError'>>;
-  votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<QueryvotesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  governance?: Resolver<Maybe<ResolversTypes['Governance']>, ParentType, ContextType, RequireFields<QuerygovernanceArgs, 'id' | 'subgraphError'>>;
-  governances?: Resolver<Array<ResolversTypes['Governance']>, ParentType, ContextType, RequireFields<QuerygovernancesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  dynamicQuorumParams?: Resolver<Array<ResolversTypes['DynamicQuorumParams']>, ParentType, ContextType, RequireFields<QuerydynamicQuorumParamsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  _meta?: Resolver<Maybe<ResolversTypes['_Meta_']>, ParentType, ContextType, Partial<Query_metaArgs>>;
-  ogTransferEvent?: Resolver<Maybe<ResolversTypes['OgTransferEvent']>, ParentType, ContextType, RequireFields<QueryogTransferEventArgs, 'id' | 'subgraphError'>>;
-  ogTransferEvents?: Resolver<Array<ResolversTypes['OgTransferEvent']>, ParentType, ContextType, RequireFields<QueryogTransferEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  ogGnar?: Resolver<Maybe<ResolversTypes['OgGnar']>, ParentType, ContextType, RequireFields<QueryogGnarArgs, 'id' | 'subgraphError'>>;
-  ogGnars?: Resolver<Array<ResolversTypes['OgGnar']>, ParentType, ContextType, RequireFields<QueryogGnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  ogBid?: Resolver<Maybe<ResolversTypes['OgBid']>, ParentType, ContextType, RequireFields<QueryogBidArgs, 'id' | 'subgraphError'>>;
-  ogBids?: Resolver<Array<ResolversTypes['OgBid']>, ParentType, ContextType, RequireFields<QueryogBidsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  ogAuction?: Resolver<Maybe<ResolversTypes['OgAuction']>, ParentType, ContextType, RequireFields<QueryogAuctionArgs, 'id' | 'subgraphError'>>;
-  ogAuctions?: Resolver<Array<ResolversTypes['OgAuction']>, ParentType, ContextType, RequireFields<QueryogAuctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  gnar?: Resolver<Maybe<ResolversTypes['Gnar']>, ParentType, ContextType, RequireFields<QuerygnarArgs, 'id' | 'subgraphError'>>;
-  gnars?: Resolver<Array<ResolversTypes['Gnar']>, ParentType, ContextType, RequireFields<QuerygnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  auctionHouse?: Resolver<Maybe<ResolversTypes['AuctionHouse']>, ParentType, ContextType, RequireFields<QueryauctionHouseArgs, 'id' | 'subgraphError'>>;
-  auctionHouses?: Resolver<Array<ResolversTypes['AuctionHouse']>, ParentType, ContextType, RequireFields<QueryauctionHousesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  gnarving?: Resolver<Maybe<ResolversTypes['Gnarving']>, ParentType, ContextType, RequireFields<QuerygnarvingArgs, 'id' | 'subgraphError'>>;
-  gnarvings?: Resolver<Array<ResolversTypes['Gnarving']>, ParentType, ContextType, RequireFields<QuerygnarvingsArgs, 'skip' | 'first' | 'subgraphError'>>;
-}>;
-
-export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
-  delegationEvent?: SubscriptionResolver<Maybe<ResolversTypes['DelegationEvent']>, "delegationEvent", ParentType, ContextType, RequireFields<SubscriptiondelegationEventArgs, 'id' | 'subgraphError'>>;
-  delegationEvents?: SubscriptionResolver<Array<ResolversTypes['DelegationEvent']>, "delegationEvents", ParentType, ContextType, RequireFields<SubscriptiondelegationEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  transferEvent?: SubscriptionResolver<Maybe<ResolversTypes['TransferEvent']>, "transferEvent", ParentType, ContextType, RequireFields<SubscriptiontransferEventArgs, 'id' | 'subgraphError'>>;
-  transferEvents?: SubscriptionResolver<Array<ResolversTypes['TransferEvent']>, "transferEvents", ParentType, ContextType, RequireFields<SubscriptiontransferEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  seed?: SubscriptionResolver<Maybe<ResolversTypes['Seed']>, "seed", ParentType, ContextType, RequireFields<SubscriptionseedArgs, 'id' | 'subgraphError'>>;
-  seeds?: SubscriptionResolver<Array<ResolversTypes['Seed']>, "seeds", ParentType, ContextType, RequireFields<SubscriptionseedsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  noun?: SubscriptionResolver<Maybe<ResolversTypes['Noun']>, "noun", ParentType, ContextType, RequireFields<SubscriptionnounArgs, 'id' | 'subgraphError'>>;
-  nouns?: SubscriptionResolver<Array<ResolversTypes['Noun']>, "nouns", ParentType, ContextType, RequireFields<SubscriptionnounsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  bid?: SubscriptionResolver<Maybe<ResolversTypes['Bid']>, "bid", ParentType, ContextType, RequireFields<SubscriptionbidArgs, 'id' | 'subgraphError'>>;
-  bids?: SubscriptionResolver<Array<ResolversTypes['Bid']>, "bids", ParentType, ContextType, RequireFields<SubscriptionbidsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  auction?: SubscriptionResolver<Maybe<ResolversTypes['Auction']>, "auction", ParentType, ContextType, RequireFields<SubscriptionauctionArgs, 'id' | 'subgraphError'>>;
-  auctions?: SubscriptionResolver<Array<ResolversTypes['Auction']>, "auctions", ParentType, ContextType, RequireFields<SubscriptionauctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  account?: SubscriptionResolver<Maybe<ResolversTypes['Account']>, "account", ParentType, ContextType, RequireFields<SubscriptionaccountArgs, 'id' | 'subgraphError'>>;
-  accounts?: SubscriptionResolver<Array<ResolversTypes['Account']>, "accounts", ParentType, ContextType, RequireFields<SubscriptionaccountsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  delegate?: SubscriptionResolver<Maybe<ResolversTypes['Delegate']>, "delegate", ParentType, ContextType, RequireFields<SubscriptiondelegateArgs, 'id' | 'subgraphError'>>;
-  delegates?: SubscriptionResolver<Array<ResolversTypes['Delegate']>, "delegates", ParentType, ContextType, RequireFields<SubscriptiondelegatesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  proposal?: SubscriptionResolver<Maybe<ResolversTypes['Proposal']>, "proposal", ParentType, ContextType, RequireFields<SubscriptionproposalArgs, 'id' | 'subgraphError'>>;
-  proposals?: SubscriptionResolver<Array<ResolversTypes['Proposal']>, "proposals", ParentType, ContextType, RequireFields<SubscriptionproposalsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  vote?: SubscriptionResolver<Maybe<ResolversTypes['Vote']>, "vote", ParentType, ContextType, RequireFields<SubscriptionvoteArgs, 'id' | 'subgraphError'>>;
-  votes?: SubscriptionResolver<Array<ResolversTypes['Vote']>, "votes", ParentType, ContextType, RequireFields<SubscriptionvotesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  governance?: SubscriptionResolver<Maybe<ResolversTypes['Governance']>, "governance", ParentType, ContextType, RequireFields<SubscriptiongovernanceArgs, 'id' | 'subgraphError'>>;
-  governances?: SubscriptionResolver<Array<ResolversTypes['Governance']>, "governances", ParentType, ContextType, RequireFields<SubscriptiongovernancesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  dynamicQuorumParams?: SubscriptionResolver<Array<ResolversTypes['DynamicQuorumParams']>, "dynamicQuorumParams", ParentType, ContextType, RequireFields<SubscriptiondynamicQuorumParamsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  _meta?: SubscriptionResolver<Maybe<ResolversTypes['_Meta_']>, "_meta", ParentType, ContextType, Partial<Subscription_metaArgs>>;
-  ogTransferEvent?: SubscriptionResolver<Maybe<ResolversTypes['OgTransferEvent']>, "ogTransferEvent", ParentType, ContextType, RequireFields<SubscriptionogTransferEventArgs, 'id' | 'subgraphError'>>;
-  ogTransferEvents?: SubscriptionResolver<Array<ResolversTypes['OgTransferEvent']>, "ogTransferEvents", ParentType, ContextType, RequireFields<SubscriptionogTransferEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  ogGnar?: SubscriptionResolver<Maybe<ResolversTypes['OgGnar']>, "ogGnar", ParentType, ContextType, RequireFields<SubscriptionogGnarArgs, 'id' | 'subgraphError'>>;
-  ogGnars?: SubscriptionResolver<Array<ResolversTypes['OgGnar']>, "ogGnars", ParentType, ContextType, RequireFields<SubscriptionogGnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  ogBid?: SubscriptionResolver<Maybe<ResolversTypes['OgBid']>, "ogBid", ParentType, ContextType, RequireFields<SubscriptionogBidArgs, 'id' | 'subgraphError'>>;
-  ogBids?: SubscriptionResolver<Array<ResolversTypes['OgBid']>, "ogBids", ParentType, ContextType, RequireFields<SubscriptionogBidsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  ogAuction?: SubscriptionResolver<Maybe<ResolversTypes['OgAuction']>, "ogAuction", ParentType, ContextType, RequireFields<SubscriptionogAuctionArgs, 'id' | 'subgraphError'>>;
-  ogAuctions?: SubscriptionResolver<Array<ResolversTypes['OgAuction']>, "ogAuctions", ParentType, ContextType, RequireFields<SubscriptionogAuctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  gnar?: SubscriptionResolver<Maybe<ResolversTypes['Gnar']>, "gnar", ParentType, ContextType, RequireFields<SubscriptiongnarArgs, 'id' | 'subgraphError'>>;
-  gnars?: SubscriptionResolver<Array<ResolversTypes['Gnar']>, "gnars", ParentType, ContextType, RequireFields<SubscriptiongnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
-  auctionHouse?: SubscriptionResolver<Maybe<ResolversTypes['AuctionHouse']>, "auctionHouse", ParentType, ContextType, RequireFields<SubscriptionauctionHouseArgs, 'id' | 'subgraphError'>>;
-  auctionHouses?: SubscriptionResolver<Array<ResolversTypes['AuctionHouse']>, "auctionHouses", ParentType, ContextType, RequireFields<SubscriptionauctionHousesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  gnarving?: SubscriptionResolver<Maybe<ResolversTypes['Gnarving']>, "gnarving", ParentType, ContextType, RequireFields<SubscriptiongnarvingArgs, 'id' | 'subgraphError'>>;
-  gnarvings?: SubscriptionResolver<Array<ResolversTypes['Gnarving']>, "gnarvings", ParentType, ContextType, RequireFields<SubscriptiongnarvingsArgs, 'skip' | 'first' | 'subgraphError'>>;
-}>;
-
 export type AccountResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   delegate?: Resolver<Maybe<ResolversTypes['Delegate']>, ParentType, ContextType>;
@@ -3689,34 +3309,38 @@ export type AccountResolvers<ContextType = MeshContext, ParentType extends Resol
   tokenBalance?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   totalTokensHeldRaw?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   totalTokensHeld?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  nouns?: Resolver<Array<ResolversTypes['Noun']>, ParentType, ContextType, RequireFields<AccountnounsArgs, 'skip' | 'first'>>;
   gnars?: Resolver<Array<ResolversTypes['Gnar']>, ParentType, ContextType, RequireFields<AccountgnarsArgs, 'skip' | 'first'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type AuctionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Auction'] = ResolversParentTypes['Auction']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  noun?: Resolver<ResolversTypes['Noun'], ParentType, ContextType>;
+  gnar?: Resolver<ResolversTypes['Gnar'], ParentType, ContextType>;
   amount?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   startTime?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   endTime?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   bidder?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
   settled?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   bids?: Resolver<Array<ResolversTypes['Bid']>, ParentType, ContextType, RequireFields<AuctionbidsArgs, 'skip' | 'first'>>;
-  gnar?: Resolver<ResolversTypes['Gnar'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AuctionHouseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['AuctionHouse'] = ResolversParentTypes['AuctionHouse']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  reservePrice?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  timeBuffer?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type BidResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Bid'] = ResolversParentTypes['Bid']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  noun?: Resolver<ResolversTypes['Noun'], ParentType, ContextType>;
+  gnar?: Resolver<ResolversTypes['Gnar'], ParentType, ContextType>;
   amount?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   bidder?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType>;
   blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   txIndex?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   auction?: Resolver<ResolversTypes['Auction'], ParentType, ContextType>;
   blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  gnar?: Resolver<ResolversTypes['Gnar'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3738,21 +3362,19 @@ export type DelegateResolvers<ContextType = MeshContext, ParentType extends Reso
   delegatedVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   tokenHoldersRepresentedAmount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   tokenHoldersRepresented?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<DelegatetokenHoldersRepresentedArgs, 'skip' | 'first'>>;
-  nounsRepresented?: Resolver<Array<ResolversTypes['Noun']>, ParentType, ContextType, RequireFields<DelegatenounsRepresentedArgs, 'skip' | 'first'>>;
+  gnarsRepresented?: Resolver<Array<ResolversTypes['Gnar']>, ParentType, ContextType, RequireFields<DelegategnarsRepresentedArgs, 'skip' | 'first'>>;
   votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<DelegatevotesArgs, 'skip' | 'first'>>;
   proposals?: Resolver<Array<ResolversTypes['Proposal']>, ParentType, ContextType, RequireFields<DelegateproposalsArgs, 'skip' | 'first'>>;
-  gnarsRepresented?: Resolver<Array<ResolversTypes['Gnar']>, ParentType, ContextType, RequireFields<DelegategnarsRepresentedArgs, 'skip' | 'first'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type DelegationEventResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DelegationEvent'] = ResolversParentTypes['DelegationEvent']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  noun?: Resolver<ResolversTypes['Noun'], ParentType, ContextType>;
+  gnar?: Resolver<ResolversTypes['Gnar'], ParentType, ContextType>;
   previousDelegate?: Resolver<ResolversTypes['Delegate'], ParentType, ContextType>;
   newDelegate?: Resolver<ResolversTypes['Delegate'], ParentType, ContextType>;
   blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  gnar?: Resolver<ResolversTypes['Gnar'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3762,117 +3384,6 @@ export type DynamicQuorumParamsResolvers<ContextType = MeshContext, ParentType e
   maxQuorumVotesBPS?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   quorumCoefficient?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   dynamicQuorumStartBlock?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type GovernanceResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Governance'] = ResolversParentTypes['Governance']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  proposals?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  currentTokenHolders?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  currentDelegates?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  totalTokenHolders?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  totalDelegates?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  delegatedVotesRaw?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  delegatedVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  proposalsQueued?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export interface Int8ScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Int8'], any> {
-  name: 'Int8';
-}
-
-export type NounResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Noun'] = ResolversParentTypes['Noun']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  seed?: Resolver<Maybe<ResolversTypes['Seed']>, ParentType, ContextType>;
-  owner?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
-  votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<NounvotesArgs, 'skip' | 'first'>>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ProposalResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Proposal'] = ResolversParentTypes['Proposal']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  proposer?: Resolver<ResolversTypes['Delegate'], ParentType, ContextType>;
-  targets?: Resolver<Maybe<Array<ResolversTypes['Bytes']>>, ParentType, ContextType>;
-  values?: Resolver<Maybe<Array<ResolversTypes['BigInt']>>, ParentType, ContextType>;
-  signatures?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
-  calldatas?: Resolver<Maybe<Array<ResolversTypes['Bytes']>>, ParentType, ContextType>;
-  createdTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  createdBlock?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  createdTransactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
-  startBlock?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  endBlock?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  proposalThreshold?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  quorumVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  forVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  againstVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  abstainVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  status?: Resolver<ResolversTypes['ProposalStatus'], ParentType, ContextType>;
-  executionETA?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
-  votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<ProposalvotesArgs, 'skip' | 'first'>>;
-  totalSupply?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  minQuorumVotesBPS?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  maxQuorumVotesBPS?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  quorumCoefficient?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type SeedResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Seed'] = ResolversParentTypes['Seed']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  background?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  body?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  accessory?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  head?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  glasses?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type TransferEventResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TransferEvent'] = ResolversParentTypes['TransferEvent']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  noun?: Resolver<ResolversTypes['Noun'], ParentType, ContextType>;
-  previousHolder?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
-  newHolder?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
-  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  gnar?: Resolver<ResolversTypes['Gnar'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type VoteResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Vote'] = ResolversParentTypes['Vote']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  support?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  supportDetailed?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  votesRaw?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  votes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  reason?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  voter?: Resolver<ResolversTypes['Delegate'], ParentType, ContextType>;
-  nouns?: Resolver<Maybe<Array<ResolversTypes['Noun']>>, ParentType, ContextType, RequireFields<VotenounsArgs, 'skip' | 'first'>>;
-  proposal?: Resolver<ResolversTypes['Proposal'], ParentType, ContextType>;
-  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  gnars?: Resolver<Maybe<Array<ResolversTypes['Gnar']>>, ParentType, ContextType, RequireFields<VotegnarsArgs, 'skip' | 'first'>>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type _Block_Resolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['_Block_'] = ResolversParentTypes['_Block_']> = ResolversObject<{
-  hash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
-  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  timestamp?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type _Meta_Resolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['_Meta_'] = ResolversParentTypes['_Meta_']> = ResolversObject<{
-  block?: Resolver<ResolversTypes['_Block_'], ParentType, ContextType>;
-  deployment?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  hasIndexingErrors?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type AuctionHouseResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['AuctionHouse'] = ResolversParentTypes['AuctionHouse']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  reservePrice?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
-  timeBuffer?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3895,6 +3406,23 @@ export type GnarvingResolvers<ContextType = MeshContext, ParentType extends Reso
   auctionDuration?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
+
+export type GovernanceResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Governance'] = ResolversParentTypes['Governance']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  proposals?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  currentTokenHolders?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  currentDelegates?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  totalTokenHolders?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  totalDelegates?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  delegatedVotesRaw?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  delegatedVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  proposalsQueued?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export interface Int8ScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Int8'], any> {
+  name: 'Int8';
+}
 
 export type OgAuctionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['OgAuction'] = ResolversParentTypes['OgAuction']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -3942,11 +3470,165 @@ export type OgTransferEventResolvers<ContextType = MeshContext, ParentType exten
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type ProposalResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Proposal'] = ResolversParentTypes['Proposal']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  proposer?: Resolver<ResolversTypes['Delegate'], ParentType, ContextType>;
+  targets?: Resolver<Maybe<Array<ResolversTypes['Bytes']>>, ParentType, ContextType>;
+  values?: Resolver<Maybe<Array<ResolversTypes['BigInt']>>, ParentType, ContextType>;
+  signatures?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  calldatas?: Resolver<Maybe<Array<ResolversTypes['Bytes']>>, ParentType, ContextType>;
+  createdTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  createdBlock?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  createdTransactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  startBlock?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  endBlock?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  proposalThreshold?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  quorumVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  forVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  againstVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  abstainVotes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['ProposalStatus'], ParentType, ContextType>;
+  executionETA?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<ProposalvotesArgs, 'skip' | 'first'>>;
+  totalSupply?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  minQuorumVotesBPS?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  maxQuorumVotesBPS?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  quorumCoefficient?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  ogTransferEvent?: Resolver<Maybe<ResolversTypes['OgTransferEvent']>, ParentType, ContextType, RequireFields<QueryogTransferEventArgs, 'id' | 'subgraphError'>>;
+  ogTransferEvents?: Resolver<Array<ResolversTypes['OgTransferEvent']>, ParentType, ContextType, RequireFields<QueryogTransferEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  ogGnar?: Resolver<Maybe<ResolversTypes['OgGnar']>, ParentType, ContextType, RequireFields<QueryogGnarArgs, 'id' | 'subgraphError'>>;
+  ogGnars?: Resolver<Array<ResolversTypes['OgGnar']>, ParentType, ContextType, RequireFields<QueryogGnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  ogBid?: Resolver<Maybe<ResolversTypes['OgBid']>, ParentType, ContextType, RequireFields<QueryogBidArgs, 'id' | 'subgraphError'>>;
+  ogBids?: Resolver<Array<ResolversTypes['OgBid']>, ParentType, ContextType, RequireFields<QueryogBidsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  ogAuction?: Resolver<Maybe<ResolversTypes['OgAuction']>, ParentType, ContextType, RequireFields<QueryogAuctionArgs, 'id' | 'subgraphError'>>;
+  ogAuctions?: Resolver<Array<ResolversTypes['OgAuction']>, ParentType, ContextType, RequireFields<QueryogAuctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  delegationEvent?: Resolver<Maybe<ResolversTypes['DelegationEvent']>, ParentType, ContextType, RequireFields<QuerydelegationEventArgs, 'id' | 'subgraphError'>>;
+  delegationEvents?: Resolver<Array<ResolversTypes['DelegationEvent']>, ParentType, ContextType, RequireFields<QuerydelegationEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  transferEvent?: Resolver<Maybe<ResolversTypes['TransferEvent']>, ParentType, ContextType, RequireFields<QuerytransferEventArgs, 'id' | 'subgraphError'>>;
+  transferEvents?: Resolver<Array<ResolversTypes['TransferEvent']>, ParentType, ContextType, RequireFields<QuerytransferEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  seed?: Resolver<Maybe<ResolversTypes['Seed']>, ParentType, ContextType, RequireFields<QueryseedArgs, 'id' | 'subgraphError'>>;
+  seeds?: Resolver<Array<ResolversTypes['Seed']>, ParentType, ContextType, RequireFields<QueryseedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  gnar?: Resolver<Maybe<ResolversTypes['Gnar']>, ParentType, ContextType, RequireFields<QuerygnarArgs, 'id' | 'subgraphError'>>;
+  gnars?: Resolver<Array<ResolversTypes['Gnar']>, ParentType, ContextType, RequireFields<QuerygnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  bid?: Resolver<Maybe<ResolversTypes['Bid']>, ParentType, ContextType, RequireFields<QuerybidArgs, 'id' | 'subgraphError'>>;
+  bids?: Resolver<Array<ResolversTypes['Bid']>, ParentType, ContextType, RequireFields<QuerybidsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  auction?: Resolver<Maybe<ResolversTypes['Auction']>, ParentType, ContextType, RequireFields<QueryauctionArgs, 'id' | 'subgraphError'>>;
+  auctions?: Resolver<Array<ResolversTypes['Auction']>, ParentType, ContextType, RequireFields<QueryauctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  auctionHouse?: Resolver<Maybe<ResolversTypes['AuctionHouse']>, ParentType, ContextType, RequireFields<QueryauctionHouseArgs, 'id' | 'subgraphError'>>;
+  auctionHouses?: Resolver<Array<ResolversTypes['AuctionHouse']>, ParentType, ContextType, RequireFields<QueryauctionHousesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  gnarving?: Resolver<Maybe<ResolversTypes['Gnarving']>, ParentType, ContextType, RequireFields<QuerygnarvingArgs, 'id' | 'subgraphError'>>;
+  gnarvings?: Resolver<Array<ResolversTypes['Gnarving']>, ParentType, ContextType, RequireFields<QuerygnarvingsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  account?: Resolver<Maybe<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryaccountArgs, 'id' | 'subgraphError'>>;
+  accounts?: Resolver<Array<ResolversTypes['Account']>, ParentType, ContextType, RequireFields<QueryaccountsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  delegate?: Resolver<Maybe<ResolversTypes['Delegate']>, ParentType, ContextType, RequireFields<QuerydelegateArgs, 'id' | 'subgraphError'>>;
+  delegates?: Resolver<Array<ResolversTypes['Delegate']>, ParentType, ContextType, RequireFields<QuerydelegatesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  proposal?: Resolver<Maybe<ResolversTypes['Proposal']>, ParentType, ContextType, RequireFields<QueryproposalArgs, 'id' | 'subgraphError'>>;
+  proposals?: Resolver<Array<ResolversTypes['Proposal']>, ParentType, ContextType, RequireFields<QueryproposalsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  vote?: Resolver<Maybe<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<QueryvoteArgs, 'id' | 'subgraphError'>>;
+  votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<QueryvotesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  governance?: Resolver<Maybe<ResolversTypes['Governance']>, ParentType, ContextType, RequireFields<QuerygovernanceArgs, 'id' | 'subgraphError'>>;
+  governances?: Resolver<Array<ResolversTypes['Governance']>, ParentType, ContextType, RequireFields<QuerygovernancesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  dynamicQuorumParams?: Resolver<Array<ResolversTypes['DynamicQuorumParams']>, ParentType, ContextType, RequireFields<QuerydynamicQuorumParamsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  _meta?: Resolver<Maybe<ResolversTypes['_Meta_']>, ParentType, ContextType, Partial<Query_metaArgs>>;
+}>;
+
+export type SeedResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Seed'] = ResolversParentTypes['Seed']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  background?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  body?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  accessory?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  head?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  glasses?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
+  ogTransferEvent?: SubscriptionResolver<Maybe<ResolversTypes['OgTransferEvent']>, "ogTransferEvent", ParentType, ContextType, RequireFields<SubscriptionogTransferEventArgs, 'id' | 'subgraphError'>>;
+  ogTransferEvents?: SubscriptionResolver<Array<ResolversTypes['OgTransferEvent']>, "ogTransferEvents", ParentType, ContextType, RequireFields<SubscriptionogTransferEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  ogGnar?: SubscriptionResolver<Maybe<ResolversTypes['OgGnar']>, "ogGnar", ParentType, ContextType, RequireFields<SubscriptionogGnarArgs, 'id' | 'subgraphError'>>;
+  ogGnars?: SubscriptionResolver<Array<ResolversTypes['OgGnar']>, "ogGnars", ParentType, ContextType, RequireFields<SubscriptionogGnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  ogBid?: SubscriptionResolver<Maybe<ResolversTypes['OgBid']>, "ogBid", ParentType, ContextType, RequireFields<SubscriptionogBidArgs, 'id' | 'subgraphError'>>;
+  ogBids?: SubscriptionResolver<Array<ResolversTypes['OgBid']>, "ogBids", ParentType, ContextType, RequireFields<SubscriptionogBidsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  ogAuction?: SubscriptionResolver<Maybe<ResolversTypes['OgAuction']>, "ogAuction", ParentType, ContextType, RequireFields<SubscriptionogAuctionArgs, 'id' | 'subgraphError'>>;
+  ogAuctions?: SubscriptionResolver<Array<ResolversTypes['OgAuction']>, "ogAuctions", ParentType, ContextType, RequireFields<SubscriptionogAuctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  delegationEvent?: SubscriptionResolver<Maybe<ResolversTypes['DelegationEvent']>, "delegationEvent", ParentType, ContextType, RequireFields<SubscriptiondelegationEventArgs, 'id' | 'subgraphError'>>;
+  delegationEvents?: SubscriptionResolver<Array<ResolversTypes['DelegationEvent']>, "delegationEvents", ParentType, ContextType, RequireFields<SubscriptiondelegationEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  transferEvent?: SubscriptionResolver<Maybe<ResolversTypes['TransferEvent']>, "transferEvent", ParentType, ContextType, RequireFields<SubscriptiontransferEventArgs, 'id' | 'subgraphError'>>;
+  transferEvents?: SubscriptionResolver<Array<ResolversTypes['TransferEvent']>, "transferEvents", ParentType, ContextType, RequireFields<SubscriptiontransferEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  seed?: SubscriptionResolver<Maybe<ResolversTypes['Seed']>, "seed", ParentType, ContextType, RequireFields<SubscriptionseedArgs, 'id' | 'subgraphError'>>;
+  seeds?: SubscriptionResolver<Array<ResolversTypes['Seed']>, "seeds", ParentType, ContextType, RequireFields<SubscriptionseedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  gnar?: SubscriptionResolver<Maybe<ResolversTypes['Gnar']>, "gnar", ParentType, ContextType, RequireFields<SubscriptiongnarArgs, 'id' | 'subgraphError'>>;
+  gnars?: SubscriptionResolver<Array<ResolversTypes['Gnar']>, "gnars", ParentType, ContextType, RequireFields<SubscriptiongnarsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  bid?: SubscriptionResolver<Maybe<ResolversTypes['Bid']>, "bid", ParentType, ContextType, RequireFields<SubscriptionbidArgs, 'id' | 'subgraphError'>>;
+  bids?: SubscriptionResolver<Array<ResolversTypes['Bid']>, "bids", ParentType, ContextType, RequireFields<SubscriptionbidsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  auction?: SubscriptionResolver<Maybe<ResolversTypes['Auction']>, "auction", ParentType, ContextType, RequireFields<SubscriptionauctionArgs, 'id' | 'subgraphError'>>;
+  auctions?: SubscriptionResolver<Array<ResolversTypes['Auction']>, "auctions", ParentType, ContextType, RequireFields<SubscriptionauctionsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  auctionHouse?: SubscriptionResolver<Maybe<ResolversTypes['AuctionHouse']>, "auctionHouse", ParentType, ContextType, RequireFields<SubscriptionauctionHouseArgs, 'id' | 'subgraphError'>>;
+  auctionHouses?: SubscriptionResolver<Array<ResolversTypes['AuctionHouse']>, "auctionHouses", ParentType, ContextType, RequireFields<SubscriptionauctionHousesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  gnarving?: SubscriptionResolver<Maybe<ResolversTypes['Gnarving']>, "gnarving", ParentType, ContextType, RequireFields<SubscriptiongnarvingArgs, 'id' | 'subgraphError'>>;
+  gnarvings?: SubscriptionResolver<Array<ResolversTypes['Gnarving']>, "gnarvings", ParentType, ContextType, RequireFields<SubscriptiongnarvingsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  account?: SubscriptionResolver<Maybe<ResolversTypes['Account']>, "account", ParentType, ContextType, RequireFields<SubscriptionaccountArgs, 'id' | 'subgraphError'>>;
+  accounts?: SubscriptionResolver<Array<ResolversTypes['Account']>, "accounts", ParentType, ContextType, RequireFields<SubscriptionaccountsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  delegate?: SubscriptionResolver<Maybe<ResolversTypes['Delegate']>, "delegate", ParentType, ContextType, RequireFields<SubscriptiondelegateArgs, 'id' | 'subgraphError'>>;
+  delegates?: SubscriptionResolver<Array<ResolversTypes['Delegate']>, "delegates", ParentType, ContextType, RequireFields<SubscriptiondelegatesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  proposal?: SubscriptionResolver<Maybe<ResolversTypes['Proposal']>, "proposal", ParentType, ContextType, RequireFields<SubscriptionproposalArgs, 'id' | 'subgraphError'>>;
+  proposals?: SubscriptionResolver<Array<ResolversTypes['Proposal']>, "proposals", ParentType, ContextType, RequireFields<SubscriptionproposalsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  vote?: SubscriptionResolver<Maybe<ResolversTypes['Vote']>, "vote", ParentType, ContextType, RequireFields<SubscriptionvoteArgs, 'id' | 'subgraphError'>>;
+  votes?: SubscriptionResolver<Array<ResolversTypes['Vote']>, "votes", ParentType, ContextType, RequireFields<SubscriptionvotesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  governance?: SubscriptionResolver<Maybe<ResolversTypes['Governance']>, "governance", ParentType, ContextType, RequireFields<SubscriptiongovernanceArgs, 'id' | 'subgraphError'>>;
+  governances?: SubscriptionResolver<Array<ResolversTypes['Governance']>, "governances", ParentType, ContextType, RequireFields<SubscriptiongovernancesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  dynamicQuorumParams?: SubscriptionResolver<Array<ResolversTypes['DynamicQuorumParams']>, "dynamicQuorumParams", ParentType, ContextType, RequireFields<SubscriptiondynamicQuorumParamsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  _meta?: SubscriptionResolver<Maybe<ResolversTypes['_Meta_']>, "_meta", ParentType, ContextType, Partial<Subscription_metaArgs>>;
+}>;
+
+export type TransferEventResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TransferEvent'] = ResolversParentTypes['TransferEvent']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  gnar?: Resolver<ResolversTypes['Gnar'], ParentType, ContextType>;
+  previousHolder?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
+  newHolder?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type VoteResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Vote'] = ResolversParentTypes['Vote']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  support?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  supportDetailed?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  votesRaw?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  votes?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  reason?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  voter?: Resolver<ResolversTypes['Delegate'], ParentType, ContextType>;
+  gnars?: Resolver<Maybe<Array<ResolversTypes['Gnar']>>, ParentType, ContextType, RequireFields<VotegnarsArgs, 'skip' | 'first'>>;
+  proposal?: Resolver<ResolversTypes['Proposal'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type _Block_Resolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['_Block_'] = ResolversParentTypes['_Block_']> = ResolversObject<{
+  hash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  timestamp?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type _Meta_Resolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['_Meta_'] = ResolversParentTypes['_Meta_']> = ResolversObject<{
+  block?: Resolver<ResolversTypes['_Block_'], ParentType, ContextType>;
+  deployment?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  hasIndexingErrors?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = MeshContext> = ResolversObject<{
-  Query?: QueryResolvers<ContextType>;
-  Subscription?: SubscriptionResolvers<ContextType>;
   Account?: AccountResolvers<ContextType>;
   Auction?: AuctionResolvers<ContextType>;
+  AuctionHouse?: AuctionHouseResolvers<ContextType>;
   Bid?: BidResolvers<ContextType>;
   BigDecimal?: GraphQLScalarType;
   BigInt?: GraphQLScalarType;
@@ -3954,22 +3636,22 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   Delegate?: DelegateResolvers<ContextType>;
   DelegationEvent?: DelegationEventResolvers<ContextType>;
   DynamicQuorumParams?: DynamicQuorumParamsResolvers<ContextType>;
-  Governance?: GovernanceResolvers<ContextType>;
-  Int8?: GraphQLScalarType;
-  Noun?: NounResolvers<ContextType>;
-  Proposal?: ProposalResolvers<ContextType>;
-  Seed?: SeedResolvers<ContextType>;
-  TransferEvent?: TransferEventResolvers<ContextType>;
-  Vote?: VoteResolvers<ContextType>;
-  _Block_?: _Block_Resolvers<ContextType>;
-  _Meta_?: _Meta_Resolvers<ContextType>;
-  AuctionHouse?: AuctionHouseResolvers<ContextType>;
   Gnar?: GnarResolvers<ContextType>;
   Gnarving?: GnarvingResolvers<ContextType>;
+  Governance?: GovernanceResolvers<ContextType>;
+  Int8?: GraphQLScalarType;
   OgAuction?: OgAuctionResolvers<ContextType>;
   OgBid?: OgBidResolvers<ContextType>;
   OgGnar?: OgGnarResolvers<ContextType>;
   OgTransferEvent?: OgTransferEventResolvers<ContextType>;
+  Proposal?: ProposalResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+  Seed?: SeedResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
+  TransferEvent?: TransferEventResolvers<ContextType>;
+  Vote?: VoteResolvers<ContextType>;
+  _Block_?: _Block_Resolvers<ContextType>;
+  _Meta_?: _Meta_Resolvers<ContextType>;
 }>;
 
 export type DirectiveResolvers<ContextType = MeshContext> = ResolversObject<{
@@ -3978,7 +3660,7 @@ export type DirectiveResolvers<ContextType = MeshContext> = ResolversObject<{
   derivedFrom?: derivedFromDirectiveResolver<any, any, ContextType>;
 }>;
 
-export type MeshContext = NounsTypes.Context & GnarsTypes.Context & BaseMeshContext;
+export type MeshContext = GnarsTypes.Context & BaseMeshContext;
 
 
 import { fileURLToPath } from '@graphql-mesh/utils';
@@ -3987,9 +3669,6 @@ const baseDir = pathModule.join(pathModule.dirname(fileURLToPath(import.meta.url
 const importFn: ImportFn = <T>(moduleId: string) => {
   const relativeModuleId = (pathModule.isAbsolute(moduleId) ? pathModule.relative(baseDir, moduleId) : moduleId).split('\\').join('/').replace(baseDir + '/', '');
   switch(relativeModuleId) {
-    case ".graphclient/sources/nouns/introspectionSchema":
-      return import("./sources/nouns/introspectionSchema") as T;
-    
     case ".graphclient/sources/gnars/introspectionSchema":
       return import("./sources/gnars/introspectionSchema") as T;
     
@@ -4024,7 +3703,6 @@ const sources: MeshResolvedSource[] = [];
 const transforms: MeshTransform[] = [];
 const additionalEnvelopPlugins: MeshPlugin<any>[] = [];
 const gnarsTransforms = [];
-const nounsTransforms = [];
 const additionalTypeDefs = [] as any[];
 const gnarsHandler = new GraphqlHandler({
               name: "gnars",
@@ -4036,21 +3714,6 @@ const gnarsHandler = new GraphqlHandler({
               logger: logger.child("gnars"),
               importFn,
             });
-const nounsHandler = new GraphqlHandler({
-              name: "nouns",
-              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/nounsdao/nouns-subgraph"},
-              baseDir,
-              cache,
-              pubsub,
-              store: sourcesStore.child("nouns"),
-              logger: logger.child("nouns"),
-              importFn,
-            });
-sources[1] = {
-          name: 'nouns',
-          handler: nounsHandler,
-          transforms: nounsTransforms
-        }
 additionalEnvelopPlugins[0] = await UsePollingLive({
           ...({
   "defaultInterval": 12000
@@ -4079,11 +3742,11 @@ const additionalResolvers = await Promise.all([
         import("../queries/resolvers")
             .then(m => m.resolvers || m.default || m)
       ]);
-const merger = new(StitchingMerger as any)({
+const merger = new(BareMerger as any)({
         cache,
         pubsub,
-        logger: logger.child('stitchingMerger'),
-        store: rootStore.child('stitchingMerger')
+        logger: logger.child('bareMerger'),
+        store: rootStore.child('bareMerger')
       })
 
   return {
@@ -4217,7 +3880,7 @@ export type ProposalQueryVariables = Exact<{
 
 
 export type ProposalQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, proposal?: Maybe<(
-    Pick<Proposal, 'id' | 'createdTimestamp' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'description' | 'targets' | 'values' | 'signatures' | 'calldatas' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes' | 'totalSupply' | 'minQuorumVotesBPS' | 'maxQuorumVotesBPS' | 'quorumCoefficient'>
+    Pick<Proposal, 'id' | 'createdTimestamp' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'description' | 'targets' | 'values' | 'signatures' | 'calldatas' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes' | 'totalSupply' | 'minQuorumVotesBPS' | 'maxQuorumVotesBPS' | 'quorumCoefficient' | 'proposalThreshold'>
     & { proposer: Pick<Delegate, 'id'>, votes: Array<(
       Pick<Vote, 'supportDetailed' | 'reason'>
       & { voter: Pick<Delegate, 'id'> }
@@ -4387,6 +4050,7 @@ export const ProposalDocument = gql`
     minQuorumVotesBPS
     maxQuorumVotesBPS
     quorumCoefficient
+    proposalThreshold
     votes(where: {reason_not: null}) {
       voter {
         id
