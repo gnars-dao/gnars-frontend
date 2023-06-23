@@ -1,4 +1,4 @@
-import { ChakraProvider, DarkMode, VStack } from "@chakra-ui/react"
+import { ChakraProvider, DarkMode, Divider, VStack } from "@chakra-ui/react"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { Analytics } from "@vercel/analytics/react"
 import Footer from "components/Footer"
@@ -6,11 +6,11 @@ import { ConnectKitProvider, getDefaultClient } from "connectkit"
 import type { AppProps } from "next/app"
 import { createClient, WagmiConfig } from "wagmi"
 
+import { alchemyApiKey } from "constants/env"
 import Head from "next/head"
 import { queryClient } from "utils"
 import { mainnet } from "wagmi/chains"
 import theme from "../theme"
-import { alchemyApiKey } from "constants/env"
 
 const client = createClient({
   ...getDefaultClient({
@@ -31,11 +31,12 @@ export default function App({ Component, pageProps }: AppProps) {
         >
           <QueryClientProvider client={queryClient}>
             <DarkMode>
-              <VStack minH={"full"} spacing={0}>
+              <VStack minH={"full"} spacing={10}>
                 <Head>
                   <title>Gnars DAO</title>
                 </Head>
                 <Component {...pageProps} />
+                <Divider />
                 <Footer />
               </VStack>
               <Analytics debug={false} />

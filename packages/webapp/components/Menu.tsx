@@ -7,12 +7,12 @@ import {
   CenterProps,
   HStack,
   IconButton,
-  Image,
   Link as ExternalLink,
   Stack,
 } from "@chakra-ui/react"
 import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
 import { TREASURY_ADDRESS } from "utils/contracts"
+import { GnarsLogo } from "./GnarsLogo"
 import { ShredIcon } from "./Icons"
 import { TreasuryBalance } from "./TreasuryBalance"
 import { WalletButton } from "./WalletButton"
@@ -40,12 +40,7 @@ export default function Menu(props: MenuProps) {
         >
           <HStack flexShrink={0} spacing={6}>
             <Link href="/">
-              <Image
-                alt="Gnars logo"
-                filter={"drop-shadow(0 0 1px #0005)"}
-                h={"40px"}
-                src="/images/logo.png"
-              />
+              <GnarsLogo filter={"drop-shadow(0 0 1px #0005)"} />
             </Link>
             <ExternalLink
               href={`https://etherscan.io/address/${TREASURY_ADDRESS}`}
