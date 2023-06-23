@@ -108,7 +108,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
         </VStack>
       </HStack>
       <Text
-        hideFrom={"sm"}
+        hideFrom={"md"}
         px={4}
         fontSize={"xl"}
         fontWeight={"semibold"}
