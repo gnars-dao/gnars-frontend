@@ -3880,7 +3880,7 @@ export type ProposalQueryVariables = Exact<{
 
 
 export type ProposalQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, proposal?: Maybe<(
-    Pick<Proposal, 'id' | 'createdTimestamp' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'description' | 'targets' | 'values' | 'signatures' | 'calldatas' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes' | 'totalSupply' | 'minQuorumVotesBPS' | 'maxQuorumVotesBPS' | 'quorumCoefficient' | 'proposalThreshold'>
+    Pick<Proposal, 'id' | 'createdTimestamp' | 'createdBlock' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'description' | 'targets' | 'values' | 'signatures' | 'calldatas' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes' | 'totalSupply' | 'minQuorumVotesBPS' | 'maxQuorumVotesBPS' | 'quorumCoefficient' | 'proposalThreshold'>
     & { proposer: Pick<Delegate, 'id'>, votes: Array<(
       Pick<Vote, 'supportDetailed' | 'reason'>
       & { voter: Pick<Delegate, 'id'> }
@@ -4029,6 +4029,7 @@ export const ProposalDocument = gql`
   proposal(id: $id) {
     id
     createdTimestamp
+    createdBlock
     startBlock
     endBlock
     executionETA

@@ -33,7 +33,7 @@ const colors = defineStyle({
   },
 })
 
-const solid = defineStyle({
+const subtle = defineStyle((s) => ({
   bg: "whiteAlpha.800",
   _hover: {
     bg: "whiteAlpha.900",
@@ -56,7 +56,7 @@ const solid = defineStyle({
     },
     bg: "whiteAlpha.300",
   },
-})
+}))
 
 const {
   definePartsStyle: defineAvatarPartsStyle,
@@ -78,7 +78,7 @@ const Avatar = defineAvatarMultiStyleConfig({
 })
 
 const Button = defineStyleConfig({
-  variants: { outline, solid },
+  variants: { outline, subtle },
   baseStyle: {
     boxSizing: "border-box",
   },

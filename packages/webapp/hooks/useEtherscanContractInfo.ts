@@ -69,8 +69,7 @@ const fetchContractInfo = async (
       address: address as `0x${string}`,
       isProxy,
     }
-  } catch (e) {
-    console.error(e)
+  } catch {
     return null
   }
 }

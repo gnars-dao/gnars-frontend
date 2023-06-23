@@ -9,6 +9,7 @@ query Proposal($id: ID!) {
   proposal(id: $id) {
     id
     createdTimestamp
+    createdBlock
     startBlock
     endBlock
     executionETA

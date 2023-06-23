@@ -110,6 +110,12 @@ export const getQuorumVotes = (prop: ProposalsQuery["proposals"][0]) => {
   }
 }
 
+export enum Support {
+  Against = 0,
+  For = 1,
+  Abstain = 2,
+}
+
 // function bps2Uint(uint256 bps, uint256 number) internal pure returns (uint256) {
 //         return (number * bps) / 10000;
 //     }

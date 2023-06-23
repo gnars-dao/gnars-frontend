@@ -1,5 +1,6 @@
 import { Button, Container, DarkMode, Stack, VStack } from "@chakra-ui/react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { VoteAction } from "components/Governance/Actions/VoteAction"
 import { BigNumber } from "ethers"
 import { useBlock } from "hooks/useBlock"
 import { useDelegationInfo } from "hooks/useDelegationInfo"
@@ -45,9 +46,10 @@ export default function Proposal() {
   const proposer = proposal?.proposer?.id as `0x${string}`
   const { data: delegationInfo } = useDelegationInfo(proposer)
 
-  const proposerVotes = delegationInfo?.delegate?.delegatedVotes
+  const currentProposerVotes = delegationInfo?.delegate?.delegatedVotes
     ? parseInt(delegationInfo.delegate.delegatedVotes)
     : 0
+
   const proposalThreshold = proposal?.proposalThreshold
     ? parseInt(proposal.proposalThreshold)
     : Number.MAX_SAFE_INTEGER
@@ -66,7 +68,7 @@ export default function Proposal() {
     ).includes(effectiveStatus!) &&
     address &&
     (proposer.toLowerCase() === address?.toLowerCase() ||
-      proposerVotes < proposalThreshold)
+      currentProposerVotes < proposalThreshold)
 
   const { writeAsync: cancelProp } = useGnarsDaoCancel({
     mode: "recklesslyUnprepared",
@@ -126,7 +128,14 @@ export default function Proposal() {
             >
               <ProposalContent
                 actions={
-                  <Stack direction={{ base: "column", md: "row" }}>
+                  <Stack
+                    direction={{ base: "column", md: "row" }}
+                    align={{ md: "center" }}
+                    h={"fit-content"}
+                  >
+                    {effectiveStatus === "ACTIVE" && (
+                      <VoteAction proposal={proposal} />
+                    )}
                     {canCancel && (
                       <Button
                         onClick={() =>
