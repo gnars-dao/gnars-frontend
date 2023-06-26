@@ -130,8 +130,6 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
 
   const color = getColor(accountVote?.supportDetailed)
 
-  console.log({ accountVote })
-
   if (hasVoted) {
     return (
       <HStack spacing={0}>

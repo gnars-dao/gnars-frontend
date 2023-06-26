@@ -170,6 +170,7 @@ export default function Proposal() {
                   {`${proposal.againstVotes} AGAINST`}
                 </Text>
               </SimpleGrid>
+
               <ProposalContent
                 actions={
                   <Stack
