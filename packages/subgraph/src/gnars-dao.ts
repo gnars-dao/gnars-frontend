@@ -174,6 +174,7 @@ export function handleVoteCast(event: VoteCast): void {
   vote.supportDetailed = event.params.support
   vote.gnars = voter.gnarsRepresented
   vote.blockNumber = event.block.number
+  vote.blockTimestamp = event.block.timestamp
 
   if (event.params.reason != "") {
     vote.reason = event.params.reason
