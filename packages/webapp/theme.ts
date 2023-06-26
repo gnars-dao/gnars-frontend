@@ -4,6 +4,7 @@ import {
   defineStyle,
   defineStyleConfig,
   extendTheme,
+  theme as chakraTheme,
 } from "@chakra-ui/react"
 
 import { Londrina_Solid } from "next/font/google"
@@ -30,6 +31,14 @@ const colors = defineStyle({
       yellow: "#fee761",
       orange: "#fb912b",
     },
+  },
+  governance: {
+    vote: {
+      for: chakraTheme.colors.green[500],
+      against: chakraTheme.colors.red[400],
+      abstain: chakraTheme.colors.gray[500],
+    },
+    quorum: chakraTheme.colors.green[900],
   },
 })
 

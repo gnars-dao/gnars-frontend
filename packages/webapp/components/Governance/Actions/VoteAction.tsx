@@ -3,16 +3,26 @@ import {
   ButtonProps,
   FormControl,
   FormLabel,
+  HStack,
+  Icon,
+  IconButton,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  PlacementWithLogical,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
   SimpleGrid,
   Stack,
   Text,
   Textarea,
+  useBreakpointValue,
   useDisclosure,
   useToast,
   VStack,
@@ -21,6 +31,7 @@ import { AvatarWallet } from "components/AvatarWallet"
 import { BigNumber } from "ethers"
 import { find } from "lodash"
 import { FC, useCallback, useMemo, useState } from "react"
+import { BiCommentDetail } from "react-icons/bi"
 import { DetailedProposalData, Support } from "utils/governanceUtils"
 import {
   useGnarsDaoCastVote,
@@ -107,6 +118,11 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
   )
 
   const canVote = accountVotesOnProp && accountVotesOnProp.gt(0)
+  const reasonPlacement = useBreakpointValue<PlacementWithLogical>({
+    base: "bottom-end",
+    sm: "right-end",
+    md: "bottom-end",
+  })
 
   if (!address || !proposal || !canVote) return <></>
 
@@ -114,23 +130,50 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
 
   const color = getColor(accountVote?.supportDetailed)
 
+  console.log({ accountVote })
+
   if (hasVoted) {
     return (
-      <Stack
-        alignItems={"end"}
-        direction={{ base: "row", md: "column" }}
-        spacing={{ base: 2, md: 0 }}
-        fontWeight={"bold"}
-      >
-        <Text fontSize={{ base: "md", md: "xs" }} color={"whiteAlpha.400"}>
-          YOU VOTED
-        </Text>
-        <Text color={color}>
-          {`${accountVotesOnProp} ${Support[
-            accountVote?.supportDetailed
-          ].toUpperCase()}`}
-        </Text>
-      </Stack>
+      <HStack spacing={0}>
+        <Stack
+          alignItems={"end"}
+          direction={{ base: "row", md: "column" }}
+          spacing={{ base: 2, md: 0 }}
+          fontWeight={"bold"}
+        >
+          <Text fontSize={{ base: "md", md: "xs" }} color={"whiteAlpha.400"}>
+            YOU VOTED
+          </Text>
+          <Text color={color}>
+            {`${accountVotesOnProp} ${Support[
+              accountVote?.supportDetailed
+            ].toUpperCase()}`}
+          </Text>
+        </Stack>
+        {accountVote?.reason && (
+          <Popover offset={[0, 16]} placement={reasonPlacement}>
+            <PopoverTrigger>
+              <IconButton
+                color={"whiteAlpha.500"}
+                _hover={{ color: "whiteAlpha.700" }}
+                variant={"link"}
+                size={"sm"}
+                fontSize={"md"}
+                aria-label="vote-reason"
+                icon={<Icon p={0} as={BiCommentDetail} />}
+                verticalAlign={"text-bottom"}
+                ml={2}
+              />
+            </PopoverTrigger>
+            <PopoverContent p={6} w={"fit-content"}>
+              <PopoverArrow />
+              <PopoverBody>
+                <Text fontSize={"sm"}>Reason: {accountVote?.reason}</Text>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+        )}
+      </HStack>
     )
   }
 
@@ -224,12 +267,12 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
 const getColor = (support?: Support) => {
   switch (support) {
     case Support.For:
-      return "green"
+      return "governance.vote.for"
     case Support.Against:
-      return "red"
+      return "governance.vote.against"
     case Support.Abstain:
-      return "gray"
+      return "governance.vote.abstain"
     default:
-      return "gray"
+      return "gray.500"
   }
 }

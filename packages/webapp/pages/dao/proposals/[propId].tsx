@@ -1,4 +1,13 @@
-import { Button, Container, DarkMode, Stack, VStack } from "@chakra-ui/react"
+import {
+  Button,
+  Container,
+  DarkMode,
+  HStack,
+  SimpleGrid,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { VoteAction } from "components/Governance/Actions/VoteAction"
 import { BigNumber } from "ethers"
@@ -89,6 +98,8 @@ export default function Proposal() {
     invalidateQueries(["proposal", propId])
   }, [invalidateQueries, propId])
 
+  const quorumVotes = proposal ? getQuorumVotes(proposal) : undefined
+
   return (
     <DarkMode>
       <VStack
@@ -114,7 +125,7 @@ export default function Proposal() {
                 block?.number,
                 block?.timestamp
               )}
-              quorumVotes={getQuorumVotes(proposal)}
+              quorumVotes={quorumVotes}
               votes={{
                 abstainVotes: proposal.abstainVotes,
                 forVotes: proposal.forVotes,
@@ -126,6 +137,39 @@ export default function Proposal() {
               executionETA={proposal.executionETA}
               borderColor={"chakra-border-color"}
             >
+              <SimpleGrid
+                w={"full"}
+                px={4}
+                fontWeight={"bold"}
+                templateColumns={{ md: "repeat(3, 1fr)" }}
+                templateAreas={{
+                  base: `"for" "abstain" "against"`,
+                  md: `"for abstain against"`,
+                }}
+              >
+                <HStack spacing={2}>
+                  <Text color={"governance.vote.for"} gridArea={"for"}>
+                    {`${proposal.forVotes} FOR`}
+                  </Text>
+                  <Text color={"governance.quorum"} gridArea={"for"}>
+                    {` / ${quorumVotes?.current} REQUIRED`}
+                  </Text>
+                </HStack>
+                <Text
+                  color={"governance.vote.abstain"}
+                  justifySelf={{ md: "center" }}
+                  gridArea={"abstain"}
+                >
+                  {`${proposal.abstainVotes} ABSTAIN`}
+                </Text>
+                <Text
+                  color={"governance.vote.against"}
+                  justifySelf={{ md: "end" }}
+                  gridArea={"against"}
+                >
+                  {`${proposal.againstVotes} AGAINST`}
+                </Text>
+              </SimpleGrid>
               <ProposalContent
                 actions={
                   <Stack

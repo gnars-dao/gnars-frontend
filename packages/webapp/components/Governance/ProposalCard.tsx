@@ -128,12 +128,12 @@ export const ProposalCard: FC<ProposalCardProps> = ({
           <Tooltip
             hasArrow
             color={"white"}
-            bgColor={"green.500"}
+            bgColor={"governance.vote.for"}
             label={`${votes.forVotes} FOR`}
           >
             <Box
               h={"full"}
-              bgColor={"green.500"}
+              bgColor={"governance.vote.for"}
               w={`${(100 * votes.forVotes) / votes.totalSupply}%`}
             />
           </Tooltip>
@@ -141,13 +141,13 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             <Tooltip
               hasArrow
               color={"white"}
-              bgColor={"green.900"}
+              bgColor={"governance.quorum"}
               label={`${quorumVotes.current} REQUIRED`}
             >
               <Box
                 h={"full"}
                 opacity={0.5}
-                bgColor={"green.900"}
+                bgColor={"governance.quorum"}
                 w={`${
                   (100 * Math.max(quorumVotes.current - votes.forVotes, 0)) /
                   votes.totalSupply
@@ -160,12 +160,12 @@ export const ProposalCard: FC<ProposalCardProps> = ({
           <Tooltip
             hasArrow
             color={"white"}
-            bgColor={"gray.500"}
+            bgColor={"governance.vote.abstain"}
             label={`${votes.abstainVotes} ABSTAIN`}
           >
             <Box
               h={"full"}
-              bgColor={"gray.500"}
+              bgColor={"governance.vote.abstain"}
               w={`${(100 * votes.abstainVotes) / votes.totalSupply}%`}
             />
           </Tooltip>
@@ -173,12 +173,12 @@ export const ProposalCard: FC<ProposalCardProps> = ({
           <Tooltip
             hasArrow
             color={"white"}
-            bgColor={"red.400"}
+            bgColor={"governance.vote.against"}
             label={`${votes.againstVotes} AGAINST`}
           >
             <Box
               h={"full"}
-              bgColor={"red.400"}
+              bgColor={"governance.vote.against"}
               w={`${(100 * votes.againstVotes) / votes.totalSupply}%`}
             />
           </Tooltip>
