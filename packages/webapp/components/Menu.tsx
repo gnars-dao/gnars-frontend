@@ -78,19 +78,6 @@ export default function Menu(props: MenuProps) {
             </Button>
           </Link>
 
-          {/* <Link
-              href="/dao/proposals"
-            >
-              <Button
-                w={"full"}
-                variant={"outline"}
-                verticalAlign={"center"}
-                leftIcon={<FaUsers size={"1em"} />}
-              >
-                DAO
-              </Button>
-            </Link> */}
-          {/* @TODO change for link to DAO section */}
           <ExternalLink
             href="https://gnars.com"
             isExternal

@@ -1,17 +1,9 @@
-import { FC } from "react"
 import { HStack, Spinner, Text, Tooltip } from "@chakra-ui/react"
-import { EffectiveProposalStatus } from "../../utils/governanceUtils"
+import { secondsInDay } from "date-fns"
+import { FC } from "react"
 import { RiTimeFill } from "react-icons/ri"
-import { ProposalsQuery } from "../../.graphclient"
 import { useBlock } from "../../hooks/useBlock"
-import locale from "date-fns/locale/en-US"
-import {
-  formatDistanceToNow,
-  formatDistanceToNowStrict,
-  formatRFC7231,
-  intlFormat,
-  secondsInDay,
-} from "date-fns"
+import { EffectiveProposalStatus } from "../../utils/governanceUtils"
 
 export interface ProposalCountdownProps {
   effectiveStatus: EffectiveProposalStatus
@@ -66,12 +58,7 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
     }[effectiveStatus] * 1000
   )
 
-  const estimatedTimeRemaining = formatDistanceToNowStrict(estimatedDate, {
-    roundingMethod: "floor",
-    locale: {
-      formatDistance,
-    },
-  })
+  const estimatedTimeRemaining = formatTimeRemaining(estimatedDate)
 
   return (
     <Tooltip hasArrow label={estimatedDate.toLocaleString()}>
@@ -97,109 +84,19 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
   )
 }
 
-const formatDistanceLocale = {
-  lessThanXSeconds: {
-    one: "<1s",
-    other: "<{{count}}s",
-  },
+const formatTimeRemaining = (date: Date) => {
+  const seconds = Math.floor((date.getTime() - Date.now()) / 1000)
+  const hours = Math.floor(seconds / 3600)
 
-  xSeconds: {
-    one: "1s",
-    other: "{{count}}s",
-  },
-
-  halfAMinute: "30s",
-
-  lessThanXMinutes: {
-    one: "<1m",
-    other: "<{{count}}m",
-  },
-
-  xMinutes: {
-    one: "1m",
-    other: "{{count}}m",
-  },
-
-  aboutXHours: {
-    one: "~1h",
-    other: "~{{count}}h",
-  },
-
-  xHours: {
-    one: "1h",
-    other: "{{count}}h",
-  },
-
-  xDays: {
-    one: "1d",
-    other: "{{count}}d",
-  },
-
-  aboutXWeeks: {
-    one: "~1w",
-    other: "~{{count}}w",
-  },
-
-  xWeeks: {
-    one: "1w",
-    other: "{{count}}w",
-  },
-
-  aboutXMonths: {
-    one: "~1mth",
-    other: "~{{count}}mth",
-  },
-
-  xMonths: {
-    one: "1mth",
-    other: "{{count}}mth",
-  },
-
-  aboutXYears: {
-    one: "~1y",
-    other: "~{{count}}y",
-  },
-
-  xYears: {
-    one: "1y",
-    other: "{{count}}y",
-  },
-
-  overXYears: {
-    one: ">1y",
-    other: ">{{count}}y",
-  },
-
-  almostXYears: {
-    one: "~1y",
-    other: "~{{count}}y",
-  },
-}
-
-const formatDistance: typeof locale.formatDistance = (
-  token,
-  count,
-  options
-) => {
-  let result
-
-  // @ts-ignore
-  const tokenValue = formatDistanceLocale[token]
-  if (typeof tokenValue === "string") {
-    result = tokenValue
-  } else if (count === 1) {
-    result = tokenValue.one
-  } else {
-    result = tokenValue.other.replace("{{count}}", count.toString())
+  if (hours < 1) {
+    return `<1h`
   }
 
-  if (options?.addSuffix) {
-    if (options.comparison && options.comparison > 0) {
-      return "in " + result
-    } else {
-      return result + " ago"
-    }
+  if (hours < 24) {
+    return `${hours}h`
   }
 
-  return result
+  const days = Math.floor(hours / 24)
+
+  return `${days}d ${hours % 24}h`
 }
