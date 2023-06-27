@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
 import { getBuiltGraphSDK, GnarQuery } from "../.graphclient"
-import { V2_START_ID } from "../utils/contracts"
+import { V2_START_ID } from "../constants/contracts"
 
 export type Bid = {
   bidder: string

@@ -1,11 +1,10 @@
 import { QueryClient } from "@tanstack/react-query"
-import { BigNumberish } from "ethers"
-import { formatEther, parseEther } from "ethers/lib/utils"
+import { formatEther } from "ethers/lib/utils"
+import { random } from "lodash"
 import { GnarSeed } from "types"
+import { V2_START_ID } from "../constants/contracts"
 import gnarDataV2 from "../data/image-data-V2.json"
 import ogGnarData from "../data/image-data.json"
-import { V2_START_ID } from "./contracts"
-import { random } from "lodash"
 import { GnarData } from "../hooks/useGnarData"
 
 export const queryClient = new QueryClient()

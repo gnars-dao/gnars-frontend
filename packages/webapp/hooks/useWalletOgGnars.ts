@@ -1,12 +1,5 @@
-import {
-  QueryFunction,
-  QueryKey,
-  useQuery,
-  UseQueryResult,
-} from "@tanstack/react-query"
-import { V2_START_ID } from "../utils/contracts"
+import { useQuery } from "@tanstack/react-query"
 import { getBuiltGraphSDK, WalletOgGnarsQuery } from "../.graphclient"
-import { useAccount } from "wagmi"
 
 export const useWalletOgGnars = (address?: string) => {
   const sdk = getBuiltGraphSDK()

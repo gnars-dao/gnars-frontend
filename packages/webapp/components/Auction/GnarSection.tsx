@@ -13,8 +13,8 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { FC } from "react"
+import { V2_START_ID } from "../../constants/contracts"
 import useGnarData, { GnarData } from "../../hooks/useGnarData"
-import { V2_START_ID } from "../../utils/contracts"
 import Gnar from "../Gnar"
 import Menu from "../Menu"
 import { GnarInfo } from "./GnarInfo"

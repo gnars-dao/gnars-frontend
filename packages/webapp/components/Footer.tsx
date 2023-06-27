@@ -9,6 +9,14 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
+import {
+  DAO_ADDRESS,
+  MULTISIG_ADDRESS,
+  OG_GNAR_ADDRESS,
+  TREASURY_ADDRESS,
+  V2_AUCTION_ADDRESS,
+  V2_GNAR_ADDRESS,
+} from "constants/contracts"
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa"
 import { GnarsLogo } from "./GnarsLogo"
 
@@ -19,8 +27,12 @@ const links = [
       { label: "Auction", href: "/" },
       { label: "Claim OG Gnars", href: "/claim" },
       { label: "Gnars Playground", href: "/playground" },
-      { label: "Proposals", href: "/dao" },
-      { label: "Propose", href: "/dao/proposals/new" },
+      { label: "Propose On-chain", href: "/dao/proposals/new" },
+      { label: "On-chain Proposals", href: "/dao" },
+      {
+        label: "Off-chain Proposals",
+        href: "https://snapshot.org/#/gnars.eth",
+      },
     ],
   },
   {
@@ -28,23 +40,27 @@ const links = [
     links: [
       {
         label: "Gnars OG NFT",
-        href: "https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552",
+        href: `https://etherscan.io/address/${OG_GNAR_ADDRESS}`,
       },
       {
         label: "Gnars NFT",
-        href: "https://etherscan.io/address/0x558BFFF0D583416f7C4e380625c7865821b8E95C",
+        href: `https://etherscan.io/address/${V2_GNAR_ADDRESS}`,
       },
       {
         label: "Gnars Auction House",
-        href: "https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209",
+        href: `https://etherscan.io/address/${V2_AUCTION_ADDRESS}`,
       },
       {
         label: "Gnars Treasury",
-        href: "https://etherscan.io/address/0xa1b74d2280966a89ac7e0f3a8bc5f0867c776d98",
+        href: `https://etherscan.io/address/${TREASURY_ADDRESS}`,
+      },
+      {
+        label: "Gnars Safe",
+        href: `https://app.safe.global/home?safe=eth:${MULTISIG_ADDRESS}`,
       },
       {
         label: "Gnars DAO",
-        href: "https://etherscan.io/address/0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3",
+        href: `https://etherscan.io/address/${DAO_ADDRESS}`,
       },
     ],
   },

@@ -13,14 +13,14 @@ import { Londrina_Solid } from "next/font/google"
 import { FC, useEffect, useState } from "react"
 import { FiInfo } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
-import { GnarData } from "../../hooks/useGnarData"
-import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
-import { is10thGnar, shortAddress } from "../../utils"
 import {
   OG_GNAR_ADDRESS,
   TREASURY_ADDRESS,
   V2_GNAR_ADDRESS,
-} from "../../utils/contracts"
+} from "../../constants/contracts"
+import { GnarData } from "../../hooks/useGnarData"
+import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
+import { is10thGnar, shortAddress } from "../../utils"
 import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons"
 import { AuctionStatus } from "./AuctionStatus"
 import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"

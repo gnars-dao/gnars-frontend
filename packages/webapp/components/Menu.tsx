@@ -11,7 +11,6 @@ import {
   Stack,
 } from "@chakra-ui/react"
 import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
-import { TREASURY_ADDRESS } from "utils/contracts"
 import { GnarsLogo } from "./GnarsLogo"
 import { ShredIcon } from "./Icons"
 import { TreasuryBalance } from "./TreasuryBalance"
@@ -42,18 +41,7 @@ export default function Menu(props: MenuProps) {
             <Link href="/">
               <GnarsLogo filter={"drop-shadow(0 0 1px #0005)"} />
             </Link>
-            <ExternalLink
-              href={`https://etherscan.io/address/${TREASURY_ADDRESS}`}
-              isExternal
-              rel="noopener noreferrer"
-            >
-              <Button variant={"outline"}>
-                <HStack>
-                  <div>Treasury</div>
-                  <TreasuryBalance />
-                </HStack>
-              </Button>
-            </ExternalLink>
+            <TreasuryBalance />
           </HStack>
           <IconButton
             variant={"outline"}
