@@ -27,10 +27,10 @@ const links = [
       { label: "Auction", href: "/" },
       { label: "Claim OG Gnars", href: "/claim" },
       { label: "Gnars Playground", href: "/playground" },
-      { label: "Propose On-chain", href: "/dao/proposals/new" },
-      { label: "On-chain Proposals", href: "/dao" },
+      { label: "Propose Onchain", href: "/dao/proposals/new" },
+      { label: "Onchain Proposals", href: "/dao" },
       {
-        label: "Off-chain Proposals",
+        label: "Offchain Proposals",
         href: "https://snapshot.org/#/gnars.eth",
       },
     ],

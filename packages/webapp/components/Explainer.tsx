@@ -94,7 +94,7 @@ export default function Explainer() {
 
             <p>
               {`Based on Nouns open source code and CC0 artwork, they're stored
-                fully on-chain on Ethereum with no external dependencies (not
+                fully onchain on Ethereum with no external dependencies (not
                 even IPFS), and each one represents a DAO vote. We're changing
                 the way extreme sport is funded with `}
               <TextLink href="https://nouns.wtf/vote/51">
@@ -139,7 +139,7 @@ export default function Explainer() {
                 The treasury is controlled exclusively by Gnars via governance.
               </ListItem>
               <ListItem>
-                Artwork is generative and stored directly on-chain (not IPFS).
+                Artwork is generative and stored directly onchain (not IPFS).
               </ListItem>
               <ListItem>Shredders receive 10% of supply.</ListItem>
             </UnorderedList>
@@ -294,21 +294,20 @@ export default function Explainer() {
           </Section>
           <Section>
             <Heading as="h2" fontSize={"4xl"}>
-              On-Chain Artwork
+              Onchain Artwork
             </Heading>
             <p>
               Gnars are stored directly on Ethereum and do not utilize pointers
               to other networks such as IPFS. This is possible because Gnar
-              parts are compressed and stored on-chain using a custom run-length
+              parts are compressed and stored onchain using a custom run-length
               encoding (RLE), which is a form of lossless compression.
             </p>
             <p>
               The compressed parts are efficiently converted into a single
-              base64 encoded SVG image on- chain. To accomplish this, each part
-              is decoded into an intermediate format before being converted into
-              a series of SVG rects using batched, on-chain string
-              concatenation. Once the entire SVG has been generated, it is
-              base64 encoded.
+              base64 encoded SVG image onchain. To accomplish this, each part is
+              decoded into an intermediate format before being converted into a
+              series of SVG rects using batched, onchain string concatenation.
+              Once the entire SVG has been generated, it is base64 encoded.
             </p>
           </Section>
           <Section>
