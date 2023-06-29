@@ -138,21 +138,23 @@ export default function Proposal() {
                 All proposals
               </Button>
             </Link>
-            <Button
-              hideBelow={"lg"}
-              onClick={toggleTimeline}
-              variant={"link"}
-              rightIcon={
-                <BiCaretLeft
-                  style={{
-                    transform: showTimeline ? "rotate(-180deg)" : undefined,
-                    transition: "transform 0.5s linear",
-                  }}
-                />
-              }
-            >
-              Timeline
-            </Button>
+            {proposal && (
+              <Button
+                hideBelow={"lg"}
+                onClick={toggleTimeline}
+                variant={"link"}
+                rightIcon={
+                  <BiCaretLeft
+                    style={{
+                      transform: showTimeline ? "rotate(-180deg)" : undefined,
+                      transition: "transform 0.5s linear",
+                    }}
+                  />
+                }
+              >
+                Timeline
+              </Button>
+            )}
           </HStack>
           {/* TODO add proposal not found */}
           {proposal && (
