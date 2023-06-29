@@ -11,6 +11,7 @@
     "api:build": "turbo run build --filter=api"
   },
   "devDependencies": {
+    "prettier": "^2.8.8",
     "turbo": "^1.8.3"
   }
 }

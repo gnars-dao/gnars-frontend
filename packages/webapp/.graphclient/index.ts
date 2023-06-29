@@ -1639,6 +1639,8 @@ export type Proposal = {
   executionETA?: Maybe<Scalars['BigInt']>;
   /** Votes associated to this proposal */
   votes: Array<Vote>;
+  /** Lifecycle events associated to this proposal */
+  events: Array<ProposalLifecycleEvent>;
   /** Total supply when this proposal was created */
   totalSupply: Scalars['BigInt'];
   /** Dynamic quorum param snapshot: min quorum basis points */
@@ -1657,6 +1659,175 @@ export type ProposalvotesArgs = {
   orderDirection?: InputMaybe<OrderDirection>;
   where?: InputMaybe<Vote_filter>;
 };
+
+
+export type ProposaleventsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<ProposalLifecycleEvent_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<ProposalLifecycleEvent_filter>;
+};
+
+export type ProposalLifecycleEvent = {
+  /** Proposal ID + EventKind */
+  id: Scalars['ID'];
+  kind: ProposalLifecycleEventKind;
+  /** Proposal this event belongs to */
+  proposal: Proposal;
+  /** Account that initiaded the event */
+  from: Scalars['Bytes'];
+  /** The event transaction hash */
+  txHash: Scalars['Bytes'];
+  /** Block number of event */
+  blockNumber: Scalars['BigInt'];
+  /** The timestamp of event */
+  blockTimestamp: Scalars['BigInt'];
+  /** The vote that triggered this event, if it's a vote event */
+  vote?: Maybe<Vote>;
+};
+
+export type ProposalLifecycleEventKind =
+  | 'CREATED'
+  | 'EXECUTED'
+  | 'CANCELLED'
+  | 'QUEUED'
+  | 'VETOED'
+  | 'VOTED';
+
+export type ProposalLifecycleEvent_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  kind?: InputMaybe<ProposalLifecycleEventKind>;
+  kind_not?: InputMaybe<ProposalLifecycleEventKind>;
+  kind_in?: InputMaybe<Array<ProposalLifecycleEventKind>>;
+  kind_not_in?: InputMaybe<Array<ProposalLifecycleEventKind>>;
+  proposal?: InputMaybe<Scalars['String']>;
+  proposal_not?: InputMaybe<Scalars['String']>;
+  proposal_gt?: InputMaybe<Scalars['String']>;
+  proposal_lt?: InputMaybe<Scalars['String']>;
+  proposal_gte?: InputMaybe<Scalars['String']>;
+  proposal_lte?: InputMaybe<Scalars['String']>;
+  proposal_in?: InputMaybe<Array<Scalars['String']>>;
+  proposal_not_in?: InputMaybe<Array<Scalars['String']>>;
+  proposal_contains?: InputMaybe<Scalars['String']>;
+  proposal_contains_nocase?: InputMaybe<Scalars['String']>;
+  proposal_not_contains?: InputMaybe<Scalars['String']>;
+  proposal_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  proposal_starts_with?: InputMaybe<Scalars['String']>;
+  proposal_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  proposal_not_starts_with?: InputMaybe<Scalars['String']>;
+  proposal_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  proposal_ends_with?: InputMaybe<Scalars['String']>;
+  proposal_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  proposal_not_ends_with?: InputMaybe<Scalars['String']>;
+  proposal_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  proposal_?: InputMaybe<Proposal_filter>;
+  from?: InputMaybe<Scalars['Bytes']>;
+  from_not?: InputMaybe<Scalars['Bytes']>;
+  from_gt?: InputMaybe<Scalars['Bytes']>;
+  from_lt?: InputMaybe<Scalars['Bytes']>;
+  from_gte?: InputMaybe<Scalars['Bytes']>;
+  from_lte?: InputMaybe<Scalars['Bytes']>;
+  from_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  from_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  from_contains?: InputMaybe<Scalars['Bytes']>;
+  from_not_contains?: InputMaybe<Scalars['Bytes']>;
+  txHash?: InputMaybe<Scalars['Bytes']>;
+  txHash_not?: InputMaybe<Scalars['Bytes']>;
+  txHash_gt?: InputMaybe<Scalars['Bytes']>;
+  txHash_lt?: InputMaybe<Scalars['Bytes']>;
+  txHash_gte?: InputMaybe<Scalars['Bytes']>;
+  txHash_lte?: InputMaybe<Scalars['Bytes']>;
+  txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  txHash_contains?: InputMaybe<Scalars['Bytes']>;
+  txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  vote?: InputMaybe<Scalars['String']>;
+  vote_not?: InputMaybe<Scalars['String']>;
+  vote_gt?: InputMaybe<Scalars['String']>;
+  vote_lt?: InputMaybe<Scalars['String']>;
+  vote_gte?: InputMaybe<Scalars['String']>;
+  vote_lte?: InputMaybe<Scalars['String']>;
+  vote_in?: InputMaybe<Array<Scalars['String']>>;
+  vote_not_in?: InputMaybe<Array<Scalars['String']>>;
+  vote_contains?: InputMaybe<Scalars['String']>;
+  vote_contains_nocase?: InputMaybe<Scalars['String']>;
+  vote_not_contains?: InputMaybe<Scalars['String']>;
+  vote_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  vote_starts_with?: InputMaybe<Scalars['String']>;
+  vote_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  vote_not_starts_with?: InputMaybe<Scalars['String']>;
+  vote_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  vote_ends_with?: InputMaybe<Scalars['String']>;
+  vote_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  vote_not_ends_with?: InputMaybe<Scalars['String']>;
+  vote_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  vote_?: InputMaybe<Vote_filter>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<ProposalLifecycleEvent_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<ProposalLifecycleEvent_filter>>>;
+};
+
+export type ProposalLifecycleEvent_orderBy =
+  | 'id'
+  | 'kind'
+  | 'proposal'
+  | 'proposal__id'
+  | 'proposal__createdTimestamp'
+  | 'proposal__createdBlock'
+  | 'proposal__createdTransactionHash'
+  | 'proposal__startBlock'
+  | 'proposal__endBlock'
+  | 'proposal__proposalThreshold'
+  | 'proposal__quorumVotes'
+  | 'proposal__forVotes'
+  | 'proposal__againstVotes'
+  | 'proposal__abstainVotes'
+  | 'proposal__title'
+  | 'proposal__description'
+  | 'proposal__status'
+  | 'proposal__executionETA'
+  | 'proposal__totalSupply'
+  | 'proposal__minQuorumVotesBPS'
+  | 'proposal__maxQuorumVotesBPS'
+  | 'proposal__quorumCoefficient'
+  | 'from'
+  | 'txHash'
+  | 'blockNumber'
+  | 'blockTimestamp'
+  | 'vote'
+  | 'vote__id'
+  | 'vote__support'
+  | 'vote__supportDetailed'
+  | 'vote__votesRaw'
+  | 'vote__votes'
+  | 'vote__reason'
+  | 'vote__blockNumber'
+  | 'vote__blockTimestamp';
 
 export type ProposalStatus =
   | 'PENDING'
@@ -1855,6 +2026,7 @@ export type Proposal_filter = {
   executionETA_in?: InputMaybe<Array<Scalars['BigInt']>>;
   executionETA_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   votes_?: InputMaybe<Vote_filter>;
+  events_?: InputMaybe<ProposalLifecycleEvent_filter>;
   totalSupply?: InputMaybe<Scalars['BigInt']>;
   totalSupply_not?: InputMaybe<Scalars['BigInt']>;
   totalSupply_gt?: InputMaybe<Scalars['BigInt']>;
@@ -1919,6 +2091,7 @@ export type Proposal_orderBy =
   | 'status'
   | 'executionETA'
   | 'votes'
+  | 'events'
   | 'totalSupply'
   | 'minQuorumVotesBPS'
   | 'maxQuorumVotesBPS'
@@ -1955,6 +2128,8 @@ export type Query = {
   delegates: Array<Delegate>;
   proposal?: Maybe<Proposal>;
   proposals: Array<Proposal>;
+  proposalLifecycleEvent?: Maybe<ProposalLifecycleEvent>;
+  proposalLifecycleEvents: Array<ProposalLifecycleEvent>;
   vote?: Maybe<Vote>;
   votes: Array<Vote>;
   governance?: Maybe<Governance>;
@@ -2235,6 +2410,24 @@ export type QueryproposalsArgs = {
 };
 
 
+export type QueryproposalLifecycleEventArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryproposalLifecycleEventsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<ProposalLifecycleEvent_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<ProposalLifecycleEvent_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
 export type QueryvoteArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
@@ -2395,6 +2588,8 @@ export type Subscription = {
   delegates: Array<Delegate>;
   proposal?: Maybe<Proposal>;
   proposals: Array<Proposal>;
+  proposalLifecycleEvent?: Maybe<ProposalLifecycleEvent>;
+  proposalLifecycleEvents: Array<ProposalLifecycleEvent>;
   vote?: Maybe<Vote>;
   votes: Array<Vote>;
   governance?: Maybe<Governance>;
@@ -2675,6 +2870,24 @@ export type SubscriptionproposalsArgs = {
 };
 
 
+export type SubscriptionproposalLifecycleEventArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionproposalLifecycleEventsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<ProposalLifecycleEvent_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<ProposalLifecycleEvent_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
 export type SubscriptionvoteArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
@@ -2876,6 +3089,8 @@ export type Vote = {
   proposal: Proposal;
   /** Block number of vote */
   blockNumber: Scalars['BigInt'];
+  /** The timestamp of the block the vote is in */
+  blockTimestamp: Scalars['BigInt'];
 };
 
 
@@ -3001,6 +3216,14 @@ export type Vote_filter = {
   blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
   blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
   blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   and?: InputMaybe<Array<InputMaybe<Vote_filter>>>;
@@ -3040,7 +3263,8 @@ export type Vote_orderBy =
   | 'proposal__minQuorumVotesBPS'
   | 'proposal__maxQuorumVotesBPS'
   | 'proposal__quorumCoefficient'
-  | 'blockNumber';
+  | 'blockNumber'
+  | 'blockTimestamp';
 
 export type _Block_ = {
   /** The hash of the block */
@@ -3211,6 +3435,10 @@ export type ResolversTypes = ResolversObject<{
   OgTransferEvent_orderBy: OgTransferEvent_orderBy;
   OrderDirection: OrderDirection;
   Proposal: ResolverTypeWrapper<Proposal>;
+  ProposalLifecycleEvent: ResolverTypeWrapper<ProposalLifecycleEvent>;
+  ProposalLifecycleEventKind: ProposalLifecycleEventKind;
+  ProposalLifecycleEvent_filter: ProposalLifecycleEvent_filter;
+  ProposalLifecycleEvent_orderBy: ProposalLifecycleEvent_orderBy;
   ProposalStatus: ProposalStatus;
   Proposal_filter: Proposal_filter;
   Proposal_orderBy: Proposal_orderBy;
@@ -3272,6 +3500,8 @@ export type ResolversParentTypes = ResolversObject<{
   OgTransferEvent: OgTransferEvent;
   OgTransferEvent_filter: OgTransferEvent_filter;
   Proposal: Proposal;
+  ProposalLifecycleEvent: ProposalLifecycleEvent;
+  ProposalLifecycleEvent_filter: ProposalLifecycleEvent_filter;
   Proposal_filter: Proposal_filter;
   Query: {};
   Seed: Seed;
@@ -3492,10 +3722,23 @@ export type ProposalResolvers<ContextType = MeshContext, ParentType extends Reso
   status?: Resolver<ResolversTypes['ProposalStatus'], ParentType, ContextType>;
   executionETA?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
   votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<ProposalvotesArgs, 'skip' | 'first'>>;
+  events?: Resolver<Array<ResolversTypes['ProposalLifecycleEvent']>, ParentType, ContextType, RequireFields<ProposaleventsArgs, 'skip' | 'first'>>;
   totalSupply?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   minQuorumVotesBPS?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   maxQuorumVotesBPS?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   quorumCoefficient?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ProposalLifecycleEventResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ProposalLifecycleEvent'] = ResolversParentTypes['ProposalLifecycleEvent']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['ProposalLifecycleEventKind'], ParentType, ContextType>;
+  proposal?: Resolver<ResolversTypes['Proposal'], ParentType, ContextType>;
+  from?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  txHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  vote?: Resolver<Maybe<ResolversTypes['Vote']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3530,6 +3773,8 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   delegates?: Resolver<Array<ResolversTypes['Delegate']>, ParentType, ContextType, RequireFields<QuerydelegatesArgs, 'skip' | 'first' | 'subgraphError'>>;
   proposal?: Resolver<Maybe<ResolversTypes['Proposal']>, ParentType, ContextType, RequireFields<QueryproposalArgs, 'id' | 'subgraphError'>>;
   proposals?: Resolver<Array<ResolversTypes['Proposal']>, ParentType, ContextType, RequireFields<QueryproposalsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  proposalLifecycleEvent?: Resolver<Maybe<ResolversTypes['ProposalLifecycleEvent']>, ParentType, ContextType, RequireFields<QueryproposalLifecycleEventArgs, 'id' | 'subgraphError'>>;
+  proposalLifecycleEvents?: Resolver<Array<ResolversTypes['ProposalLifecycleEvent']>, ParentType, ContextType, RequireFields<QueryproposalLifecycleEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
   vote?: Resolver<Maybe<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<QueryvoteArgs, 'id' | 'subgraphError'>>;
   votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<QueryvotesArgs, 'skip' | 'first' | 'subgraphError'>>;
   governance?: Resolver<Maybe<ResolversTypes['Governance']>, ParentType, ContextType, RequireFields<QuerygovernanceArgs, 'id' | 'subgraphError'>>;
@@ -3579,6 +3824,8 @@ export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends 
   delegates?: SubscriptionResolver<Array<ResolversTypes['Delegate']>, "delegates", ParentType, ContextType, RequireFields<SubscriptiondelegatesArgs, 'skip' | 'first' | 'subgraphError'>>;
   proposal?: SubscriptionResolver<Maybe<ResolversTypes['Proposal']>, "proposal", ParentType, ContextType, RequireFields<SubscriptionproposalArgs, 'id' | 'subgraphError'>>;
   proposals?: SubscriptionResolver<Array<ResolversTypes['Proposal']>, "proposals", ParentType, ContextType, RequireFields<SubscriptionproposalsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  proposalLifecycleEvent?: SubscriptionResolver<Maybe<ResolversTypes['ProposalLifecycleEvent']>, "proposalLifecycleEvent", ParentType, ContextType, RequireFields<SubscriptionproposalLifecycleEventArgs, 'id' | 'subgraphError'>>;
+  proposalLifecycleEvents?: SubscriptionResolver<Array<ResolversTypes['ProposalLifecycleEvent']>, "proposalLifecycleEvents", ParentType, ContextType, RequireFields<SubscriptionproposalLifecycleEventsArgs, 'skip' | 'first' | 'subgraphError'>>;
   vote?: SubscriptionResolver<Maybe<ResolversTypes['Vote']>, "vote", ParentType, ContextType, RequireFields<SubscriptionvoteArgs, 'id' | 'subgraphError'>>;
   votes?: SubscriptionResolver<Array<ResolversTypes['Vote']>, "votes", ParentType, ContextType, RequireFields<SubscriptionvotesArgs, 'skip' | 'first' | 'subgraphError'>>;
   governance?: SubscriptionResolver<Maybe<ResolversTypes['Governance']>, "governance", ParentType, ContextType, RequireFields<SubscriptiongovernanceArgs, 'id' | 'subgraphError'>>;
@@ -3608,6 +3855,7 @@ export type VoteResolvers<ContextType = MeshContext, ParentType extends Resolver
   gnars?: Resolver<Maybe<Array<ResolversTypes['Gnar']>>, ParentType, ContextType, RequireFields<VotegnarsArgs, 'skip' | 'first'>>;
   proposal?: Resolver<ResolversTypes['Proposal'], ParentType, ContextType>;
   blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3645,6 +3893,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   OgGnar?: OgGnarResolvers<ContextType>;
   OgTransferEvent?: OgTransferEventResolvers<ContextType>;
   Proposal?: ProposalResolvers<ContextType>;
+  ProposalLifecycleEvent?: ProposalLifecycleEventResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Seed?: SeedResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
@@ -3881,9 +4130,9 @@ export type ProposalQueryVariables = Exact<{
 
 export type ProposalQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, proposal?: Maybe<(
     Pick<Proposal, 'id' | 'createdTimestamp' | 'createdBlock' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'description' | 'targets' | 'values' | 'signatures' | 'calldatas' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes' | 'totalSupply' | 'minQuorumVotesBPS' | 'maxQuorumVotesBPS' | 'quorumCoefficient' | 'proposalThreshold'>
-    & { proposer: Pick<Delegate, 'id'>, votes: Array<(
-      Pick<Vote, 'supportDetailed' | 'reason'>
-      & { voter: Pick<Delegate, 'id'> }
+    & { proposer: Pick<Delegate, 'id'>, events: Array<(
+      Pick<ProposalLifecycleEvent, 'kind' | 'blockTimestamp' | 'from' | 'id'>
+      & { vote?: Maybe<Pick<Vote, 'supportDetailed' | 'reason' | 'votes'>> }
     )> }
   )> };
 
@@ -4052,12 +4301,16 @@ export const ProposalDocument = gql`
     maxQuorumVotesBPS
     quorumCoefficient
     proposalThreshold
-    votes(where: {reason_not: null}) {
-      voter {
-        id
+    events(first: 1000, orderBy: blockTimestamp, orderDirection: desc) {
+      kind
+      blockTimestamp
+      from
+      id
+      vote {
+        supportDetailed
+        reason
+        votes
       }
-      supportDetailed
-      reason
     }
   }
 }

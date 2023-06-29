@@ -53,11 +53,13 @@ export const AccountAddress: FC<AccountAddress> = ({
         placement={"bottom"}
       >
         <IconButton
-          variant={"ghost"}
+          color={"chakra-body-text"}
+          variant={"link"}
           borderRadius={"full"}
           aria-label="Copy address to clipboard"
           size={"xs"}
-          icon={<FiCopy size={"16px"} />}
+          minW={"12px"}
+          icon={<FiCopy size={"12px"} />}
           onClick={() => {
             navigator.clipboard.writeText(address)
             showCopiedTooltip()
@@ -67,15 +69,16 @@ export const AccountAddress: FC<AccountAddress> = ({
       </Tooltip>
       <Tooltip hasArrow label={"Open on Etherscan"} placement={"bottom"}>
         <IconButton
+          color={"chakra-body-text"}
           as={"a"}
           href={`https://etherscan.io/address/${address}`}
           target={"_blank"}
-          p={0}
-          variant={"ghost"}
+          variant={"link"}
           borderRadius={"full"}
           aria-label="Open on Etherscan"
           size={"xs"}
-          icon={<FiExternalLink size={"16px"} />}
+          minW={"12px"}
+          icon={<FiExternalLink size={"12px"} />}
         />
       </Tooltip>
     </HStack>

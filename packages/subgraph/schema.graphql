@@ -380,6 +380,9 @@ type Proposal @entity {
   "Votes associated to this proposal"
   votes: [Vote!]! @derivedFrom(field: "proposal")
 
+  "Lifecycle events associated to this proposal"
+  events: [ProposalLifecycleEvent!]! @derivedFrom(field: "proposal")
+
   "Total supply when this proposal was created"
   totalSupply: BigInt!
 
@@ -391,6 +394,40 @@ type Proposal @entity {
 
   "Dynamic quorum param snapshot: the dynamic quorum coefficient"
   quorumCoefficient: BigInt!
+}
+
+enum ProposalLifecycleEventKind {
+  CREATED
+  EXECUTED
+  CANCELLED
+  QUEUED
+  VETOED
+  VOTED
+}
+
+type ProposalLifecycleEvent @entity {
+  "Proposal ID + EventKind"
+  id: ID!
+
+  kind: ProposalLifecycleEventKind!
+
+  "Proposal this event belongs to"
+  proposal: Proposal!
+
+  "Account that initiaded the event"
+  from: Bytes!
+
+  "The event transaction hash"
+  txHash: Bytes!
+
+  "Block number of event"
+  blockNumber: BigInt!
+
+  "The timestamp of event"
+  blockTimestamp: BigInt!
+
+  "The vote that triggered this event, if it's a vote event"
+  vote: Vote
 }
 
 type Vote @entity {

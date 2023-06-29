@@ -1591,6 +1591,8 @@ type Proposal {
   executionETA: BigInt
   """Votes associated to this proposal"""
   votes(skip: Int = 0, first: Int = 100, orderBy: Vote_orderBy, orderDirection: OrderDirection, where: Vote_filter): [Vote!]!
+  """Lifecycle events associated to this proposal"""
+  events(skip: Int = 0, first: Int = 100, orderBy: ProposalLifecycleEvent_orderBy, orderDirection: OrderDirection, where: ProposalLifecycleEvent_filter): [ProposalLifecycleEvent!]!
   """Total supply when this proposal was created"""
   totalSupply: BigInt!
   """Dynamic quorum param snapshot: min quorum basis points"""
@@ -1599,6 +1601,168 @@ type Proposal {
   maxQuorumVotesBPS: Int!
   """Dynamic quorum param snapshot: the dynamic quorum coefficient"""
   quorumCoefficient: BigInt!
+}
+
+type ProposalLifecycleEvent {
+  """Proposal ID + EventKind"""
+  id: ID!
+  kind: ProposalLifecycleEventKind!
+  """Proposal this event belongs to"""
+  proposal: Proposal!
+  """Account that initiaded the event"""
+  from: Bytes!
+  """The event transaction hash"""
+  txHash: Bytes!
+  """Block number of event"""
+  blockNumber: BigInt!
+  """The timestamp of event"""
+  blockTimestamp: BigInt!
+  """The vote that triggered this event, if it's a vote event"""
+  vote: Vote
+}
+
+enum ProposalLifecycleEventKind {
+  CREATED
+  EXECUTED
+  CANCELLED
+  QUEUED
+  VETOED
+  VOTED
+}
+
+input ProposalLifecycleEvent_filter {
+  id: ID
+  id_not: ID
+  id_gt: ID
+  id_lt: ID
+  id_gte: ID
+  id_lte: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  kind: ProposalLifecycleEventKind
+  kind_not: ProposalLifecycleEventKind
+  kind_in: [ProposalLifecycleEventKind!]
+  kind_not_in: [ProposalLifecycleEventKind!]
+  proposal: String
+  proposal_not: String
+  proposal_gt: String
+  proposal_lt: String
+  proposal_gte: String
+  proposal_lte: String
+  proposal_in: [String!]
+  proposal_not_in: [String!]
+  proposal_contains: String
+  proposal_contains_nocase: String
+  proposal_not_contains: String
+  proposal_not_contains_nocase: String
+  proposal_starts_with: String
+  proposal_starts_with_nocase: String
+  proposal_not_starts_with: String
+  proposal_not_starts_with_nocase: String
+  proposal_ends_with: String
+  proposal_ends_with_nocase: String
+  proposal_not_ends_with: String
+  proposal_not_ends_with_nocase: String
+  proposal_: Proposal_filter
+  from: Bytes
+  from_not: Bytes
+  from_gt: Bytes
+  from_lt: Bytes
+  from_gte: Bytes
+  from_lte: Bytes
+  from_in: [Bytes!]
+  from_not_in: [Bytes!]
+  from_contains: Bytes
+  from_not_contains: Bytes
+  txHash: Bytes
+  txHash_not: Bytes
+  txHash_gt: Bytes
+  txHash_lt: Bytes
+  txHash_gte: Bytes
+  txHash_lte: Bytes
+  txHash_in: [Bytes!]
+  txHash_not_in: [Bytes!]
+  txHash_contains: Bytes
+  txHash_not_contains: Bytes
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  vote: String
+  vote_not: String
+  vote_gt: String
+  vote_lt: String
+  vote_gte: String
+  vote_lte: String
+  vote_in: [String!]
+  vote_not_in: [String!]
+  vote_contains: String
+  vote_contains_nocase: String
+  vote_not_contains: String
+  vote_not_contains_nocase: String
+  vote_starts_with: String
+  vote_starts_with_nocase: String
+  vote_not_starts_with: String
+  vote_not_starts_with_nocase: String
+  vote_ends_with: String
+  vote_ends_with_nocase: String
+  vote_not_ends_with: String
+  vote_not_ends_with_nocase: String
+  vote_: Vote_filter
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [ProposalLifecycleEvent_filter]
+  or: [ProposalLifecycleEvent_filter]
+}
+
+enum ProposalLifecycleEvent_orderBy {
+  id
+  kind
+  proposal
+  proposal__id
+  proposal__createdTimestamp
+  proposal__createdBlock
+  proposal__createdTransactionHash
+  proposal__startBlock
+  proposal__endBlock
+  proposal__proposalThreshold
+  proposal__quorumVotes
+  proposal__forVotes
+  proposal__againstVotes
+  proposal__abstainVotes
+  proposal__title
+  proposal__description
+  proposal__status
+  proposal__executionETA
+  proposal__totalSupply
+  proposal__minQuorumVotesBPS
+  proposal__maxQuorumVotesBPS
+  proposal__quorumCoefficient
+  from
+  txHash
+  blockNumber
+  blockTimestamp
+  vote
+  vote__id
+  vote__support
+  vote__supportDetailed
+  vote__votesRaw
+  vote__votes
+  vote__reason
+  vote__blockNumber
+  vote__blockTimestamp
 }
 
 enum ProposalStatus {
@@ -1799,6 +1963,7 @@ input Proposal_filter {
   executionETA_in: [BigInt!]
   executionETA_not_in: [BigInt!]
   votes_: Vote_filter
+  events_: ProposalLifecycleEvent_filter
   totalSupply: BigInt
   totalSupply_not: BigInt
   totalSupply_gt: BigInt
@@ -1863,6 +2028,7 @@ enum Proposal_orderBy {
   status
   executionETA
   votes
+  events
   totalSupply
   minQuorumVotesBPS
   maxQuorumVotesBPS
@@ -2260,6 +2426,32 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Proposal!]!
+  proposalLifecycleEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): ProposalLifecycleEvent
+  proposalLifecycleEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: ProposalLifecycleEvent_orderBy
+    orderDirection: OrderDirection
+    where: ProposalLifecycleEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [ProposalLifecycleEvent!]!
   vote(
     id: ID!
     """
@@ -2801,6 +2993,32 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Proposal!]!
+  proposalLifecycleEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): ProposalLifecycleEvent
+  proposalLifecycleEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: ProposalLifecycleEvent_orderBy
+    orderDirection: OrderDirection
+    where: ProposalLifecycleEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [ProposalLifecycleEvent!]!
   vote(
     id: ID!
     """
@@ -3027,6 +3245,8 @@ type Vote {
   proposal: Proposal!
   """Block number of vote"""
   blockNumber: BigInt!
+  """The timestamp of the block the vote is in"""
+  blockTimestamp: BigInt!
 }
 
 input Vote_filter {
@@ -3143,6 +3363,14 @@ input Vote_filter {
   blockNumber_lte: BigInt
   blockNumber_in: [BigInt!]
   blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
   """Filter for the block changed event."""
   _change_block: BlockChangedFilter
   and: [Vote_filter]
@@ -3183,6 +3411,7 @@ enum Vote_orderBy {
   proposal__maxQuorumVotesBPS
   proposal__quorumCoefficient
   blockNumber
+  blockTimestamp
 }
 
 type _Block_ {

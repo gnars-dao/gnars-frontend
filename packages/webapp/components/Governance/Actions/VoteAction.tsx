@@ -55,15 +55,14 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
   })
   const [reason, setReason] = useState<string>("")
   const [isVotingSupport, setIsVotingSupport] = useState<Support | undefined>()
-  const accountVote = useMemo(
-    () =>
-      find(
-        proposal?.votes,
-        (v) => v.voter.id.toLowerCase() === address?.toLowerCase()
-      ),
-
-    [proposal?.votes, address]
-  )
+  const accountVote = useMemo(() => {
+    const voteEvent = find(
+      proposal?.events,
+      (e) =>
+        e.kind === "VOTED" && e.from.toLowerCase() === address?.toLowerCase()
+    )
+    return voteEvent?.vote
+  }, [proposal?.events, address])
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { writeAsync: voteWithoutReason } = useGnarsDaoCastVote({
     mode: "recklesslyUnprepared",

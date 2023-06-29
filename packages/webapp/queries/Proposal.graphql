@@ -33,12 +33,16 @@ query Proposal($id: ID!) {
     quorumCoefficient
     proposalThreshold
 
-    votes(where: { reason_not: null }) {
-      voter {
-        id
+    events(first: 1000, orderBy: blockTimestamp, orderDirection: desc) {
+      kind
+      blockTimestamp
+      from
+      id
+      vote {
+        supportDetailed
+        reason
+        votes
       }
-      supportDetailed
-      reason
     }
   }
 }

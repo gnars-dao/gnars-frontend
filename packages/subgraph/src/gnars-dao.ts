@@ -1,4 +1,4 @@
-import { Bytes, log } from "@graphprotocol/graph-ts"
+import { Address, Bytes, log } from "@graphprotocol/graph-ts"
 import {
   MaxQuorumVotesBPSSet,
   MinQuorumVotesBPSSet,
@@ -10,6 +10,7 @@ import {
   QuorumCoefficientSet,
   VoteCast,
 } from "../generated/GnarsDAO/GnarsDAO"
+import { ProposalLifecycleEvent } from "../generated/schema"
 import {
   BIGINT_ONE,
   BIGINT_ZERO,
@@ -102,6 +103,18 @@ export function handleProposalCreatedWithRequirements(
   proposal.quorumCoefficient = dynamicQuorum.quorumCoefficient
 
   proposal.save()
+
+  const proposalLifecycleEvent = new ProposalLifecycleEvent(
+    getProposalLifecycleEventId(proposal.id, "CREATED")
+  )
+
+  proposalLifecycleEvent.proposal = proposal.id
+  proposalLifecycleEvent.kind = "CREATED"
+  proposalLifecycleEvent.txHash = event.transaction.hash
+  proposalLifecycleEvent.blockTimestamp = event.block.timestamp
+  proposalLifecycleEvent.blockNumber = event.block.number
+  proposalLifecycleEvent.from = Bytes.fromHexString(proposer.id)
+  proposalLifecycleEvent.save()
 }
 
 export function handleProposalCanceled(event: ProposalCanceled): void {
@@ -109,6 +122,18 @@ export function handleProposalCanceled(event: ProposalCanceled): void {
 
   proposal.status = STATUS_CANCELLED
   proposal.save()
+
+  const proposalLifecycleEvent = new ProposalLifecycleEvent(
+    getProposalLifecycleEventId(proposal.id, "CANCELLED")
+  )
+
+  proposalLifecycleEvent.proposal = proposal.id
+  proposalLifecycleEvent.kind = "CANCELLED"
+  proposalLifecycleEvent.txHash = event.transaction.hash
+  proposalLifecycleEvent.blockTimestamp = event.block.timestamp
+  proposalLifecycleEvent.blockNumber = event.block.number
+  proposalLifecycleEvent.from = event.transaction.from
+  proposalLifecycleEvent.save()
 }
 
 export function handleProposalVetoed(event: ProposalVetoed): void {
@@ -116,6 +141,18 @@ export function handleProposalVetoed(event: ProposalVetoed): void {
 
   proposal.status = STATUS_VETOED
   proposal.save()
+
+  const proposalLifecycleEvent = new ProposalLifecycleEvent(
+    getProposalLifecycleEventId(proposal.id, "VETOED")
+  )
+
+  proposalLifecycleEvent.proposal = proposal.id
+  proposalLifecycleEvent.kind = "VETOED"
+  proposalLifecycleEvent.txHash = event.transaction.hash
+  proposalLifecycleEvent.blockTimestamp = event.block.timestamp
+  proposalLifecycleEvent.blockNumber = event.block.number
+  proposalLifecycleEvent.from = event.transaction.from
+  proposalLifecycleEvent.save()
 }
 
 export function handleProposalQueued(event: ProposalQueued): void {
@@ -128,6 +165,18 @@ export function handleProposalQueued(event: ProposalQueued): void {
 
   governance.proposalsQueued = governance.proposalsQueued.plus(BIGINT_ONE)
   governance.save()
+
+  const proposalLifecycleEvent = new ProposalLifecycleEvent(
+    getProposalLifecycleEventId(proposal.id, "QUEUED")
+  )
+
+  proposalLifecycleEvent.proposal = proposal.id
+  proposalLifecycleEvent.kind = "QUEUED"
+  proposalLifecycleEvent.txHash = event.transaction.hash
+  proposalLifecycleEvent.blockTimestamp = event.block.timestamp
+  proposalLifecycleEvent.blockNumber = event.block.number
+  proposalLifecycleEvent.from = event.transaction.from
+  proposalLifecycleEvent.save()
 }
 
 export function handleProposalExecuted(event: ProposalExecuted): void {
@@ -140,6 +189,18 @@ export function handleProposalExecuted(event: ProposalExecuted): void {
 
   governance.proposalsQueued = governance.proposalsQueued.minus(BIGINT_ONE)
   governance.save()
+
+  const proposalLifecycleEvent = new ProposalLifecycleEvent(
+    getProposalLifecycleEventId(proposal.id, "EXECUTED")
+  )
+
+  proposalLifecycleEvent.proposal = proposal.id
+  proposalLifecycleEvent.kind = "EXECUTED"
+  proposalLifecycleEvent.txHash = event.transaction.hash
+  proposalLifecycleEvent.blockTimestamp = event.block.timestamp
+  proposalLifecycleEvent.blockNumber = event.block.number
+  proposalLifecycleEvent.from = event.transaction.from
+  proposalLifecycleEvent.save()
 }
 
 export function handleVoteCast(event: VoteCast): void {
@@ -209,6 +270,19 @@ export function handleVoteCast(event: VoteCast): void {
     proposal.status = STATUS_ACTIVE
   }
   proposal.save()
+
+  const proposalLifecycleEvent = new ProposalLifecycleEvent(
+    getProposalLifecycleEventId(proposal.id, "VOTED", event.params.voter)
+  )
+
+  proposalLifecycleEvent.proposal = proposal.id
+  proposalLifecycleEvent.kind = "VOTED"
+  proposalLifecycleEvent.txHash = event.transaction.hash
+  proposalLifecycleEvent.blockTimestamp = event.block.timestamp
+  proposalLifecycleEvent.blockNumber = event.block.number
+  proposalLifecycleEvent.from = event.params.voter
+  proposalLifecycleEvent.vote = vote.id
+  proposalLifecycleEvent.save()
 }
 
 export function handleMinQuorumVotesBPSSet(event: MinQuorumVotesBPSSet): void {
@@ -227,4 +301,16 @@ export function handleQuorumCoefficientSet(event: QuorumCoefficientSet): void {
   const params = getOrCreateDynamicQuorumParams(event.block.number)
   params.quorumCoefficient = event.params.newQuorumCoefficient
   params.save()
+}
+
+function getProposalLifecycleEventId(
+  proposalId: string,
+  kind: string,
+  voter: Address = Address.zero()
+): string {
+  const id = proposalId.concat("-").concat(kind)
+  if (!voter.equals(Address.zero())) {
+    return id.concat("-").concat(voter.toHexString())
+  }
+  return id
 }

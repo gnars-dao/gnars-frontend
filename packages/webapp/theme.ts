@@ -39,8 +39,51 @@ const colors = defineStyle({
       abstain: chakraTheme.colors.gray[500],
     },
     quorum: chakraTheme.colors.green[900],
+    proposal: {
+      status: {
+        pending: chakraTheme.colors.purple[500],
+        active: chakraTheme.colors.purple[500],
+        cancelled: chakraTheme.colors.gray[500],
+        executed: chakraTheme.colors.green[500],
+        queued: chakraTheme.colors.green[500],
+        succeeded: chakraTheme.colors.green[500],
+        vetoed: chakraTheme.colors.red[500],
+        defeated: chakraTheme.colors.red[500],
+        preview: chakraTheme.colors.pink[500],
+      },
+      event: {
+        created: chakraTheme.colors.purple[500],
+        cancelled: chakraTheme.colors.gray[500],
+        executed: chakraTheme.colors.green[500],
+        queued: chakraTheme.colors.green[500],
+        vetoed: chakraTheme.colors.red[500],
+      },
+    },
   },
 })
+
+// case "PENDING":
+//   return {
+//     colorScheme: "orange",
+//     variant: "subtle",
+//   }
+// case "ACTIVE":
+//   return { colorScheme: "purple" }
+// case "CANCELLED":
+// case "UNDETERMINED":
+//   return { colorScheme: "gray", color: "gray.300" }
+// case "EXECUTED":
+// case "QUEUED":
+// case "SUCCEEDED":
+//   return {
+//     colorScheme: "green",
+//   }
+// case "VETOED":
+//   return { colorScheme: "red" }
+// case "DEFEATED":
+//   return { colorScheme: "red" }
+// case "PREVIEW":
+//   return { colorScheme: "pink" }
 
 const subtle = defineStyle((s) => ({
   bg: "whiteAlpha.800",
