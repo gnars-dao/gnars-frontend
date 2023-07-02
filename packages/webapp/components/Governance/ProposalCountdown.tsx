@@ -19,6 +19,18 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
   endBlock,
 }) => {
   const block = useBlock()
+  if (effectiveStatus === "SUCCEEDED") {
+    return (
+      <Text
+        color={"whiteAlpha.300"}
+        fontSize={"xs"}
+        fontWeight={"semibold"}
+        px={2}
+      >
+        QUEUEABLE NOW
+      </Text>
+    )
+  }
   if (
     effectiveStatus !== "QUEUED" &&
     effectiveStatus !== "PENDING" &&
