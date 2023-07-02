@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   HStack,
   Square,
   StackDivider,
@@ -9,6 +10,7 @@ import {
 } from "@chakra-ui/react"
 import { AvatarWallet } from "components/AvatarWallet"
 import { FC } from "react"
+import { HiExternalLink } from "react-icons/hi"
 import { DetailedProposalData, Support } from "utils/governanceUtils"
 import { EventTime } from "./EventTime"
 
@@ -40,30 +42,39 @@ export const ProposalTimeline: FC<ProposalTimelineProps> = ({
               fontWeight={"semibold"}
             />
             <VStack spacing={0} align={"end"}>
-              <HStack fontWeight={"bold"} fontSize={"xs"}>
-                {event?.vote ? (
-                  <HStack spacing={1} wrap={"wrap"} justify={"end"}>
-                    <Text color={"gray.600"}>VOTED</Text>
+              <Button
+                as={"a"}
+                href={`https://etherscan.io/tx/${event.txHash}`}
+                variant={"link"}
+                color={"gray.600"}
+                rightIcon={<HiExternalLink />}
+                iconSpacing={1}
+              >
+                <HStack fontWeight={"bold"} fontSize={"xs"}>
+                  {event?.vote ? (
+                    <HStack spacing={1} wrap={"wrap"} justify={"end"}>
+                      <Text>VOTED</Text>
+                      <Text
+                        whiteSpace={"nowrap"}
+                        color={`governance.vote.${Support[
+                          event.vote.supportDetailed
+                        ].toLowerCase()}`}
+                      >
+                        {` ${event.vote.votes} ${Support[
+                          event.vote.supportDetailed
+                        ].toUpperCase()}`}
+                      </Text>
+                    </HStack>
+                  ) : (
                     <Text
-                      whiteSpace={"nowrap"}
-                      color={`governance.vote.${Support[
-                        event.vote.supportDetailed
-                      ].toLowerCase()}`}
+                      textAlign={"end"}
+                      color={`governance.proposal.event.${event.kind.toLowerCase()}`}
                     >
-                      {` ${event.vote.votes} ${Support[
-                        event.vote.supportDetailed
-                      ].toUpperCase()}`}
+                      {event.kind} PROP
                     </Text>
-                  </HStack>
-                ) : (
-                  <Text
-                    textAlign={"end"}
-                    color={`governance.proposal.event.${event.kind.toLowerCase()}`}
-                  >
-                    {event.kind} PROP
-                  </Text>
-                )}
-              </HStack>
+                  )}
+                </HStack>
+              </Button>
               <EventTime timestamp={event.blockTimestamp} />
             </VStack>
           </HStack>

@@ -38,6 +38,7 @@ query Proposal($id: ID!) {
       blockTimestamp
       from
       id
+      txHash
       vote {
         supportDetailed
         reason
