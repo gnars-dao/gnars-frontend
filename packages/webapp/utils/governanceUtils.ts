@@ -76,14 +76,9 @@ export const getProposalEffectiveStatus = (
 }
 
 export const isFinalized = (effectiveStatus: EffectiveProposalStatus) =>
-  [
-    "SUCCEEDED",
-    "DEFEATED",
-    "EXECUTED",
-    "EXPIRED",
-    "CANCELLED",
-    "VETOED",
-  ].includes(effectiveStatus)
+  ["DEFEATED", "EXECUTED", "EXPIRED", "CANCELLED", "VETOED"].includes(
+    effectiveStatus
+  )
 
 export type QuorumVotes = ReturnType<typeof getQuorumVotes>
 
