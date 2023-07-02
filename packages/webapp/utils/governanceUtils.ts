@@ -69,7 +69,7 @@ export const getProposalEffectiveStatus = (
       const GRACE_PERIOD = 14 * 60 * 60 * 24
       return blockTimestamp! >= parseInt(proposal.executionETA) + GRACE_PERIOD
         ? "EXPIRED"
-        : "QUEUED"
+        : "EXECUTABLE"
     default:
       return "UNDETERMINED"
   }

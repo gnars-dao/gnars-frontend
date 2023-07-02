@@ -106,7 +106,7 @@ export default function Proposal() {
   })
 
   const refreshProposal = useCallback(() => {
-    invalidateQueries(["proposal", propId])
+    invalidateQueries(["proposal", propId]) //FIXME TypeError: Cannot read properties of undefined (reading 'queryCache')
   }, [invalidateQueries, propId])
 
   const quorumVotes = proposal ? getQuorumVotes(proposal) : undefined
