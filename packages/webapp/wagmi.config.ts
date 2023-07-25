@@ -12,16 +12,14 @@ export default defineConfig({
       name: "GnarsV2AuctionHouse",
       abi: gnarsV2AuctionHouseABI as ContractConfig["abi"],
       address: {
-        [mainnet.id as 1]:
-          "0xC28e0d3c00296dD8c5C3F2E9707361920f92a209" as `0x${string}`,
+        [mainnet.id as 1]: "0xC28e0d3c00296dD8c5C3F2E9707361920f92a209" as `0x${string}`,
       },
     },
     {
       name: "GnarsDAO",
       abi: gnarsDaoAbi as ContractConfig["abi"],
       address: {
-        [mainnet.id as 1]:
-          "0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3" as `0x${string}`,
+        [mainnet.id as 1]: "0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3" as `0x${string}`,
       },
     },
   ],
@@ -33,15 +31,19 @@ export default defineConfig({
         {
           name: "GnarsOG",
           address: {
-            [mainnet.id as 1]:
-              "0x494715b2a3c75dadd24929835b658a1c19bd4552" as `0x${string}`,
+            [mainnet.id as 1]: "0x494715b2a3c75dadd24929835b658a1c19bd4552" as `0x${string}`,
           },
         },
         {
           name: "GnarsV2Token",
           address: {
-            [mainnet.id as 1]:
-              "0x558BFFF0D583416f7C4e380625c7865821b8E95C" as `0x${string}`,
+            [mainnet.id as 1]: "0x558BFFF0D583416f7C4e380625c7865821b8E95C" as `0x${string}`,
+          },
+        },
+        {
+          name: "NNSENSReverseResolver",
+          address: {
+            [mainnet.id as 1]: "0x849F92178950f6254db5D16D1ba265E70521aC1B" as `0x${string}`,
           },
         },
       ],

@@ -1,5 +1,6 @@
 import { Address } from "abitype"
-import { isAddress, isValidName } from "ethers/lib/utils.js"
+import { isValidName } from "utils/ensUtils"
+import { isAddress } from "viem"
 import { useEnsAddress, useEnsAvatar } from "wagmi"
 import { useNnsNameWithEnsFallback } from "./useNnsNameWithEnsFallback"
 
@@ -12,31 +13,25 @@ export interface Account {
 }
 
 export const useAccountQuery = (addressOrEnsDomain?: string): Account => {
-  const isValid = addressOrEnsDomain
-    ? isAddress(addressOrEnsDomain) || isValidName(addressOrEnsDomain)
-    : undefined
+  const isValid = addressOrEnsDomain ? isAddress(addressOrEnsDomain) || isValidName(addressOrEnsDomain) : undefined
   const { data: ensAddress, isLoading: isLoadingEnsAddress } = useEnsAddress({
-    name: isValidName(addressOrEnsDomain ?? "")
-      ? addressOrEnsDomain
-      : undefined,
+    name: isValidName(addressOrEnsDomain ?? "") ? addressOrEnsDomain : undefined,
   })
   const address = addressOrEnsDomain
     ? isAddress(addressOrEnsDomain)
       ? addressOrEnsDomain
       : ensAddress ?? undefined
     : undefined
-  const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
-    address,
-  })
-  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } =
-    useNnsNameWithEnsFallback(address)
+  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(address)
 
+  const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
+    name: nnsOrEnsName,
+  })
   return {
     address,
     nnsOrEnsName: nnsOrEnsName ?? undefined,
     ensAvatar: ensAvatar ?? undefined,
-    isLoading:
-      isLoadingEnsAddress || isLoadingEnsAvatar || isLoadingNnsOrEnsName,
+    isLoading: isLoadingEnsAddress || isLoadingEnsAvatar || isLoadingNnsOrEnsName,
     isValid,
   }
 }

@@ -1,7 +1,7 @@
+import { Seed } from ".graphclient"
 import { QueryClient } from "@tanstack/react-query"
-import { formatEther } from "ethers/lib/utils"
 import { random } from "lodash"
-import { GnarSeed } from "types"
+import { formatEther } from "viem"
 import { V2_START_ID } from "../constants/contracts"
 import gnarDataV2 from "../data/image-data-V2.json"
 import ogGnarData from "../data/image-data.json"
@@ -28,13 +28,11 @@ export const nFormatter = (num: number, digits: number = 2) => {
     .find(function (item) {
       return num >= item.value
     })
-  return item
-    ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol
-    : "0"
+  return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0"
 }
 
 export const truncatedAmount = (amount: string, digits?: number) => {
-  return Number(formatEther(amount)).toFixed(digits ?? 3)
+  return Number(formatEther(BigInt(amount))).toFixed(digits ?? 3)
 }
 
 export type GnarPart = {
@@ -43,28 +41,14 @@ export type GnarPart = {
   trait?: string
 }
 
-export type PartKind =
-  | "backgrounds"
-  | "bodies"
-  | "accessories"
-  | "heads"
-  | "glasses"
+export type PartKind = "backgrounds" | "bodies" | "accessories" | "heads" | "glasses"
 
-export const partKinds = [
-  "backgrounds",
-  "bodies",
-  "accessories",
-  "heads",
-  "glasses",
-] as PartKind[]
+export const partKinds = ["backgrounds", "bodies", "accessories", "heads", "glasses"] as PartKind[]
 
-export const generateGnarV2Seed = ({
-  background,
-  glasses,
-  body,
-  head,
-  accessory,
-}: Partial<GnarSeed> = {}): GnarSeed => {
+export const generateGnarV2Seed = ({ background, glasses, body, head, accessory }: Partial<Seed> = {}): Omit<
+  Seed,
+  "id"
+> => {
   const {
     images: {
       bodies: { length: amountBodies },
@@ -96,11 +80,7 @@ export type Gnartwork = {
   background: string
 }
 
-export const getGnarBgColor = (
-  isOg: boolean,
-  fallback: string,
-  gnarInfo?: GnarData
-) => {
+export const getGnarBgColor = (isOg: boolean, fallback: string, gnarInfo?: GnarData) => {
   if (!gnarInfo) {
     return fallback
   }
@@ -109,16 +89,14 @@ export const getGnarBgColor = (
   return `#${gnarData.bgcolors[gnarInfo.gnar.seed.background]}`
 }
 
-export const getGnartwork = (isOg: boolean, seed: GnarSeed): Gnartwork => {
+export const getGnartwork = (isOg: boolean, seed: Omit<Seed, "id">): Gnartwork => {
   const gnarData = isOg ? ogGnarData : gnarDataV2
   const { bodies, accessories, heads, glasses } = gnarData.images
   const palette = isOg ? ogGnarData.palette : gnarDataV2.palette
   return {
     palette,
     parts: {
-      background: isOg
-        ? undefined
-        : gnarDataV2.images.backgrounds[seed.background],
+      background: isOg ? undefined : gnarDataV2.images.backgrounds[seed.background],
       body: bodies[seed.body] as GnarPart,
       accessory: accessories[seed.accessory] as GnarPart,
       head: heads[seed.head] as GnarPart,
@@ -160,8 +138,6 @@ export const isBgDark = (color: string) => {
 
 export const is10thGnar = (gnarId: number) => (gnarId - V2_START_ID) % 10 === 0
 
-export const shortAddress = (address: string) =>
-  [address.substring(0, 6), address.substring(38)].join("…")
+export const shortAddress = (address: string) => [address.substring(0, 6), address.substring(38)].join("…")
 
-export const ensOrShortAddress = (address: string, ens: string) =>
-  ens ? ens : shortAddress(address)
+export const ensOrShortAddress = (address: string, ens: string) => (ens ? ens : shortAddress(address))

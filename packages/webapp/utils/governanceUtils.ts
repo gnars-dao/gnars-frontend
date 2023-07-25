@@ -1,4 +1,3 @@
-import { BigNumber, BigNumberish } from "ethers"
 import { zip } from "lodash"
 import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../.graphclient"
 
@@ -20,30 +19,25 @@ export type DetailedProposalData = NonNullable<ProposalQuery["proposal"]>
 export type NounsTransactionData = {
   target: `0x${string}`
   signature: string
-  value: BigNumberish
-  calldata: string
+  value: bigint
+  calldata: `0x${string}`
 }
 
-export const getTransactions = (
-  proposal: DetailedProposalData
-): NounsTransactionData[] => {
-  return zip(
-    proposal.targets,
-    proposal.signatures,
-    proposal.values,
-    proposal.calldatas
-  ).map(([target, signature, value, calldata]) => ({
-    target,
-    signature,
-    value,
-    calldata,
-  }))
+export const getTransactions = (proposal: DetailedProposalData): NounsTransactionData[] => {
+  return zip(proposal.targets, proposal.signatures, proposal.values, proposal.calldatas).map(
+    ([target, signature, value, calldata]) => ({
+      target,
+      signature,
+      value,
+      calldata,
+    })
+  )
 }
 
 export const getProposalEffectiveStatus = (
   proposal: ProposalData,
-  blockNumber: number | undefined,
-  blockTimestamp: number | undefined
+  blockNumber: bigint | null | undefined,
+  blockTimestamp: bigint | null | undefined
 ): EffectiveProposalStatus => {
   switch (true) {
     case proposal.status === "CANCELLED":
@@ -53,23 +47,20 @@ export const getProposalEffectiveStatus = (
     case !blockNumber:
       return "UNDETERMINED"
     case proposal.status === "PENDING":
-      return blockNumber! <= parseInt(proposal.startBlock)
-        ? "PENDING"
-        : "ACTIVE"
+      return blockNumber! <= BigInt(proposal.startBlock) ? "PENDING" : "ACTIVE"
     case proposal.status === "ACTIVE":
-      if (blockNumber! < parseInt(proposal.endBlock)) return "ACTIVE"
-      const forVotes = BigNumber.from(proposal.forVotes)
-      return forVotes.lte(proposal.againstVotes) ||
-        forVotes.lt(proposal.quorumVotes)
+      if (blockNumber! < BigInt(proposal.endBlock)) return "ACTIVE"
+      const forVotes = BigInt(proposal.forVotes)
+      return forVotes <= BigInt(proposal.againstVotes) || forVotes < BigInt(proposal.quorumVotes)
         ? "DEFEATED"
         : "SUCCEEDED"
     case !blockTimestamp || !proposal.executionETA:
       return "UNDETERMINED"
     case proposal.status === "QUEUED":
-      const GRACE_PERIOD = 14 * 60 * 60 * 24
-      return blockTimestamp! >= parseInt(proposal.executionETA) + GRACE_PERIOD
+      const GRACE_PERIOD = 1209600n
+      return blockTimestamp! >= BigInt(proposal.executionETA) + GRACE_PERIOD
         ? "EXPIRED"
-        : blockTimestamp! >= parseInt(proposal.executionETA)
+        : blockTimestamp! >= BigInt(proposal.executionETA)
         ? "EXECUTABLE"
         : "QUEUED"
     default:
@@ -78,9 +69,7 @@ export const getProposalEffectiveStatus = (
 }
 
 export const isFinalized = (effectiveStatus: EffectiveProposalStatus) =>
-  ["DEFEATED", "EXECUTED", "EXPIRED", "CANCELLED", "VETOED"].includes(
-    effectiveStatus
-  )
+  ["DEFEATED", "EXECUTED", "EXPIRED", "CANCELLED", "VETOED"].includes(effectiveStatus)
 
 export type QuorumVotes = ReturnType<typeof getQuorumVotes>
 
@@ -94,10 +83,8 @@ export interface Votes {
 export interface Dates {}
 
 export const getQuorumVotes = (prop: ProposalsQuery["proposals"][0]) => {
-  const againstVotesBPS =
-    (10_000 * parseInt(prop.againstVotes)) / parseInt(prop.totalSupply)
-  const quorumAdjustmentBPS =
-    (parseInt(prop.quorumCoefficient) * againstVotesBPS) / 1_000_000
+  const againstVotesBPS = (10_000 * parseInt(prop.againstVotes)) / parseInt(prop.totalSupply)
+  const quorumAdjustmentBPS = (parseInt(prop.quorumCoefficient) * againstVotesBPS) / 1_000_000
   const adjustedQuorumBPS = prop.minQuorumVotesBPS + quorumAdjustmentBPS
   const quorumBPS = Math.min(prop.maxQuorumVotesBPS, adjustedQuorumBPS)
   return {

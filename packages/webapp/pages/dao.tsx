@@ -1,14 +1,4 @@
-import {
-  Button,
-  Container,
-  DarkMode,
-  Divider,
-  Heading,
-  HStack,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react"
+import { Button, Container, DarkMode, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react"
 import { useQuery } from "@tanstack/react-query"
 import { DelegateButton } from "components/Governance/Delegation/DelegateButton"
 import { UserVotes } from "components/Governance/Delegation/UserVotes"
@@ -29,23 +19,20 @@ import {
 export default function Proposals() {
   const block = useBlock()
   const { data: proposals } = useQuery(
-    ["proposals", block?.number],
+    ["proposals", block?.number?.toString()],
     () =>
       execute(ProposalsDocument, {})
         .then((r) =>
           r.data.proposals.map((p: ProposalData) => ({
             ...p,
-            effectiveStatus: getProposalEffectiveStatus(
-              p,
-              block?.number,
-              block?.timestamp
-            ),
+            effectiveStatus: getProposalEffectiveStatus(p, block?.number ?? undefined, block?.timestamp ?? undefined),
           }))
         )
         .then((p) =>
-          partition<
-            ProposalData & { effectiveStatus: EffectiveProposalStatus }
-          >(p, (p) => !isFinalized(p.effectiveStatus))
+          partition<ProposalData & { effectiveStatus: EffectiveProposalStatus }>(
+            p,
+            (p) => !isFinalized(p.effectiveStatus)
+          )
         ),
     { keepPreviousData: true }
   )
@@ -65,10 +52,7 @@ export default function Proposals() {
               <Heading as={"h2"} fontSize="5xl">
                 Proposals
               </Heading>
-              <Stack
-                direction={{ base: "column", sm: "row" }}
-                alignItems={{ sm: "center" }}
-              >
+              <Stack direction={{ base: "column", sm: "row" }} alignItems={{ sm: "center" }}>
                 <UserVotes mr={{ sm: 4 }} fontSize={"xl"} fontWeight={"bold"} />
                 <Link href={"/dao/proposals/new"}>
                   <Button w="full">Propose</Button>
@@ -76,13 +60,7 @@ export default function Proposals() {
                 <DelegateButton />
               </Stack>
             </Stack>
-            <VStack
-              w={"full"}
-              spacing={4}
-              alignItems={"center"}
-              py={{ base: 4, lg: 20 }}
-              px={{ base: 4, lg: 20 }}
-            >
+            <VStack w={"full"} spacing={4} alignItems={"center"} py={{ base: 4, lg: 20 }} px={{ base: 4, lg: 20 }}>
               {isArray(proposals) && (
                 <>
                   {proposals[0].length > 0 && (
@@ -161,9 +139,7 @@ export default function Proposals() {
                       ))}
                     </>
                   )}
-                  {proposals[0].length === 0 && proposals[1].length === 0 && (
-                    <Text>No proposals yet</Text>
-                  )}
+                  {proposals[0].length === 0 && proposals[1].length === 0 && <Text>No proposals yet</Text>}
                 </>
               )}
             </VStack>

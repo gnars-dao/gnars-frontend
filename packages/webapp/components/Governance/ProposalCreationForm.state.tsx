@@ -1,8 +1,7 @@
 import { AbiFunction } from "abitype"
-import { BigNumber } from "ethers"
-import { Interface } from "ethers/lib/utils.js"
+import { getSignature } from "utils/functionUtils"
 import { NounsTransactionData } from "utils/governanceUtils"
-import { encodeFunctionData, parseEther } from "viem"
+import { encodeFunctionData } from "viem"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
@@ -13,21 +12,19 @@ export type ParameterValue = string | ParameterValue[]
 export interface SendEthTransactionData {
   txKind: "Send ETH"
   address: `0x${string}`
-  ethValue: BigNumber
+  ethValue: bigint
 }
 
 export interface CallContractTransactionData {
   txKind: TransactionKind
   address: `0x${string}`
-  ethValue: BigNumber
+  ethValue: bigint
   abi: string
   func: AbiFunction
   funcParams: ParameterValue[]
 }
 
-export type TransactionData =
-  | SendEthTransactionData
-  | CallContractTransactionData
+export type TransactionData = SendEthTransactionData | CallContractTransactionData
 
 export type ProposalCreationState = {
   title: string
@@ -58,11 +55,7 @@ export const useProposalCreationState = create<ProposalCreationState>()(
   )
 )
 
-export const getCalldata = ({
-  abi,
-  func,
-  funcParams,
-}: CallContractTransactionData): `0x${string}` | undefined => {
+export const getCalldata = ({ abi, func, funcParams }: CallContractTransactionData): `0x${string}` | undefined => {
   if (!func || !abi || !funcParams) return undefined
 
   try {
@@ -76,24 +69,10 @@ export const getCalldata = ({
   }
 }
 
-export const toNounsTransactionData = (
-  txData: TransactionData
-): NounsTransactionData => ({
-  calldata:
-    txData.txKind === "Send ETH"
-      ? "0x"
-      : "0x" + getCalldata(txData)!.substring(10),
-  signature:
-    txData.txKind === "Send ETH"
-      ? ""
-      : new Interface(txData.abi)
-          .getFunction(txData.func.name)
-          .format("sighash"),
+export const toNounsTransactionData = (txData: TransactionData): NounsTransactionData => ({
+  calldata: (txData.txKind === "Send ETH" ? "0x" : "0x" + getCalldata(txData)!.substring(10)) as `0x${string}`,
+  signature: txData.txKind === "Send ETH" ? "" : getSignature(txData.func),
   target: txData.address!,
   value:
-    txData.txKind === "Send ETH"
-      ? txData.ethValue
-      : txData.func?.stateMutability === "payable"
-      ? txData.ethValue
-      : parseEther("0"),
+    txData.txKind === "Send ETH" ? txData.ethValue : txData.func?.stateMutability === "payable" ? txData.ethValue : 0n,
 })

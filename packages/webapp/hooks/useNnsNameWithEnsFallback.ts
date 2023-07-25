@@ -1,31 +1,8 @@
-import { Provider } from "@ethersproject/providers"
-import { useQuery } from "@tanstack/react-query"
-import { cloneDeep } from "lodash"
-import { useMemo } from "react"
-import { useProvider } from "wagmi"
+import { useNnsensReverseResolverResolve } from "utils/sdk"
 
 export const useNnsNameWithEnsFallback = (address?: string) => {
-  const provider = useProvider()
-  const chainId = provider.network.chainId
-  const nnsProvider = useMemo<Provider | undefined>(() => {
-    if (provider.network.chainId !== 1) return undefined
-
-    const nnsProvider = cloneDeep(provider)
-    nnsProvider.network.ensAddress =
-      "0x3e1970dc478991b49c4327973ea8a4862ef5a4de"
-
-    return nnsProvider
-  }, [provider])
-
-  return useQuery(
-    ["nnsOrEnsName", address, chainId],
-    () => {
-      if (!address) return null
-      return Promise.all([
-        nnsProvider?.lookupAddress(address),
-        provider.lookupAddress(address),
-      ]).then(([nnsName, ensName]) => nnsName ?? ensName)
-    },
-    { refetchInterval: 1000 * 60 * 5 }
-  )
+  return useNnsensReverseResolverResolve({
+    args: [address as `0x${string}`],
+    enabled: !!address,
+  })
 }

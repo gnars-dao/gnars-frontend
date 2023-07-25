@@ -1,15 +1,4 @@
-import {
-  Avatar,
-  AvatarProps,
-  Box,
-  HStack,
-  Image,
-  Link,
-  PropsOf,
-  Spinner,
-  StackProps,
-  Text,
-} from "@chakra-ui/react"
+import { Avatar, AvatarProps, Box, HStack, Image, Link, PropsOf, Spinner, StackProps, Text } from "@chakra-ui/react"
 import { FC, useMemo } from "react"
 import { useEnsAvatar } from "wagmi"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
@@ -22,12 +11,7 @@ export type AddressProps = {
   truncate?: boolean
 } & StackProps
 
-export const Address: FC<AddressProps> = ({
-  address,
-  withLink = false,
-  truncate = true,
-  ...props
-}) => {
+export const Address: FC<AddressProps> = ({ address, withLink = false, truncate = true, ...props }) => {
   const { isLoading, data: nnsOrEnsName } = useNnsNameWithEnsFallback(address)
 
   const content = (

@@ -14,7 +14,6 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { MULTISIG_ADDRESS, TREASURY_ADDRESS } from "constants/contracts"
-import { BigNumber } from "ethers"
 import { useMemo } from "react"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
 import { formatEther } from "viem"
@@ -42,7 +41,7 @@ export const TreasuryBalance = () => {
     return {
       treasury: formatBalance(treasuryBalance.value),
       multisig: formatBalance(multisigBalance.value),
-      total: formatBalance(treasuryBalance.value.add(multisigBalance.value)),
+      total: formatBalance(treasuryBalance.value + multisigBalance.value),
     }
   }, [treasuryBalance, multisigBalance])
 
@@ -56,10 +55,8 @@ export const TreasuryBalance = () => {
             </Text>
             {formattedBalances ? (
               <HStack whiteSpace={"nowrap"} divider={<Text px={2}>+</Text>}>
-                <Text
-                  whiteSpace={"nowrap"}
-                >{`Ξ ${formattedBalances.total}`}</Text>
-                {gnarsBalance && (
+                <Text whiteSpace={"nowrap"}>{`Ξ ${formattedBalances.total}`}</Text>
+                {typeof gnarsBalance === "bigint" && (
                   <Text>
                     <ShredIcon style={{ verticalAlign: "sub" }} />
                     {gnarsBalance.toString()}
@@ -75,21 +72,11 @@ export const TreasuryBalance = () => {
       <PopoverContent w={"fit-content"}>
         <PopoverArrow />
         <PopoverBody>
-          <SimpleGrid
-            columns={2}
-            columnGap={4}
-            templateColumns={"fit-content(40%) fit-content(40%)"}
-          >
+          <SimpleGrid columns={2} columnGap={4} templateColumns={"fit-content(40%) fit-content(40%)"}>
             {formattedBalances ? (
-              <HStack
-                justifyContent={"start"}
-                whiteSpace={"nowrap"}
-                divider={<Text px={2}>+</Text>}
-              >
-                <Text
-                  whiteSpace={"nowrap"}
-                >{`Ξ ${formattedBalances.multisig}`}</Text>
-                {gnarsBalance && (
+              <HStack justifyContent={"start"} whiteSpace={"nowrap"} divider={<Text px={2}>+</Text>}>
+                <Text whiteSpace={"nowrap"}>{`Ξ ${formattedBalances.multisig}`}</Text>
+                {typeof gnarsBalance === "bigint" && (
                   <Text>
                     <ShredIcon style={{ verticalAlign: "sub" }} />
                     {gnarsBalance.toString()}
@@ -106,16 +93,8 @@ export const TreasuryBalance = () => {
             >
               on Multisig <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
-            {formattedBalances ? (
-              <Text>{`Ξ ${formattedBalances.treasury}`}</Text>
-            ) : (
-              <Spinner size={"sm"} />
-            )}
-            <Link
-              href={`https://etherscan.io/address/${TREASURY_ADDRESS}`}
-              whiteSpace={"nowrap"}
-              w={"fit-content"}
-            >
+            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury}`}</Text> : <Spinner size={"sm"} />}
+            <Link href={`https://etherscan.io/address/${TREASURY_ADDRESS}`} whiteSpace={"nowrap"} w={"fit-content"}>
               on Treasury <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
           </SimpleGrid>
@@ -125,7 +104,4 @@ export const TreasuryBalance = () => {
   )
 }
 
-const formatBalance = (balance: BigNumber) =>
-  formatEther(
-    balance.sub(balance.mod(BigNumber.from("10000000000000000"))).toBigInt()
-  )
+const formatBalance = (balance: bigint) => formatEther(balance - (balance % 10000000000000000n))

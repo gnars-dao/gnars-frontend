@@ -1,19 +1,6 @@
-import {
-  Badge,
-  Box,
-  HStack,
-  StackProps,
-  Text,
-  Tooltip,
-  VStack,
-} from "@chakra-ui/react"
+import { Badge, Box, HStack, StackProps, Text, Tooltip, VStack } from "@chakra-ui/react"
 import { FC } from "react"
-import {
-  EffectiveProposalStatus,
-  isFinalized,
-  QuorumVotes,
-  Votes,
-} from "../../utils/governanceUtils"
+import { EffectiveProposalStatus, isFinalized, QuorumVotes, Votes } from "../../utils/governanceUtils"
 import { ProposalCountdown } from "./ProposalCountdown"
 import { ProposalStatusBadge } from "./ProposalStatusBadge"
 
@@ -53,12 +40,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
       bgColor={"blackAlpha.300"}
       {...props}
     >
-      <HStack
-        w={"full"}
-        justifyContent={"space-between"}
-        alignItems={"start"}
-        py={0}
-      >
+      <HStack w={"full"} justifyContent={"space-between"} alignItems={"start"} py={0}>
         <Box pt={"6px"} pl={8}>
           <Badge
             display={"inline-block"}
@@ -107,13 +89,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
           )}
         </VStack>
       </HStack>
-      <Text
-        hideFrom={"md"}
-        px={4}
-        fontSize={"xl"}
-        fontWeight={"semibold"}
-        lineHeight={1.8}
-      >
+      <Text hideFrom={"md"} px={4} fontSize={"xl"} fontWeight={"semibold"} lineHeight={1.8}>
         {title}
       </Text>
       {votes && !proposalFinalized && status !== "PENDING" && (
@@ -125,44 +101,22 @@ export const ProposalCard: FC<ProposalCardProps> = ({
           bgColor={"whiteAlpha.50"}
           spacing={0}
         >
-          <Tooltip
-            hasArrow
-            color={"white"}
-            bgColor={"governance.vote.for"}
-            label={`${votes.forVotes} FOR`}
-          >
-            <Box
-              h={"full"}
-              bgColor={"governance.vote.for"}
-              w={`${(100 * votes.forVotes) / votes.totalSupply}%`}
-            />
+          <Tooltip hasArrow color={"white"} bgColor={"governance.vote.for"} label={`${votes.forVotes} FOR`}>
+            <Box h={"full"} bgColor={"governance.vote.for"} w={`${(100 * votes.forVotes) / votes.totalSupply}%`} />
           </Tooltip>
           {quorumVotes && (
-            <Tooltip
-              hasArrow
-              color={"white"}
-              bgColor={"governance.quorum"}
-              label={`${quorumVotes.current} REQUIRED`}
-            >
+            <Tooltip hasArrow color={"white"} bgColor={"governance.quorum"} label={`${quorumVotes.current} REQUIRED`}>
               <Box
                 h={"full"}
                 opacity={0.5}
                 bgColor={"governance.quorum"}
-                w={`${
-                  (100 * Math.max(quorumVotes.current - votes.forVotes, 0)) /
-                  votes.totalSupply
-                }%`}
+                w={`${(100 * Math.max(quorumVotes.current - votes.forVotes, 0)) / votes.totalSupply}%`}
               />
             </Tooltip>
           )}
           <Box h={"full"} flexGrow={1} />
 
-          <Tooltip
-            hasArrow
-            color={"white"}
-            bgColor={"governance.vote.abstain"}
-            label={`${votes.abstainVotes} ABSTAIN`}
-          >
+          <Tooltip hasArrow color={"white"} bgColor={"governance.vote.abstain"} label={`${votes.abstainVotes} ABSTAIN`}>
             <Box
               h={"full"}
               bgColor={"governance.vote.abstain"}
@@ -170,12 +124,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             />
           </Tooltip>
           <Box h={"full"} flexGrow={1} />
-          <Tooltip
-            hasArrow
-            color={"white"}
-            bgColor={"governance.vote.against"}
-            label={`${votes.againstVotes} AGAINST`}
-          >
+          <Tooltip hasArrow color={"white"} bgColor={"governance.vote.against"} label={`${votes.againstVotes} AGAINST`}>
             <Box
               h={"full"}
               bgColor={"governance.vote.against"}

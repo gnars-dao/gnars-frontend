@@ -1,30 +1,16 @@
-import {
-  HStack,
-  IconButton,
-  Link,
-  SimpleGrid,
-  Spinner,
-  StackProps,
-  Text,
-  VStack,
-} from "@chakra-ui/react"
-import { isPast } from "date-fns"
+import { HStack, IconButton, Link, SimpleGrid, Spinner, StackProps, Text, VStack } from "@chakra-ui/react"
 import { Londrina_Solid } from "next/font/google"
 import { FC, useEffect, useState } from "react"
 import { FiInfo } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
-import {
-  OG_GNAR_ADDRESS,
-  TREASURY_ADDRESS,
-  V2_GNAR_ADDRESS,
-} from "../../constants/contracts"
+import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/contracts"
 import { GnarData } from "../../hooks/useGnarData"
 import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
 import { is10thGnar, shortAddress } from "../../utils"
 import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons"
 import { AuctionStatus } from "./AuctionStatus"
-import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"
 import { BidForGnar } from "./BidForGnar"
+import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"
 import { BidsPopover } from "./BidsPopover"
 import { BidsTable } from "./BidsTable"
 import { GnarNavigation } from "./GnarNavigation"
@@ -41,20 +27,14 @@ interface GnarInfoProps extends StackProps {
   gnarData: GnarData
 }
 
-export const GnarInfo: FC<GnarInfoProps> = ({
-  isOg,
-  gnarData,
-  ...props
-}: GnarInfoProps) => {
+export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarInfoProps) => {
   const { endTimestamp, latestBidder, latestBid, settled, bids } = {
     ...(gnarData.gnar.auction ?? {}),
   }
 
   const { block } = gnarData
 
-  const [blockTimestamp, setBlockTimestamp] = useState<
-    number | null | undefined
-  >(block?.timestamp)
+  const [blockTimestamp, setBlockTimestamp] = useState<number | null | undefined>(block?.timestamp)
 
   useEffect(() => {
     // sometimes the timestamp of new blocks is null (https://github.com/graphprotocol/support/issues/104).
@@ -70,22 +50,14 @@ export const GnarInfo: FC<GnarInfoProps> = ({
   const { data: ownerName } = useNnsNameWithEnsFallback(gnarData.gnar.owner)
 
   const auctionEnded =
-    endTimestamp && blockTimestamp
-      ? isPast(new Date(endTimestamp * 1000)) && blockTimestamp > endTimestamp
-      : true
+    endTimestamp && blockTimestamp ? Date.now() > endTimestamp * 1000 && blockTimestamp > endTimestamp : true
 
   const isTreasuryGnar = is10thGnar(parseInt(gnarData.gnar.gnarId))
   const winner = isTreasuryGnar ? TREASURY_ADDRESS : latestBidder
   const isBurned = !!gnarData.gnar.auction && auctionEnded && !winner
   const isClaimedGnar = !isTreasuryGnar && !gnarData.gnar.auction
   return (
-    <VStack
-      w={"full"}
-      alignItems={"start"}
-      spacing={6}
-      maxW={{ base: "full", lg: "500px", xl: "xl" }}
-      {...props}
-    >
+    <VStack w={"full"} alignItems={"start"} spacing={6} maxW={{ base: "full", lg: "500px", xl: "xl" }} {...props}>
       <SimpleGrid
         w="full"
         rowGap={[4, 2]}
@@ -114,12 +86,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({
           {isOg && <Text position={"relative"}>OG</Text>}
           {gnarData ? <Text>Gnar {gnarData.gnar.gnarId}</Text> : <Spinner />}
         </HStack>
-        <GnarNavigation
-          gridArea={"navigation"}
-          alignSelf={"end"}
-          justifySelf={["center", "end"]}
-          gnarData={gnarData}
-        />
+        <GnarNavigation gridArea={"navigation"} alignSelf={"end"} justifySelf={["center", "end"]} gnarData={gnarData} />
         <AuctionStatus
           gridArea={"auction"}
           justifySelf={"stretch"}
@@ -144,58 +111,41 @@ export const GnarInfo: FC<GnarInfoProps> = ({
               />{" "}
               {isTreasuryGnar && (
                 <>
-                  To pay homage and show our respect as a Nouns extension, every
-                  Gnar ending in 7 is reserved for onboarding shredders.
+                  To pay homage and show our respect as a Nouns extension, every Gnar ending in 7 is reserved for
+                  onboarding shredders.
                 </>
               )}
               {isClaimedGnar && (
                 <>
-                  When Gnars DAO was launched, holders of OG Gnars were able to
-                  claim 2 Gnars per OG Gnar held, as a way to give them voting
-                  power in the governance. This Gnar was claimed that way.
+                  When Gnars DAO was launched, holders of OG Gnars were able to claim 2 Gnars per OG Gnar held, as a way
+                  to give them voting power in the governance. This Gnar was claimed that way.
                 </>
               )}
               {isOg && (
                 <>
-                  OG Gnars dropped before Gnars was officially a DAO, and have
-                  no voting power. Each OG Gnar entitled its holder to claim 2
-                  Gnars.
+                  OG Gnars dropped before Gnars was officially a DAO, and have no voting power. Each OG Gnar entitled
+                  its holder to claim 2 Gnars.
                 </>
               )}
             </Text>
           </VStack>
         )}
-        {(!gnarData.gnar.auction || (gnarData.gnar.auction && settled)) &&
-          !isBurned && (
-            <HStack
-              spacing={1}
-              fontSize={"lg"}
-              color={"chakra-body-text"}
-              fontWeight={"semibold"}
-            >
-              {isOg || isClaimedGnar ? <OGNogglesIcon /> : <ShredIcon />}
-              <Text>Owned by </Text>
-              <Link
-                isExternal
-                href={`https://etherscan.io/address/${gnarData.gnar.owner}`}
-              >
-                {ownerName ?? shortAddress(gnarData.gnar.owner)}
-                <HiExternalLink
-                  style={{ display: "inline", marginBottom: "2px" }}
-                />
-              </Link>
-            </HStack>
-          )}
+        {(!gnarData.gnar.auction || (gnarData.gnar.auction && settled)) && !isBurned && (
+          <HStack spacing={1} fontSize={"lg"} color={"chakra-body-text"} fontWeight={"semibold"}>
+            {isOg || isClaimedGnar ? <OGNogglesIcon /> : <ShredIcon />}
+            <Text>Owned by </Text>
+            <Link isExternal href={`https://etherscan.io/address/${gnarData.gnar.owner}`}>
+              {ownerName ?? shortAddress(gnarData.gnar.owner)}
+              <HiExternalLink style={{ display: "inline", marginBottom: "2px" }} />
+            </Link>
+          </HStack>
+        )}
         {gnarData.gnar.auction && !settled && (
           <VStack w={"full"} justifyContent={"center"} spacing={1}>
             {auctionEnded ? (
               <SettleAuctionButton size={"lg"} w={"full"} />
             ) : (
-              <BidForGnar
-                gnarId={gnarData.gnar.gnarId}
-                latestBid={latestBid}
-                w={"full"}
-              />
+              <BidForGnar gnarId={gnarData.gnar.gnarId} latestBid={latestBid} w={"full"} />
             )}
             <BiddingAndSettlingInfo />
             {bids?.length && bids.length > 0 && (
@@ -203,13 +153,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({
                 <Text fontSize={"sm"}>
                   {bids.length} Bid{bids.length > 1 && "s"}
                 </Text>
-                <BidsTable
-                  bids={bids}
-                  w={"full"}
-                  overflow={"scroll"}
-                  flexGrow={1}
-                  maxH={"180px"}
-                />
+                <BidsTable bids={bids} w={"full"} overflow={"scroll"} flexGrow={1} maxH={"180px"} />
               </VStack>
             )}
           </VStack>
@@ -221,15 +165,9 @@ export const GnarInfo: FC<GnarInfoProps> = ({
           {bids && bids.length > 0 && <BidsPopover bids={bids} />}
           <Link
             isExternal
-            href={`https://etherscan.io/token/${
-              isOg ? OG_GNAR_ADDRESS : V2_GNAR_ADDRESS
-            }?a=${gnarData.gnar.gnarId}`}
+            href={`https://etherscan.io/token/${isOg ? OG_GNAR_ADDRESS : V2_GNAR_ADDRESS}?a=${gnarData.gnar.gnarId}`}
           >
-            <IconButton
-              aria-label={"Etherscan"}
-              variant={"outline"}
-              icon={<EtherscanIcon />}
-            />
+            <IconButton aria-label={"Etherscan"} variant={"outline"} icon={<EtherscanIcon />} />
           </Link>
         </HStack>
       )}

@@ -1,5 +1,4 @@
 import { HStack, Spinner, Text, Tooltip } from "@chakra-ui/react"
-import { secondsInDay } from "date-fns"
 import { FC } from "react"
 import { RiTimeFill } from "react-icons/ri"
 import { useBlock } from "../../hooks/useBlock"
@@ -21,12 +20,7 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
   const block = useBlock()
   if (effectiveStatus === "SUCCEEDED") {
     return (
-      <Text
-        color={"whiteAlpha.300"}
-        fontSize={"xs"}
-        fontWeight={"semibold"}
-        px={2}
-      >
+      <Text color={"whiteAlpha.300"} fontSize={"xs"} fontWeight={"semibold"} px={2}>
         QUEUEABLE NOW
       </Text>
     )
@@ -40,46 +34,37 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
     return <></>
   }
 
-  if (
-    (effectiveStatus === "QUEUED" || effectiveStatus === "EXECUTABLE") &&
-    !executionETA
-  ) {
+  if ((effectiveStatus === "QUEUED" || effectiveStatus === "EXECUTABLE") && !executionETA) {
     return <></>
   }
 
-  if (!block) {
+  if (!block || !block.number) {
     return (
-      <HStack
-        color={"whiteAlpha.300"}
-        fontSize={"xs"}
-        fontWeight={"bold"}
-        px={2}
-      >
+      <HStack color={"whiteAlpha.300"} fontSize={"xs"} fontWeight={"bold"} px={2}>
         <Spinner />
         <RiTimeFill />
       </HStack>
     )
   }
 
+  const secondsInDay = 86400n
+
   const estimatedDate = new Date(
-    {
-      PENDING: block.timestamp + 12 * (startBlock - block.number),
-      ACTIVE: block.timestamp + 12 * (endBlock - block.number),
-      QUEUED: executionETA!,
-      EXECUTABLE: executionETA! + 14 * secondsInDay,
-    }[effectiveStatus] * 1000
+    Number(
+      {
+        PENDING: block.timestamp + 12n * (BigInt(startBlock) - block.number),
+        ACTIVE: block.timestamp + 12n * (BigInt(endBlock) - block.number),
+        QUEUED: executionETA!,
+        EXECUTABLE: BigInt(executionETA!) + 14n * secondsInDay,
+      }[effectiveStatus]
+    ) * 1000
   )
 
   const estimatedTimeRemaining = formatTimeRemaining(estimatedDate)
 
   return (
     <Tooltip hasArrow label={estimatedDate.toLocaleString()}>
-      <HStack
-        color={"whiteAlpha.300"}
-        fontSize={"xs"}
-        fontWeight={"semibold"}
-        px={2}
-      >
+      <HStack color={"whiteAlpha.300"} fontSize={"xs"} fontWeight={"semibold"} px={2}>
         <Text>
           {
             {

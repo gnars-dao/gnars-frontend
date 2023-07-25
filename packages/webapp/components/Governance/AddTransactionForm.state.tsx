@@ -5,7 +5,7 @@ import { persist } from "zustand/middleware"
 
 export type TransactionKind = "Send ETH" | "Call contract"
 
-export type ParameterValue = string | ParameterValue[]
+export type ParameterValue = string | string[] | ParameterValue[]
 
 export interface AddTransactionFormState {
   isOpen: boolean
@@ -22,7 +22,7 @@ export interface AddTransactionFormState {
   func: AbiFunction | undefined
   setFunc: (func: AbiFunction) => void
   funcParams: ParameterValue[]
-  setFuncParam: (indices: number[], value: string) => void
+  setFuncParam: (indices: number[], value: string | string[]) => void
   clear: () => void
 }
 
@@ -39,8 +39,7 @@ export const useAddTransactionFormState = create<AddTransactionFormState>()(
       abi: "",
       setAbi: (abi) => set({ abi }),
       func: undefined,
-      setFunc: (func) =>
-        set({ func, funcParams: func.inputs.map(getDefaultParamValue) }),
+      setFunc: (func) => set({ func, funcParams: func.inputs.map(getDefaultParamValue) }),
       funcParams: [],
       setFuncParam: (indices, value) =>
         set(
@@ -79,10 +78,7 @@ const getDefaultParamValue = (param: AbiParameter): ParameterValue => {
   return ""
 }
 
-export const getFuncParam = (
-  funcParams: ParameterValue[],
-  indices: number[]
-) => {
+export const getFuncParam = (funcParams: ParameterValue[], indices: number[]) => {
   let curr: ParameterValue = funcParams
   for (let i = 0; i < indices.length; i++) {
     curr = curr[indices[i]]

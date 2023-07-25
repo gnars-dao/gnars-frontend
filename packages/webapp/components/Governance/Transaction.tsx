@@ -4,48 +4,46 @@ import { AccountAddress } from "components/AccountAddress"
 import { AccountWithAvatar } from "components/AccountWithAvatar"
 import { ContractBreadcrumbs } from "components/ContractBreadcrumbs"
 import { ParamSpec, ParamsTable } from "components/ParamsTable"
-import { BigNumber, utils } from "ethers"
-import { formatEther, ParamType, Result } from "ethers/lib/utils"
-import {
-  getEffectiveAbi,
-  useEtherscanContractInfo,
-} from "hooks/useEtherscanContractInfo"
+import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo"
 import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback"
-import { FC } from "react"
+import { FC, useMemo } from "react"
 import { NounsTransactionData } from "utils/governanceUtils"
-import { getAbiItem } from "viem"
+import { decodeFunctionData, formatEther, getAbiItem, parseAbiItem } from "viem"
 import { useEnsAvatar } from "wagmi"
 
 export interface TransactionProps extends StackProps {
   data: NounsTransactionData
 }
 
-export const Transaction: FC<TransactionProps> = ({
-  data: { calldata, signature, target, value },
-  ...props
-}) => {
-  const { data: contractInfo, isLoading: isLoadingContractInfo } =
-    useEtherscanContractInfo(target)
-  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } =
-    useNnsNameWithEnsFallback(target)
+export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature, target, value }, ...props }) => {
+  const { data: contractInfo, isLoading: isLoadingContractInfo } = useEtherscanContractInfo(target)
+  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(target)
   const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
-    address: target as `0x${string}`,
+    name: nnsOrEnsName,
   })
 
   const truncateAddress = useBreakpointValue({ base: true, md: false })
 
   const effectiveAbi = contractInfo ? getEffectiveAbi(contractInfo) : undefined
 
-  if (!signature) {
+  const partialFunc = useMemo(
+    () => (signature ? (parseAbiItem(`function ${signature}`) as AbiFunction) : undefined),
+    [signature]
+  )
+
+  const decodedCall = useMemo(
+    () => (partialFunc ? decodeFunctionData({ abi: [partialFunc], data: calldata }) : undefined),
+    [partialFunc, calldata]
+  )
+
+  if (!partialFunc || !decodedCall) {
     return (
       <VStack alignItems={"start"} {...props}>
         <Text>
           Transfer <strong>{formatEther(value)}</strong> ETH to
         </Text>
         <AccountWithAvatar
-          isLoading={
-            isLoadingContractInfo || isLoadingNnsOrEnsName || isLoadingEnsAvatar
-          }
+          isLoading={isLoadingContractInfo || isLoadingNnsOrEnsName || isLoadingEnsAvatar}
           address={target}
           avatarImg={ensAvatar ?? undefined}
         >
@@ -57,29 +55,17 @@ export const Transaction: FC<TransactionProps> = ({
     )
   }
 
-  const iface = new utils.Interface(["function " + signature!])
-  const func = iface.getFunction(signature!)
-  const decodedData = iface.decodeFunctionData(
-    func.name,
-    iface.getSighash(signature!) + calldata.replace("0x", "")
-  )
-
   const fullFunc = effectiveAbi
-    ? (getAbiItem({ abi: effectiveAbi, name: func.name }) as AbiFunction)
+    ? (getAbiItem({ abi: effectiveAbi, name: decodedCall.functionName }) as AbiFunction)
     : undefined
 
   return (
     <VStack alignItems={"start"} spacing={4} {...props}>
       <Text>
-        Call <strong>{func.name}</strong>{" "}
-        {BigNumber.from(value).gt(0)
-          ? ` with ${formatEther(value)} ETH on`
-          : " on"}
+        Call <strong>{decodedCall.functionName}</strong> {value > 0n ? ` with ${formatEther(value)} ETH on` : " on"}
       </Text>
       <AccountWithAvatar
-        isLoading={
-          isLoadingContractInfo || isLoadingNnsOrEnsName || isLoadingEnsAvatar
-        }
+        isLoading={isLoadingContractInfo || isLoadingNnsOrEnsName || isLoadingEnsAvatar}
         address={target}
         avatarImg={ensAvatar ?? undefined}
       >
@@ -88,25 +74,15 @@ export const Transaction: FC<TransactionProps> = ({
       </AccountWithAvatar>
       {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
 
-      {signature && func.inputs.length > 0 && (
-        <ParamsTable
-          params={(fullFunc ?? func).inputs.map((f, i) =>
-            toParamSpec(f, i, decodedData)
-          )}
-        />
-      )}
+      <ParamsTable params={(fullFunc ?? partialFunc).inputs.map((p, i) => toParamSpec(p, i, decodedCall.args!))} />
     </VStack>
   )
 }
 
-const toParamSpec = (
-  param: ParamType | AbiParameter,
-  i: number,
-  decodedData: Result
-): ParamSpec => ({
+const toParamSpec = (param: AbiParameter, i: number, decodedData: readonly unknown[]): ParamSpec => ({
   description: `${param.name ?? i} (${param.type})`,
   value:
     "components" in param && param.components !== null
-      ? param.components.map((c, j) => toParamSpec(c, j, decodedData[i]))
-      : decodedData[i].toString(),
+      ? param.components.map((c, j) => toParamSpec(c, j, decodedData[i] as unknown[]))
+      : decodedData[i]!.toString(),
 })

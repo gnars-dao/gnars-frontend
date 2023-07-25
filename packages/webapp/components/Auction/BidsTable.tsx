@@ -1,17 +1,7 @@
-import {
-  Link,
-  Table,
-  TableContainer,
-  TableContainerProps,
-  Tbody,
-  Td,
-  Text,
-  Tr,
-  useColorMode,
-} from "@chakra-ui/react"
-import { formatEther } from "ethers/lib/utils"
+import { Link, Table, TableContainer, TableContainerProps, Tbody, Td, Text, Tr, useColorMode } from "@chakra-ui/react"
 import { FC } from "react"
 import { HiExternalLink } from "react-icons/hi"
+import { formatEther } from "viem"
 import { Bid } from "../../hooks/useGnarData"
 import { AvatarWallet } from "../AvatarWallet"
 
@@ -37,25 +27,13 @@ export const BidsTable: FC<BidsProps> = ({ bids, ...props }) => {
         <Tbody>
           {bids.map((bid, i) => (
             <Tr key={`bid-${i}`}>
-              <Td
-                borderColor={borderColor}
-                borderBottomWidth={i === amountBids - 1 ? 0 : 1}
-              >
+              <Td borderColor={borderColor} borderBottomWidth={i === amountBids - 1 ? 0 : 1}>
                 <AvatarWallet address={bid.bidder} justifySelf={"start"} />
               </Td>
-              <Td
-                borderColor={borderColor}
-                borderBottomWidth={i === amountBids - 1 ? 0 : 1}
-                isNumeric
-              >
-                <Link
-                  isExternal
-                  justifySelf={"end"}
-                  alignSelf={"center"}
-                  href={`https://etherscan.io/tx/${bid.id}`}
-                >
+              <Td borderColor={borderColor} borderBottomWidth={i === amountBids - 1 ? 0 : 1} isNumeric>
+                <Link isExternal justifySelf={"end"} alignSelf={"center"} href={`https://etherscan.io/tx/${bid.id}`}>
                   <Text>
-                    {formatEther(bid.amount)} ETH{" "}
+                    {formatEther(BigInt(bid.amount))} ETH{" "}
                     <HiExternalLink
                       style={{
                         display: "inline",

@@ -16,12 +16,12 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react"
-import { BigNumber } from "ethers"
 import { useRouter } from "next/router"
 import { FC, useMemo } from "react"
 import { FaTrashAlt } from "react-icons/fa"
 import { usePrepareGnarsDaoPropose } from "utils/sdk"
 import { useContractWrite } from "wagmi"
+import { waitForTransaction } from "wagmi/actions"
 import { AddTransactionForm } from "./AddTransactionForm"
 import { useAddTransactionFormState } from "./AddTransactionForm.state"
 import { useProposalCreationState } from "./ProposalCreationForm.state"
@@ -29,18 +29,9 @@ import { TransactionCard } from "./TransactionCard"
 
 export interface ProposalCreationFormProps extends StackProps {}
 
-export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
-  ...props
-}) => {
-  const {
-    title,
-    setTitle,
-    description,
-    setDescription,
-    transactions,
-    setTransactions,
-    clear,
-  } = useProposalCreationState()
+export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }) => {
+  const { title, setTitle, description, setDescription, transactions, setTransactions, clear } =
+    useProposalCreationState()
   const { isOpen: isAddTxOpen, open: openAddTx } = useAddTransactionFormState()
   const isInvalid = !title || !description || transactions.length === 0
   const { push } = useRouter()
@@ -50,33 +41,21 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
         ? { targets: [], values: [], signatures: [], calldatas: [] }
         : transactions.reduce(
             (transactions, transaction) => ({
-              targets: [
-                ...transactions.targets,
-                transaction.target as `0x${string}`,
-              ],
-              values: [
-                ...transactions.values,
-                BigNumber.from(transaction.value),
-              ],
+              targets: [...transactions.targets, transaction.target as `0x${string}`],
+              values: [...transactions.values, transaction.value],
               signatures: [...transactions.signatures, transaction.signature],
-              calldatas: [
-                ...transactions.calldatas,
-                transaction.calldata as `0x${string}`,
-              ],
+              calldatas: [...transactions.calldatas, transaction.calldata as `0x${string}`],
             }),
             {
               targets: [] as `0x${string}`[],
-              values: [] as BigNumber[],
+              values: [] as bigint[],
               signatures: [] as string[],
               calldatas: [] as `0x${string}`[],
             }
           ),
     [transactions, isInvalid]
   )
-  const proposalDescription = useMemo(
-    () => `# ${title}\n\n${description}`,
-    [title, description]
-  )
+  const proposalDescription = useMemo(() => `# ${title}\n\n${description}`, [title, description])
   const { config } = usePrepareGnarsDaoPropose({
     args: [targets, values, signatures, calldatas, proposalDescription],
     enabled: !isInvalid,
@@ -98,11 +77,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
     >
       <FormControl isRequired>
         <FormLabel>Title</FormLabel>
-        <Input
-          placeholder="Insert the proposal title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+        <Input placeholder="Insert the proposal title" value={title} onChange={(e) => setTitle(e.target.value)} />
       </FormControl>
       <FormControl isRequired>
         <FormLabel>Description</FormLabel>
@@ -140,13 +115,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
                 controls={
                   <Popover size={"xs"}>
                     <PopoverTrigger>
-                      <IconButton
-                        variant={"ghost"}
-                        size={"sm"}
-                        p={0}
-                        aria-label={"remove"}
-                        icon={<FaTrashAlt />}
-                      />
+                      <IconButton variant={"ghost"} size={"sm"} p={0} aria-label={"remove"} icon={<FaTrashAlt />} />
                     </PopoverTrigger>
                     <PopoverContent w={"fit-content"}>
                       <PopoverArrow />
@@ -180,10 +149,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
             ))
           )}
           {isAddTxOpen ? (
-            <AddTransactionForm
-              w={"full"}
-              onAddTransaction={(tx) => setTransactions([...transactions, tx])}
-            />
+            <AddTransactionForm w={"full"} onAddTransaction={(tx) => setTransactions([...transactions, tx])} />
           ) : (
             <Button
               variant={"outline"}
@@ -205,13 +171,12 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
         alignSelf={"end"}
         onClick={() =>
           propose?.()
-            .then((tx) => tx.wait())
+            .then((tx) => waitForTransaction({ hash: tx.hash }))
             .then(() => {
               toast({
                 title: "Proposal submitted",
                 status: "success",
-                description:
-                  "Your proposal has been submitted successfully. Redirecting to proposals page ...",
+                description: "Your proposal has been submitted successfully. Redirecting to proposals page ...",
                 duration: 3000,
                 onCloseComplete: () => {
                   clear()
@@ -223,8 +188,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({
               toast({
                 title: "Submission failed",
                 status: "error",
-                description:
-                  "Something went wrong. Check your wallet for details.",
+                description: "Something went wrong. Check your wallet for details.",
               })
             })
         }

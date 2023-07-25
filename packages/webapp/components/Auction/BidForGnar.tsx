@@ -14,34 +14,23 @@ import {
   Text,
   useNumberInput,
 } from "@chakra-ui/react"
-import { BigNumber } from "ethers"
-import { formatEther, parseEther } from "ethers/lib/utils"
 import { FC, useState } from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa"
-import { mainnet } from "wagmi/chains"
+import { formatEther, parseEther } from "viem"
 import { useGnarsV2AuctionHouseCreateBid } from "../../utils/sdk"
 import { ContractActionButton } from "../ContractActionButton"
 
-const minBidIncrementPercentage = 5
+const minBidIncrementPercentage = 5n
 
 export type BidForGnarProps = {
   gnarId: string
   latestBid?: string | null
 } & StackProps
-export const BidForGnar: FC<BidForGnarProps> = ({
-  gnarId,
-  latestBid,
-  ...props
-}) => {
+export const BidForGnar: FC<BidForGnarProps> = ({ gnarId, latestBid, ...props }) => {
   const RESERVE_PRICE = parseEther("0.01") // @TODO add this info to the subgraph so it's always up-to-date
   const currentBid = latestBid ?? "0"
-  const incrementedBid = BigNumber.from(currentBid)
-    .mul(minBidIncrementPercentage)
-    .div(100)
-    .add(currentBid)
-  const minBid = incrementedBid.gt(RESERVE_PRICE)
-    ? incrementedBid
-    : RESERVE_PRICE
+  const incrementedBid = (BigInt(currentBid) * minBidIncrementPercentage) / 100n + BigInt(currentBid)
+  const minBid = incrementedBid > RESERVE_PRICE ? incrementedBid : RESERVE_PRICE
 
   const minBidEth = parseFloat(formatEther(minBid))
   const [treasuryAllocation, setTreasuryAllocation] = useState<number>(90)
@@ -62,25 +51,17 @@ export const BidForGnar: FC<BidForGnarProps> = ({
   const inc = getIncrementButtonProps()
   const dec = getDecrementButtonProps()
   const input = getInputProps()
-  const isValidBid = BigNumber.from(parseEther(bidAmount)).gte(minBid)
+  const isValidBid = parseEther(bidAmount) > minBid
 
   const { isLoading, write: placeBid } = useGnarsV2AuctionHouseCreateBid({
-    mode: "recklesslyUnprepared",
-    args: [BigNumber.from(gnarId), founderAllocation, treasuryAllocation],
-    overrides: {
-      value: parseEther(bidAmount),
-      gasLimit: BigNumber.from(100_000), // to prevent out of gas errors with auction extensions
-    },
-    chainId: mainnet.id,
+    args: [BigInt(gnarId), founderAllocation, treasuryAllocation],
+    value: parseEther(bidAmount),
+    gas: 100_000n, // to prevent out of gas errors with auction extensions
   })
 
   return (
     <Stack direction={{ base: "column", md: "row" }} spacing={4} {...props}>
-      <ButtonGroup
-        isAttached
-        w={{ base: "full", md: "sm", lg: "2xs" }}
-        minW={{ base: "full", md: "sm", lg: 60 }}
-      >
+      <ButtonGroup isAttached w={{ base: "full", md: "sm", lg: "2xs" }} minW={{ base: "full", md: "sm", lg: 60 }}>
         <IconButton
           variant={"outline"}
           aria-label={"decrease"}
@@ -133,14 +114,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({
         >
           BID ALLOCATION
         </SliderMark>
-        <SliderMark
-          value={0}
-          top={"50%"}
-          w={"full"}
-          textAlign={"center"}
-          mt={-2}
-          fontSize={"2xs"}
-        >
+        <SliderMark value={0} top={"50%"} w={"full"} textAlign={"center"} mt={-2} fontSize={"2xs"}>
           |
         </SliderMark>
         <SliderMark

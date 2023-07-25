@@ -22,38 +22,27 @@ import { AccountWithAvatar } from "components/AccountWithAvatar"
 import { AvatarWallet } from "components/AvatarWallet"
 import { isValidName } from "ethers/lib/utils.js"
 import { useAccountQuery } from "hooks/useAccountQuery"
-import {
-  delegationInfoQueryKey,
-  useDelegationInfo,
-} from "hooks/useDelegationInfo"
+import { delegationInfoQueryKey, useDelegationInfo } from "hooks/useDelegationInfo"
 import { FC, useState } from "react"
 import { useDebounce } from "usehooks-ts"
 import { useGnarsV2TokenDelegate } from "utils/sdk"
-import { mainnet, useAccount } from "wagmi"
+import { useAccount } from "wagmi"
+import { waitForTransaction } from "wagmi/actions"
 
-export interface UpdateDelegateModalProps
-  extends Omit<ModalProps, "children"> {}
+export interface UpdateDelegateModalProps extends Omit<ModalProps, "children"> {}
 
-export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({
-  onClose,
-  ...props
-}) => {
+export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...props }) => {
   const { address: userAddress } = useAccount()
   const { data: delegation } = useDelegationInfo(userAddress)
   const currentDelegate = delegation?.account?.delegate?.id
   const { invalidateQueries } = useQueryClient()
   const [accountQuery, setAccountQuery] = useState<string>("")
   const debouncedAccountQuery = useDebounce(accountQuery, 600)
-  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(
-    debouncedAccountQuery
-  )
+  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountQuery)
   const toast = useToast()
-  const { writeAsync: delegate, isLoading: isDelegating } =
-    useGnarsV2TokenDelegate({
-      mode: "recklesslyUnprepared",
-      args: [address!],
-      chainId: mainnet.id,
-    })
+  const { writeAsync: delegate, isLoading: isDelegating } = useGnarsV2TokenDelegate({
+    args: [address!],
+  })
   return (
     <Modal isCentered onClose={onClose} {...props}>
       <ModalOverlay />
@@ -74,27 +63,13 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({
                 onChange={(e) => setAccountQuery(e.target.value)}
                 placeholder="gnars.eth / 0x558bfff0d583416f7c4e380625c7865821b8e95c"
               />
-              <FormHelperText>
-                You can use an address or an ENS name
-              </FormHelperText>
+              <FormHelperText>You can use an address or an ENS name</FormHelperText>
             </FormControl>
-            <AccountWithAvatar
-              isLoading={isLoading}
-              address={address}
-              avatarImg={ensAvatar}
-            >
-              {!address && (
-                <Text>
-                  {!!accountQuery
-                    ? accountQuery
-                    : "Enter the destination account"}
-                </Text>
-              )}
+            <AccountWithAvatar isLoading={isLoading} address={address} avatarImg={ensAvatar}>
+              {!address && <Text>{!!accountQuery ? accountQuery : "Enter the destination account"}</Text>}
               {accountQuery && !address && !isLoading && (
                 <Text color={"red.300"}>
-                  {isValidName(accountQuery)
-                    ? "Account not found"
-                    : "Invalid query. Use an address or ens name"}
+                  {isValidName(accountQuery) ? "Account not found" : "Invalid query. Use an address or ens name"}
                 </Text>
               )}
               {address && <AccountAddress truncate address={address} />}
@@ -114,13 +89,10 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({
             <Button
               isLoading={isDelegating}
               loadingText={"Delegating"}
-              isDisabled={
-                !address ||
-                currentDelegate.toLowerCase() === address.toLowerCase()
-              }
+              isDisabled={!address || currentDelegate.toLowerCase() === address.toLowerCase()}
               onClick={() =>
                 delegate?.()
-                  .then((tx) => tx.wait())
+                  .then((tx) => waitForTransaction({ hash: tx.hash }))
                   .then(() => {
                     invalidateQueries(delegationInfoQueryKey(userAddress))
                     setAccountQuery("")
@@ -130,8 +102,7 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({
                     toast({
                       status: "error",
                       title: "Error",
-                      description:
-                        "Something went wrong. Check your wallet for details",
+                      description: "Something went wrong. Check your wallet for details",
                     })
                   )
               }

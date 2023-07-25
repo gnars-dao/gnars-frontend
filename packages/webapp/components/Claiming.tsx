@@ -11,7 +11,6 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react"
-import { BigNumber } from "ethers"
 import { useEffect, useState } from "react"
 import { useAccount, useContractWrite } from "wagmi"
 import { mainnet } from "wagmi/chains"
@@ -36,7 +35,7 @@ export const Claiming = () => {
   const { isLoading, data: ogGnars } = useWalletOgGnars(address)
 
   const { config } = usePrepareGnarsV2AuctionHouseClaimGnars({
-    args: [selectedOgGnars.map((id) => BigNumber.from(id))],
+    args: [selectedOgGnars.map((id) => BigInt(id))],
     enabled: selectedOgGnars.length > 0,
     chainId: mainnet.id,
   })

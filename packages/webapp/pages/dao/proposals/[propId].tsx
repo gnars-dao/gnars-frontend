@@ -19,7 +19,6 @@ import {
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { VoteAction } from "components/Governance/Actions/VoteAction"
 import { ProposalTimeline } from "components/Governance/ProposalTimeline"
-import { BigNumber } from "ethers"
 import { motion } from "framer-motion"
 import { useBlock } from "hooks/useBlock"
 import { useDelegationInfo } from "hooks/useDelegationInfo"
@@ -35,12 +34,9 @@ import {
   getQuorumVotes,
   getTransactions,
 } from "utils/governanceUtils"
-import {
-  useGnarsDaoCancel,
-  useGnarsDaoExecute,
-  useGnarsDaoQueue,
-} from "utils/sdk"
+import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "utils/sdk"
 import { useAccount } from "wagmi"
+import { waitForTransaction } from "wagmi/actions"
 import { execute, ProposalDocument } from "../../../.graphclient"
 import { ProposalCard } from "../../../components/Governance/ProposalCard"
 import ProposalContent from "../../../components/Governance/ProposalContent"
@@ -51,17 +47,14 @@ export default function Proposal() {
   const router = useRouter()
   const block = useBlock()
   const { address } = useAccount()
-  const { propId } = router.query
+  const { propId } = router.query as { propId: string }
   const { data: proposal } = useQuery<DetailedProposalData>(
     ["proposal", propId],
-    () =>
-      execute(ProposalDocument, { id: propId }).then((r) => r!.data!.proposal),
+    () => execute(ProposalDocument, { id: propId }).then((r) => r!.data!.proposal),
     { keepPreviousData: true }
   )
 
-  const effectiveStatus =
-    proposal &&
-    getProposalEffectiveStatus(proposal, block?.number, block?.timestamp)
+  const effectiveStatus = proposal && getProposalEffectiveStatus(proposal, block?.number, block?.timestamp)
 
   const proposer = proposal?.proposer?.id as `0x${string}`
   const { data: delegationInfo } = useDelegationInfo(proposer)
@@ -70,39 +63,27 @@ export default function Proposal() {
     ? parseInt(delegationInfo.delegate.delegatedVotes)
     : 0
 
-  const proposalThreshold = proposal?.proposalThreshold
-    ? parseInt(proposal.proposalThreshold)
-    : Number.MAX_SAFE_INTEGER
+  const proposalThreshold = proposal?.proposalThreshold ? parseInt(proposal.proposalThreshold) : Number.MAX_SAFE_INTEGER
   const canQueue = proposal && address && effectiveStatus === "SUCCEEDED"
   const canExecute = proposal && address && effectiveStatus === "EXECUTABLE"
   const canCancel =
     proposal &&
-    (
-      [
-        "ACTIVE",
-        "PENDING",
-        "QUEUED",
-        "EXECUTABLE",
-        "SUCCEEDED",
-      ] as EffectiveProposalStatus[]
-    ).includes(effectiveStatus!) &&
+    (["ACTIVE", "PENDING", "QUEUED", "EXECUTABLE", "SUCCEEDED"] as EffectiveProposalStatus[]).includes(
+      effectiveStatus!
+    ) &&
     address &&
-    (proposer.toLowerCase() === address?.toLowerCase() ||
-      currentProposerVotes < proposalThreshold)
+    (proposer.toLowerCase() === address?.toLowerCase() || currentProposerVotes < proposalThreshold)
 
   const { writeAsync: cancelProp } = useGnarsDaoCancel({
-    mode: "recklesslyUnprepared",
-    args: [BigNumber.from(propId ?? 0)],
+    args: [BigInt(propId ?? 0)],
   })
 
   const { writeAsync: queueProp } = useGnarsDaoQueue({
-    mode: "recklesslyUnprepared",
-    args: [BigNumber.from(propId ?? 0)],
+    args: [BigInt(propId ?? 0)],
   })
 
   const { writeAsync: executeProp } = useGnarsDaoExecute({
-    mode: "recklesslyUnprepared",
-    args: [BigNumber.from(propId ?? 0)],
+    args: [BigInt(propId ?? 0)],
   })
 
   const refreshProposal = useCallback(() => {
@@ -119,19 +100,9 @@ export default function Proposal() {
 
   return (
     <DarkMode>
-      <VStack
-        w={"full"}
-        h={"fit-content"}
-        color={"chakra-body-text"}
-        spacing={6}
-      >
+      <VStack w={"full"} h={"fit-content"} color={"chakra-body-text"} spacing={6}>
         <Menu />
-        <Container
-          centerContent
-          w={{ base: "full", md: "fit-content" }}
-          maxWidth={"none"}
-          gap={2}
-        >
+        <Container centerContent w={{ base: "full", md: "fit-content" }} maxWidth={"none"} gap={2}>
           <HStack w={"full"} justify={"space-between"}>
             <Link href={"/dao"} style={{ alignSelf: "start" }}>
               <Button variant={"link"} leftIcon={<RiArrowGoBackFill />}>
@@ -163,11 +134,7 @@ export default function Proposal() {
                 w={{ base: "full", md: "3xl" }}
                 id={proposal.id}
                 title={proposal.title}
-                status={getProposalEffectiveStatus(
-                  proposal,
-                  block?.number,
-                  block?.timestamp
-                )}
+                status={getProposalEffectiveStatus(proposal, block?.number, block?.timestamp)}
                 quorumVotes={quorumVotes}
                 votes={{
                   abstainVotes: proposal.abstainVotes,
@@ -193,47 +160,27 @@ export default function Proposal() {
                         md: `"for abstain against"`,
                       }}
                     >
-                      <HStack
-                        spacing={2}
-                        gridArea={"for"}
-                        divider={<Text color={"governance.quorum"}>/</Text>}
-                      >
+                      <HStack spacing={2} gridArea={"for"} divider={<Text color={"governance.quorum"}>/</Text>}>
                         {proposal.forVotes > 0 && (
-                          <Text color={"governance.vote.for"}>
-                            {`${proposal.forVotes} FOR`}
-                          </Text>
+                          <Text color={"governance.vote.for"}>{`${proposal.forVotes} FOR`}</Text>
                         )}
                         <Text color={"governance.quorum"} gridArea={"for"}>
                           {`${quorumVotes?.current} REQUIRED`}
                         </Text>
                       </HStack>
                       {proposal.abstainVotes > 0 && (
-                        <Text
-                          color={"governance.vote.abstain"}
-                          justifySelf={{ md: "center" }}
-                          gridArea={"abstain"}
-                        >
+                        <Text color={"governance.vote.abstain"} justifySelf={{ md: "center" }} gridArea={"abstain"}>
                           {`${proposal.abstainVotes} ABSTAIN`}
                         </Text>
                       )}
                       {proposal.againstVotes > 0 && (
-                        <Text
-                          color={"governance.vote.against"}
-                          justifySelf={{ md: "end" }}
-                          gridArea={"against"}
-                        >
+                        <Text color={"governance.vote.against"} justifySelf={{ md: "end" }} gridArea={"against"}>
                           {`${proposal.againstVotes} AGAINST`}
                         </Text>
                       )}
                     </SimpleGrid>
                   ))}
-                <Tabs
-                  index={tabIndex}
-                  w={"full"}
-                  colorScheme={"purple"}
-                  size={"sm"}
-                  variant={"line"}
-                >
+                <Tabs index={tabIndex} w={"full"} colorScheme={"purple"} size={"sm"} variant={"line"}>
                   <TabList
                     zIndex={1}
                     justifyContent={"start"}
@@ -253,19 +200,13 @@ export default function Proposal() {
                     <TabPanel p={0}>
                       <ProposalContent
                         actions={
-                          <Stack
-                            direction={{ base: "column", md: "row" }}
-                            align={{ md: "center" }}
-                            h={"fit-content"}
-                          >
-                            {effectiveStatus === "ACTIVE" && (
-                              <VoteAction proposal={proposal} />
-                            )}
+                          <Stack direction={{ base: "column", md: "row" }} align={{ md: "center" }} h={"fit-content"}>
+                            {effectiveStatus === "ACTIVE" && <VoteAction proposal={proposal} />}
                             {canCancel && (
                               <Button
                                 onClick={() =>
                                   cancelProp?.()
-                                    .then((tx) => tx.wait())
+                                    .then((tx) => waitForTransaction({ hash: tx.hash }))
                                     .then(refreshProposal)
                                 }
                                 variant={"outline"}
@@ -277,7 +218,7 @@ export default function Proposal() {
                               <Button
                                 onClick={() =>
                                   queueProp?.()
-                                    .then((tx) => tx.wait())
+                                    .then((tx) => waitForTransaction({ hash: tx.hash }))
                                     .then(refreshProposal)
                                 }
                                 variant={"outline"}
@@ -289,7 +230,7 @@ export default function Proposal() {
                               <Button
                                 onClick={() =>
                                   executeProp?.()
-                                    .then((tx) => tx.wait())
+                                    .then((tx) => waitForTransaction({ hash: tx.hash }))
                                     .then(refreshProposal)
                                 }
                                 variant={"outline"}
@@ -299,10 +240,7 @@ export default function Proposal() {
                             )}
                           </Stack>
                         }
-                        description={proposal.description.replace(
-                          `# ${proposal.title}`,
-                          ""
-                        )}
+                        description={proposal.description.replace(`# ${proposal.title}`, "")}
                         proposer={proposal.proposer.id as `0x${string}`}
                         transactions={getTransactions(proposal)}
                       />

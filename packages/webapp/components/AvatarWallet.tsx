@@ -11,10 +11,9 @@ export type AvatarWalletProps = {
 } & AccountWithAvatarProps
 
 export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
-  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } =
-    useNnsNameWithEnsFallback(address)
+  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(address)
   const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
-    address: address as `0x${string}`,
+    name: nnsOrEnsName,
   })
 
   return (

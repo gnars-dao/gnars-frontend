@@ -1,9 +1,8 @@
 import { Container, DarkMode, Stack, VStack } from "@chakra-ui/react"
 import { ProposalCreationForm } from "components/Governance/ProposalCreationForm"
 import { useProposalCreationState } from "components/Governance/ProposalCreationForm.state"
-import { constants } from "ethers"
-
 import dynamic from "next/dynamic"
+import { zeroAddress } from "viem"
 import { useAccount } from "wagmi"
 import { ProposalCard } from "../../../components/Governance/ProposalCard"
 import ProposalContent from "../../../components/Governance/ProposalContent"
@@ -16,12 +15,7 @@ function NewProposal() {
 
   return (
     <DarkMode>
-      <VStack
-        w={"full"}
-        h={"fit-content"}
-        color={"chakra-body-text"}
-        spacing={6}
-      >
+      <VStack w={"full"} h={"fit-content"} color={"chakra-body-text"} spacing={6}>
         <Menu />
         <Container maxW={{ base: "container.lg", "2xl": "full" }} centerContent>
           <Stack
@@ -45,7 +39,7 @@ function NewProposal() {
               <ProposalContent
                 description={description}
                 transactions={transactions}
-                proposer={address || constants.AddressZero}
+                proposer={address || zeroAddress}
               />
             </ProposalCard>
           </Stack>

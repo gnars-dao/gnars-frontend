@@ -28,17 +28,13 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { AvatarWallet } from "components/AvatarWallet"
-import { BigNumber } from "ethers"
 import { find } from "lodash"
 import { FC, useCallback, useMemo, useState } from "react"
 import { BiCommentDetail } from "react-icons/bi"
 import { DetailedProposalData, Support } from "utils/governanceUtils"
-import {
-  useGnarsDaoCastVote,
-  useGnarsDaoCastVoteWithReason,
-  useGnarsV2TokenGetPriorVotes,
-} from "utils/sdk"
+import { useGnarsDaoCastVote, useGnarsDaoCastVoteWithReason, useGnarsV2TokenGetPriorVotes } from "utils/sdk"
 import { useAccount } from "wagmi"
+import { waitForTransaction } from "wagmi/actions"
 
 export interface VoteActionProps extends ButtonProps {
   proposal?: DetailedProposalData
@@ -58,37 +54,32 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
   const accountVote = useMemo(() => {
     const voteEvent = find(
       proposal?.events,
-      (e) =>
-        e.kind === "VOTED" && e.from.toLowerCase() === address?.toLowerCase()
+      (e) => e.kind === "VOTED" && e.from.toLowerCase() === address?.toLowerCase()
     )
     return voteEvent?.vote
   }, [proposal?.events, address])
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { writeAsync: voteWithoutReason } = useGnarsDaoCastVote({
-    mode: "recklesslyUnprepared",
-  })
+  const { writeAsync: voteWithoutReason } = useGnarsDaoCastVote()
 
-  const { writeAsync: voteWithReason } = useGnarsDaoCastVoteWithReason({
-    mode: "recklesslyUnprepared",
-  })
+  const { writeAsync: voteWithReason } = useGnarsDaoCastVoteWithReason()
 
   const isVoting = isVotingSupport !== undefined
-  const propId = BigNumber.from(proposal?.id ?? 0)
+  const propId = BigInt(proposal?.id ?? 0)
   const vote = useCallback(
     (support: Support) => {
-      if (propId.isZero()) return
+      if (propId === 0n) return
       setIsVotingSupport(support)
 
       return (
         reason.length > 0
           ? voteWithReason({
-              recklesslySetUnpreparedArgs: [propId, support, reason],
+              args: [propId, support, reason],
             })
           : voteWithoutReason({
-              recklesslySetUnpreparedArgs: [propId, support],
+              args: [propId, support],
             })
       )
-        .then((tx) => tx.wait())
+        .then((tx) => waitForTransaction({ hash: tx.hash }))
         .then(() => {
           toast({ status: "success", title: "Vote submitted" })
           onClose()
@@ -105,18 +96,10 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
           setIsVotingSupport(undefined)
         })
     },
-    [
-      reason,
-      setIsVotingSupport,
-      voteWithReason,
-      voteWithoutReason,
-      propId,
-      onClose,
-      toast,
-    ]
+    [reason, setIsVotingSupport, voteWithReason, voteWithoutReason, propId, onClose, toast]
   )
 
-  const canVote = accountVotesOnProp && accountVotesOnProp.gt(0)
+  const canVote = accountVotesOnProp && accountVotesOnProp > 0
   const reasonPlacement = useBreakpointValue<PlacementWithLogical>({
     base: "bottom-end",
     sm: "right-end",
@@ -141,11 +124,7 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
           <Text fontSize={{ base: "md", md: "xs" }} color={"whiteAlpha.400"}>
             YOU VOTED
           </Text>
-          <Text color={color}>
-            {`${accountVotesOnProp} ${Support[
-              accountVote?.supportDetailed
-            ].toUpperCase()}`}
-          </Text>
+          <Text color={color}>{`${accountVotesOnProp} ${Support[accountVote?.supportDetailed].toUpperCase()}`}</Text>
         </Stack>
         {accountVote?.reason && (
           <Popover offset={[0, 16]} placement={reasonPlacement}>
@@ -176,12 +155,7 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
 
   return (
     <>
-      <Button
-        isDisabled={hasVoted}
-        variant={"subtle"}
-        onClick={onOpen}
-        {...props}
-      >
+      <Button isDisabled={hasVoted} variant={"subtle"} onClick={onOpen} {...props}>
         Vote
       </Button>
       {!hasVoted && (
@@ -201,13 +175,11 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
             <ModalBody>
               <VStack spacing={10}>
                 <VStack alignItems={"start"} spacing={0} alignSelf={"start"}>
-                  <Text fontWeight={"bold"}>Voting with:</Text>
-                  <AvatarWallet address={address} />
-                  {accountVotesOnProp && (
-                    <Text
-                      fontWeight={"bold"}
-                    >{`${accountVotesOnProp} votes`}</Text>
-                  )}
+                  <>
+                    <Text fontWeight={"bold"}>Voting with:</Text>
+                    <AvatarWallet address={address} />
+                    {accountVotesOnProp && <Text fontWeight={"bold"}>{`${accountVotesOnProp} votes`}</Text>}
+                  </>
                 </VStack>
                 <FormControl>
                   <FormLabel>Reason (optional)</FormLabel>
@@ -218,12 +190,7 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
                     minH={24}
                   />
                 </FormControl>
-                <SimpleGrid
-                  gap={2}
-                  columns={{ base: 1, sm: 3 }}
-                  w={"full"}
-                  alignItems={"stretch"}
-                >
+                <SimpleGrid gap={2} columns={{ base: 1, sm: 3 }} w={"full"} alignItems={"stretch"}>
                   <Button
                     colorScheme={"green"}
                     isLoading={isVoting && isVotingSupport === Support.For}
