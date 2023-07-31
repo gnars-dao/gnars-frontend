@@ -55,7 +55,7 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
         PENDING: block.timestamp + 12n * (BigInt(startBlock) - block.number),
         ACTIVE: block.timestamp + 12n * (BigInt(endBlock) - block.number),
         QUEUED: executionETA!,
-        EXECUTABLE: BigInt(executionETA!) + 14n * secondsInDay,
+        EXECUTABLE: BigInt(executionETA ?? 0) + 14n * secondsInDay,
       }[effectiveStatus]
     ) * 1000
   )
