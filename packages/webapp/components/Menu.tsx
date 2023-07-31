@@ -1,15 +1,7 @@
 import Link from "next/link"
 import { useState } from "react"
 
-import {
-  Button,
-  Center,
-  CenterProps,
-  HStack,
-  IconButton,
-  Link as ExternalLink,
-  Stack,
-} from "@chakra-ui/react"
+import { Button, Center, CenterProps, Link as ExternalLink, HStack, IconButton, Stack } from "@chakra-ui/react"
 import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
 import { GnarsLogo } from "./GnarsLogo"
 import { ShredIcon } from "./Icons"
@@ -32,11 +24,7 @@ export default function Menu(props: MenuProps) {
         p={4}
         maxW={"1116px"}
       >
-        <HStack
-          justifyContent={"space-between"}
-          alignItems={"end"}
-          w={{ base: "full", lg: "fit-content" }}
-        >
+        <HStack justifyContent={"space-between"} alignItems={"end"} w={{ base: "full", lg: "fit-content" }}>
           <HStack flexShrink={0} spacing={6}>
             <Link href="/">
               <GnarsLogo filter={"drop-shadow(0 0 1px #0005)"} />
@@ -45,9 +33,7 @@ export default function Menu(props: MenuProps) {
           </HStack>
           <IconButton
             variant={"outline"}
-            icon={
-              <FaBars style={{ marginLeft: "auto", marginRight: "auto" }} />
-            }
+            icon={<FaBars style={{ marginLeft: "auto", marginRight: "auto" }} />}
             fontSize="20px"
             aria-label="Show menu"
             hideFrom={"lg"}
@@ -68,21 +54,12 @@ export default function Menu(props: MenuProps) {
             </Button>
           </Link>
           <Link href="/dao">
-            <Button
-              w={"full"}
-              variant={"outline"}
-              verticalAlign={"center"}
-              leftIcon={<FaUsers size={"1em"} />}
-            >
+            <Button w={"full"} variant={"outline"} verticalAlign={"center"} leftIcon={<FaUsers size={"1em"} />}>
               DAO
             </Button>
           </Link>
 
-          <ExternalLink
-            href="https://gnars.com"
-            isExternal
-            rel="noopener noreferrer"
-          >
+          <ExternalLink href="https://gnars.com" isExternal rel="noopener noreferrer">
             <Button w={"full"} variant={"outline"} leftIcon={<FaBookOpen />}>
               About
             </Button>
@@ -94,7 +71,7 @@ export default function Menu(props: MenuProps) {
           </Link>
           <WalletButton hideFrom={"lg"} w="full" />
         </Stack>
-        <WalletButton hideBelow={"md"} />
+        <WalletButton hideBelow={"lg"} />
       </Stack>
     </Center>
   )
