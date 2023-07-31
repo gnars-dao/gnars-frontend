@@ -8,7 +8,7 @@ import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanCon
 import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback"
 import { FC, useMemo } from "react"
 import { NounsTransactionData } from "utils/governanceUtils"
-import { decodeFunctionData, formatEther, getAbiItem, parseAbiItem } from "viem"
+import { decodeFunctionData, formatEther, getAbiItem, getFunctionSelector, parseAbiItem } from "viem"
 import { useEnsAvatar } from "wagmi"
 
 export interface TransactionProps extends StackProps {
@@ -32,8 +32,14 @@ export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature,
   )
 
   const decodedCall = useMemo(
-    () => (partialFunc ? decodeFunctionData({ abi: [partialFunc], data: calldata }) : undefined),
-    [partialFunc, calldata]
+    () =>
+      partialFunc
+        ? decodeFunctionData({
+            abi: [partialFunc],
+            data: (getFunctionSelector(signature) + calldata.substring(2)) as `0x${string}`,
+          })
+        : undefined,
+    [partialFunc, calldata, signature]
   )
 
   if (!partialFunc || !decodedCall) {
