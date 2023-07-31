@@ -26,13 +26,7 @@ const londrinaSolid = Londrina_Solid({
 export default function Explainer() {
   return (
     <Box color={"chakra-body-text"} bgColor={"chakra-body-bg"}>
-      <VStack
-        px={[2, 6]}
-        py={{ base: 10, sm: 32 }}
-        spacing={{ base: 10, sm: 32 }}
-        w={"full"}
-        justifyContent={"center"}
-      >
+      <VStack px={[2, 6]} py={{ base: 10, sm: 32 }} spacing={{ base: 10, sm: 32 }} w={"full"} justifyContent={"center"}>
         <Stack
           px={0}
           w={"full"}
@@ -71,13 +65,7 @@ export default function Explainer() {
           px={4}
           maxW={"container.lg"}
           spacing={10}
-          divider={
-            <Divider
-              orientation="horizontal"
-              borderWidth={1}
-              borderColor={"chakra-body-text"}
-            />
-          }
+          divider={<Divider orientation="horizontal" borderWidth={1} borderColor={"chakra-body-text"} />}
         >
           <Section>
             <Heading as="h1" fontSize={"6xl"}>
@@ -97,16 +85,12 @@ export default function Explainer() {
                 fully onchain on Ethereum with no external dependencies (not
                 even IPFS), and each one represents a DAO vote. We're changing
                 the way extreme sport is funded with `}
-              <TextLink href="https://nouns.wtf/vote/51">
-                backing from Nouns DAO
-              </TextLink>
-              .
+              <TextLink href="https://nouns.wtf/vote/51">backing from Nouns DAO</TextLink>.
             </p>
 
             <p>
-              Start creating Gnars off-chain using the{" "}
-              <TextLink href={"/playground"}>Playground</TextLink> or learn more
-              at <TextLink href="https://gnars.com">gnars.com</TextLink>.
+              Start creating Gnars off-chain using the <TextLink href={"/playground"}>Playground</TextLink> or learn
+              more at <TextLink href="https://gnars.com">gnars.com</TextLink>.
             </p>
           </Section>
 
@@ -116,43 +100,24 @@ export default function Explainer() {
             </Heading>
             <UnorderedList listStylePos={"inside"}>
               <ListItem>Gnars artwork is in the public domain.</ListItem>
-              <ListItem>
-                One Gnar is trustlessly auctioned every 10 minutes, then less
-                often, forever.
-              </ListItem>
-              <ListItem>
-                By “less often” we mean auction length doubles every 1000
-                auctions.
-              </ListItem>
-              <ListItem>
-                Gnar auction proceeds are trustlessly sent to the treasury and
-                founder.
-              </ListItem>
-              <ListItem>
-                Setting the bid slider determines the resulting percentage
-                split.
-              </ListItem>
+              <ListItem>One Gnar is trustlessly auctioned every 10 minutes, then less often, forever.</ListItem>
+              <ListItem>By “less often” we mean auction length doubles every 1000 auctions.</ListItem>
+              <ListItem>Gnar auction proceeds are trustlessly sent to the treasury and founder.</ListItem>
+              <ListItem>Setting the bid slider determines the resulting percentage split.</ListItem>
               <ListItem>Settlement of one auction kicks off the next.</ListItem>
               <ListItem>All Gnars are members of Gnars DAO.</ListItem>
               <ListItem>One Gnar is equal to one vote.</ListItem>
-              <ListItem>
-                The treasury is controlled exclusively by Gnars via governance.
-              </ListItem>
-              <ListItem>
-                Artwork is generative and stored directly onchain (not IPFS).
-              </ListItem>
+              <ListItem>The treasury is controlled exclusively by Gnars via governance.</ListItem>
+              <ListItem>Artwork is generative and stored directly onchain (not IPFS).</ListItem>
               <ListItem>Shredders receive 10% of supply.</ListItem>
             </UnorderedList>
           </Section>
 
-          <Section>
+          <Section id="gnarving">
             <Heading as="h2" fontSize={"4xl"}>
               Gnarving Auctions
             </Heading>
-            <Stack
-              direction={{ base: "column", xl: "row-reverse" }}
-              alignItems={"center"}
-            >
+            <Stack direction={{ base: "column", xl: "row-reverse" }} alignItems={"center"}>
               <VStack flexShrink={0} w={{ base: "full", sm: "sm" }}>
                 <Heading>Auctions</Heading>
                 <Image
@@ -180,26 +145,20 @@ export default function Explainer() {
               </VStack>
               <VStack spacing={8}>
                 <p>
-                  The Gnars Auction Contract will act as a self-sufficient Gnar
-                  generation and distribution mechanism, auctioning one Gnar
-                  every 10 minutes, then less often, forever. As per the supply
-                  curve diagram shown above, auction duration doubles every 1000
-                  auctions, known as “The Gnarving” and in effect halving the
+                  The Gnars Auction Contract will act as a self-sufficient Gnar generation and distribution mechanism,
+                  auctioning one Gnar every 10 minutes, then less often, forever. As per the supply curve diagram shown
+                  above, auction duration doubles every 1000 auctions, known as “The Gnarving” and in effect halving the
                   supply emission each time.
                 </p>
                 <p>
-                  Auction proceeds (ETH) are automatically sent to the Gnars DAO
-                  treasury and to our founder 0xigami.eth, depending on what
-                  balance you set with the bid slider. You can even choose not
-                  to reward the founder if you wish. Funds received to the
-                  treasury are governed by Gnar owners.
+                  Auction proceeds (ETH) are automatically sent to the Gnars DAO treasury and to our founder
+                  0xigami.eth, depending on what balance you set with the bid slider. You can even choose not to reward
+                  the founder if you wish. Funds received to the treasury are governed by Gnar owners.
                 </p>
                 <p>
-                  Each time an auction is settled, the settlement transaction
-                  will also cause a new Gnar to be minted and a new auction to
-                  begin. While settlement is most heavily incentivized for the
-                  winningbidder, it can be triggered by anyone, allowing the
-                  system to trustlessly auction Gnars as long as Ethereum is
+                  Each time an auction is settled, the settlement transaction will also cause a new Gnar to be minted
+                  and a new auction to begin. While settlement is most heavily incentivized for the winningbidder, it
+                  can be triggered by anyone, allowing the system to trustlessly auction Gnars as long as Ethereum is
                   operational and there are interested bidders.
                 </p>
               </VStack>
@@ -215,36 +174,32 @@ export default function Explainer() {
               Settlement
             </Heading>
             <p>
-              Anyone can settle an auction. When an auction ends, a gas-only
-              transaction is required to start the next auction and mint the
-              current Gnar to the winner’s wallet. As gas prices fluctuate, the
-              cost of settlement also fluctuates.
+              Anyone can settle an auction. When an auction ends, a gas-only transaction is required to start the next
+              auction and mint the current Gnar to the winner’s wallet. As gas prices fluctuate, the cost of settlement
+              also fluctuates.
             </p>
 
             <p>
-              Cost of settlement for every Gnar ID ending in 6 is higher as it
-              consumes more gas. This is due to the transaction also triggering
-              the free Gnar mint: all Gnars ending in 7 are sent to the treasury
-              and held on behalf of the Shredders.
+              Cost of settlement for every Gnar ID ending in 6 is higher as it consumes more gas. This is due to the
+              transaction also triggering the free Gnar mint: all Gnars ending in 7 are sent to the treasury and held on
+              behalf of the Shredders.
             </p>
             <Heading as={"h3"} fontSize={"2xl"}>
               Bids
             </Heading>
             <p>
-              Once an auction starts, everyone has 10 minutes to bid (auction
-              duration doubles every 1000 auctions from #627 onwards). Anyone
-              can bid an amount at/above 0.011 ETH. If your bid is outbid by
-              someone else, the full amount of your bid (minus gas spent to bid)
-              is returned to you in the same transaction as the new higher bid.
+              Once an auction starts, everyone has 10 minutes to bid (auction duration doubles every 1000 auctions from
+              #627 onwards). Anyone can bid an amount at/above 0.011 ETH. If your bid is outbid by someone else, the
+              full amount of your bid (minus gas spent to bid) is returned to you in the same transaction as the new
+              higher bid.
             </p>
             <Heading as={"h3"} fontSize={"2xl"}>
               Bid Refunds
             </Heading>
             <p>
-              Unsuccessful bids are refunded in full. Refunds are sent via an
-              internal transaction included in the transaction of a new higher
-              bid. This means that refunds for unsuccessful bids occur when a
-              higher bid is received.
+              Unsuccessful bids are refunded in full. Refunds are sent via an internal transaction included in the
+              transaction of a new higher bid. This means that refunds for unsuccessful bids occur when a higher bid is
+              received.
             </p>
           </Section>
 
@@ -253,18 +208,14 @@ export default function Explainer() {
               Gnars DAO
             </Heading>
             <p>
-              Gnars DAO utilizes a Gnosis Safe multisig, which combined with
-              Zodiac Reality Module and Snapshot, allows for gasless governance
-              voting. Gnars DAO is the main governing body of the Gnars
-              ecosystem and the Gnars DAO treasury receives whatever percentage
-              of ETH proceeds bidders choose at time of bidding.
+              Gnars DAO utilizes a Gnosis Safe multisig, which combined with Zodiac Reality Module and Snapshot, allows
+              for gasless governance voting. Gnars DAO is the main governing body of the Gnars ecosystem and the Gnars
+              DAO treasury receives whatever percentage of ETH proceeds bidders choose at time of bidding.
             </p>
             <p>
-              Each Gnar is an irrevocable member of Gnars DAO and entitled to
-              one vote in all governance matters. Gnar votes are
-              non-transferable (if you sell your Gnar the vote goes with it) but
-              delegatable, which means you can assign your vote to someone else
-              as long as you own your Gnar.
+              Each Gnar is an irrevocable member of Gnars DAO and entitled to one vote in all governance matters. Gnar
+              votes are non-transferable (if you sell your Gnar the vote goes with it) but delegatable, which means you
+              can assign your vote to someone else as long as you own your Gnar.
             </p>
           </Section>
 
@@ -287,9 +238,8 @@ export default function Explainer() {
             </UnorderedList>
             <p>
               You can experiment with off-chain Gnar generation at the {""}
-              <TextLink href={"/playground"}>Playground</TextLink>, or browse
-              through different traits by using filters on your favorite NFT
-              marketplace.
+              <TextLink href={"/playground"}>Playground</TextLink>, or browse through different traits by using filters
+              on your favorite NFT marketplace.
             </p>
           </Section>
           <Section>
@@ -297,17 +247,15 @@ export default function Explainer() {
               Onchain Artwork
             </Heading>
             <p>
-              Gnars are stored directly on Ethereum and do not utilize pointers
-              to other networks such as IPFS. This is possible because Gnar
-              parts are compressed and stored onchain using a custom run-length
-              encoding (RLE), which is a form of lossless compression.
+              Gnars are stored directly on Ethereum and do not utilize pointers to other networks such as IPFS. This is
+              possible because Gnar parts are compressed and stored onchain using a custom run-length encoding (RLE),
+              which is a form of lossless compression.
             </p>
             <p>
-              The compressed parts are efficiently converted into a single
-              base64 encoded SVG image onchain. To accomplish this, each part is
-              decoded into an intermediate format before being converted into a
-              series of SVG rects using batched, onchain string concatenation.
-              Once the entire SVG has been generated, it is base64 encoded.
+              The compressed parts are efficiently converted into a single base64 encoded SVG image onchain. To
+              accomplish this, each part is decoded into an intermediate format before being converted into a series of
+              SVG rects using batched, onchain string concatenation. Once the entire SVG has been generated, it is
+              base64 encoded.
             </p>
           </Section>
           <Section>
@@ -316,12 +264,10 @@ export default function Explainer() {
             </Heading>
 
             <p>
-              The Gnar Seeder contract is used to determine Gnar traits during
-              the minting process. The seeder contract can be replaced to allow
-              for future trait generation algorithm upgrades. Additionally, it
-              can be locked by the Gnars DAO to prevent any future updates.
-              Currently, Gnar traits are determined using pseudo-random number
-              generation:
+              The Gnar Seeder contract is used to determine Gnar traits during the minting process. The seeder contract
+              can be replaced to allow for future trait generation algorithm upgrades. Additionally, it can be locked by
+              the Gnars DAO to prevent any future updates. Currently, Gnar traits are determined using pseudo-random
+              number generation:
             </p>
             <Code colorScheme={"red"} p={4}>
               keccak256(
@@ -331,8 +277,7 @@ export default function Explainer() {
               blockhash(block.number - 1), gnarId))
             </Code>
             <p>
-              Trait generation is not truly random. Traits can be predicted when
-              minting a Gnar on the pending block.
+              Trait generation is not truly random. Traits can be predicted when minting a Gnar on the pending block.
             </p>
           </Section>
           <Section>
@@ -342,17 +287,14 @@ export default function Explainer() {
 
             <p>0xigami is the builder that initiated Gnars.</p>
             <p>
-              You have the choice to reward 0xigami with a percentage of a
-              successful bid, a tip, by setting the slider to a suitable
-              position. By default the slider is set to the midpoint, as a 50/50
-              split meaning that half of your bid, if successful, would be
-              deposited to 0xigami.eth during settlement.
+              You have the choice to reward 0xigami with a percentage of a successful bid, a tip, by setting the slider
+              to a suitable position. By default the slider is set to the midpoint, as a 50/50 split meaning that half
+              of your bid, if successful, would be deposited to 0xigami.eth during settlement.
             </p>
             <p>
-              From time to time we change the tip recipient in order to
-              facilitate promotions with other CC0 projects included in our
-              protocol. For example, Nounvember, where all tips during the month
-              of November are sent to the Nouns DAO treasury.
+              From time to time we change the tip recipient in order to facilitate promotions with other CC0 projects
+              included in our protocol. For example, Nounvember, where all tips during the month of November are sent to
+              the Nouns DAO treasury.
             </p>
           </Section>
         </VStack>
