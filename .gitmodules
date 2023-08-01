@@ -4,3 +4,6 @@
 [submodule "packages/gnars-hd/lib/openzeppelin-contracts"]
 	path = packages/gnars-hd/lib/openzeppelin-contracts
 	url = https://github.com/openzeppelin/openzeppelin-contracts
+[submodule "packages/gnars-hd/lib/base64"]
+	path = packages/gnars-hd/lib/base64
+	url = https://github.com/Brechtpd/base64
