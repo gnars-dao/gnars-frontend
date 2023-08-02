@@ -19,6 +19,7 @@ export default async function gnarHdHandler(req: NextApiRequest, res: NextApiRes
   res.writeHead(200, {
     "Content-Type": "image/png",
     "Content-Length": gnarHd.length,
+    "Cache-Control": "public, max-age=2678400",
   })
   res.write(gnarHd)
 }
