@@ -1,61 +1,82 @@
-import {
-  Box,
-  BoxProps,
-  Button,
-  ButtonProps,
-  DarkMode,
-  HStack,
-  IconButton,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverProps,
-  PopoverTrigger,
-  SimpleGrid,
-  SimpleGridProps,
-  StackProps,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react"
-import { FaInfo } from "react-icons/fa"
-import { MdFileDownload } from "react-icons/md"
+import { Box, BoxProps, DarkMode, HStack, Icon, Image, Switch, keyframes } from "@chakra-ui/react"
 import { FC, useRef } from "react"
-import { getGnartwork } from "../utils"
+import { BsBadgeHd } from "react-icons/bs"
+import { getGnarsHdLoImageUrl } from "utils/gnarsHD"
 import { GnarData } from "../hooks/useGnarData"
-import { FaSquareFull } from "react-icons/fa"
-import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "./Icons"
+import { getGnartwork } from "../utils"
+import { useGnarState } from "./Gnar.state"
 import { GnarImage } from "./GnarImage"
 import { GnarToolbar } from "./GnarToolbar"
 
 interface GnarProps extends BoxProps {
   isOg: boolean
+  isHD?: boolean
   gnarData?: GnarData
 }
 
 const Gnar: FC<GnarProps> = ({ isOg, gnarData, ...props }) => {
   const gnarImageRef = useRef<HTMLImageElement>(null)
-  const gnartwork = gnarData
-    ? getGnartwork(isOg, gnarData.gnar.seed)
-    : undefined
+  const { hdOn, toggleHd } = useGnarState()
+  const showHd = !isOg && hdOn
+  const gnartwork = gnarData ? getGnartwork(isOg, gnarData.gnar.seed) : undefined
+  const gnarsHdUrl = gnarData?.gnar?.seed && !isOg ? getGnarsHdLoImageUrl(gnarData!.gnar.seed) : undefined
+
+  console.log({ gnarsHdUrl })
 
   return (
     <Box overflow={"visible!important"} position={"relative"} {...props}>
-      <GnarImage isOg={isOg} gnartwork={gnartwork} ref={gnarImageRef} />
+      {showHd ? (
+        <Image src={gnarsHdUrl} alt={`Gnar HD #${gnarData?.gnar.gnarId}`} ref={gnarImageRef} />
+      ) : (
+        <GnarImage isOg={isOg} gnartwork={gnartwork} ref={gnarImageRef} />
+      )}
 
       {gnarData && gnartwork && (
-        <GnarToolbar
-          isOg={isOg}
-          downloadFilename={`gnar-${gnarData.gnar.gnarId}`}
-          gnarImageRef={gnarImageRef}
-          gnartwork={gnartwork}
-          position={"absolute"}
-          bottom={-12}
-          left={"auto"}
-          right={"auto"}
-        />
+        <DarkMode>
+          <HStack position={"absolute"} bottom={-12} left={"auto"} right={"auto"}>
+            <GnarToolbar
+              isOg={isOg}
+              downloadFilename={`gnar-${gnarData.gnar.gnarId}`}
+              gnarImageRef={gnarImageRef}
+              gnartwork={gnartwork}
+            />
+            {!isOg && (
+              <HStack h={10} p={2} borderRadius={"full"} borderWidth={1}>
+                <Switch isChecked={hdOn} onChange={toggleHd} colorScheme="orange" size="lg" />
+                <Icon
+                  boxSize={6}
+                  as={BsBadgeHd}
+                  color={hdOn ? "orange.200" : "gray"}
+                  animation={hdOn ? undefined : `2s ${shake} infinite`}
+                />
+              </HStack>
+            )}
+          </HStack>
+        </DarkMode>
       )}
     </Box>
   )
 }
 export default Gnar
+
+const shake = keyframes`
+
+0%,
+35%,
+100%, {
+  transform: translate3d(0, 0, 0);
+}
+
+5%,
+15%,
+25% {
+  transform: translate3d(0, -3px, 0);
+}
+
+10%,
+20%,
+30% {
+  transform: translate3d(0, 3px, 0);
+}
+  
+`

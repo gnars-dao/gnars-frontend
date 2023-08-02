@@ -115,9 +115,7 @@ export const GnarToolbar: FC<GnarToolbarProps> = ({
             const canvas = document.createElement("canvas")
             canvas.width = 512
             canvas.height = 512
-            canvas
-              .getContext("2d")
-              ?.drawImage(gnarImageRef.current!, 0, 0, 512, 512)
+            canvas.getContext("2d")?.drawImage(gnarImageRef.current!, 0, 0, 512, 512)
             const link = document.createElement("a")
             link.href = canvas.toDataURL()
             link.download = `${downloadFilename}.png`

@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
 import { getBuiltGraphSDK, GnarQuery } from "../.graphclient"
-import { V2_START_ID } from "../constants/contracts"
+import { V2_START_ID } from "../constants/gnarsDao"
 
 export type Bid = {
   bidder: string
@@ -67,9 +67,7 @@ export type GnarData = {
   gnarving: GnarvingData
 }
 
-export const fetchGnarData = async (
-  desiredGnarId?: number
-): Promise<GnarData> => {
+export const fetchGnarData = async (desiredGnarId?: number): Promise<GnarData> => {
   const sdk = getBuiltGraphSDK()
   const isOg = !!desiredGnarId && desiredGnarId < V2_START_ID
 
@@ -163,16 +161,9 @@ export const fetchGnarData = async (
   }
 }
 
-export default function useGnarData(
-  desiredGnarId?: number,
-  initialData?: GnarData
-): UseQueryResult<GnarData> {
-  return useQuery<GnarData, [string, number | undefined]>(
-    ["gnar", desiredGnarId],
-    () => fetchGnarData(desiredGnarId),
-    {
-      refetchInterval: 2000,
-      initialData,
-    }
-  )
+export default function useGnarData(desiredGnarId?: number, initialData?: GnarData): UseQueryResult<GnarData> {
+  return useQuery<GnarData, [string, number | undefined]>(["gnar", desiredGnarId], () => fetchGnarData(desiredGnarId), {
+    refetchInterval: 2000,
+    initialData,
+  })
 }

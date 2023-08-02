@@ -1,14 +1,5 @@
 import { Link } from "@chakra-ui/next-js"
-import {
-  ButtonGroup,
-  Container,
-  HStack,
-  IconButton,
-  SimpleGrid,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react"
+import { ButtonGroup, Container, HStack, IconButton, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react"
 import {
   DAO_ADDRESS,
   MULTISIG_ADDRESS,
@@ -16,7 +7,7 @@ import {
   TREASURY_ADDRESS,
   V2_AUCTION_ADDRESS,
   V2_GNAR_ADDRESS,
-} from "constants/contracts"
+} from "constants/gnarsDao"
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa"
 import { GnarsLogo } from "./GnarsLogo"
 
@@ -109,12 +100,7 @@ export default function Footer() {
               </Text>
               <Stack spacing="3" shouldWrapChildren>
                 {group.links.map((link, idx) => (
-                  <Link
-                    key={idx}
-                    variant="text"
-                    colorScheme="gray"
-                    href={link.href}
-                  >
+                  <Link key={idx} variant="text" colorScheme="gray" href={link.href}>
                     {link.label}
                   </Link>
                 ))}
@@ -122,10 +108,7 @@ export default function Footer() {
             </Stack>
           ))}
         </SimpleGrid>
-        <VStack
-          w={{ base: "full", lg: "fit-content" }}
-          spacing={{ base: "4", md: "5" }}
-        >
+        <VStack w={{ base: "full", lg: "fit-content" }} spacing={{ base: "4", md: "5" }}>
           <HStack
             w={{ base: "full", lg: "fit-content" }}
             justify={{ base: "space-between", lg: "start" }}

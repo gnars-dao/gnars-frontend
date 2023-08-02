@@ -13,7 +13,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import { MULTISIG_ADDRESS, TREASURY_ADDRESS } from "constants/contracts"
+import { MULTISIG_ADDRESS, TREASURY_ADDRESS } from "constants/gnarsDao"
 import { useMemo } from "react"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
 import { formatEther } from "viem"

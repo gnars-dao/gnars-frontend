@@ -13,7 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { FC } from "react"
-import { V2_START_ID } from "../../constants/contracts"
+import { V2_START_ID } from "../../constants/gnarsDao"
 import useGnarData, { GnarData } from "../../hooks/useGnarData"
 import Gnar from "../Gnar"
 import Menu from "../Menu"
@@ -38,24 +38,10 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarData }) => {
 
   return (
     <ColorModeProvider value={hasDarkBg ? "dark" : "light"}>
-      <Box
-        color={"chakra-body-text"}
-        w={"full"}
-        sx={{ "--gnar-bg-color": gnarBgColor }}
-      >
+      <Box color={"chakra-body-text"} w={"full"} sx={{ "--gnar-bg-color": gnarBgColor }}>
         <Menu bgColor={gnarBgColor} />
-        <Stack
-          w={"full"}
-          h={"fit-content"}
-          direction={{ base: "column", lg: "row" }}
-          spacing={0}
-        >
-          <HStack
-            key={desiredGnarId}
-            bgColor={gnarBgColor}
-            flex={"auto"}
-            justifyContent={"center"}
-          >
+        <Stack w={"full"} h={"fit-content"} direction={{ base: "column", lg: "row" }} spacing={0}>
+          <HStack key={desiredGnarId} bgColor={gnarBgColor} flex={"auto"} justifyContent={"center"}>
             <AspectRatio ratio={1 / 1} w={"full"} maxW={["320px", "512px"]}>
               <Gnar isOg={isOg} gnarData={gnarData} />
             </AspectRatio>
