@@ -1,15 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next"
+import path from "path"
 import sharp from "sharp"
 
 export default async function gnarHdHandler(req: NextApiRequest, res: NextApiResponse<string>) {
   const { accessory, background, glasses, body, head } = req.query
 
-  const gnarHd = await sharp(`./public/gnars-hd/BACKGROUND/${background ?? "FALLBACK"}.PNG`)
+  const parts = path.resolve("./assets/gnars-hd/")
+
+  const gnarHd = await sharp(`${parts}/BACKGROUND/${background ?? "FALLBACK"}.PNG`)
     .composite([
-      { input: `./public/gnars-hd/BODY/${body ?? "FALLBACK"}.PNG` },
-      { input: `./public/gnars-hd/ACCESSORY/${accessory ?? "FALLBACK"}.PNG` },
-      { input: `./public/gnars-hd/HEADS/${head ?? "FALLBACK"}.PNG` },
-      { input: `./public/gnars-hd/NOGGLES/${glasses ?? "FALLBACK"}.PNG` },
+      { input: `${parts}/BODY/${body ?? "FALLBACK"}.PNG` },
+      { input: `${parts}/ACCESSORY/${accessory ?? "FALLBACK"}.PNG` },
+      { input: `${parts}/HEADS/${head ?? "FALLBACK"}.PNG` },
+      { input: `${parts}/NOGGLES/${glasses ?? "FALLBACK"}.PNG` },
     ])
     .toBuffer()
 
