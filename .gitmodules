@@ -7,3 +7,6 @@
 [submodule "packages/gnars-hd/lib/base64"]
 	path = packages/gnars-hd/lib/base64
 	url = https://github.com/Brechtpd/base64
+[submodule "packages/gnars-hd/lib/solmate"]
+	path = packages/gnars-hd/lib/solmate
+	url = https://github.com/transmissions11/solmate
