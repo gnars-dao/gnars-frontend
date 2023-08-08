@@ -112,7 +112,7 @@ export const HDClaiming = () => {
                 claimGnars().then((tx) =>
                   waitForTransaction({ hash: tx.hash })
                     .catch(console.error)
-                    .then(() => invalidateQueries(walletHDGnarsQueryKey))
+                    .then(() => invalidateQueries({ queryKey: [walletHDGnarsQueryKey] }))
                     .finally(() => {
                       setIsClaiming(false)
                     })
