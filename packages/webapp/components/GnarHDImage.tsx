@@ -3,7 +3,7 @@ import { forwardRef } from "@chakra-ui/react"
 import { useMemo } from "react"
 import { getGnarsHdHiImageUrl } from "utils/gnarsHD"
 
-export interface GnarHDImageProps extends ImageProps {
+export interface GnarHDImageProps extends Pick<ImageProps, "gridArea" | "width" | "height"> {
   gnarId: string
   seed: {
     accessory: number
@@ -16,5 +16,16 @@ export interface GnarHDImageProps extends ImageProps {
 
 export const GnarHDImage = forwardRef<GnarHDImageProps, "img">(({ seed, gnarId, ...props }, ref) => {
   const gnarsHdUrl = useMemo(() => (seed ? getGnarsHdHiImageUrl(gnarId, seed) : ""), [gnarId, seed])
-  return <Image {...props} width={512} height={512} src={gnarsHdUrl} alt={`Gnar HD #${gnarId}`} unoptimized ref={ref} />
+  return (
+    <Image
+      width={512}
+      height={512}
+      {...props}
+      placeholder="empty"
+      src={gnarsHdUrl}
+      alt={`Gnar HD #${gnarId}`}
+      unoptimized
+      ref={ref}
+    />
+  )
 })

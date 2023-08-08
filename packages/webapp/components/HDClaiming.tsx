@@ -24,7 +24,7 @@ import { GnarHDImage } from "./GnarHDImage"
 import { WalletButton } from "./WalletButton"
 
 export const HDClaiming = () => {
-  const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" })
+  const gnarSize = useBreakpointValue({ base: 96, lg: 128 })
   const { invalidateQueries } = useQueryClient()
   const { isDisconnected, address } = useAccount()
   const [isClaiming, setIsClaiming] = useState(false)
@@ -131,7 +131,7 @@ export const HDClaiming = () => {
           justifyContent={"center"}
           p={[2, 6]}
           borderRadius={"md"}
-          gridTemplateColumns={`repeat(auto-fit, ${gnarSize})`}
+          gridTemplateColumns={`repeat(auto-fit, ${gnarSize}px)`}
           spacing={4}
           overflow={"visible"}
         >
@@ -156,7 +156,13 @@ export const HDClaiming = () => {
                     Gnar HD {hdGnar.id}
                   </Text>
                   <SimpleGrid>
-                    <GnarHDImage gnarId={hdGnar.id} seed={hdGnar.seed!} gridArea={"1/1"} boxSize={gnarSize} />
+                    <GnarHDImage
+                      gnarId={hdGnar.id}
+                      seed={hdGnar.seed!}
+                      gridArea={"1/1"}
+                      width={gnarSize}
+                      height={gnarSize}
+                    />
                     {hdGnar.wasClaimed && (
                       <Box zIndex={999} bgColor={"blackAlpha.700"} gridArea={"1/1"}>
                         <Text w={"full"} textStyle={"h2"} position={"absolute"} bottom={2}>
