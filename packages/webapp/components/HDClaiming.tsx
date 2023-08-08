@@ -75,7 +75,10 @@ export const HDClaiming = () => {
       px={{ base: 4, lg: 20 }}
     >
       {amountClaimableHdGnars === 0 ? (
-        <Text>You have already claimed all your HD Gnars</Text>
+        <Alert alignSelf={"center"} w={"fit-content"} status="success">
+          <AlertIcon />
+          You have already claimed all your HD Gnars
+        </Alert>
       ) : (
         <Wrap justify={"center"}>
           <WrapItem>
