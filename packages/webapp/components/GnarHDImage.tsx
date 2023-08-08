@@ -1,7 +1,7 @@
-import { Image, ImageProps, forwardRef } from "@chakra-ui/react"
-import dynamic from "next/dynamic"
+import { Image, ImageProps } from "@chakra-ui/next-js"
+import { forwardRef } from "@chakra-ui/react"
 import { useMemo } from "react"
-import { getGnarsHdLoImageUrl } from "utils/gnarsHD"
+import { getGnarsHdHiImageUrl } from "utils/gnarsHD"
 
 export interface GnarHDImageProps extends ImageProps {
   gnarId: string
@@ -14,9 +14,7 @@ export interface GnarHDImageProps extends ImageProps {
   }
 }
 
-export const GnarHDImage = dynamic(() => Promise.resolve(StaticGnarHDImage), { ssr: false })
-
-const StaticGnarHDImage = forwardRef<GnarHDImageProps, "img">(({ seed, gnarId, ...props }, ref) => {
-  const gnarsHdUrl = useMemo(() => getGnarsHdLoImageUrl(seed), [seed])
-  return <Image src={gnarsHdUrl} alt={`Gnar HD #${gnarId}`} ref={ref} {...props} />
+export const GnarHDImage = forwardRef<GnarHDImageProps, "img">(({ seed, gnarId, ...props }, ref) => {
+  const gnarsHdUrl = useMemo(() => (seed ? getGnarsHdHiImageUrl(gnarId, seed) : ""), [gnarId, seed])
+  return <Image {...props} width={512} height={512} src={gnarsHdUrl} alt={`Gnar HD #${gnarId}`} unoptimized ref={ref} />
 })

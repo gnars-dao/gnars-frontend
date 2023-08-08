@@ -4,13 +4,7 @@ import Explainer from "components/Explainer"
 import { GetStaticProps } from "next"
 import { fetchGnarData, GnarData } from "../../hooks/useGnarData"
 
-export default function GnarPage({
-  gnarInfo,
-  gnarId,
-}: {
-  gnarInfo: GnarData
-  gnarId: number
-}) {
+export default function GnarPage({ gnarInfo, gnarId }: { gnarInfo: GnarData; gnarId: number }) {
   return (
     <>
       <GnarSection desiredGnarId={gnarId} initialGnarData={gnarInfo} />

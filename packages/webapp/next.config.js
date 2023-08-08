@@ -10,6 +10,13 @@ const nextConfig = {
 
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "api.zora.co",
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

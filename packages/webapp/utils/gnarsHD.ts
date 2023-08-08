@@ -1,7 +1,7 @@
 import { GNARS_HD_ADDRESS, GNARS_HD_IPFS_FOLDER, ZORA_IMAGE_STACKER_URI } from "constants/gnarsHD"
 import { GnarV2 } from "hooks/useGnarData"
 
-export const getGnarsHdHiImageUrl = ({ gnarId, seed: { accessory, background, body, glasses, head } }: GnarV2) =>
+export const getGnarsHdHiImageUrl = (gnarId: string, { accessory, background, body, glasses, head }: GnarV2["seed"]) =>
   `${ZORA_IMAGE_STACKER_URI}?contractAddress=${GNARS_HD_ADDRESS}&tokenId=${gnarId}${getPartMapping({
     accessory,
     background,
@@ -32,7 +32,7 @@ const getPartMapping = ({
 }): [string, number][] => [
   ["BACKGROUND", background],
   ["BODY", body],
-  ["ACESSORY", accessory],
+  ["ACCESSORY", accessory],
   ["HEADS", head],
   ["NOGGLES", glasses],
 ]
