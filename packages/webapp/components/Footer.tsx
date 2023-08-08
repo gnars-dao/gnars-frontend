@@ -2,16 +2,15 @@ import { Link } from "@chakra-ui/next-js"
 import { ButtonGroup, Container, HStack, IconButton, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react"
 import {
   DAO_ADDRESS,
-  GNAR_HD_ADDRESS,
   MULTISIG_ADDRESS,
   OG_GNAR_ADDRESS,
   TREASURY_ADDRESS,
   V2_AUCTION_ADDRESS,
   V2_GNAR_ADDRESS,
 } from "constants/gnarsDao"
+import { GNARS_HD_ADDRESS } from "constants/gnarsHD"
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa"
 import { GnarsLogo } from "./GnarsLogo"
-import { GNARS_HD_ADDRESS } from "constants/gnarsHD"
 
 const links = [
   {
