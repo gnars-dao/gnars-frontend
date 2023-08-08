@@ -24,7 +24,7 @@ export const GnarHDImage = forwardRef<GnarHDImageProps, "img">(({ seed, gnarId, 
       placeholder="empty"
       src={gnarsHdUrl}
       alt={`Gnar HD #${gnarId}`}
-      unoptimized
+      quality={100}
       ref={ref}
     />
   )
