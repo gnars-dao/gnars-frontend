@@ -4256,7 +4256,7 @@ export const GnarDocument = gql`
   latestGnar: gnars(first: 1, orderBy: creationTimestamp, orderDirection: desc) {
     id
   }
-  latestAuction: auctions(orderBy: startTime, orderDirection: desc) {
+  latestAuction: auctions(first: 1, orderBy: startTime, orderDirection: desc) {
     id
   }
 }
