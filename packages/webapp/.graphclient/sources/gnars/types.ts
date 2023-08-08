@@ -300,6 +300,7 @@ export type Auction_orderBy =
   | 'gnar'
   | 'gnar__id'
   | 'gnar__creationTimestamp'
+  | 'gnar__hdOwner'
   | 'amount'
   | 'startTime'
   | 'endTime'
@@ -446,6 +447,7 @@ export type Bid_orderBy =
   | 'gnar'
   | 'gnar__id'
   | 'gnar__creationTimestamp'
+  | 'gnar__hdOwner'
   | 'amount'
   | 'bidder'
   | 'bidder__id'
@@ -700,6 +702,7 @@ export type DelegationEvent_orderBy =
   | 'gnar'
   | 'gnar__id'
   | 'gnar__creationTimestamp'
+  | 'gnar__hdOwner'
   | 'previousDelegate'
   | 'previousDelegate__id'
   | 'previousDelegate__delegatedVotesRaw'
@@ -789,6 +792,8 @@ export type Gnar = {
   seed?: Maybe<Seed>;
   /** The owner of the Gnar */
   owner: Account;
+  /** The address of the HD Gnar counterpart last claimer */
+  hdOwner: Scalars['Bytes'];
   /** Historical votes for the Gnar */
   votes: Array<Vote>;
   /** The Gnar's auction */
@@ -863,6 +868,16 @@ export type Gnar_filter = {
   owner_not_ends_with?: InputMaybe<Scalars['String']>;
   owner_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
   owner_?: InputMaybe<Account_filter>;
+  hdOwner?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_not?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_gt?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_lt?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_gte?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_lte?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  hdOwner_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  hdOwner_contains?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_not_contains?: InputMaybe<Scalars['Bytes']>;
   votes_?: InputMaybe<Vote_filter>;
   auction?: InputMaybe<Scalars['String']>;
   auction_not?: InputMaybe<Scalars['String']>;
@@ -907,6 +922,7 @@ export type Gnar_orderBy =
   | 'owner__tokenBalance'
   | 'owner__totalTokensHeldRaw'
   | 'owner__totalTokensHeld'
+  | 'hdOwner'
   | 'votes'
   | 'auction'
   | 'auction__id'
@@ -3030,6 +3046,7 @@ export type TransferEvent_orderBy =
   | 'gnar'
   | 'gnar__id'
   | 'gnar__creationTimestamp'
+  | 'gnar__hdOwner'
   | 'previousHolder'
   | 'previousHolder__id'
   | 'previousHolder__tokenBalanceRaw'

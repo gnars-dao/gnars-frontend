@@ -323,6 +323,7 @@ export type Auction_orderBy =
   | 'gnar'
   | 'gnar__id'
   | 'gnar__creationTimestamp'
+  | 'gnar__hdOwner'
   | 'amount'
   | 'startTime'
   | 'endTime'
@@ -469,6 +470,7 @@ export type Bid_orderBy =
   | 'gnar'
   | 'gnar__id'
   | 'gnar__creationTimestamp'
+  | 'gnar__hdOwner'
   | 'amount'
   | 'bidder'
   | 'bidder__id'
@@ -723,6 +725,7 @@ export type DelegationEvent_orderBy =
   | 'gnar'
   | 'gnar__id'
   | 'gnar__creationTimestamp'
+  | 'gnar__hdOwner'
   | 'previousDelegate'
   | 'previousDelegate__id'
   | 'previousDelegate__delegatedVotesRaw'
@@ -812,6 +815,8 @@ export type Gnar = {
   seed?: Maybe<Seed>;
   /** The owner of the Gnar */
   owner: Account;
+  /** The address of the HD Gnar counterpart last claimer */
+  hdOwner: Scalars['Bytes'];
   /** Historical votes for the Gnar */
   votes: Array<Vote>;
   /** The Gnar's auction */
@@ -886,6 +891,16 @@ export type Gnar_filter = {
   owner_not_ends_with?: InputMaybe<Scalars['String']>;
   owner_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
   owner_?: InputMaybe<Account_filter>;
+  hdOwner?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_not?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_gt?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_lt?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_gte?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_lte?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  hdOwner_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  hdOwner_contains?: InputMaybe<Scalars['Bytes']>;
+  hdOwner_not_contains?: InputMaybe<Scalars['Bytes']>;
   votes_?: InputMaybe<Vote_filter>;
   auction?: InputMaybe<Scalars['String']>;
   auction_not?: InputMaybe<Scalars['String']>;
@@ -930,6 +945,7 @@ export type Gnar_orderBy =
   | 'owner__tokenBalance'
   | 'owner__totalTokensHeldRaw'
   | 'owner__totalTokensHeld'
+  | 'hdOwner'
   | 'votes'
   | 'auction'
   | 'auction__id'
@@ -3053,6 +3069,7 @@ export type TransferEvent_orderBy =
   | 'gnar'
   | 'gnar__id'
   | 'gnar__creationTimestamp'
+  | 'gnar__hdOwner'
   | 'previousHolder'
   | 'previousHolder__id'
   | 'previousHolder__tokenBalanceRaw'
@@ -3622,6 +3639,7 @@ export type GnarResolvers<ContextType = MeshContext, ParentType extends Resolver
   creationTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   seed?: Resolver<Maybe<ResolversTypes['Seed']>, ParentType, ContextType>;
   owner?: Resolver<ResolversTypes['Account'], ParentType, ContextType>;
+  hdOwner?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
   votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<GnarvotesArgs, 'skip' | 'first'>>;
   auction?: Resolver<Maybe<ResolversTypes['Auction']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -4041,6 +4059,12 @@ const merger = new(BareMerger as any)({
         },
         location: 'ProposalsDocument.graphql'
       },{
+        document: WalletHdGnarsDocument,
+        get rawSDL() {
+          return printWithCache(WalletHdGnarsDocument);
+        },
+        location: 'WalletHdGnarsDocument.graphql'
+      },{
         document: WalletOgGnarsDocument,
         get rawSDL() {
           return printWithCache(WalletOgGnarsDocument);
@@ -4142,6 +4166,16 @@ export type ProposalsQueryVariables = Exact<{ [key: string]: never; }>;
 export type ProposalsQuery = { _meta?: Maybe<{ block: Pick<_Block_, 'number' | 'timestamp'> }>, proposals: Array<(
     Pick<Proposal, 'id' | 'createdTimestamp' | 'startBlock' | 'endBlock' | 'executionETA' | 'title' | 'status' | 'forVotes' | 'abstainVotes' | 'againstVotes' | 'quorumVotes' | 'totalSupply' | 'minQuorumVotesBPS' | 'maxQuorumVotesBPS' | 'quorumCoefficient'>
     & { proposer: Pick<Delegate, 'id'> }
+  )> };
+
+export type WalletHDGnarsQueryVariables = Exact<{
+  owner: Scalars['String'];
+}>;
+
+
+export type WalletHDGnarsQuery = { gnars: Array<(
+    Pick<Gnar, 'id' | 'hdOwner'>
+    & { seed?: Maybe<Pick<Seed, 'accessory' | 'background' | 'body' | 'glasses' | 'head'>> }
   )> };
 
 export type WalletOgGnarsQueryVariables = Exact<{
@@ -4346,6 +4380,26 @@ export const ProposalsDocument = gql`
   }
 }
     ` as unknown as DocumentNode<ProposalsQuery, ProposalsQueryVariables>;
+export const WalletHDGnarsDocument = gql`
+    query WalletHDGnars($owner: String!) {
+  gnars(
+    first: 1000
+    where: {owner: $owner}
+    orderBy: creationTimestamp
+    orderDirection: desc
+  ) {
+    id
+    hdOwner
+    seed {
+      accessory
+      background
+      body
+      glasses
+      head
+    }
+  }
+}
+    ` as unknown as DocumentNode<WalletHDGnarsQuery, WalletHDGnarsQueryVariables>;
 export const WalletOgGnarsDocument = gql`
     query WalletOgGnars($owner: Bytes!) {
   ogGnars(where: {owner: $owner}) {
@@ -4359,6 +4413,7 @@ export const WalletOgGnarsDocument = gql`
   }
 }
     ` as unknown as DocumentNode<WalletOgGnarsQuery, WalletOgGnarsQueryVariables>;
+
 
 
 
@@ -4383,6 +4438,9 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     Proposals(variables?: ProposalsQueryVariables, options?: C): Promise<ProposalsQuery> {
       return requester<ProposalsQuery, ProposalsQueryVariables>(ProposalsDocument, variables, options) as Promise<ProposalsQuery>;
+    },
+    WalletHDGnars(variables: WalletHDGnarsQueryVariables, options?: C): Promise<WalletHDGnarsQuery> {
+      return requester<WalletHDGnarsQuery, WalletHDGnarsQueryVariables>(WalletHDGnarsDocument, variables, options) as Promise<WalletHDGnarsQuery>;
     },
     WalletOgGnars(variables: WalletOgGnarsQueryVariables, options?: C): Promise<WalletOgGnarsQuery> {
       return requester<WalletOgGnarsQuery, WalletOgGnarsQueryVariables>(WalletOgGnarsDocument, variables, options) as Promise<WalletOgGnarsQuery>;

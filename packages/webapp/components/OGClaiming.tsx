@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Center,
@@ -19,8 +21,9 @@ import { getGnartwork } from "../utils"
 import { usePrepareGnarsV2AuctionHouseClaimGnars } from "../utils/sdk"
 import { ContractActionButton } from "./ContractActionButton"
 import { GnarImage } from "./GnarImage"
+import { WalletButton } from "./WalletButton"
 
-export const Claiming = () => {
+export const OGClaiming = () => {
   const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" })
   const { isDisconnected, address } = useAccount()
   const [selectedOgGnars, setSelectedOgGnars] = useState<string[]>([])
@@ -29,8 +32,7 @@ export const Claiming = () => {
   }, [address])
 
   const selectOg = (id: string) => setSelectedOgGnars([...selectedOgGnars, id])
-  const deselectOg = (id: string) =>
-    setSelectedOgGnars(selectedOgGnars.filter((s) => s !== id))
+  const deselectOg = (id: string) => setSelectedOgGnars(selectedOgGnars.filter((s) => s !== id))
 
   const { isLoading, data: ogGnars } = useWalletOgGnars(address)
 
@@ -42,7 +44,7 @@ export const Claiming = () => {
   const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config)
 
   if (isDisconnected) {
-    return <Center flexGrow={1}>Connect to claim</Center>
+    return <WalletButton alignSelf={"center"} />
   }
 
   if (isLoading || !ogGnars) {
@@ -54,7 +56,12 @@ export const Claiming = () => {
   }
 
   if (ogGnars.length === 0) {
-    return <Center flexGrow={1}>You hold no OG Gnars</Center>
+    return (
+      <Alert alignSelf={"center"} w={"fit-content"} status="error">
+        <AlertIcon />
+        You hold no OG Gnars 🥲
+      </Alert>
+    )
   }
 
   const amountClaimableOgGnars = ogGnars.filter((og) => !og.wasClaimed).length
@@ -69,18 +76,17 @@ export const Claiming = () => {
       px={{ base: 4, lg: 20 }}
     >
       {amountClaimableOgGnars === 0 ? (
-        <Text>You have already claimed all your OG Gnars</Text>
+        <Alert alignSelf={"center"} w={"fit-content"} status="success">
+          <AlertIcon />
+          You have already claimed all your OG Gnars
+        </Alert>
       ) : (
         <Wrap justify={"center"}>
           <WrapItem>
             <Button
               variant={"outline"}
               isDisabled={ogGnars.length === selectedOgGnars.length}
-              onClick={() =>
-                setSelectedOgGnars(
-                  ogGnars.filter((og) => !og.wasClaimed).map((og) => og.id)
-                )
-              }
+              onClick={() => setSelectedOgGnars(ogGnars.filter((og) => !og.wasClaimed).map((og) => og.id))}
             >
               Select All
             </Button>
@@ -140,11 +146,7 @@ export const Claiming = () => {
                 isDisabled={ogGnar.wasClaimed}
                 isActive={isSelected}
                 onClick={
-                  ogGnar.wasClaimed
-                    ? undefined
-                    : isSelected
-                    ? () => deselectOg(ogGnar.id)
-                    : () => selectOg(ogGnar.id)
+                  ogGnar.wasClaimed ? undefined : isSelected ? () => deselectOg(ogGnar.id) : () => selectOg(ogGnar.id)
                 }
               >
                 <VStack alignItems={"start"} spacing={1}>
@@ -152,24 +154,10 @@ export const Claiming = () => {
                     OG Gnar {ogGnar.id}
                   </Text>
                   <SimpleGrid>
-                    <GnarImage
-                      gridArea={"1/1"}
-                      isOg={true}
-                      gnartwork={gnartWork}
-                      boxSize={gnarSize}
-                    />
+                    <GnarImage gridArea={"1/1"} isOg={true} gnartwork={gnartWork} boxSize={gnarSize} />
                     {ogGnar.wasClaimed && (
-                      <Box
-                        zIndex={999}
-                        bgColor={"blackAlpha.700"}
-                        gridArea={"1/1"}
-                      >
-                        <Text
-                          w={"full"}
-                          textStyle={"h2"}
-                          position={"absolute"}
-                          bottom={2}
-                        >
+                      <Box zIndex={999} bgColor={"blackAlpha.700"} gridArea={"1/1"}>
+                        <Text w={"full"} textStyle={"h2"} position={"absolute"} bottom={2}>
                           CLAIMED
                         </Text>
                       </Box>

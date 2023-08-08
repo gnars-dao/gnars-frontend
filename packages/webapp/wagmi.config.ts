@@ -41,6 +41,12 @@ export default defineConfig({
           },
         },
         {
+          name: "GnarsHD",
+          address: {
+            [mainnet.id as 1]: "0x75Cd3F538c091C1D514aB1aD9832f54198CAceC0" as `0x${string}`,
+          },
+        },
+        {
           name: "NNSENSReverseResolver",
           address: {
             [mainnet.id as 1]: "0x849F92178950f6254db5D16D1ba265E70521aC1B" as `0x${string}`,

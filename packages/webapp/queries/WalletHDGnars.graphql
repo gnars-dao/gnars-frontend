@@ -1,0 +1,13 @@
+query WalletHDGnars($owner: String!) {
+  gnars(first: 1000, where: { owner: $owner }, orderBy: creationTimestamp, orderDirection: desc) {
+    id
+    hdOwner
+    seed {
+      accessory
+      background
+      body
+      glasses
+      head
+    }
+  }
+}

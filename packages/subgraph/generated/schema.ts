@@ -670,6 +670,15 @@ export class Gnar extends Entity {
     this.set("owner", Value.fromString(value));
   }
 
+  get hdOwner(): Bytes {
+    let value = this.get("hdOwner");
+    return value!.toBytes();
+  }
+
+  set hdOwner(value: Bytes) {
+    this.set("hdOwner", Value.fromBytes(value));
+  }
+
   get votes(): Array<string> {
     let value = this.get("votes");
     return value!.toStringArray();

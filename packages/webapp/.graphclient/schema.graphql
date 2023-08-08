@@ -286,6 +286,7 @@ enum Auction_orderBy {
   gnar
   gnar__id
   gnar__creationTimestamp
+  gnar__hdOwner
   amount
   startTime
   endTime
@@ -433,6 +434,7 @@ enum Bid_orderBy {
   gnar
   gnar__id
   gnar__creationTimestamp
+  gnar__hdOwner
   amount
   bidder
   bidder__id
@@ -665,6 +667,7 @@ enum DelegationEvent_orderBy {
   gnar
   gnar__id
   gnar__creationTimestamp
+  gnar__hdOwner
   previousDelegate
   previousDelegate__id
   previousDelegate__delegatedVotesRaw
@@ -758,6 +761,8 @@ type Gnar {
   seed: Seed
   """The owner of the Gnar"""
   owner: Account!
+  """The address of the HD Gnar counterpart last claimer"""
+  hdOwner: Bytes!
   """Historical votes for the Gnar"""
   votes(skip: Int = 0, first: Int = 100, orderBy: Vote_orderBy, orderDirection: OrderDirection, where: Vote_filter): [Vote!]!
   """The Gnar's auction"""
@@ -823,6 +828,16 @@ input Gnar_filter {
   owner_not_ends_with: String
   owner_not_ends_with_nocase: String
   owner_: Account_filter
+  hdOwner: Bytes
+  hdOwner_not: Bytes
+  hdOwner_gt: Bytes
+  hdOwner_lt: Bytes
+  hdOwner_gte: Bytes
+  hdOwner_lte: Bytes
+  hdOwner_in: [Bytes!]
+  hdOwner_not_in: [Bytes!]
+  hdOwner_contains: Bytes
+  hdOwner_not_contains: Bytes
   votes_: Vote_filter
   auction: String
   auction_not: String
@@ -867,6 +882,7 @@ enum Gnar_orderBy {
   owner__tokenBalance
   owner__totalTokensHeldRaw
   owner__totalTokensHeld
+  hdOwner
   votes
   auction
   auction__id
@@ -3204,6 +3220,7 @@ enum TransferEvent_orderBy {
   gnar
   gnar__id
   gnar__creationTimestamp
+  gnar__hdOwner
   previousHolder
   previousHolder__id
   previousHolder__tokenBalanceRaw

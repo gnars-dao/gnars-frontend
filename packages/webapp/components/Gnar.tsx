@@ -1,10 +1,10 @@
-import { Box, BoxProps, DarkMode, HStack, Icon, Image, Switch, keyframes } from "@chakra-ui/react"
+import { Box, BoxProps, DarkMode, HStack, Icon, Switch, keyframes } from "@chakra-ui/react"
 import { FC, useMemo, useRef } from "react"
 import { BsBadgeHd } from "react-icons/bs"
-import { getGnarsHdLoImageUrl } from "utils/gnarsHD"
 import { GnarData } from "../hooks/useGnarData"
 import { getGnartwork } from "../utils"
 import { useGnarState } from "./Gnar.state"
+import { GnarHDImage } from "./GnarHDImage"
 import { GnarImage } from "./GnarImage"
 import { GnarToolbar } from "./GnarToolbar"
 
@@ -19,15 +19,11 @@ const Gnar: FC<GnarProps> = ({ isOg, gnarData, ...props }) => {
   const { hdOn, toggleHd } = useGnarState()
   const showHd = !isOg && hdOn
   const gnartwork = useMemo(() => (gnarData ? getGnartwork(isOg, gnarData.gnar.seed) : undefined), [gnarData, isOg])
-  const gnarsHdUrl = useMemo(
-    () => (gnarData?.gnar?.seed && !isOg ? getGnarsHdLoImageUrl(gnarData!.gnar.seed) : undefined),
-    [gnarData, isOg]
-  )
 
   return (
     <Box overflow={"visible!important"} position={"relative"} {...props}>
-      {showHd ? (
-        <Image src={gnarsHdUrl} alt={`Gnar HD #${gnarData?.gnar.gnarId}`} ref={gnarImageRef} />
+      {showHd && gnarData ? (
+        <GnarHDImage gnarId={gnarData.gnar.gnarId} seed={gnarData.gnar.seed} ref={gnarImageRef} />
       ) : (
         <GnarImage isOg={isOg} gnartwork={gnartwork} ref={gnarImageRef} />
       )}

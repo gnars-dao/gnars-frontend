@@ -99,9 +99,6 @@ dataSources:
         - event: AuctionTimeBufferUpdated(uint256)
           handler: handleAuctionTimeBufferUpdated
       callHandlers:
-        # FIXME: This handler was not called because this is the signature on the V2 Auction house.
-        # must change to the signature of initialize function of the initial contract implementation: 0x46e57901ea1EDD8A200cf982aF4FD8cc3A95797
-        # and then set this mapping up with the correct ABI
         - function: initialize(address,address,address,address,uint256,uint8,uint256,uint256,uint256)
           handler: handleInitialize
       file: ./src/gnars-v2-auction-house.ts
@@ -145,3 +142,23 @@ dataSources:
         - event: QuorumCoefficientSet(uint32,uint32)
           handler: handleQuorumCoefficientSet
       file: ./src/gnars-dao.ts
+  - kind: ethereum
+    name: GnarsHD
+    network: mainnet
+    source:
+      address: "0x75Cd3F538c091C1D514aB1aD9832f54198CAceC0"
+      abi: GnarsV2Token
+      startBlock: 17866013
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Gnar
+      abis:
+        - name: GnarsV2Token
+          file: ./abis/GnarsV2Token.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/gnars-hd.ts

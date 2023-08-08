@@ -1,11 +1,11 @@
-query WalletOgGnars ($owner: Bytes!) {
-    ogGnars(where: {owner: $owner}) {
-        id
-        wasClaimed
-        accessory
-        background
-        body
-        glasses
-        head
-    }
+query WalletOgGnars($owner: Bytes!) {
+  ogGnars(where: { owner: $owner }) {
+    id
+    wasClaimed
+    accessory
+    background
+    body
+    glasses
+    head
+  }
 }

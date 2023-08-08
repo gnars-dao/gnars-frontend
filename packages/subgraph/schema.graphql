@@ -169,6 +169,9 @@ type Gnar @entity {
   "The owner of the Gnar"
   owner: Account!
 
+  "The address of the HD Gnar counterpart last claimer"
+  hdOwner: Bytes!
+
   "Historical votes for the Gnar"
   votes: [Vote!]! @derivedFrom(field: "gnars")
 
