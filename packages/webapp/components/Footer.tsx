@@ -2,6 +2,7 @@ import { Link } from "@chakra-ui/next-js"
 import { ButtonGroup, Container, HStack, IconButton, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react"
 import {
   DAO_ADDRESS,
+  GNAR_HD_ADDRESS,
   MULTISIG_ADDRESS,
   OG_GNAR_ADDRESS,
   TREASURY_ADDRESS,
@@ -10,13 +11,14 @@ import {
 } from "constants/gnarsDao"
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa"
 import { GnarsLogo } from "./GnarsLogo"
+import { GNARS_HD_ADDRESS } from "constants/gnarsHD"
 
 const links = [
   {
     title: "Gnars DAO",
     links: [
       { label: "Auction", href: "/" },
-      { label: "Claim OG Gnars", href: "/claim" },
+      { label: "Claim Gnars", href: "/claim" },
       { label: "Gnars Playground", href: "/playground" },
       { label: "Propose Onchain", href: "/dao/proposals/new" },
       { label: "Onchain Proposals", href: "/dao" },
@@ -36,6 +38,10 @@ const links = [
       {
         label: "Gnars NFT",
         href: `https://etherscan.io/address/${V2_GNAR_ADDRESS}`,
+      },
+      {
+        label: "Gnars HD NFT",
+        href: `https://etherscan.io/address/${GNARS_HD_ADDRESS}`,
       },
       {
         label: "Gnars Auction House",
