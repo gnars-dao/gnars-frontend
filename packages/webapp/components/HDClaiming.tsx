@@ -109,14 +109,13 @@ export const HDClaiming = () => {
               loadingText={"Claiming"}
               onClick={() => {
                 setIsClaiming(true)
-                claimGnars().then((tx) =>
-                  waitForTransaction({ hash: tx.hash })
-                    .catch(console.error)
-                    .then(() => invalidateQueries({ queryKey: [walletHDGnarsQueryKey] }))
-                    .finally(() => {
-                      setIsClaiming(false)
-                    })
-                )
+                claimGnars()
+                  .then((tx) => waitForTransaction({ hash: tx.hash }))
+                  .then(() => invalidateQueries({ queryKey: [walletHDGnarsQueryKey] }))
+                  .catch(console.error)
+                  .finally(() => {
+                    setIsClaiming(false)
+                  })
               }}
             >
               Claim selected
