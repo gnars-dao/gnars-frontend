@@ -1,0 +1,10 @@
+{
+  "name": "gnars-hd-artwork",
+  "version": "1.0.0",
+  "main": "prepare.js",
+  "author": "Volky",
+  "license": "CC0",
+  "dependencies": {
+    "sharp": "^0.32.4"
+  }
+}
