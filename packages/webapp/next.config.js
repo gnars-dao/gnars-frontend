@@ -16,6 +16,7 @@ const nextConfig = {
         hostname: "api.zora.co",
       },
     ],
+    formats: [],
   },
 }
 
