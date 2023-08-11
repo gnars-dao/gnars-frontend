@@ -25,6 +25,10 @@ const links = [
         label: "Offchain Proposals",
         href: "https://snapshot.org/#/gnars.eth",
       },
+      {
+        label: "Prop House",
+        href: "https://prop.house/gnars",
+      },
     ],
   },
   {
