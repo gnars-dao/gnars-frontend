@@ -72,25 +72,20 @@ export default function Explainer() {
               WTF?
             </Heading>
             <p>
-              <TextLink href="https://gnars.com"> Gnars</TextLink>{" "}
-              {`is a
-                community owned (and run) extreme sports club. We prefer a world
-                where kids aren't shilled energy drinks by their heroes. So as a
-                community of action sports enthusiasts, we've formed a DAO to
-                rethink how shredders get sponsored.`}
+              <TextLink href="https://gnars.com"> Gnars</TextLink> is a headless brand that empowers action sportspeople
+              with a shared treasury and tools for collective creation. We prefer a world where kids aren&#x2019;t
+              shilled energy drinks by their heroes. So we&#x2019;ve formed a DAO to rethink how shredders get paid.
             </p>
 
             <p>
-              {`Based on Nouns open source code and CC0 artwork, they're stored
-                fully onchain on Ethereum with no external dependencies (not
-                even IPFS), and each one represents a DAO vote. We're changing
-                the way extreme sport is funded with `}
-              <TextLink href="https://nouns.wtf/vote/51">backing from Nouns DAO</TextLink>.
+              Based on Nouns open source code and CC0 artwork, each Gnar is an NFT stored fully onchain on Ethereum with
+              no external dependencies (not even IPFS), and each one represents a DAO vote. We received{" "}
+              <TextLink href="https://nouns.wtf/vote/51">69 ETH from Nouns DAO</TextLink> to get started.
             </p>
 
             <p>
-              Start creating Gnars off-chain using the <TextLink href={"/playground"}>Playground</TextLink> or learn
-              more at <TextLink href="https://gnars.com">gnars.com</TextLink>.
+              Create some Gnars offchain using the <TextLink href={"/playground"}>Playground</TextLink> or win an
+              auction to join!
             </p>
           </Section>
 
@@ -151,9 +146,9 @@ export default function Explainer() {
                   supply emission each time.
                 </p>
                 <p>
-                  Auction proceeds (ETH) are automatically sent to the Gnars DAO treasury and to our founder
-                  0xigami.eth, depending on what balance you set with the bid slider. You can even choose not to reward
-                  the founder if you wish. Funds received to the treasury are governed by Gnar owners.
+                  Auction proceeds (ETH) are automatically sent to the Gnars DAO treasury and to our founder gami.eth,
+                  depending on what balance you set with the bid slider. You can even choose not to reward the founder
+                  if you wish. Funds received to the treasury are governed by Gnar owners.
                 </p>
                 <p>
                   Each time an auction is settled, the settlement transaction will also cause a new Gnar to be minted
@@ -189,9 +184,9 @@ export default function Explainer() {
             </Heading>
             <p>
               Once an auction starts, everyone has 10 minutes to bid (auction duration doubles every 1000 auctions from
-              #627 onwards). Anyone can bid an amount at/above 0.011 ETH. If your bid is outbid by someone else, the
-              full amount of your bid (minus gas spent to bid) is returned to you in the same transaction as the new
-              higher bid.
+              #627 onwards). Anyone can bid an amount at/above 0.01 ETH. If your bid is outbid by someone else, the full
+              amount of your bid (minus gas spent to bid) is returned to you in the same transaction as the new higher
+              bid.
             </p>
             <Heading as={"h3"} fontSize={"2xl"}>
               Bid Refunds
@@ -208,9 +203,10 @@ export default function Explainer() {
               Gnars DAO
             </Heading>
             <p>
-              Gnars DAO utilizes a Gnosis Safe multisig, which combined with Zodiac Reality Module and Snapshot, allows
-              for gasless governance voting. Gnars DAO is the main governing body of the Gnars ecosystem and the Gnars
-              DAO treasury receives whatever percentage of ETH proceeds bidders choose at time of bidding.
+              Gnars DAO utilizes a DAO executor for fully onchain governance just like Nouns DAO. We also have a Safe
+              multisig, which allows for gasless voting on NFT requests by shredders. Gnars DAO is the main governing
+              body of the Gnars ecosystem and the treasury receives whatever percentage of ETH proceeds bidders choose
+              at time of bidding.
             </p>
             <p>
               Each Gnar is an irrevocable member of Gnars DAO and entitled to one vote in all governance matters. Gnar
@@ -282,19 +278,18 @@ export default function Explainer() {
           </Section>
           <Section>
             <Heading as="h2" fontSize={"4xl"}>
-              0xigami’s Reward
+              Gami&#x2019;s Reward
             </Heading>
 
-            <p>0xigami is the builder that initiated Gnars.</p>
+            <p>Gami is the builder that initiated Gnars.</p>
             <p>
-              You have the choice to reward 0xigami with a percentage of a successful bid, a tip, by setting the slider
-              to a suitable position. By default the slider is set to the midpoint, as a 50/50 split meaning that half
-              of your bid, if successful, would be deposited to 0xigami.eth during settlement.
+              You have the choice to reward Gami with a percentage of a successful bid, a tip, by setting the slider to
+              a suitable position. By default the slider is set to the 90/10, meaning that 10% of your bid, if
+              successful, would be deposited to gami.eth during settlement.
             </p>
             <p>
               From time to time we change the tip recipient in order to facilitate promotions with other CC0 projects
-              included in our protocol. For example, Nounvember, where all tips during the month of November are sent to
-              the Nouns DAO treasury.
+              included in our protocol.
             </p>
           </Section>
         </VStack>
