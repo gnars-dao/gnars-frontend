@@ -1,8 +1,21 @@
-import { HStack, IconButton, Link, SimpleGrid, Spinner, StackProps, Text, VStack } from "@chakra-ui/react"
+import {
+  Button,
+  HStack,
+  IconButton,
+  Link,
+  SimpleGrid,
+  Spinner,
+  StackProps,
+  Text,
+  VStack,
+  useDisclosure,
+} from "@chakra-ui/react"
+import { AnimatePresence, motion } from "framer-motion"
 import { Londrina_Solid } from "next/font/google"
 import { FC, useEffect, useState } from "react"
 import { FiInfo } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
+import { RiAuctionLine } from "react-icons/ri"
 import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/gnarsDao"
 import { GnarData } from "../../hooks/useGnarData"
 import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
@@ -11,7 +24,6 @@ import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons"
 import { AuctionStatus } from "./AuctionStatus"
 import { BidForGnar } from "./BidForGnar"
 import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"
-import { BidsPopover } from "./BidsPopover"
 import { BidsTable } from "./BidsTable"
 import { GnarNavigation } from "./GnarNavigation"
 import { GnarvingTracker } from "./GnarvingTracker"
@@ -31,6 +43,8 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
   const { endTimestamp, latestBidder, latestBid, settled, bids } = {
     ...(gnarData.gnar.auction ?? {}),
   }
+
+  const { isOpen: showBids, onToggle: toggleBids } = useDisclosure()
 
   const { block } = gnarData
 
@@ -161,15 +175,38 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
       </VStack>
       {/*@TODO prevent flashing bid when cached auction was already settled*/}
       {gnarData && (!gnarData.gnar.auction || settled) && (
-        <HStack>
-          {bids && bids.length > 0 && <BidsPopover bids={bids} />}
-          <Link
-            isExternal
-            href={`https://etherscan.io/token/${isOg ? OG_GNAR_ADDRESS : V2_GNAR_ADDRESS}?a=${gnarData.gnar.gnarId}`}
-          >
-            <IconButton aria-label={"Etherscan"} variant={"outline"} icon={<EtherscanIcon />} />
-          </Link>
-        </HStack>
+        <VStack align={"start"} w="full">
+          <HStack>
+            {bids && bids.length > 0 && (
+              <Button isActive={showBids} leftIcon={<RiAuctionLine />} variant={"outline"} onClick={toggleBids}>
+                {bids.length} Bid{bids.length > 1 && "s"}
+              </Button>
+            )}
+            <Link
+              isExternal
+              href={`https://etherscan.io/token/${isOg ? OG_GNAR_ADDRESS : V2_GNAR_ADDRESS}?a=${gnarData.gnar.gnarId}`}
+            >
+              <IconButton aria-label={"Etherscan"} variant={"outline"} icon={<EtherscanIcon />} />
+            </Link>
+          </HStack>
+          {bids && bids.length > 0 && (
+            <AnimatePresence>
+              {showBids && (
+                <BidsTable
+                  as={motion.div}
+                  // @ts-expect-error
+                  initial={{ maxHeight: 0 }}
+                  animate={{ maxHeight: 180 }}
+                  exit={{ maxHeight: 0 }}
+                  bids={bids}
+                  w={"full"}
+                  overflow={"scroll"}
+                  flexGrow={1}
+                />
+              )}
+            </AnimatePresence>
+          )}
+        </VStack>
       )}
     </VStack>
   )

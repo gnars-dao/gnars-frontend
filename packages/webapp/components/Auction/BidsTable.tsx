@@ -1,52 +1,56 @@
-import { Link, Table, TableContainer, TableContainerProps, Tbody, Td, Text, Tr, useColorMode } from "@chakra-ui/react"
+import {
+  Link,
+  SimpleGrid,
+  StackDivider,
+  StackProps,
+  Text,
+  VStack,
+  useBreakpointValue,
+  useColorMode,
+} from "@chakra-ui/react"
 import { FC } from "react"
 import { HiExternalLink } from "react-icons/hi"
 import { formatEther } from "viem"
 import { Bid } from "../../hooks/useGnarData"
 import { AvatarWallet } from "../AvatarWallet"
 
-export type BidsProps = {
+export interface BidsTableProps extends StackProps {
   bids: Bid[]
-} & TableContainerProps
-export const BidsTable: FC<BidsProps> = ({ bids, ...props }) => {
+}
+export const BidsTable: FC<BidsTableProps> = ({ bids, ...props }) => {
   const { colorMode } = useColorMode()
   const borderColor = colorMode === "dark" ? "whiteAlpha.300" : "blackAlpha.300"
-  const amountBids = bids.length
+  const columns = useBreakpointValue([1, 2])
 
   return (
-    <TableContainer
-      // flexShrink={1}
+    <VStack
       overflowY={"scroll"}
       borderRadius={"md"}
       borderColor={borderColor}
       borderWidth={1}
       w={"full"}
+      divider={<StackDivider />}
+      spacing={0}
+      fontSize={"sm"}
       {...props}
     >
-      <Table size={"sm"} variant="simple">
-        <Tbody>
-          {bids.map((bid, i) => (
-            <Tr key={`bid-${i}`}>
-              <Td borderColor={borderColor} borderBottomWidth={i === amountBids - 1 ? 0 : 1}>
-                <AvatarWallet address={bid.bidder} justifySelf={"start"} />
-              </Td>
-              <Td borderColor={borderColor} borderBottomWidth={i === amountBids - 1 ? 0 : 1} isNumeric>
-                <Link isExternal justifySelf={"end"} alignSelf={"center"} href={`https://etherscan.io/tx/${bid.id}`}>
-                  <Text>
-                    {formatEther(BigInt(bid.amount))} ETH{" "}
-                    <HiExternalLink
-                      style={{
-                        display: "inline",
-                        verticalAlign: "text-bottom",
-                      }}
-                    />
-                  </Text>
-                </Link>
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+      {bids.map((bid, i) => (
+        <SimpleGrid py={2} px={4} key={`bid-${i}`} columns={columns} w={"full"}>
+          <AvatarWallet address={bid.bidder} justifySelf={"start"} />
+
+          <Link isExternal justifySelf={"end"} alignSelf={"center"} href={`https://etherscan.io/tx/${bid.id}`}>
+            <Text>
+              {formatEther(BigInt(bid.amount))} ETH{" "}
+              <HiExternalLink
+                style={{
+                  display: "inline",
+                  verticalAlign: "text-bottom",
+                }}
+              />
+            </Text>
+          </Link>
+        </SimpleGrid>
+      ))}
+    </VStack>
   )
 }
