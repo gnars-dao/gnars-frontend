@@ -26,7 +26,7 @@
     "@vercel/analytics": "^0.1.11",
     "abitype": "^0.9.5",
     "blockies-react-svg": "^0.0.12",
-    "connectkit": "^1.5.0",
+    "connectkit": "^1.5.1",
     "framer-motion": "^9.0.7",
     "graphql": "^16.6.0",
     "immer": "^10.0.2",

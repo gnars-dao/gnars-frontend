@@ -10649,10 +10649,10 @@ concat-stream@^1.6.0, concat-stream@^1.6.2, concat-stream@~1.6.2:
     inherits "^2.0.3"
     readable-stream "^3.0.2"
 
-connectkit@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/connectkit/-/connectkit-1.5.0.tgz#281cdc60080de059d77f9230dcb33cdd3c64b55d"
-  integrity sha512-xFYqsUkGs9XP5UC4rzktNTjwb8u2gkh+xNcJwHQ3b3HDQU67bdjKPPAq11ZYMdWVURDrZKOp8EBdGpQwuB5XYg==
+connectkit@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/connectkit/-/connectkit-1.5.1.tgz#0a3ac7aa29a031052fc636911848708489da7a4a"
+  integrity sha512-5w3Ljr7VNPwH3AQLxk94gtvjopcSsbCjABiPHvi3YLMQq9WCu5jycfLD5kUCx2kZJDahF9oFIV267XEqLLYjxA==
   dependencies:
     buffer "^6.0.3"
     detect-browser "^5.3.0"
