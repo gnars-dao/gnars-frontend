@@ -10,6 +10,13 @@ const nextConfig = {
 
     return config
   },
+  redirects: async () => [
+    {
+      source: "/dao/proposals",
+      destination: "/dao",
+      permanent: false,
+    },
+  ],
 }
 
 module.exports = nextConfig
