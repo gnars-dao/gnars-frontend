@@ -147,39 +147,35 @@ export default function Proposal() {
                 executionETA={proposal.executionETA}
                 borderColor={"chakra-border-color"}
               >
-                {proposal.forVotes ||
-                  proposal.abstainVotes ||
-                  (proposal.againstVotes && (
-                    <SimpleGrid
-                      w={"full"}
-                      px={4}
-                      fontWeight={"bold"}
-                      templateColumns={{ md: "repeat(3, 1fr)" }}
-                      templateAreas={{
-                        base: `"for" "abstain" "against"`,
-                        md: `"for abstain against"`,
-                      }}
-                    >
-                      <HStack spacing={2} gridArea={"for"} divider={<Text color={"governance.quorum"}>/</Text>}>
-                        {proposal.forVotes > 0 && (
-                          <Text color={"governance.vote.for"}>{`${proposal.forVotes} FOR`}</Text>
-                        )}
-                        <Text color={"governance.quorum"} gridArea={"for"}>
-                          {`${quorumVotes?.current} REQUIRED`}
-                        </Text>
-                      </HStack>
-                      {proposal.abstainVotes > 0 && (
-                        <Text color={"governance.vote.abstain"} justifySelf={{ md: "center" }} gridArea={"abstain"}>
-                          {`${proposal.abstainVotes} ABSTAIN`}
-                        </Text>
-                      )}
-                      {proposal.againstVotes > 0 && (
-                        <Text color={"governance.vote.against"} justifySelf={{ md: "end" }} gridArea={"against"}>
-                          {`${proposal.againstVotes} AGAINST`}
-                        </Text>
-                      )}
-                    </SimpleGrid>
-                  ))}
+                {(proposal.forVotes || proposal.abstainVotes || proposal.againstVotes) && (
+                  <SimpleGrid
+                    w={"full"}
+                    px={4}
+                    fontWeight={"bold"}
+                    templateColumns={{ md: "repeat(3, 1fr)" }}
+                    templateAreas={{
+                      base: `"for" "abstain" "against"`,
+                      md: `"for abstain against"`,
+                    }}
+                  >
+                    <HStack spacing={2} gridArea={"for"} divider={<Text color={"governance.quorum"}>/</Text>}>
+                      {proposal.forVotes > 0 && <Text color={"governance.vote.for"}>{`${proposal.forVotes} FOR`}</Text>}
+                      <Text color={"governance.quorum"} gridArea={"for"}>
+                        {`${quorumVotes?.current} REQUIRED`}
+                      </Text>
+                    </HStack>
+                    {proposal.abstainVotes > 0 && (
+                      <Text color={"governance.vote.abstain"} justifySelf={{ md: "center" }} gridArea={"abstain"}>
+                        {`${proposal.abstainVotes} ABSTAIN`}
+                      </Text>
+                    )}
+                    {proposal.againstVotes > 0 && (
+                      <Text color={"governance.vote.against"} justifySelf={{ md: "end" }} gridArea={"against"}>
+                        {`${proposal.againstVotes} AGAINST`}
+                      </Text>
+                    )}
+                  </SimpleGrid>
+                )}
                 <Tabs index={tabIndex} w={"full"} colorScheme={"purple"} size={"sm"} variant={"line"}>
                   <TabList
                     zIndex={1}
