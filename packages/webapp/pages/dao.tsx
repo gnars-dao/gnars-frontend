@@ -81,6 +81,7 @@ export default function Proposals() {
                           <ProposalCard
                             id={prop.id}
                             title={prop.title}
+                            titleProps={{ noOfLines: 2 }}
                             status={prop.effectiveStatus}
                             quorumVotes={getQuorumVotes(prop)}
                             votes={{
@@ -119,6 +120,7 @@ export default function Proposals() {
                           <ProposalCard
                             id={prop.id}
                             title={prop.title}
+                            titleProps={{ noOfLines: 2 }}
                             status={prop.effectiveStatus}
                             quorumVotes={getQuorumVotes(prop)}
                             votes={{
