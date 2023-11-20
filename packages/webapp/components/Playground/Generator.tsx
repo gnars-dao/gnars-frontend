@@ -1,10 +1,9 @@
 import { Button, CenterProps, VStack, Wrap, WrapItem } from "@chakra-ui/react"
-import { PartPicker } from "./PartPicker"
-import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "../Icons"
+import { FC } from "react"
 import { FaSquareFull } from "react-icons/fa"
 import { usePlaygroundState } from "../../hooks/usePlaygroundState"
-import { FC } from "react"
-import * as CSS from "csstype"
+import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "../Icons"
+import { PartPicker } from "./PartPicker"
 
 export type GeneratorProps = {
   buttonSize: CenterProps["width"]
@@ -15,36 +14,15 @@ export const Generator: FC<GeneratorProps> = ({ buttonSize }) => {
 
   return (
     <VStack alignItems={"center"} alignContent={"center"}>
-      <Wrap
-        justify={"center"}
-        w={"fit-content"}
-        textStyle={"h2"}
-        fontSize={{ base: 14, lg: 18 }}
-        flexShrink={0}
-      >
+      <Wrap justify={"center"} w={"fit-content"} textStyle={"h2"} fontSize={{ base: 14, lg: 18 }} flexShrink={0}>
         <WrapItem>
-          <PartPicker
-            part={"Head"}
-            partKind={"heads"}
-            icon={<HeadIcon boxSize={"24px"} />}
-            size={buttonSize}
-          />
+          <PartPicker part={"Head"} partKind={"heads"} icon={<HeadIcon boxSize={"24px"} />} size={buttonSize} />
         </WrapItem>
         <WrapItem>
-          <PartPicker
-            part={"Noggles"}
-            partKind={"glasses"}
-            icon={<NogglesIcon boxSize={"24px"} />}
-            size={buttonSize}
-          />
+          <PartPicker part={"Noggles"} partKind={"glasses"} icon={<NogglesIcon boxSize={"24px"} />} size={buttonSize} />
         </WrapItem>
         <WrapItem>
-          <PartPicker
-            part={"Body"}
-            partKind={"bodies"}
-            icon={<BodyIcon boxSize={"24px"} />}
-            size={buttonSize}
-          />
+          <PartPicker part={"Body"} partKind={"bodies"} icon={<BodyIcon boxSize={"24px"} />} size={buttonSize} />
         </WrapItem>
         <WrapItem>
           <PartPicker
