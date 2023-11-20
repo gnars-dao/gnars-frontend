@@ -13,6 +13,7 @@ import {
   ModalOverlay,
   ModalProps,
   Text,
+  useBoolean,
   useToast,
   VStack,
 } from "@chakra-ui/react"
@@ -20,12 +21,12 @@ import { useQueryClient } from "@tanstack/react-query"
 import { AccountAddress } from "components/AccountAddress"
 import { AccountWithAvatar } from "components/AccountWithAvatar"
 import { AvatarWallet } from "components/AvatarWallet"
-import { isValidName } from "ethers/lib/utils.js"
 import { useAccountQuery } from "hooks/useAccountQuery"
 import { delegationInfoQueryKey, useDelegationInfo } from "hooks/useDelegationInfo"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { useDebounce } from "usehooks-ts"
 import { useGnarsV2TokenDelegate } from "utils/sdk"
+import { normalize } from "viem/ens"
 import { useAccount } from "wagmi"
 import { waitForTransaction } from "wagmi/actions"
 
@@ -37,12 +38,21 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
   const currentDelegate = delegation?.account?.delegate?.id
   const { invalidateQueries } = useQueryClient()
   const [accountQuery, setAccountQuery] = useState<string>("")
+  const [isValidName, setIsValidName] = useBoolean(false)
   const debouncedAccountQuery = useDebounce(accountQuery, 600)
   const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountQuery)
   const toast = useToast()
   const { writeAsync: delegate, isLoading: isDelegating } = useGnarsV2TokenDelegate({
     args: [address!],
   })
+  useEffect(() => {
+    try {
+      normalize(accountQuery)
+      setIsValidName.on()
+    } catch {
+      setIsValidName.off()
+    }
+  }, [accountQuery])
   return (
     <Modal isCentered onClose={onClose} {...props}>
       <ModalOverlay />
@@ -69,7 +79,7 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
               {!address && <Text>{!!accountQuery ? accountQuery : "Enter the destination account"}</Text>}
               {accountQuery && !address && !isLoading && (
                 <Text color={"red.300"}>
-                  {isValidName(accountQuery) ? "Account not found" : "Invalid query. Use an address or ens name"}
+                  {isValidName ? "Account not found" : "Invalid query. Use an address or ens name"}
                 </Text>
               )}
               {address && <AccountAddress truncate address={address} />}
