@@ -22,17 +22,21 @@ export default function Proposals() {
     ["proposals", block?.number?.toString()],
     () =>
       execute(ProposalsDocument, {})
-        .then((r) =>
+        .then((r: { data: { proposals: ProposalData[] } }) =>
           r.data.proposals.map((p: ProposalData) => ({
             ...p,
             effectiveStatus: getProposalEffectiveStatus(p, block?.number ?? undefined, block?.timestamp ?? undefined),
           }))
         )
-        .then((p) =>
-          partition<ProposalData & { effectiveStatus: EffectiveProposalStatus }>(
-            p,
-            (p) => !isFinalized(p.effectiveStatus)
-          )
+        .then(
+          (p: ProposalData & { effectiveStatus: EffectiveProposalStatus }) =>
+            partition<ProposalData & { effectiveStatus: EffectiveProposalStatus }>(
+              p,
+              (p) => !isFinalized(p.effectiveStatus)
+            ) as [
+              ProposalData & { effectiveStatus: EffectiveProposalStatus }[],
+              ProposalData & { effectiveStatus: EffectiveProposalStatus }[]
+            ]
         ),
     { keepPreviousData: true }
   )
@@ -72,7 +76,7 @@ export default function Proposals() {
                         </Heading>
                         <Divider />
                       </HStack>
-                      {proposals[0].map((prop) => (
+                      {proposals[0].map((prop: ProposalData & { effectiveStatus: EffectiveProposalStatus }) => (
                         <Link
                           key={"active-prop-" + prop.id}
                           href={`/dao/proposals/${prop.id}`}
@@ -111,7 +115,7 @@ export default function Proposals() {
                         </Heading>
                         <Divider />
                       </HStack>
-                      {proposals[1].map((prop) => (
+                      {proposals[1].map((prop: ProposalData & { effectiveStatus: EffectiveProposalStatus }) => (
                         <Link
                           key={"finalized-prop-" + prop.id}
                           href={`/dao/proposals/${prop.id}`}

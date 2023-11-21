@@ -50,7 +50,7 @@ export default function Proposal() {
   const { propId } = router.query as { propId: string }
   const { data: proposal } = useQuery<DetailedProposalData>(
     ["proposal", propId],
-    () => execute(ProposalDocument, { id: propId }).then((r) => r!.data!.proposal),
+    () => execute(ProposalDocument, { id: propId }).then((r: any) => r!.data!.proposal),
     { keepPreviousData: true }
   )
 
