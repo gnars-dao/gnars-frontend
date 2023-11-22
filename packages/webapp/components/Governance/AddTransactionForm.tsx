@@ -281,8 +281,8 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
                       : 0n,
                 },
               ])
-              // close()
-              // clear()
+              close()
+              clear()
               return
             }}
           >
