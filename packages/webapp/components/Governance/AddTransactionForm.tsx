@@ -7,6 +7,7 @@ import {
   CardProps,
   Divider,
   FormControl,
+  FormErrorMessage,
   FormHelperText,
   FormLabel,
   forwardRef,
@@ -29,13 +30,15 @@ import { ParamSpec, ParamsTable } from "components/ParamsTable"
 import { useAccountQuery } from "hooks/useAccountQuery"
 import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo"
 import { useFunctions } from "hooks/useFunctions"
+import { useParameterValidation } from "hooks/useParameterValidation"
 import { FC, useEffect, useMemo } from "react"
 import { useDebounce } from "usehooks-ts"
 import { isValidName } from "utils/ensUtils"
 import { getSignature } from "utils/functionUtils"
 import { NounsTransactionData } from "utils/governanceUtils"
+import { parseArrayParameter } from "utils/parseArrayParameter"
 import { encodeFunctionData, getAbiItem, parseEther } from "viem"
-import { getFuncParam, useAddTransactionFormState } from "./AddTransactionForm.state"
+import { getFuncParam, ParameterValue, useAddTransactionFormState } from "./AddTransactionForm.state"
 import { useProposalCreationState } from "./ProposalCreationForm.state"
 
 export interface AddTransactionFormProps extends CardProps {
@@ -107,10 +110,11 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
     if (!func || !abi || !funcParams) return undefined
 
     try {
+      const parsedFuncParams = parseFuncParams(func.inputs, funcParams)
       return encodeFunctionData({
         abi: JSON.parse(abi),
         functionName: func.name,
-        args: funcParams,
+        args: parsedFuncParams,
       })
     } catch (e) {
       return undefined
@@ -277,8 +281,8 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
                       : 0n,
                 },
               ])
-              close()
-              clear()
+              // close()
+              // clear()
               return
             }}
           >
@@ -306,24 +310,37 @@ interface ParamInputProps extends TextareaProps {
   param: AbiParameter
   indices: number[]
 }
-const ParamInput = forwardRef<ParamInputProps, "textarea">(({ param, indices, ...props }, ref) => {
+const ParamInput = forwardRef<ParamInputProps, "div">(({ param, indices, ...props }, ref) => {
   const { funcParams, setFuncParam } = useAddTransactionFormState()
+  const value = getFuncParam(funcParams, indices) as string
+  const { isValid, error } = useParameterValidation(param, value)
+
   return (
-    <Textarea
-      minH={8}
-      pt={"6px"}
-      px={2}
-      pb={0}
-      // p={"6px 8px 0 8px"}
-      resize={"vertical"}
-      size={"sm"}
-      borderRadius={"md"}
-      ref={ref}
-      variant={"filled"}
-      placeholder={`${param.name}(${param.type})`}
-      value={getFuncParam(funcParams, indices) as string}
-      onChange={(e) => setFuncParam(indices, e.target.value)}
-      {...props}
-    />
+    <FormControl ref={ref} isInvalid={!isValid}>
+      <Textarea
+        minH={8}
+        pt={"6px"}
+        px={2}
+        pb={0}
+        // p={"6px 8px 0 8px"}
+
+        resize={"vertical"}
+        size={"sm"}
+        borderRadius={"md"}
+        variant={"filled"}
+        placeholder={`${param.name}(${param.type})`}
+        value={value}
+        onChange={(e) => setFuncParam(indices, e.target.value)}
+        {...props}
+      />
+      <FormErrorMessage>{error}</FormErrorMessage>
+    </FormControl>
   )
 })
+
+const parseFuncParams = (params: readonly AbiParameter[], values: ParameterValue[]): ParameterValue[] =>
+  params.map((param, i) => {
+    if (param.type.endsWith("[]")) return parseArrayParameter(values[i] as string) as ParameterValue
+    if ("components" in param) return parseFuncParams(param.components, values[i] as ParameterValue[])
+    return values[i]
+  })

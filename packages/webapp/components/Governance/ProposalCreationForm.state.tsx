@@ -1,9 +1,10 @@
 import { AbiFunction } from "abitype"
+import superjson from "superjson"
 import { getSignature } from "utils/functionUtils"
 import { NounsTransactionData } from "utils/governanceUtils"
 import { encodeFunctionData } from "viem"
 import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { PersistStorage, persist } from "zustand/middleware"
 
 export type TransactionKind = "Send ETH" | "Call contract"
 
@@ -42,6 +43,18 @@ const emptyState = {
   transactions: [],
 }
 
+const storage: PersistStorage<ProposalCreationState> = {
+  getItem: (name) => {
+    const str = localStorage.getItem(name)
+    if (!str) return null
+    return superjson.parse(str)
+  },
+  setItem: (name, value) => {
+    localStorage.setItem(name, superjson.stringify(value))
+  },
+  removeItem: (name) => localStorage.removeItem(name),
+}
+
 export const useProposalCreationState = create<ProposalCreationState>()(
   persist(
     (set) => ({
@@ -51,7 +64,7 @@ export const useProposalCreationState = create<ProposalCreationState>()(
       setTransactions: (transactions) => set({ transactions }),
       clear: () => set(emptyState),
     }),
-    { name: "prop-creation-state", version: 1 }
+    { name: "prop-creation-state", version: 1, storage }
   )
 )
 
