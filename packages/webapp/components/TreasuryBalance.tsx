@@ -132,7 +132,7 @@ export const TreasuryBalance = () => {
             >
               on Multisig <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
-            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury}`} + ${abbreviatedBalance(usdcBalance)} USDC</Text> : <Spinner size={"sm"} />}
+            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury}`} + {abbreviatedBalance(usdcBalance)} USDC</Text> : <Spinner size={"sm"} />}
             <Link href={`https://etherscan.io/address/${TREASURY_ADDRESS}`} whiteSpace={"nowrap"} w={"fit-content"}>
               on Treasury <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
