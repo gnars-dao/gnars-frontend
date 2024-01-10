@@ -20,29 +20,22 @@ import { formatEther } from "viem"
 import { useBalance } from "wagmi"
 import { ShredIcon } from "./Icons"
 import { useState, useEffect } from "react";
-
 import { abbreviatedBalance } from "utils/numberAbreviation"
 
-
 export const TreasuryBalance = () => {
+  const [usdcBalance, setUsdcBalance] = useState(0);
   const { data: treasuryBalance } = useBalance({
     address: TREASURY_ADDRESS,
   })
-
-  const [usdcBalance, setUsdcBalance] = useState(0);
-
 
   useEffect(() => {
     const fetchUSDCBalance = async () => {
       try {
         const apiKey = process.env.ETHERSCAN_API_KEY;
-
         const response = await fetch(`https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&address=${TREASURY_ADDRESS}&tag=latest&apikey=${apiKey}`);
         const data = await response.json();
-
         const rawUSDCBalance = data.result;
         const formattedUSDCBalance = rawUSDCBalance / 1e6;
-
         setUsdcBalance(formattedUSDCBalance);
 
       } catch (error) {

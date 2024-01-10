@@ -7,7 +7,6 @@ import { AccountAvatar } from "./AccountAvatar"
 
 export const WalletButton = (props: ButtonProps) => {
   const { address } = useAccount()
-
   const { open } = useModal()
   const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(address)
   const { data: avatarImg, isLoading: isLoadingAvatar } = useEnsAvatar({
