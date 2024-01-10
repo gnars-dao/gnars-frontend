@@ -111,7 +111,7 @@ export const TreasuryBalance = () => {
       <PopoverContent w={"fit-content"}>
         <PopoverArrow />
         <PopoverBody>
-          <SimpleGrid columns={2} columnGap={3} templateColumns={"fit-content(60%) fit-content(40%)"}>
+          <SimpleGrid columns={2} columnGap={3} templateColumns={"fit-content(70%) fit-content(40%)"}>
             {formattedBalances ? (
               <HStack justifyContent={"start"} whiteSpace={"nowrap"} divider={<Text px={2}>+</Text>}>
                 <Text whiteSpace={"nowrap"}>{`Ξ ${formattedBalances.multisig}`}</Text>
@@ -132,7 +132,7 @@ export const TreasuryBalance = () => {
             >
               on Multisig <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
-            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury}`} + ${abbreviatedBalance(usdcBalance)}</Text> : <Spinner size={"sm"} />}
+            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury}`} + ${abbreviatedBalance(usdcBalance)} USDC</Text> : <Spinner size={"sm"} />}
             <Link href={`https://etherscan.io/address/${TREASURY_ADDRESS}`} whiteSpace={"nowrap"} w={"fit-content"}>
               on Treasury <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
