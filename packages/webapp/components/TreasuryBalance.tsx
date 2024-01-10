@@ -44,7 +44,6 @@ export const TreasuryBalance = () => {
 
         setUsdcBalance(formattedUSDCBalance);
 
-        console.log(`USDC Balance for ${address}: ${formattedUSDCBalance} USDC`);
       } catch (error) {
         console.error(error);
       }
