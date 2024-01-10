@@ -22,7 +22,7 @@ import { ShredIcon } from "./Icons"
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { set } from "lodash"
-
+import { abbreviatedBalance } from "utils/numberAbreviation"
 export const TreasuryBalance = () => {
   const { data: treasuryBalance } = useBalance({
     address: TREASURY_ADDRESS,
@@ -53,16 +53,6 @@ export const TreasuryBalance = () => {
     fetchUSDCBalance();
   }, []);
 
-  const abbreviatedBalance = (balance: any) => {
-    const THOUSAND = 1000;
-    if (Math.abs(balance) >= THOUSAND) {
-      const suffixes = ["", "k", "M", "B", "T"];
-      const order = Math.floor(Math.log10(Math.abs(balance)) / 3);
-      const shortValue = parseFloat((balance / Math.pow(THOUSAND, order)).toFixed(2));
-      return shortValue + suffixes[order];
-    }
-    return balance.toString();
-  };
 
   const { data: multisigBalance } = useBalance({
     address: MULTISIG_ADDRESS,
@@ -132,7 +122,7 @@ export const TreasuryBalance = () => {
             >
               on Multisig <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
-            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury}`} + {abbreviatedBalance(usdcBalance)} USDC</Text> : <Spinner size={"sm"} />}
+            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury}`} + {abbreviatedBalance(usdcBalance)} USDC </Text> : <Spinner size={"sm"} />}
             <Link href={`https://etherscan.io/address/${TREASURY_ADDRESS}`} whiteSpace={"nowrap"} w={"fit-content"}>
               on Treasury <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
