@@ -13,39 +13,23 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import { MULTISIG_ADDRESS, TREASURY_ADDRESS } from "constants/gnarsDao"
+import { MULTISIG_ADDRESS, TREASURY_ADDRESS, USDC_TOKEN_ADDRESS } from "constants/gnarsDao"
 import { useMemo } from "react"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
+import { abbreviatedBalance } from "utils/numberAbreviation"
 import { formatEther } from "viem"
 import { useBalance } from "wagmi"
 import { ShredIcon } from "./Icons"
-import { useState, useEffect } from "react";
-import { abbreviatedBalance } from "utils/numberAbreviation"
 
 export const TreasuryBalance = () => {
-  const [usdcBalance, setUsdcBalance] = useState(0);
   const { data: treasuryBalance } = useBalance({
     address: TREASURY_ADDRESS,
   })
 
-  useEffect(() => {
-    const fetchUSDCBalance = async () => {
-      try {
-        const apiKey = process.env.ETHERSCAN_API_KEY;
-        const response = await fetch(`https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&address=${TREASURY_ADDRESS}&tag=latest&apikey=${apiKey}`);
-        const data = await response.json();
-        const rawUSDCBalance = data.result;
-        const formattedUSDCBalance = rawUSDCBalance / 1e6;
-        setUsdcBalance(formattedUSDCBalance);
-
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchUSDCBalance();
-  }, []);
-
+  const { data: usdcBalance } = useBalance({
+    address: TREASURY_ADDRESS,
+    token: USDC_TOKEN_ADDRESS,
+  })
 
   const { data: multisigBalance } = useBalance({
     address: MULTISIG_ADDRESS,
@@ -56,17 +40,19 @@ export const TreasuryBalance = () => {
   })
 
   const formattedBalances = useMemo(() => {
-    if (!treasuryBalance || !multisigBalance) {
+    if (!treasuryBalance || !multisigBalance || !usdcBalance) {
       return null
     }
 
+
     return {
       treasury: formatBalance(treasuryBalance.value),
+      usdcBal: formatBalance(usdcBalance?.value),
       multisig: formatBalance(multisigBalance.value),
       total: formatBalance(treasuryBalance.value + multisigBalance.value),
     }
-  }, [treasuryBalance, multisigBalance])
 
+  }, [treasuryBalance, multisigBalance])
   return (
     <Popover>
       <PopoverTrigger>
@@ -94,7 +80,7 @@ export const TreasuryBalance = () => {
       <PopoverContent w={"fit-content"}>
         <PopoverArrow />
         <PopoverBody>
-          <SimpleGrid columns={2} columnGap={3} templateColumns={"fit-content(70%) fit-content(40%)"}>
+          <SimpleGrid columns={2} columnGap={4} templateColumns={"fit-content(60%) fit-content(40%)"}>
             {formattedBalances ? (
               <HStack justifyContent={"start"} whiteSpace={"nowrap"} divider={<Text px={2}>+</Text>}>
                 <Text whiteSpace={"nowrap"}>{`Ξ ${formattedBalances.multisig}`}</Text>
@@ -115,7 +101,7 @@ export const TreasuryBalance = () => {
             >
               on Multisig <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
-            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury}`} + {abbreviatedBalance(usdcBalance)} USDC </Text> : <Spinner size={"sm"} />}
+            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury} + ${abbreviatedBalance(usdcBalance?.formatted)} USDC`}</Text> : <Spinner size={"sm"} />}
             <Link href={`https://etherscan.io/address/${TREASURY_ADDRESS}`} whiteSpace={"nowrap"} w={"fit-content"}>
               on Treasury <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
