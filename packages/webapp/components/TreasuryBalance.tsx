@@ -13,16 +13,22 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react"
-import { MULTISIG_ADDRESS, TREASURY_ADDRESS } from "constants/gnarsDao"
+import { MULTISIG_ADDRESS, TREASURY_ADDRESS, USDC_TOKEN_ADDRESS } from "constants/gnarsDao"
 import { useMemo } from "react"
+import { formatUsdcBalance } from "utils/formatUsdcBalance"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
-import { formatEther } from "viem"
 import { useBalance } from "wagmi"
+import { formatEtherBalance } from "../utils/formatEtherBalance"
 import { ShredIcon } from "./Icons"
 
 export const TreasuryBalance = () => {
   const { data: treasuryBalance } = useBalance({
     address: TREASURY_ADDRESS,
+  })
+
+  const { data: usdcBalance } = useBalance({
+    address: TREASURY_ADDRESS,
+    token: USDC_TOKEN_ADDRESS,
   })
 
   const { data: multisigBalance } = useBalance({
@@ -34,17 +40,17 @@ export const TreasuryBalance = () => {
   })
 
   const formattedBalances = useMemo(() => {
-    if (!treasuryBalance || !multisigBalance) {
+    if (!treasuryBalance || !multisigBalance || !usdcBalance) {
       return null
     }
 
     return {
-      treasury: formatBalance(treasuryBalance.value),
-      multisig: formatBalance(multisigBalance.value),
-      total: formatBalance(treasuryBalance.value + multisigBalance.value),
+      treasuryEth: formatEtherBalance(treasuryBalance.value),
+      treasuryUsdc: formatUsdcBalance(usdcBalance?.value),
+      multisigEth: formatEtherBalance(multisigBalance.value),
+      total: formatEtherBalance(treasuryBalance.value + multisigBalance.value),
     }
-  }, [treasuryBalance, multisigBalance])
-
+  }, [treasuryBalance, multisigBalance, usdcBalance])
   return (
     <Popover>
       <PopoverTrigger>
@@ -72,10 +78,10 @@ export const TreasuryBalance = () => {
       <PopoverContent w={"fit-content"}>
         <PopoverArrow />
         <PopoverBody>
-          <SimpleGrid columns={2} columnGap={4} templateColumns={"fit-content(40%) fit-content(40%)"}>
+          <SimpleGrid columns={2} columnGap={4} templateColumns={"fit-content(60%) fit-content(40%)"}>
             {formattedBalances ? (
               <HStack justifyContent={"start"} whiteSpace={"nowrap"} divider={<Text px={2}>+</Text>}>
-                <Text whiteSpace={"nowrap"}>{`Ξ ${formattedBalances.multisig}`}</Text>
+                <Text whiteSpace={"nowrap"}>{`Ξ ${formattedBalances.multisigEth}`}</Text>
                 {typeof gnarsBalance === "bigint" && (
                   <Text>
                     <ShredIcon style={{ verticalAlign: "sub" }} />
@@ -93,7 +99,11 @@ export const TreasuryBalance = () => {
             >
               on Multisig <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
-            {formattedBalances ? <Text>{`Ξ ${formattedBalances.treasury}`}</Text> : <Spinner size={"sm"} />}
+            {formattedBalances ? (
+              <Text>{`Ξ ${formattedBalances.treasuryEth} + ${formattedBalances.treasuryUsdc} USDC`}</Text>
+            ) : (
+              <Spinner size={"sm"} />
+            )}
             <Link href={`https://etherscan.io/address/${TREASURY_ADDRESS}`} whiteSpace={"nowrap"} w={"fit-content"}>
               on Treasury <ExternalLinkIcon verticalAlign={"text-bottom"} />
             </Link>
@@ -103,5 +113,3 @@ export const TreasuryBalance = () => {
     </Popover>
   )
 }
-
-const formatBalance = (balance: bigint) => formatEther(balance - (balance % 10000000000000000n))
