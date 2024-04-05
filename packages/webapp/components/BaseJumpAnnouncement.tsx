@@ -35,9 +35,8 @@ export const BaseAnnouncementModal = ({ ...props }) => {
       onOpen();
       localStorage.setItem('modalLastOpened', now.toString());
       setHasOpened(true);
-      console.log(`set has opened to false`, isOpen, timestamp);
     }
-  }, [onOpen]);
+  }, [onOpen, setHasOpened, hasOpened]);
 
   return (
     <Modal
@@ -63,7 +62,7 @@ export const BaseAnnouncementModal = ({ ...props }) => {
           <VStack spacing={10}>
             <VStack alignItems={"start"} spacing={0} alignSelf={"start"}>
               <Text>
-                We&apos;re currently updating this site to be fully operational on Base. In the meantime, auctions and governance are live on Base <TextLink href={{ baseLink }}>here</TextLink>.
+                We&apos;re currently updating this site to be fully operational on Base. In the meantime, auctions and governance are live on Base <TextLink href={baseLink}>here</TextLink>.
               </Text>
               <br />
               <Text>
