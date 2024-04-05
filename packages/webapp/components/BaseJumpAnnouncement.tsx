@@ -20,6 +20,8 @@ import {
 import TextLink from "./TextLink"
 import { FiExternalLink } from "react-icons/fi"
 
+const baseLink = "https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17";
+
 export const BaseAnnouncementModal = ({ ...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasOpened, setHasOpened] = useState(false);
@@ -61,7 +63,7 @@ export const BaseAnnouncementModal = ({ ...props }) => {
           <VStack spacing={10}>
             <VStack alignItems={"start"} spacing={0} alignSelf={"start"}>
               <Text>
-                We&apos;re currently updating this site to be fully operational on Base. In the meantime, auctions and governance are live on Base <TextLink href="https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17">here</TextLink>.
+                We&apos;re currently updating this site to be fully operational on Base. In the meantime, auctions and governance are live on Base <TextLink href={{ baseLink }}>here</TextLink>.
               </Text>
               <br />
               <Text>
@@ -74,7 +76,7 @@ export const BaseAnnouncementModal = ({ ...props }) => {
         </ModalBody>
         <ModalFooter>
           <ExternalLink
-            href={`https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17`} isExternal
+            href={baseLink} isExternal
             rel="noopener noreferrer">
             <Button w={"fit-content"} variant={"outline"} rightIcon={<FiExternalLink />} >BASE JUMP!
             </Button>
@@ -101,7 +103,7 @@ export const BaseAlertHeader = () => {
       </Box>
       <ExternalLink
         isExternal
-        href={`https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17`}
+        href={baseLink}
         rel="noopener noreferrer">
         <Button
           w={"fit-content"}
