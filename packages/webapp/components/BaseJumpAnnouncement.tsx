@@ -18,7 +18,6 @@ import {
   AlertDescription,
 } from '@chakra-ui/react';
 import TextLink from "./TextLink"
-// @ts-ignore
 import { FiExternalLink } from "react-icons/fi"
 
 export const BaseAnnouncementModal = ({ ...props }) => {
@@ -61,19 +60,15 @@ export const BaseAnnouncementModal = ({ ...props }) => {
         <ModalBody>
           <VStack spacing={10}>
             <VStack alignItems={"start"} spacing={0} alignSelf={"start"}>
-              <>
-                <Text>
-                  We're currently updating this site to be fully operational on Base.
-                </Text>
-                <br />
-                <Text>
-                  In the meantime, auctions and governance on Base are live <TextLink rel="noopener noreferrer" isExternal href="https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17">here</TextLink>.
-                  <br />
-                  If you owned Gnars V2 on mainnet, you were airdropped the equivalent Gnars on Base <b>(check your hidden folder on OpenSea)</b>.
-                </Text>
-                <br />
-                <Text>Stay tuned. Stay gnarly. ⌐◨-◨</Text>
-              </>
+              <Text>
+                We&apos;re currently updating this site to be fully operational on Base. In the meantime, auctions and governance are live on Base <TextLink href="https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17">here</TextLink>.
+              </Text>
+              <br />
+              <Text>
+                If you owned Gnars V2 on mainnet at <TextLink href="https://etherscan.io/block/19325750">block 19325750</TextLink>, you were airdropped the equivalent Gnars on Base <b>(check your hidden folder on OpenSea)</b>.
+              </Text>
+              <br />
+              <Text>Stay tuned. Stay gnarly. ⌐◨-◨</Text>
             </VStack>
           </VStack>
         </ModalBody>
@@ -100,11 +95,7 @@ export const BaseAlertHeader = () => {
         <AlertTitle textAlign={'center'} textStyle={"h2"} py={2}>Gnars have BASE Jumped!</AlertTitle>
         <AlertDescription textAlign={'center'}>
           <Text >
-            We're currently updating this site to be fully operational on Base.
-            <br />
-            In the meantime, auctions and governance on Base are live <TextLink rel="noopener noreferrer" isExternal href="https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17">here</TextLink>.
-            <br />
-            If you owned Gnars V2 on mainnet, you were airdropped the equivalent Gnars on Base <b>(check your hidden folder on OpenSea)</b>.
+            We&apos;re currently updating this site to be fully operation on Base. Stay tuned. ⌐◨-◨\m/
           </Text>
         </AlertDescription>
       </Box>

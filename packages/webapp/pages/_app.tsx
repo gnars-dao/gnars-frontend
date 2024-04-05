@@ -11,6 +11,7 @@ import Head from "next/head"
 import { queryClient } from "utils"
 import { mainnet } from "wagmi/chains"
 import theme from "../theme"
+import { BaseAlertHeader } from 'components/BaseJumpAnnouncement';
 
 const config = createConfig({
   ...getDefaultConfig({
@@ -33,6 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 <Head>
                   <title>Gnars DAO</title>
                 </Head>
+                <BaseAlertHeader />
                 <Component {...pageProps} />
                 <Divider />
                 <Footer />
