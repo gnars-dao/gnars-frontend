@@ -62,7 +62,7 @@ export const BaseAnnouncementModal = ({ ...props }) => {
           <VStack spacing={10}>
             <VStack alignItems={"start"} spacing={0} alignSelf={"start"}>
               <Text>
-                We &#39; re currently updating this site to be fully operational on Base. In the meantime, auctions and governance are live on Base <TextLink href={baseLink}>here</TextLink>.
+                We&#39;re currently updating this site to be fully operational on Base. In the meantime, auctions and governance are live on Base <TextLink href={baseLink}>here</TextLink>.
               </Text>
               <br />
               <Text>
@@ -96,7 +96,7 @@ export const BaseAlertHeader = () => {
         <AlertTitle textAlign={'center'} textStyle={"h2"} py={2}>Gnars have BASE JUMPED!</AlertTitle>
         <AlertDescription textAlign={'center'}>
           <Text >
-            We &#39; re currently updating this site to be fully operation on Base. Stay tuned. ⌐◨-◨\m/
+            We&#39;re currently updating this site to be fully operation on Base. Stay tuned. ⌐◨-◨\m/
           </Text>
         </AlertDescription>
       </Box>
