@@ -56,7 +56,7 @@ export const BaseAnnouncementModal = ({ ...props }) => {
         w={{ base: "full", sm: "xl" }}
         color={"chakra-body-text"}
       >
-        <ModalHeader textAlign={"center"} textStyle={"h2"}>Gnars have BASE Jumped!</ModalHeader>
+        <ModalHeader textAlign={"center"} textStyle={"h2"}>Gnars have BASE JUMPED!</ModalHeader>
         <ModalCloseButton onClick={onClose} />
         <ModalBody>
           <VStack spacing={10}>
@@ -93,7 +93,7 @@ export const BaseAlertHeader = () => {
   return (
     <Alert variant='solid' style={{ marginBottom: '-40px', flexGrow: 1, alignItems: 'center', background: '#FFE762' }}>
       <Box flexGrow={1} alignContent={'center'}>
-        <AlertTitle textAlign={'center'} textStyle={"h2"} py={2}>Gnars have BASE Jumped!</AlertTitle>
+        <AlertTitle textAlign={'center'} textStyle={"h2"} py={2}>Gnars have BASE JUMPED!</AlertTitle>
         <AlertDescription textAlign={'center'}>
           <Text >
             We &#39; re currently updating this site to be fully operation on Base. Stay tuned. ⌐◨-◨\m/
