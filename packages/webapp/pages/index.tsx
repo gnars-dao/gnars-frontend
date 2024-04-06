@@ -1,5 +1,6 @@
 import GnarSection from "components/Auction/GnarSection"
 import Explainer from "components/Explainer"
+import { BaseAnnouncementModal } from 'components/BaseJumpAnnouncement';
 
 import { GetServerSideProps, GetStaticProps } from "next"
 import { fetchGnarData, GnarData } from "../hooks/useGnarData"
@@ -10,6 +11,7 @@ export default function Home() {
     <>
       <GnarSection />
       <Explainer />
+      <BaseAnnouncementModal />
     </>
   )
 }
