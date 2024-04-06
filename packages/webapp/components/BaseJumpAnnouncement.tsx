@@ -88,7 +88,7 @@ export const BaseAnnouncementModal = ({ ...props }) => {
 
 
 export const BaseAlertHeader = () => {
-  const { } = useDisclosure({ defaultIsOpen: true })
+  useDisclosure({ defaultIsOpen: true })
 
   return (
     <Alert variant='solid' style={{ marginBottom: '-40px', flexGrow: 1, alignItems: 'center', background: '#FFE762' }}>
