@@ -22,8 +22,9 @@ Brief description of the feature being requested.
 
 ### Acceptance Criteria ☑️
 
-1. Code is clear, clean, and properly documented.
-2. Other criteria that must be met for this pull request to be accepted.
+1. All of the changes described in the "Details" section above are implemented and tested.
+2. Code is clear, clean, and properly documented.
+3. UI changes are sensible and non-regressive.
 
 * * *
 
