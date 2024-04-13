@@ -1,19 +1,24 @@
-import { ExternalLinkIcon } from "@chakra-ui/icons"
 import { Link } from "@chakra-ui/next-js"
 import {
   Button,
+  Divider,
   HStack,
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
-  SimpleGrid,
   Spinner,
   Text,
+  Tooltip,
   VStack,
 } from "@chakra-ui/react"
-import { MULTISIG_ADDRESS, TREASURY_ADDRESS, USDC_TOKEN_ADDRESS } from "constants/gnarsDao"
+import {
+  BASE_MULTISIG_ADDRESS,
+  BASE_SENDIT_TOKEN_ADDRESS,
+  BASE_TREASURY_ADDRESS,
+  BASE_USDC_TOKEN_ADDRESS,
+} from "constants/gnarsDao"
 import { useMemo } from "react"
 import { formatUsdcBalance } from "utils/formatUsdcBalance"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
@@ -23,34 +28,41 @@ import { ShredIcon } from "./Icons"
 
 export const TreasuryBalance = () => {
   const { data: treasuryBalance } = useBalance({
-    address: TREASURY_ADDRESS,
+    address: BASE_TREASURY_ADDRESS,
   })
 
   const { data: usdcBalance } = useBalance({
-    address: TREASURY_ADDRESS,
-    token: USDC_TOKEN_ADDRESS,
+    address: BASE_TREASURY_ADDRESS,
+    token: BASE_USDC_TOKEN_ADDRESS,
+  })
+
+  const { data: senditBalance } = useBalance({
+    address: BASE_TREASURY_ADDRESS,
+    token: BASE_SENDIT_TOKEN_ADDRESS,
   })
 
   const { data: multisigBalance } = useBalance({
-    address: MULTISIG_ADDRESS,
+    address: BASE_MULTISIG_ADDRESS,
   })
 
   const { data: gnarsBalance } = useGnarsV2TokenBalanceOf({
-    args: [MULTISIG_ADDRESS],
+    args: [BASE_MULTISIG_ADDRESS],
   })
 
   const formattedBalances = useMemo(() => {
-    if (!treasuryBalance || !multisigBalance || !usdcBalance) {
+    if (!treasuryBalance || !multisigBalance || !usdcBalance || !senditBalance) {
       return null
     }
 
     return {
       treasuryEth: formatEtherBalance(treasuryBalance.value),
       treasuryUsdc: formatUsdcBalance(usdcBalance?.value),
+      treasurySendit: formatEtherBalance(senditBalance?.value),
       multisigEth: formatEtherBalance(multisigBalance.value),
       total: formatEtherBalance(treasuryBalance.value + multisigBalance.value),
     }
-  }, [treasuryBalance, multisigBalance, usdcBalance])
+  }, [treasuryBalance, multisigBalance, usdcBalance, senditBalance])
+
   return (
     <Popover>
       <PopoverTrigger>
@@ -78,36 +90,63 @@ export const TreasuryBalance = () => {
       <PopoverContent w={"fit-content"}>
         <PopoverArrow />
         <PopoverBody>
-          <SimpleGrid columns={2} columnGap={4} templateColumns={"fit-content(60%) fit-content(40%)"}>
-            {formattedBalances ? (
-              <HStack justifyContent={"start"} whiteSpace={"nowrap"} divider={<Text px={2}>+</Text>}>
-                <Text whiteSpace={"nowrap"}>{`Ξ ${formattedBalances.multisigEth}`}</Text>
-                {typeof gnarsBalance === "bigint" && (
-                  <Text>
-                    <ShredIcon style={{ verticalAlign: "sub" }} />
-                    {gnarsBalance.toString()}
-                  </Text>
-                )}
-              </HStack>
-            ) : (
-              <Spinner size={"sm"} />
-            )}
-            <Link
-              href={`https://app.safe.global/home?safe=eth:${MULTISIG_ADDRESS}`}
-              whiteSpace={"nowrap"}
-              w={"fit-content"}
-            >
-              on Multisig <ExternalLinkIcon verticalAlign={"text-bottom"} />
-            </Link>
-            {formattedBalances ? (
-              <Text>{`Ξ ${formattedBalances.treasuryEth} + ${formattedBalances.treasuryUsdc} USDC`}</Text>
-            ) : (
-              <Spinner size={"sm"} />
-            )}
-            <Link href={`https://etherscan.io/address/${TREASURY_ADDRESS}`} whiteSpace={"nowrap"} w={"fit-content"}>
-              on Treasury <ExternalLinkIcon verticalAlign={"text-bottom"} />
-            </Link>
-          </SimpleGrid>
+          {formattedBalances && (
+            <VStack>
+              <Text fontSize={"sm"}>Multisig</Text>
+              <Tooltip label="Ether">
+                <Button size={"sm"} w={"100%"} variant={"outline"}>
+                  <Link
+                    href={`https://app.safe.global/home?safe=base:${BASE_MULTISIG_ADDRESS}`}
+                    target="_blank"
+                    whiteSpace={"nowrap"}
+                  >{`Ξ ${formattedBalances.multisigEth}`}</Link>
+                </Button>
+              </Tooltip>
+              {typeof gnarsBalance === "bigint" && (
+                <Tooltip label="Gnars">
+                  <Button size={"sm"} w={"100%"} variant={"outline"}>
+                    <Link
+                      href={`https://app.safe.global/home?safe=base:${BASE_MULTISIG_ADDRESS}`}
+                      target="_blank"
+                      whiteSpace={"nowrap"}
+                    >
+                      <ShredIcon style={{ verticalAlign: "sub" }} />
+                      {gnarsBalance.toString()}
+                    </Link>
+                  </Button>
+                </Tooltip>
+              )}
+              <Divider />
+              <Text fontSize={"sm"}>Treasury</Text>
+              <Tooltip label="Ether">
+                <Button size={"sm"} w={"100%"} variant={"outline"}>
+                  <Link
+                    href={`https://basescan.org/address/${BASE_TREASURY_ADDRESS}`}
+                    target="_blank"
+                    whiteSpace={"nowrap"}
+                  >{`Ξ ${formattedBalances.treasuryEth}`}</Link>
+                </Button>
+              </Tooltip>
+              <Tooltip label="USDC">
+                <Button size={"sm"} w={"100%"} variant={"outline"}>
+                  <Link
+                    href={`https://basescan.org/address/${BASE_TREASURY_ADDRESS}`}
+                    target="_blank"
+                    whiteSpace={"nowrap"}
+                  >{`$ ${formattedBalances.treasuryUsdc}`}</Link>
+                </Button>
+              </Tooltip>
+              <Tooltip label="Send it">
+                <Button size={"sm"} w={"100%"} variant={"outline"}>
+                  <Link
+                    href={`https://basescan.org/address/${BASE_TREASURY_ADDRESS}`}
+                    target="_blank"
+                    whiteSpace={"nowrap"}
+                  >{`↗ ${formattedBalances.treasurySendit}`}</Link>
+                </Button>
+              </Tooltip>
+            </VStack>
+          )}
         </PopoverBody>
       </PopoverContent>
     </Popover>
