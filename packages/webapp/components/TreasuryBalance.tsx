@@ -18,50 +18,147 @@ import {
   BASE_SENDIT_TOKEN_ADDRESS,
   BASE_TREASURY_ADDRESS,
   BASE_USDC_TOKEN_ADDRESS,
+  BASE_V2_GNAR_ADDRESS,
 } from "constants/gnarsDao"
-import { useMemo } from "react"
+import { ReactNode, useEffect, useMemo, useState } from "react"
 import { formatUsdcBalance } from "utils/formatUsdcBalance"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
-import { useBalance } from "wagmi"
+import { getTokensValues } from "utils/web3"
 import { formatEtherBalance } from "../utils/formatEtherBalance"
 import { ShredIcon } from "./Icons"
 
+interface TokenData {
+  value: bigint
+  formatted: string
+  label: string
+  url: string
+  icon: string | ReactNode
+}
+
 export const TreasuryBalance = () => {
-  const { data: treasuryBalance } = useBalance({
-    address: BASE_TREASURY_ADDRESS,
-  })
+  const [treasuryBalance, setTreasuryBalance] = useState<TokenData[]>([])
+  const [multisigBalance, setMultisigBalance] = useState<TokenData[]>([])
 
-  const { data: usdcBalance } = useBalance({
-    address: BASE_TREASURY_ADDRESS,
-    token: BASE_USDC_TOKEN_ADDRESS,
-  })
+  useEffect(() => {
+    const getTokens = async () => {
+      const treasuryTokens = await getTokensValues(BASE_TREASURY_ADDRESS, [
+        BASE_USDC_TOKEN_ADDRESS,
+        BASE_SENDIT_TOKEN_ADDRESS,
+      ])
+      setTreasuryBalance((treasuryBalance) => [
+        ...treasuryBalance,
+        {
+          value: treasuryTokens[0].value,
+          formatted: formatEtherBalance(treasuryTokens[0].value),
+          label: "Ether",
+          icon: "Ξ",
+          url: `https://basescan.org/address/${BASE_TREASURY_ADDRESS}`,
+        },
+        {
+          value: treasuryTokens[1].value,
+          formatted: formatUsdcBalance(treasuryTokens[1].value),
+          label: "USDC",
+          icon: "$",
+          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
+        },
+        {
+          value: treasuryTokens[2].value,
+          formatted: formatEtherBalance(treasuryTokens[2].value),
+          label: "Sendit",
+          icon: "↗",
+          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
+        },
+      ])
 
-  const { data: senditBalance } = useBalance({
-    address: BASE_TREASURY_ADDRESS,
-    token: BASE_SENDIT_TOKEN_ADDRESS,
-  })
+      const multisigTokens = await getTokensValues(BASE_MULTISIG_ADDRESS, [
+        BASE_USDC_TOKEN_ADDRESS,
+        BASE_SENDIT_TOKEN_ADDRESS,
+      ])
+      setMultisigBalance((multisigBalance) => [
+        ...multisigBalance,
+        {
+          value: multisigTokens[0].value,
+          formatted: formatEtherBalance(multisigTokens[0].value),
+          label: "Ether",
+          icon: "Ξ",
+          url: `https://basescan.org/address/${BASE_MULTISIG_ADDRESS}`,
+        },
+        {
+          value: multisigTokens[1].value,
+          formatted: formatUsdcBalance(multisigTokens[1].value),
+          label: "USDC",
+          icon: "$",
+          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
+        },
+        {
+          value: multisigTokens[2].value,
+          formatted: formatEtherBalance(multisigTokens[2].value),
+          label: "Sendit",
+          icon: "↗",
+          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
+        },
+      ])
+    }
+    setMultisigBalance([])
+    setTreasuryBalance([])
+    getTokens()
+  }, [])
 
-  const { data: multisigBalance } = useBalance({
-    address: BASE_MULTISIG_ADDRESS,
-  })
-
-  const { data: gnarsBalance } = useGnarsV2TokenBalanceOf({
+  const { data: multisigGnarsBalance } = useGnarsV2TokenBalanceOf({
     args: [BASE_MULTISIG_ADDRESS],
   })
+  useEffect(() => {
+    if (multisigGnarsBalance)
+      setMultisigBalance((multisigBalance) => [
+        ...multisigBalance,
+        {
+          icon: <ShredIcon style={{ verticalAlign: "sub" }} />,
+          formatted: multisigGnarsBalance.toString(),
+          value: multisigGnarsBalance,
+          label: "Gnars",
+          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
+        },
+      ])
+  }, [multisigGnarsBalance])
 
-  const formattedBalances = useMemo(() => {
-    if (!treasuryBalance || !multisigBalance || !usdcBalance || !senditBalance) {
-      return null
-    }
+  const { data: treasuryGnarsBalance } = useGnarsV2TokenBalanceOf({
+    args: [BASE_TREASURY_ADDRESS],
+  })
+  useEffect(() => {
+    if (treasuryGnarsBalance)
+      setTreasuryBalance((treasuryBalance) => [
+        ...treasuryBalance,
+        {
+          icon: <ShredIcon style={{ verticalAlign: "sub" }} />,
+          formatted: treasuryGnarsBalance.toString(),
+          value: treasuryGnarsBalance,
+          label: "Gnars",
+          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
+        },
+      ])
+  }, [treasuryGnarsBalance])
+
+  const totalValues = useMemo(() => {
+    let ethTotal = 0n
+    let gnarsTotal = 0n
+
+    const ethTreasury = treasuryBalance.find(token => token.label === "Ether")
+    if (ethTreasury) ethTotal += ethTreasury.value
+
+    const ethMultisig = multisigBalance.find(token => token.label === "Ether")
+    if (ethMultisig) ethTotal += ethMultisig.value
+
+    const gnarsTreasury = treasuryBalance.find(token => token.label === "Gnars")
+    if (gnarsTreasury) gnarsTotal += gnarsTreasury.value
+
+    const gnarsMultisig = multisigBalance.find(token => token.label === "Gnars")
+    if (gnarsMultisig) gnarsTotal += gnarsMultisig.value
 
     return {
-      treasuryEth: formatEtherBalance(treasuryBalance.value),
-      treasuryUsdc: formatUsdcBalance(usdcBalance?.value),
-      treasurySendit: formatEtherBalance(senditBalance?.value),
-      multisigEth: formatEtherBalance(multisigBalance.value),
-      total: formatEtherBalance(treasuryBalance.value + multisigBalance.value),
+      "eth": formatEtherBalance(ethTotal),
+      "gnars": gnarsTotal.toString()
     }
-  }, [treasuryBalance, multisigBalance, usdcBalance, senditBalance])
+  }, [treasuryBalance, multisigBalance])
 
   return (
     <Popover>
@@ -71,15 +168,13 @@ export const TreasuryBalance = () => {
             <Text fontSize={"2xs"} opacity={0.4}>
               TREASURY
             </Text>
-            {formattedBalances ? (
+            {multisigBalance.find(token => token.label === "Gnars") ? (
               <HStack whiteSpace={"nowrap"} divider={<Text px={2}>+</Text>}>
-                <Text whiteSpace={"nowrap"}>{`Ξ ${formattedBalances.total}`}</Text>
-                {typeof gnarsBalance === "bigint" && (
+                <Text whiteSpace={"nowrap"}>{`Ξ ${totalValues.eth}`}</Text>
                   <Text>
                     <ShredIcon style={{ verticalAlign: "sub" }} />
-                    {gnarsBalance.toString()}
+                    {totalValues.gnars}
                   </Text>
-                )}
               </HStack>
             ) : (
               <Spinner size={"sm"} />
@@ -90,63 +185,46 @@ export const TreasuryBalance = () => {
       <PopoverContent w={"fit-content"}>
         <PopoverArrow />
         <PopoverBody>
-          {formattedBalances && (
-            <VStack>
-              <Text fontSize={"sm"}>Multisig</Text>
-              <Tooltip label="Ether">
-                <Button size={"sm"} w={"100%"} variant={"outline"}>
-                  <Link
-                    href={`https://app.safe.global/home?safe=base:${BASE_MULTISIG_ADDRESS}`}
-                    target="_blank"
-                    whiteSpace={"nowrap"}
-                  >{`Ξ ${formattedBalances.multisigEth}`}</Link>
-                </Button>
-              </Tooltip>
-              {typeof gnarsBalance === "bigint" && (
-                <Tooltip label="Gnars">
-                  <Button size={"sm"} w={"100%"} variant={"outline"}>
-                    <Link
-                      href={`https://app.safe.global/home?safe=base:${BASE_MULTISIG_ADDRESS}`}
-                      target="_blank"
-                      whiteSpace={"nowrap"}
-                    >
-                      <ShredIcon style={{ verticalAlign: "sub" }} />
-                      {gnarsBalance.toString()}
-                    </Link>
-                  </Button>
-                </Tooltip>
-              )}
-              <Divider />
-              <Text fontSize={"sm"}>Treasury</Text>
-              <Tooltip label="Ether">
-                <Button size={"sm"} w={"100%"} variant={"outline"}>
-                  <Link
-                    href={`https://basescan.org/address/${BASE_TREASURY_ADDRESS}`}
-                    target="_blank"
-                    whiteSpace={"nowrap"}
-                  >{`Ξ ${formattedBalances.treasuryEth}`}</Link>
-                </Button>
-              </Tooltip>
-              <Tooltip label="USDC">
-                <Button size={"sm"} w={"100%"} variant={"outline"}>
-                  <Link
-                    href={`https://basescan.org/address/${BASE_TREASURY_ADDRESS}`}
-                    target="_blank"
-                    whiteSpace={"nowrap"}
-                  >{`$ ${formattedBalances.treasuryUsdc}`}</Link>
-                </Button>
-              </Tooltip>
-              <Tooltip label="Send it">
-                <Button size={"sm"} w={"100%"} variant={"outline"}>
-                  <Link
-                    href={`https://basescan.org/address/${BASE_TREASURY_ADDRESS}`}
-                    target="_blank"
-                    whiteSpace={"nowrap"}
-                  >{`↗ ${formattedBalances.treasurySendit}`}</Link>
-                </Button>
-              </Tooltip>
-            </VStack>
-          )}
+          <VStack>
+            <Text fontSize={"sm"}>Multisig</Text>
+            {multisigBalance.length
+              ? multisigBalance.map((token) =>
+                  token.value > 1 ? (
+                    <Tooltip key={token.label} label={token.label}>
+                      <Button size={"sm"} w={"100%"} variant={"outline"}>
+                        <Link
+                          href={token.url}
+                          target="_blank"
+                          whiteSpace={"nowrap"}
+                        >
+                          {token.icon} {token.formatted}
+                        </Link>
+                      </Button>
+                    </Tooltip>
+                  ) : null
+                )
+              : null}
+            <Divider />
+            <Text fontSize={"sm"}>Treasury</Text>
+            {treasuryBalance.length
+              ? treasuryBalance.map((token) =>
+                  token.value > 1 ? (
+                    <Tooltip key={token.label} label={token.label}>
+                      <Button size={"sm"} w={"100%"} variant={"outline"}>
+                        <Link
+                          href={token.url}
+                          target="_blank"
+                          whiteSpace={"nowrap"}
+                        >
+                          {token.icon} {token.formatted}
+                        </Link>
+                      </Button>
+                    </Tooltip>
+                  ) : null
+                )
+              : null}
+            <Divider />
+          </VStack>
         </PopoverBody>
       </PopoverContent>
     </Popover>
