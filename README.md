@@ -1,27 +1,37 @@
-# Gnars monorepo
+# Gnars Monorepo
+
+This is the monorepository for Gnars. Here, we store the code related to the front-end of our Auction site.
+
+You can see this code in action at [gnars.wtf](https://www.gnars.wtf/).
 
 ## Packages
 
 ### 💻 [Webapp](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/webapp)
 
-The Gnars webapp is a dynamic frontend application designed to interact with Gnars smart contracts and subgraphs via the Graph Client and Wagmi CLI. It ensures type-safe querying and seamless integration with blockchain data. Developers can enhance functionality by adding new queries and contract interactions, facilitated by comprehensive command-line tools for code generation and environment setup.
-
-### 🖼️ [Artwork](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/gnars-hd/artwork)
-
-Scripts in this package automate the preparation of artwork for NFT creation. `test.js` verifies and indexes artwork files, while `prepare.js` organizes and readies files for IPFS upload via nft.storage, facilitating efficient NFT minting.
-
-### 📄 [Solidity Contracts](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/gnars-hd/contract)
-
-This directory houses Solidity contracts essential for the NFT creation process. Scripts automate the deployment and management of these contracts, ensuring seamless integration with the prepared artwork. These contracts enable secure and verified transactions within the NFT ecosystem.
+The Gnars web application is developed using Next.js, React, Subgraph, and Wagmi. This application facilitates interactions with the DAO, from participating in NFT auctions to viewing and editing proposals. We utilize Chakra-UI for the front-end design.
 
 ### 🌐 [Subgraph](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/subgraph)
 
-The Subgraph package provides a robust querying API for efficiently accessing blockchain data related to the Gnars projects. It indexes events and entities from Gnars smart contracts on Ethereum, facilitating real-time data retrieval and interaction within our applications. This setup ensures reliable and up-to-date blockchain data integration.
+This Subgraph manages information from an NFT collection named Gnar, with functionalities for auctions, voting, and vote delegation. It details entities like `OgGnar`, `Gnar`, and `Auction`, which record the original NFT, any NFT, and the auctions associated with these NFTs, respectively. Events such as `OgTransferEvent` and `DelegationEvent` are used to record NFT transfers and changes in vote delegation.
 
 ### 🤖 [@gnars/bots](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/bots)
 
-A bot that monitors changes in Gnar auction states and notifies everyone via Twitter and Discord, enhancing community engagement and real-time information sharing.
+A bot that monitors changes in Gnars auctions and notifies on Twitter and Discord for greater community engagement. The project implements the subgraphs also housed in the monorepo. The repository includes a Dockerfile for Redis deployment.
 
-### 🛠️ [Sample Hardhat Project](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/gnars-contracts)
+### Contracts
+
+#### 🖼️ [Gnars HD Artwork](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/gnars-hd/artwork)
+
+Images, details, and scripts for organizing the artworks that make up the NFTs. Each NFT is composed of various traits such as head, glasses, and background.
+
+#### 📄 [Gnars HD Smart Contracts](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/gnars-hd/contract)
+
+Smart contracts of Gnars HD colletion on Ethereum. These contracts are for the creation of NFTs from traits mapping. The GnarsHD contract is a non-transferable ERC-721 NFT.
+
+#### 🛠️ [Sample Hardhat Project](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/gnars-contracts)
 
 This project demonstrates a basic Hardhat use case. It includes a sample contract, a test for that contract, and a script that deploys that contract, serving as an introduction to smart contract development in Hardhat.
+
+## 💭 Final Thoughts
+
+If you've made it this far and are unsure where to start, we recommend taking a look at the [Webapp](https://github.com/gnars-dao/gnars-frontend/tree/main/packages/webapp), which is the most user-friendly environment to start getting involved with Gnars.
