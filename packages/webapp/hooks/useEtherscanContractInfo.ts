@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
 import { Abi } from "abitype"
 import { etherscanApiKey } from "constants/env"
-import { isAddress } from "viem"
-import { PublicClient, usePublicClient } from "wagmi"
+import { isAddress, PublicClient } from "viem"
+import { usePublicClient } from "wagmi"
 
 export interface RegularContractInfo {
   name: string
@@ -20,10 +20,16 @@ export type ContractInfo = RegularContractInfo | ProxyContractInfo
 
 export const useEtherscanContractInfo = (address?: string) => {
   const client = usePublicClient()
-  return useQuery<ContractInfo | null>(["etherscanAbi", address], async ({ signal }) => {
-    if (!address || !isAddress(address)) return null
 
-    return fetchContractInfo(address, client, signal)
+  if(!client) throw new Error(`useEtherscanContractInfo client is undefined`, client);
+
+  return useQuery<ContractInfo | null>({ 
+      queryKey: ["etherscanAbi", address],
+      queryFn: async ({ signal }) => {
+        if (!address || !isAddress(address)) return null
+        
+        return fetchContractInfo(address, client, signal)
+      }
   })
 }
 
