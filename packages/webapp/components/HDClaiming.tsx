@@ -37,10 +37,10 @@ export const HDClaiming = () => {
   const deselectHD = (id: string) => setSelectedHDGnars(selectedHDGnars.filter((s) => s !== id))
 
   const { isLoading, data: hdGnars } = useWalletHDGnars(address)
-
-  const { writeAsync: claimGnars } = useGnarsHdAssertOwnership({
+  // TODO: Needs refactoring
+  /*const { writeAsync: claimGnars } = useGnarsHdAssertOwnership({
     args: [selectedHDGnars.map((id) => BigInt(id))],
-  })
+  })*/
 
   if (isDisconnected) {
     return <WalletButton alignSelf={"center"} />
@@ -107,11 +107,14 @@ export const HDClaiming = () => {
                   {selectedHDGnars.length}
                 </Tag>
               }
-              isDisabled={selectedHDGnars.length === 0}
-              isLoading={isClaiming}
+              // isDisabled={selectedHDGnars.length === 0}
+              isDisabled={true}
+              //isLoading={isClaiming}
+              isLoading={false}
               loadingText={"Claiming"}
               onClick={() => {
-                setIsClaiming(true)
+                console.log(`HD Claiming btn clicked`);
+                /*setIsClaiming(true)
                 claimGnars()
                   .then((tx) => waitForTransaction({ hash: tx.hash }))
                   .then(() => invalidateQueries({ queryKey: [walletHDGnarsQueryKey] }))
@@ -119,7 +122,9 @@ export const HDClaiming = () => {
                   .finally(() => {
                     setIsClaiming(false)
                   })
-              }}
+                }*/
+              }
+              }
             >
               Claim selected
             </ContractActionButton>

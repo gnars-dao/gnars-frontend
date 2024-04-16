@@ -17,7 +17,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { VoteAction } from "components/Governance/Actions/VoteAction"
+// import { VoteAction } from "components/Governance/Actions/VoteAction"
 import { ProposalTimeline } from "components/Governance/ProposalTimeline"
 import { motion } from "framer-motion"
 import { useBlock } from "hooks/useBlock"
@@ -76,7 +76,7 @@ export default function Proposal() {
     address &&
     (proposer.toLowerCase() === address?.toLowerCase() || currentProposerVotes < proposalThreshold)
 
-  const { writeAsync: cancelProp } = useGnarsDaoCancel({
+  /*const { writeAsync: cancelProp } = useGnarsDaoCancel({
     args: [BigInt(propId ?? 0)],
   })
 
@@ -86,10 +86,10 @@ export default function Proposal() {
 
   const { writeAsync: executeProp } = useGnarsDaoExecute({
     args: [BigInt(propId ?? 0)],
-  })
+  })*/
 
   const refreshProposal = useCallback(() => {
-    invalidateQueries(["proposal", propId]) //FIXME TypeError: Cannot read properties of undefined (reading 'queryCache')
+    // invalidateQueries(["proposal", propId]) //FIXME TypeError: Cannot read properties of undefined (reading 'queryCache')
   }, [invalidateQueries, propId])
 
   const quorumVotes = proposal ? getQuorumVotes(proposal) : undefined
@@ -199,13 +199,16 @@ export default function Proposal() {
                       <ProposalContent
                         actions={
                           <Stack direction={{ base: "column", md: "row" }} align={{ md: "center" }} h={"fit-content"}>
-                            {effectiveStatus === "ACTIVE" && <VoteAction proposal={proposal} />}
+                            {effectiveStatus === "ACTIVE" && <Text>Vote Action Placeholder</Text>}
+                            {/*<VoteAction proposal={proposal} />*/}
                             {canCancel && (
                               <Button
-                                onClick={() =>
-                                  cancelProp?.()
+                                onClick={() => {
+                                  console.log(`Cancel proposal button clicked`);
+                                  /*cancelProp?.()
                                     .then((tx) => waitForTransactionReceipt({ hash: tx.hash }))
-                                    .then(refreshProposal)
+                                .then(refreshProposal)*/
+                                }
                                 }
                                 variant={"outline"}
                               >
@@ -214,11 +217,12 @@ export default function Proposal() {
                             )}
                             {canQueue && (
                               <Button
-                                onClick={() =>
-                                  queueProp?.()
+                                onClick={() => {
+                                  console.log(`Queue proposal button clicked`);
+                                  /*queueProp?.()
                                     .then((tx) => waitForTransactionReceipt({ hash: tx.hash }))
-                                    .then(refreshProposal)
-                                }
+                                    .then(refreshProposal)*/
+                                }}
                                 variant={"outline"}
                               >
                                 Queue
@@ -226,10 +230,14 @@ export default function Proposal() {
                             )}
                             {canExecute && (
                               <Button
-                                onClick={() =>
+                                onClick={() => {
+                                  console.log(`Execute proposal button clicked`);
+                                  /*
                                   executeProp?.()
                                     .then((tx) => waitForTransactionReceipt({ hash: tx.hash }))
                                     .then(refreshProposal)
+                                    */
+                                }
                                 }
                                 variant={"outline"}
                               >

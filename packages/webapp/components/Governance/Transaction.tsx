@@ -19,7 +19,7 @@ export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature,
   const { data: contractInfo, isLoading: isLoadingContractInfo } = useEtherscanContractInfo(target)
   const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(target)
   const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
-    name: nnsOrEnsName,
+    name: String(nnsOrEnsName),
   })
 
   const truncateAddress = useBreakpointValue({ base: true, md: false })
@@ -35,9 +35,9 @@ export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature,
     () =>
       partialFunc
         ? decodeFunctionData({
-            abi: [partialFunc],
-            data: (getFunctionSelector(signature) + calldata.substring(2)) as `0x${string}`,
-          })
+          abi: [partialFunc],
+          data: (getFunctionSelector(signature) + calldata.substring(2)) as `0x${string}`,
+        })
         : undefined,
     [partialFunc, calldata, signature]
   )
@@ -53,7 +53,7 @@ export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature,
           address={target}
           avatarImg={ensAvatar ?? undefined}
         >
-          {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
+          {String(nnsOrEnsName) && <Text>{String(nnsOrEnsName)}</Text>}
           <AccountAddress address={target} truncate={truncateAddress} />
         </AccountWithAvatar>
         {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
@@ -75,7 +75,7 @@ export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature,
         address={target}
         avatarImg={ensAvatar ?? undefined}
       >
-        {nnsOrEnsName && <Text>{nnsOrEnsName}</Text>}
+        {String(nnsOrEnsName) && <Text>{String(nnsOrEnsName)}</Text>}
         <AccountAddress address={target} truncate={truncateAddress} />
       </AccountWithAvatar>
       {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}

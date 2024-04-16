@@ -41,7 +41,9 @@ export const OGClaiming = () => {
     enabled: selectedOgGnars.length > 0,
     chainId: mainnet.id,
   })
-  const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config)
+
+  // TODO: Needs refactoring
+  // const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config)
 
   if (isDisconnected) {
     return <WalletButton alignSelf={"center"} />
@@ -108,9 +110,11 @@ export const OGClaiming = () => {
                   {selectedOgGnars.length}
                 </Tag>
               }
-              isDisabled={!claimGnars}
-              isLoading={isClaiming}
-              onClick={() => claimGnars?.()}
+              isLoading={false}
+              isDisabled={true}
+            // isDisabled={!claimGnars}
+            // isLoading={isClaiming}
+            // onClick={() => claimGnars?.()}
             >
               Claim selected
             </ContractActionButton>
