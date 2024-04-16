@@ -18,9 +18,9 @@ import {
 
 export default function Proposals() {
   const block = useBlock()
-  const { data: proposals } = useQuery(
-    ["proposals", block?.number?.toString()],
-    () =>
+  const { data: proposals } = useQuery({
+    queryKey: ["proposals", block?.number?.toString()],
+    queryFn: () =>
       execute(ProposalsDocument, {})
         .then((r: { data: { proposals: ProposalData[] } }) =>
           r.data.proposals.map((p: ProposalData) => ({
@@ -38,8 +38,8 @@ export default function Proposals() {
               ProposalData & { effectiveStatus: EffectiveProposalStatus }[]
             ]
         ),
-    { keepPreviousData: true }
-  )
+    // keepPreviousData: true 
+  })
   return (
     <DarkMode>
       <VStack flexGrow={1} w={"full"} color={"chakra-body-text"} spacing={6}>

@@ -11,9 +11,11 @@ import { walletConnectProjectId } from "constants/env"
 import Head from "next/head"
 import { queryClient } from "utils"
 import { mainnet, sepolia } from "wagmi/chains"
+
 import theme from "../theme"
 import { BaseAlertHeader } from 'components/BaseJumpAnnouncement';
 
+// https://viem.sh/docs/clients/test#extending-with-public--wallet-actions
 const config = createConfig(
   getDefaultConfig({
     appName: "Gnars",
@@ -23,7 +25,8 @@ const config = createConfig(
     chains: [mainnet, sepolia],
     walletConnectProjectId,
     transports: {
-      // TODO: replace example.com
+      // TODO: replace example.com (fallback?: https://eth-mainnet.g.alchemy.com/v2/...)
+      // https://viem.sh/docs/clients/transports/fallback#usage
       [mainnet.id]: http('https://mainnet.example.com'),
       [sepolia.id]: http('https://sepolia.example.com'),
     },

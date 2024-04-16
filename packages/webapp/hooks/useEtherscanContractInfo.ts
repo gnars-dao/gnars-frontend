@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { Abi } from "abitype"
 import { etherscanApiKey } from "constants/env"
+// https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5#supports-a-single-signature-one-object
 import { isAddress, PublicClient } from "viem"
 import { usePublicClient } from "wagmi"
 

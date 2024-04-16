@@ -17,7 +17,7 @@ export const Address: FC<AddressProps> = ({ address, withLink = false, truncate 
   const content = (
     <HStack {...props}>
       <Text whiteSpace={"nowrap"}>
-        {nnsOrEnsName ?? (truncate ? shortAddress(address) : address)}
+        {String(nnsOrEnsName) ?? (truncate ? shortAddress(address) : address)}
         {isLoading && <Spinner boxSize={"36px"} thickness={"2px"} />}
         {withLink && (
           <HiExternalLink

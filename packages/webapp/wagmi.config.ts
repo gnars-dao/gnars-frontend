@@ -54,6 +54,7 @@ export default defineConfig({
         },
       ],
     }),
+    // TODO: wagmi migration v2
     react() //{ // useContractFunctionWrite: true }),
   ],
 })
