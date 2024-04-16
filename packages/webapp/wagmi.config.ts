@@ -1,4 +1,4 @@
-import { ContractConfig, defineConfig } from "@wagmi/cli"
+import { ContractConfig, defineConfig, loadEnv } from "@wagmi/cli"
 import { etherscan, react } from "@wagmi/cli/plugins"
 import { mainnet } from "wagmi/chains"
 

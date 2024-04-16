@@ -20,6 +20,7 @@ export type Scalars = {
   BigInt: any;
   Bytes: any;
   Int8: any;
+  Timestamp: any;
 };
 
 export type Account = {
@@ -135,6 +136,10 @@ export type Account_orderBy =
   | 'totalTokensHeldRaw'
   | 'totalTokensHeld'
   | 'gnars';
+
+export type Aggregation_interval =
+  | 'hour'
+  | 'day';
 
 export type Auction = {
   /** The Gnar's ERC721 token id */
@@ -2127,7 +2132,8 @@ export type Query = {
   votes: Array<Vote>;
   governance?: Maybe<Governance>;
   governances: Array<Governance>;
-  dynamicQuorumParams: Array<DynamicQuorumParams>;
+  dynamicQuorumParams?: Maybe<DynamicQuorumParams>;
+  dynamicQuorumParams_collection: Array<DynamicQuorumParams>;
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
 };
@@ -2458,6 +2464,13 @@ export type QuerygovernancesArgs = {
 
 
 export type QuerydynamicQuorumParamsArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerydynamicQuorumParams_collectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<DynamicQuorumParams_orderBy>;
@@ -2587,7 +2600,8 @@ export type Subscription = {
   votes: Array<Vote>;
   governance?: Maybe<Governance>;
   governances: Array<Governance>;
-  dynamicQuorumParams: Array<DynamicQuorumParams>;
+  dynamicQuorumParams?: Maybe<DynamicQuorumParams>;
+  dynamicQuorumParams_collection: Array<DynamicQuorumParams>;
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
 };
@@ -2918,6 +2932,13 @@ export type SubscriptiongovernancesArgs = {
 
 
 export type SubscriptiondynamicQuorumParamsArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiondynamicQuorumParams_collectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<DynamicQuorumParams_orderBy>;
@@ -3267,6 +3288,8 @@ export type _Block_ = {
   number: Scalars['Int'];
   /** Integer representation of the timestamp stored in blocks for the chain */
   timestamp?: Maybe<Scalars['Int']>;
+  /** The hash of the parent block */
+  parentHash?: Maybe<Scalars['Bytes']>;
 };
 
 /** The type for the top-level _meta field */
@@ -3366,6 +3389,8 @@ export type _SubgraphErrorPolicy_ =
   governances: InContextSdkMethod<Query['governances'], QuerygovernancesArgs, MeshContext>,
   /** null **/
   dynamicQuorumParams: InContextSdkMethod<Query['dynamicQuorumParams'], QuerydynamicQuorumParamsArgs, MeshContext>,
+  /** null **/
+  dynamicQuorumParams_collection: InContextSdkMethod<Query['dynamicQuorumParams_collection'], QuerydynamicQuorumParams_collectionArgs, MeshContext>,
   /** Access to subgraph metadata **/
   _meta: InContextSdkMethod<Query['_meta'], Query_metaArgs, MeshContext>
   };
@@ -3449,6 +3474,8 @@ export type _SubgraphErrorPolicy_ =
   governances: InContextSdkMethod<Subscription['governances'], SubscriptiongovernancesArgs, MeshContext>,
   /** null **/
   dynamicQuorumParams: InContextSdkMethod<Subscription['dynamicQuorumParams'], SubscriptiondynamicQuorumParamsArgs, MeshContext>,
+  /** null **/
+  dynamicQuorumParams_collection: InContextSdkMethod<Subscription['dynamicQuorumParams_collection'], SubscriptiondynamicQuorumParams_collectionArgs, MeshContext>,
   /** Access to subgraph metadata **/
   _meta: InContextSdkMethod<Subscription['_meta'], Subscription_metaArgs, MeshContext>
   };

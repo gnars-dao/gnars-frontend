@@ -10,7 +10,7 @@ import { createConfig, WagmiProvider, http } from "wagmi"
 import { walletConnectProjectId } from "constants/env"
 import Head from "next/head"
 import { queryClient } from "utils"
-import { mainnet, sepolia } from "wagmi/chains"
+import { mainnet, sepolia, baseSepolia } from "wagmi/chains"
 
 import theme from "../theme"
 import { BaseAlertHeader } from 'components/BaseJumpAnnouncement';
@@ -20,15 +20,16 @@ const config = createConfig(
   getDefaultConfig({
     appName: "Gnars",
     // TODO: Check if SSR prop is needed (defaults to false)
-    ssr: false,
+    ssr: true,
     // TODO: Determine if alchemy key is needed and where
     chains: [mainnet, sepolia],
     walletConnectProjectId,
     transports: {
       // TODO: replace example.com (fallback?: https://eth-mainnet.g.alchemy.com/v2/...)
       // https://viem.sh/docs/clients/transports/fallback#usage
-      [mainnet.id]: http('https://mainnet.example.com'),
-      [sepolia.id]: http('https://sepolia.example.com'),
+      [mainnet.id]: http(),
+      [sepolia.id]: http(),
+      [baseSepolia.id]: http()
     },
   }),
   // persister: null,

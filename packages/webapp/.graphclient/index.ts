@@ -23,6 +23,7 @@ import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
 import { path as pathModule } from '@graphql-mesh/cross-helpers';
 import { ImportFn } from '@graphql-mesh/types';
 import type { GnarsTypes } from './sources/gnars/types';
+import * as importedModule$0 from "./sources/gnars/introspectionSchema";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -43,6 +44,7 @@ export type Scalars = {
   BigInt: any;
   Bytes: any;
   Int8: any;
+  Timestamp: any;
 };
 
 export type Account = {
@@ -158,6 +160,10 @@ export type Account_orderBy =
   | 'totalTokensHeldRaw'
   | 'totalTokensHeld'
   | 'gnars';
+
+export type Aggregation_interval =
+  | 'hour'
+  | 'day';
 
 export type Auction = {
   /** The Gnar's ERC721 token id */
@@ -2150,7 +2156,8 @@ export type Query = {
   votes: Array<Vote>;
   governance?: Maybe<Governance>;
   governances: Array<Governance>;
-  dynamicQuorumParams: Array<DynamicQuorumParams>;
+  dynamicQuorumParams?: Maybe<DynamicQuorumParams>;
+  dynamicQuorumParams_collection: Array<DynamicQuorumParams>;
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
 };
@@ -2481,6 +2488,13 @@ export type QuerygovernancesArgs = {
 
 
 export type QuerydynamicQuorumParamsArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerydynamicQuorumParams_collectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<DynamicQuorumParams_orderBy>;
@@ -2610,7 +2624,8 @@ export type Subscription = {
   votes: Array<Vote>;
   governance?: Maybe<Governance>;
   governances: Array<Governance>;
-  dynamicQuorumParams: Array<DynamicQuorumParams>;
+  dynamicQuorumParams?: Maybe<DynamicQuorumParams>;
+  dynamicQuorumParams_collection: Array<DynamicQuorumParams>;
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
 };
@@ -2941,6 +2956,13 @@ export type SubscriptiongovernancesArgs = {
 
 
 export type SubscriptiondynamicQuorumParamsArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptiondynamicQuorumParams_collectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<DynamicQuorumParams_orderBy>;
@@ -3290,6 +3312,8 @@ export type _Block_ = {
   number: Scalars['Int'];
   /** Integer representation of the timestamp stored in blocks for the chain */
   timestamp?: Maybe<Scalars['Int']>;
+  /** The hash of the parent block */
+  parentHash?: Maybe<Scalars['Bytes']>;
 };
 
 /** The type for the top-level _meta field */
@@ -3396,11 +3420,14 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
+
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Account: ResolverTypeWrapper<Account>;
   Account_filter: Account_filter;
   Account_orderBy: Account_orderBy;
+  Aggregation_interval: Aggregation_interval;
   Auction: ResolverTypeWrapper<Auction>;
   AuctionHouse: ResolverTypeWrapper<AuctionHouse>;
   AuctionHouse_filter: AuctionHouse_filter;
@@ -3465,6 +3492,7 @@ export type ResolversTypes = ResolversObject<{
   Seed_orderBy: Seed_orderBy;
   String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
+  Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>;
   TransferEvent: ResolverTypeWrapper<TransferEvent>;
   TransferEvent_filter: TransferEvent_filter;
   TransferEvent_orderBy: TransferEvent_orderBy;
@@ -3525,6 +3553,7 @@ export type ResolversParentTypes = ResolversObject<{
   Seed_filter: Seed_filter;
   String: Scalars['String'];
   Subscription: {};
+  Timestamp: Scalars['Timestamp'];
   TransferEvent: TransferEvent;
   TransferEvent_filter: TransferEvent_filter;
   Vote: Vote;
@@ -3797,7 +3826,8 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   votes?: Resolver<Array<ResolversTypes['Vote']>, ParentType, ContextType, RequireFields<QueryvotesArgs, 'skip' | 'first' | 'subgraphError'>>;
   governance?: Resolver<Maybe<ResolversTypes['Governance']>, ParentType, ContextType, RequireFields<QuerygovernanceArgs, 'id' | 'subgraphError'>>;
   governances?: Resolver<Array<ResolversTypes['Governance']>, ParentType, ContextType, RequireFields<QuerygovernancesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  dynamicQuorumParams?: Resolver<Array<ResolversTypes['DynamicQuorumParams']>, ParentType, ContextType, RequireFields<QuerydynamicQuorumParamsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  dynamicQuorumParams?: Resolver<Maybe<ResolversTypes['DynamicQuorumParams']>, ParentType, ContextType, RequireFields<QuerydynamicQuorumParamsArgs, 'id' | 'subgraphError'>>;
+  dynamicQuorumParams_collection?: Resolver<Array<ResolversTypes['DynamicQuorumParams']>, ParentType, ContextType, RequireFields<QuerydynamicQuorumParams_collectionArgs, 'skip' | 'first' | 'subgraphError'>>;
   _meta?: Resolver<Maybe<ResolversTypes['_Meta_']>, ParentType, ContextType, Partial<Query_metaArgs>>;
 }>;
 
@@ -3848,9 +3878,14 @@ export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends 
   votes?: SubscriptionResolver<Array<ResolversTypes['Vote']>, "votes", ParentType, ContextType, RequireFields<SubscriptionvotesArgs, 'skip' | 'first' | 'subgraphError'>>;
   governance?: SubscriptionResolver<Maybe<ResolversTypes['Governance']>, "governance", ParentType, ContextType, RequireFields<SubscriptiongovernanceArgs, 'id' | 'subgraphError'>>;
   governances?: SubscriptionResolver<Array<ResolversTypes['Governance']>, "governances", ParentType, ContextType, RequireFields<SubscriptiongovernancesArgs, 'skip' | 'first' | 'subgraphError'>>;
-  dynamicQuorumParams?: SubscriptionResolver<Array<ResolversTypes['DynamicQuorumParams']>, "dynamicQuorumParams", ParentType, ContextType, RequireFields<SubscriptiondynamicQuorumParamsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  dynamicQuorumParams?: SubscriptionResolver<Maybe<ResolversTypes['DynamicQuorumParams']>, "dynamicQuorumParams", ParentType, ContextType, RequireFields<SubscriptiondynamicQuorumParamsArgs, 'id' | 'subgraphError'>>;
+  dynamicQuorumParams_collection?: SubscriptionResolver<Array<ResolversTypes['DynamicQuorumParams']>, "dynamicQuorumParams_collection", ParentType, ContextType, RequireFields<SubscriptiondynamicQuorumParams_collectionArgs, 'skip' | 'first' | 'subgraphError'>>;
   _meta?: SubscriptionResolver<Maybe<ResolversTypes['_Meta_']>, "_meta", ParentType, ContextType, Partial<Subscription_metaArgs>>;
 }>;
+
+export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
+  name: 'Timestamp';
+}
 
 export type TransferEventResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TransferEvent'] = ResolversParentTypes['TransferEvent']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -3881,6 +3916,7 @@ export type _Block_Resolvers<ContextType = MeshContext, ParentType extends Resol
   hash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   timestamp?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  parentHash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3915,6 +3951,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   Seed?: SeedResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
+  Timestamp?: GraphQLScalarType;
   TransferEvent?: TransferEventResolvers<ContextType>;
   Vote?: VoteResolvers<ContextType>;
   _Block_?: _Block_Resolvers<ContextType>;
@@ -3937,7 +3974,7 @@ const importFn: ImportFn = <T>(moduleId: string) => {
   const relativeModuleId = (pathModule.isAbsolute(moduleId) ? pathModule.relative(baseDir, moduleId) : moduleId).split('\\').join('/').replace(baseDir + '/', '');
   switch(relativeModuleId) {
     case ".graphclient/sources/gnars/introspectionSchema":
-      return import("./sources/gnars/introspectionSchema") as T;
+      return Promise.resolve(importedModule$0) as T;
     
     default:
       return Promise.reject(new Error(`Cannot find module '${relativeModuleId}'.`));
