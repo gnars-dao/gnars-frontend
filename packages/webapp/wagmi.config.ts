@@ -54,6 +54,6 @@ export default defineConfig({
         },
       ],
     }),
-    react({ useContractFunctionWrite: true }),
+    react() //{ // useContractFunctionWrite: true }),
   ],
 })

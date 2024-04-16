@@ -4,31 +4,37 @@ import { Analytics } from "@vercel/analytics/react"
 import Footer from "components/Footer"
 import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 import type { AppProps } from "next/app"
-import { createConfig, WagmiConfig } from "wagmi"
+import { createConfig, WagmiProvider, http } from "wagmi"
 
 import { alchemyApiKey, walletConnectProjectId } from "constants/env"
 import Head from "next/head"
 import { queryClient } from "utils"
-import { mainnet } from "wagmi/chains"
+import { mainnet, sepolia } from "wagmi/chains"
 import theme from "../theme"
 import { BaseAlertHeader } from 'components/BaseJumpAnnouncement';
 
-const config = createConfig({
-  ...getDefaultConfig({
+const config = createConfig(
+  getDefaultConfig({
     appName: "Gnars",
-    alchemyId: alchemyApiKey,
-    chains: [mainnet],
+    // TODO: Check if SSR prop is needed (defaults to false)
+    ssr: false,
+    chains: [mainnet, sepolia],
     walletConnectProjectId,
+    transports: {
+      // TODO: replace example.com
+      [mainnet.id]: http('https://mainnet.example.com'),
+      [sepolia.id]: http('https://sepolia.example.com'),
+    },
   }),
-  persister: null,
-})
+  // persister: null,
+)
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <WagmiConfig config={config}>
-        <ConnectKitProvider theme={"midnight"} options={{ enforceSupportedChains: false, initialChainId: 1 }}>
-          <QueryClientProvider client={queryClient}>
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <ConnectKitProvider theme={"midnight"} options={{ enforceSupportedChains: false, initialChainId: 1 }}>
             <DarkMode>
               <VStack minH={"full"} spacing={10}>
                 <Head>
@@ -41,9 +47,9 @@ export default function App({ Component, pageProps }: AppProps) {
               </VStack>
               <Analytics debug={false} />
             </DarkMode>
-          </QueryClientProvider>
-        </ConnectKitProvider>
-      </WagmiConfig>
+          </ConnectKitProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
     </ChakraProvider>
   )
 }

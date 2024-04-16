@@ -24,12 +24,13 @@ export const useAccountQuery = (addressOrEnsDomain?: string): Account => {
     : undefined
   const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(address)
 
+  // TODO: Temp fix until nnsOrEnsName type is returned as a string or undefined
   const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
-    name: nnsOrEnsName,
+    name: String(nnsOrEnsName),
   })
   return {
     address,
-    nnsOrEnsName: nnsOrEnsName ?? undefined,
+    nnsOrEnsName: String(nnsOrEnsName) ?? undefined,
     ensAvatar: ensAvatar ?? undefined,
     isLoading: isLoadingEnsAddress || isLoadingEnsAvatar || isLoadingNnsOrEnsName,
     isValid,
