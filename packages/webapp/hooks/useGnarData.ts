@@ -162,7 +162,9 @@ export const fetchGnarData = async (desiredGnarId?: number): Promise<GnarData> =
 }
 
 export default function useGnarData(desiredGnarId?: number, initialData?: GnarData): UseQueryResult<GnarData> {
-  return useQuery<GnarData, [string, number | undefined]>(["gnar", desiredGnarId], () => fetchGnarData(desiredGnarId), {
+  // https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5#supports-a-single-signature-one-object
+  // TODO: Review TS for new useQuery format, test for regressions
+  return useQuery<GnarData, Error>({queryKey: ["gnar", desiredGnarId], queryFn: () => fetchGnarData(desiredGnarId), 
     refetchInterval: 2000,
     initialData,
   })
