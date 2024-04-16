@@ -22,7 +22,7 @@ export const useEtherscanContractInfo = (address?: string) => {
   const client = usePublicClient()
 
   if(!client) throw new Error(`useEtherscanContractInfo client is undefined`, client);
-
+  // https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5#supports-a-single-signature-one-object
   return useQuery<ContractInfo | null>({ 
       queryKey: ["etherscanAbi", address],
       queryFn: async ({ signal }) => {
