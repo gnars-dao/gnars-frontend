@@ -27,7 +27,7 @@ import { useAddTransactionFormState } from "./AddTransactionForm.state"
 import { useProposalCreationState } from "./ProposalCreationForm.state"
 import { TransactionCard } from "./TransactionCard"
 
-export interface ProposalCreationFormProps extends StackProps {}
+export interface ProposalCreationFormProps extends StackProps { }
 
 export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }) => {
   const { title, setTitle, description, setDescription, transactions, setTransactions, clear } =
@@ -40,19 +40,19 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
       isInvalid
         ? { targets: [], values: [], signatures: [], calldatas: [] }
         : transactions.reduce(
-            (transactions, transaction) => ({
-              targets: [...transactions.targets, transaction.target as `0x${string}`],
-              values: [...transactions.values, transaction.value],
-              signatures: [...transactions.signatures, transaction.signature],
-              calldatas: [...transactions.calldatas, transaction.calldata as `0x${string}`],
-            }),
-            {
-              targets: [] as `0x${string}`[],
-              values: [] as bigint[],
-              signatures: [] as string[],
-              calldatas: [] as `0x${string}`[],
-            }
-          ),
+          (transactions, transaction) => ({
+            targets: [...transactions.targets, transaction.target as `0x${string}`],
+            values: [...transactions.values, transaction.value],
+            signatures: [...transactions.signatures, transaction.signature],
+            calldatas: [...transactions.calldatas, transaction.calldata as `0x${string}`],
+          }),
+          {
+            targets: [] as `0x${string}`[],
+            values: [] as bigint[],
+            signatures: [] as string[],
+            calldatas: [] as `0x${string}`[],
+          }
+        ),
     [transactions, isInvalid]
   )
   const proposalDescription = useMemo(() => `# ${title}\n\n${description}`, [title, description])
@@ -61,8 +61,8 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
     enabled: !isInvalid,
     cacheTime: 2000,
   })
-
-  const { writeAsync: propose } = useContractWrite(config)
+  // TODO: Needs refactoring
+  // const { writeAsync: propose } = useContractWrite(config)
   const toast = useToast()
 
   return (
@@ -167,10 +167,11 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
         _dark={{
           bg: "pink.700",
         }}
-        isDisabled={isInvalid || !propose}
+        // isDisabled={isInvalid || !propose}
+        isDisabled={true}
         alignSelf={"end"}
-        onClick={() =>
-          propose?.()
+        onClick={() => {
+          /*propose?.()
             .then((tx) => waitForTransaction({ hash: tx.hash }))
             .then(() => {
               toast({
@@ -191,7 +192,8 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
                 description: "Something went wrong. Check your wallet for details.",
               })
             })
-        }
+        }*/
+        }}
       >
         Submit proposal
       </Button>

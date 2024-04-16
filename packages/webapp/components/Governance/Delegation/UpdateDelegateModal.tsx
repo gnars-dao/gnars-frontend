@@ -24,13 +24,13 @@ import { AvatarWallet } from "components/AvatarWallet"
 import { useAccountQuery } from "hooks/useAccountQuery"
 import { delegationInfoQueryKey, useDelegationInfo } from "hooks/useDelegationInfo"
 import { FC, useEffect, useState } from "react"
-import { useDebounce } from "usehooks-ts"
+import { useDebounceValue } from "usehooks-ts"
 import { useGnarsV2TokenDelegate } from "utils/sdk"
 import { normalize } from "viem/ens"
 import { useAccount } from "wagmi"
 import { waitForTransaction } from "wagmi/actions"
 
-export interface UpdateDelegateModalProps extends Omit<ModalProps, "children"> {}
+export interface UpdateDelegateModalProps extends Omit<ModalProps, "children"> { }
 
 export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...props }) => {
   const { address: userAddress } = useAccount()
@@ -39,12 +39,14 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
   const { invalidateQueries } = useQueryClient()
   const [accountQuery, setAccountQuery] = useState<string>("")
   const [isValidName, setIsValidName] = useBoolean(false)
-  const debouncedAccountQuery = useDebounce(accountQuery, 600)
+  // TODO: needs refactoring
+  const debouncedAccountQuery = "" // useDebounceValue(accountQuery, 600)
   const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountQuery)
   const toast = useToast()
-  const { writeAsync: delegate, isLoading: isDelegating } = useGnarsV2TokenDelegate({
+  // TODO: needs refactoring
+  /*const { writeAsync: delegate, isLoading: isDelegating } = useGnarsV2TokenDelegate({
     args: [address!],
-  })
+  })*/
   useEffect(() => {
     try {
       normalize(accountQuery)
@@ -97,11 +99,13 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
               Cancel
             </Button>
             <Button
-              isLoading={isDelegating}
+              isLoading={false} // {isDelegating}
               loadingText={"Delegating"}
-              isDisabled={!address || currentDelegate.toLowerCase() === address.toLowerCase()}
-              onClick={() =>
-                delegate?.()
+              // isDisabled={!address || currentDelegate.toLowerCase() === address.toLowerCase()}
+              isDisabled={true}
+              onClick={() => {
+                console.log(`UpdateDelegateModal btn clicked`);
+                /*delegate?.()
                   .then((tx) => waitForTransaction({ hash: tx.hash }))
                   .then(() => {
                     invalidateQueries(delegationInfoQueryKey(userAddress))
@@ -114,8 +118,8 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
                       title: "Error",
                       description: "Something went wrong. Check your wallet for details",
                     })
-                  )
-              }
+                  )*/
+              }}
             >
               Delegate
             </Button>

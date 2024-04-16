@@ -32,7 +32,7 @@ import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanCon
 import { useFunctions } from "hooks/useFunctions"
 import { useParameterValidation } from "hooks/useParameterValidation"
 import { FC, useEffect, useMemo } from "react"
-import { useDebounce } from "usehooks-ts"
+import { useDebounceValue } from "usehooks-ts"
 import { isValidName } from "utils/ensUtils"
 import { getSignature } from "utils/functionUtils"
 import { NounsTransactionData } from "utils/governanceUtils"
@@ -58,7 +58,7 @@ export const AddTransactionForm: FC<AddTransactionFormProps> = ({ onAddTransacti
   )
 }
 
-const PickTransactionKind = ({}) => {
+const PickTransactionKind = ({ }) => {
   const { pickKind, txKind, close, clear } = useAddTransactionFormState()
   return (
     <>
@@ -86,9 +86,9 @@ const PickTransactionKind = ({}) => {
   )
 }
 
-interface TransactionDataFormProps {}
+interface TransactionDataFormProps { }
 
-const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
+const TransactionDataForm: FC<TransactionDataFormProps> = ({ }) => {
   const { transactions, setTransactions } = useProposalCreationState()
   const {
     txKind,
@@ -121,7 +121,8 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
     }
   }, [abi, func, funcParams])
 
-  const debouncedAccountQuery = useDebounce(accountQuery, 600)
+  // TODO: needs refactoring
+  const debouncedAccountQuery = "" // useDebounceValue(accountQuery, 600)
   const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountQuery)
   const { data: contractInfo } = useEtherscanContractInfo(address)
 
@@ -139,9 +140,9 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
     txKind === "Send ETH"
       ? isValidEthValue && address !== undefined
       : !!calldata &&
-        address !== undefined &&
-        func !== undefined &&
-        (func.stateMutability === "payable" ? ethValue !== "" : true)
+      address !== undefined &&
+      func !== undefined &&
+      (func.stateMutability === "payable" ? ethValue !== "" : true)
 
   return (
     <>
@@ -271,14 +272,15 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
                 {
                   calldata: (txKind === "Send ETH" ? "0x" : "0x" + calldata!.substring(10)) as `0x${string}`,
                   signature:
-                    txKind === "Send ETH" ? "" : getSignature(getAbiItem({ abi: JSON.parse(abi), name: func!.name })),
+                    // TODO: needs refactor
+                    txKind === "Send ETH" ? "" : "NEEDS REFACTOR: getSignature(getAbiItem({ abi: JSON.parse(abi), name: func!.name }))",// getSignature(getAbiItem({ abi: JSON.parse(abi), name: func!.name })),
                   target: address!,
                   value:
                     txKind === "Send ETH"
                       ? parseEther(ethValue)
                       : func?.stateMutability === "payable"
-                      ? parseEther(ethValue)
-                      : 0n,
+                        ? parseEther(ethValue)
+                        : 0n,
                 },
               ])
               close()
