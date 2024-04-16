@@ -33,8 +33,9 @@ import { FC, useCallback, useMemo, useState } from "react"
 import { BiCommentDetail } from "react-icons/bi"
 import { DetailedProposalData, Support } from "utils/governanceUtils"
 import { useGnarsDaoCastVote, useGnarsDaoCastVoteWithReason, useGnarsV2TokenGetPriorVotes } from "utils/sdk"
+import { waitForTransactionReceipt } from "viem/actions"
 import { useAccount } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
+
 
 export interface VoteActionProps extends ButtonProps {
   proposal?: DetailedProposalData
@@ -59,9 +60,10 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
     return voteEvent?.vote
   }, [proposal?.events, address])
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { writeAsync: voteWithoutReason } = useGnarsDaoCastVote()
-
-  const { writeAsync: voteWithReason } = useGnarsDaoCastVoteWithReason()
+  // TODO: writeAsync not a valid return type
+  //const { writeAsync: voteWithoutReason } = useGnarsDaoCastVote()
+  // TODO: writeAsync not a valid return type
+  //const { writeAsync: voteWithReason } = useGnarsDaoCastVoteWithReason()
 
   const isVoting = isVotingSupport !== undefined
   const propId = BigInt(proposal?.id ?? 0)
@@ -73,18 +75,18 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
       return (
         reason.length > 0
           ? voteWithReason({
-              args: [propId, support, reason],
-            })
+            args: [propId, support, reason],
+          })
           : voteWithoutReason({
-              args: [propId, support],
-            })
+            args: [propId, support],
+          })
       )
-        .then((tx) => waitForTransaction({ hash: tx.hash }))
+        .then((tx) => waitForTransactionReceipt({ hash: tx.hash }))
         .then(() => {
           toast({ status: "success", title: "Vote submitted" })
           onClose()
         })
-        .catch((e) => {
+        .catch((e: Error) => {
           toast({
             status: "error",
             title: "Vote failed",

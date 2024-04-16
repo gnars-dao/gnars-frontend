@@ -13,7 +13,7 @@ export type AvatarWalletProps = {
 export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
   const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(address)
   const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
-    name: nnsOrEnsName,
+    name: String(nnsOrEnsName),
   })
 
   return (
@@ -23,7 +23,7 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
       isLoading={isLoadingNnsOrEnsName || isLoadingEnsAvatar}
       {...props}
     >
-      {nnsOrEnsName && <Text whiteSpace={"nowrap"}>{nnsOrEnsName}</Text>}
+      {String(nnsOrEnsName) && <Text whiteSpace={"nowrap"}>{String(nnsOrEnsName)}</Text>}
       <AccountAddress truncate address={address as `0x${string}`} />
     </AccountWithAvatar>
   )

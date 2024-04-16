@@ -5,10 +5,11 @@ import { ContractActionButton } from "../ContractActionButton"
 
 export type SettleAuctionButtonProps = ButtonProps
 export const SettleAuctionButton: FC<SettleAuctionButtonProps> = (props) => {
-  const { isLoading, write: settle } = useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction()
+  // TODO: Refactor when sdk updated
+  // const { isLoading, write: settle } = useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction()
 
   return (
-    <ContractActionButton isLoading={isLoading} loadingText={"Settling Auction"} onClick={() => settle?.()} {...props}>
+    <ContractActionButton isLoading={false} loadingText={"Settling Auction"} onClick={() => { console.log(`SettleAuctionButton clicked`) }} {...props}>
       Settle Auction
     </ContractActionButton>
   )
