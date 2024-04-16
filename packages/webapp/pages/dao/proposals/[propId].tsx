@@ -36,7 +36,7 @@ import {
 } from "utils/governanceUtils"
 import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "utils/sdk"
 import { useAccount } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
+import { waitForTransactionReceipt } from "wagmi/actions"
 import { execute, ProposalDocument } from "../../../.graphclient"
 import { ProposalCard } from "../../../components/Governance/ProposalCard"
 import ProposalContent from "../../../components/Governance/ProposalContent"
@@ -48,11 +48,13 @@ export default function Proposal() {
   const block = useBlock()
   const { address } = useAccount()
   const { propId } = router.query as { propId: string }
-  const { data: proposal } = useQuery<DetailedProposalData>(
-    ["proposal", propId],
-    () => execute(ProposalDocument, { id: propId }).then((r: any) => r!.data!.proposal),
-    { keepPreviousData: true }
-  )
+  const { data: proposal } = useQuery<DetailedProposalData>({
+    queryKey: ["proposal", propId],
+    queryFn: () => execute(ProposalDocument, { id: propId }).then((r: any) => r!.data!.proposal),
+    // https://tanstack.com/query/latest/docs/react/guides/migrating-to-v5#supports-a-single-signature-one-object
+    // TODO: Implement new way to retain prev data
+    // keepPreviousData: true 
+  })
 
   const effectiveStatus = proposal && getProposalEffectiveStatus(proposal, block?.number, block?.timestamp)
 
@@ -202,7 +204,7 @@ export default function Proposal() {
                               <Button
                                 onClick={() =>
                                   cancelProp?.()
-                                    .then((tx) => waitForTransaction({ hash: tx.hash }))
+                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash }))
                                     .then(refreshProposal)
                                 }
                                 variant={"outline"}
@@ -214,7 +216,7 @@ export default function Proposal() {
                               <Button
                                 onClick={() =>
                                   queueProp?.()
-                                    .then((tx) => waitForTransaction({ hash: tx.hash }))
+                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash }))
                                     .then(refreshProposal)
                                 }
                                 variant={"outline"}
@@ -226,7 +228,7 @@ export default function Proposal() {
                               <Button
                                 onClick={() =>
                                   executeProp?.()
-                                    .then((tx) => waitForTransaction({ hash: tx.hash }))
+                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash }))
                                     .then(refreshProposal)
                                 }
                                 variant={"outline"}

@@ -6,7 +6,8 @@ import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 import type { AppProps } from "next/app"
 import { createConfig, WagmiProvider, http } from "wagmi"
 
-import { alchemyApiKey, walletConnectProjectId } from "constants/env"
+
+import { walletConnectProjectId } from "constants/env"
 import Head from "next/head"
 import { queryClient } from "utils"
 import { mainnet, sepolia } from "wagmi/chains"
@@ -18,6 +19,7 @@ const config = createConfig(
     appName: "Gnars",
     // TODO: Check if SSR prop is needed (defaults to false)
     ssr: false,
+    // TODO: Determine if alchemy key is needed and where
     chains: [mainnet, sepolia],
     walletConnectProjectId,
     transports: {
