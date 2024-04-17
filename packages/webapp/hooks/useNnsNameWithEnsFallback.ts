@@ -1,9 +1,10 @@
-import { useNnsensReverseResolverResolve } from "utils/sdk"
+import { useReadNnsensReverseResolverResolve } from "utils/sdk"
 
 export const useNnsNameWithEnsFallback = (address?: string) => {
-  return useNnsensReverseResolverResolve({
+  return useReadNnsensReverseResolverResolve({
     args: [address as `0x${string}`],
-    enabled: !!address,
-    select: (name: string) => name || undefined,
+    // TODO: Resolve the new param types
+    // enabled: !!address,
+    // select: (name: string) => name || undefined,
   })
 }

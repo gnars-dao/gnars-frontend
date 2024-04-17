@@ -48,7 +48,7 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
   const { address } = useAccount()
   const { data: accountVotesOnProp } = useReadGnarsV2TokenGetPriorVotes({
     args: [address!, proposal?.createdBlock],
-    enabled: !!address && proposal?.createdBlock,
+    // enabled: !!address && proposal?.createdBlock,
     cacheTime: Infinity,
     staleTime: Infinity,
   })
@@ -62,10 +62,9 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
     return voteEvent?.vote
   }, [proposal?.events, address])
   const { isOpen, onOpen, onClose } = useDisclosure()
-  // TODO: writeAsync not a valid return type
-  const { writeAsync: voteWithoutReason } = useWriteGnarsDaoCastVote()
-  // TODO: writeAsync not a valid return type
-  const { writeAsync: voteWithReason } = useWriteGnarsDaoCastVoteWithReason()
+
+  const { writeContractAsync: voteWithoutReason } = useWriteGnarsDaoCastVote()
+  const { writeContractAsync: voteWithReason } = useWriteGnarsDaoCastVoteWithReason()
 
   const isVoting = isVotingSupport !== undefined
   const propId = BigInt(proposal?.id ?? 0)

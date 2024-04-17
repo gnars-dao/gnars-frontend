@@ -34,7 +34,7 @@ import {
   getQuorumVotes,
   getTransactions,
 } from "utils/governanceUtils"
-import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "utils/sdk"
+import { useWriteGnarsDaoCancel, useWriteGnarsDaoExecute, useWriteGnarsDaoQueue } from "utils/sdk"
 import { useAccount } from "wagmi"
 import { waitForTransactionReceipt } from "wagmi/actions"
 import { execute, ProposalDocument } from "../../../.graphclient"
