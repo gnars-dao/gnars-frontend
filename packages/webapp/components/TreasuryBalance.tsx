@@ -16,7 +16,7 @@ import {
 import { MULTISIG_ADDRESS, TREASURY_ADDRESS, USDC_TOKEN_ADDRESS } from "constants/gnarsDao"
 import { useMemo } from "react"
 import { formatUsdcBalance } from "utils/formatUsdcBalance"
-import { useGnarsV2TokenBalanceOf } from "utils/sdk"
+import { useReadGnarsV2TokenBalanceOf } from "utils/sdk"
 import { useBalance } from "wagmi"
 import { formatEtherBalance } from "../utils/formatEtherBalance"
 import { ShredIcon } from "./Icons"
@@ -35,7 +35,7 @@ export const TreasuryBalance = () => {
     address: MULTISIG_ADDRESS,
   })
 
-  const { data: gnarsBalance } = useGnarsV2TokenBalanceOf({
+  const { data: gnarsBalance } = useReadGnarsV2TokenBalanceOf({
     args: [MULTISIG_ADDRESS],
   })
 
