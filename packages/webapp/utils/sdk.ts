@@ -2538,6 +2538,7 @@ export const nnsensReverseResolverConfig = {
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseRead<
   TFunctionName extends string,
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2552,12 +2553,13 @@ export function useGnarsV2AuctionHouseRead<
     ...config,
   } as useContractRead<typeof gnarsV2AuctionHouseABI, TFunctionName, TSelectData>)
 }
-
+*/
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"SKATE_OG_ADDRESS"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseSkateOgAddress<
   TFunctionName extends 'SKATE_OG_ADDRESS',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2580,6 +2582,7 @@ export function useGnarsV2AuctionHouseSkateOgAddress<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseAuction<
   TFunctionName extends 'auction',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2596,12 +2599,13 @@ export function useGnarsV2AuctionHouseAuction<
     ...config,
   } as useContractRead<typeof gnarsV2AuctionHouseABI, TFunctionName, TSelectData>)
 }
-
+*/
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"auctionCounter"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseAuctionCounter<
   TFunctionName extends 'auctionCounter',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2618,12 +2622,13 @@ export function useGnarsV2AuctionHouseAuctionCounter<
     ...config,
   } as useContractRead<typeof gnarsV2AuctionHouseABI, TFunctionName, TSelectData>)
 }
-
+*/
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"baseAuctionTime"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseBaseAuctionTime<
   TFunctionName extends 'baseAuctionTime',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2640,12 +2645,13 @@ export function useGnarsV2AuctionHouseBaseAuctionTime<
     ...config,
   } as useContractRead<typeof gnarsV2AuctionHouseABI, TFunctionName, TSelectData>)
 }
-
+*/
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"dao"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseDao<
   TFunctionName extends 'dao',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2662,12 +2668,13 @@ export function useGnarsV2AuctionHouseDao<
     ...config,
   } as useContractRead<typeof gnarsV2AuctionHouseABI, TFunctionName, TSelectData>)
 }
-
+*/
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"gnars"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseGnars<
   TFunctionName extends 'gnars',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2684,12 +2691,13 @@ export function useGnarsV2AuctionHouseGnars<
     ...config,
   } as useContractRead<typeof gnarsV2AuctionHouseABI, TFunctionName, TSelectData>)
 }
-
+/*
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"gnarsClaimedFor"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseGnarsClaimedFor<
   TFunctionName extends 'gnarsClaimedFor',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2706,12 +2714,13 @@ export function useGnarsV2AuctionHouseGnarsClaimedFor<
     ...config,
   } as useContractRead<typeof gnarsV2AuctionHouseABI, TFunctionName, TSelectData>)
 }
-
+/*
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"minBidIncrementPercentage"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseMinBidIncrementPercentage<
   TFunctionName extends 'minBidIncrementPercentage',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2734,6 +2743,7 @@ export function useGnarsV2AuctionHouseMinBidIncrementPercentage<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseOwner<
   TFunctionName extends 'owner',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2756,6 +2766,7 @@ export function useGnarsV2AuctionHouseOwner<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHousePaused<
   TFunctionName extends 'paused',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2778,6 +2789,7 @@ export function useGnarsV2AuctionHousePaused<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseRemainingTime<
   TFunctionName extends 'remainingTime',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2800,6 +2812,7 @@ export function useGnarsV2AuctionHouseRemainingTime<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseReservePrice<
   TFunctionName extends 'reservePrice',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2822,6 +2835,7 @@ export function useGnarsV2AuctionHouseReservePrice<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseSkate<
   TFunctionName extends 'skate',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2844,6 +2858,7 @@ export function useGnarsV2AuctionHouseSkate<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseTimeBuffer<
   TFunctionName extends 'timeBuffer',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2866,6 +2881,7 @@ export function useGnarsV2AuctionHouseTimeBuffer<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseTimeDoublingCount<
   TFunctionName extends 'timeDoublingCount',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2888,6 +2904,7 @@ export function useGnarsV2AuctionHouseTimeDoublingCount<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseWeth<
   TFunctionName extends 'weth',
   TSelectData = ReadContractResult<typeof gnarsV2AuctionHouseABI, TFunctionName>,
@@ -2910,6 +2927,7 @@ export function useGnarsV2AuctionHouseWeth<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseWrite<
   TFunctionName extends string,
   TMode extends WriteContractParameters = undefined,
@@ -2939,6 +2957,7 @@ export function useGnarsV2AuctionHouseWrite<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseClaimGnars<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -2969,6 +2988,7 @@ export function useGnarsV2AuctionHouseClaimGnars<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseCreateBid<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -2999,6 +3019,7 @@ export function useGnarsV2AuctionHouseCreateBid<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseInitialize<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3029,6 +3050,7 @@ export function useGnarsV2AuctionHouseInitialize<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHousePause<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3059,6 +3081,7 @@ export function useGnarsV2AuctionHousePause<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseRenounceOwnership<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3089,6 +3112,7 @@ export function useGnarsV2AuctionHouseRenounceOwnership<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseSetMinBidIncrementPercentage<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3119,6 +3143,7 @@ export function useGnarsV2AuctionHouseSetMinBidIncrementPercentage<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseSetReservePrice<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3149,6 +3174,7 @@ export function useGnarsV2AuctionHouseSetReservePrice<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseSetSkateDaoAddresses<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3179,6 +3205,7 @@ export function useGnarsV2AuctionHouseSetSkateDaoAddresses<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseSetTimeBuffer<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3209,6 +3236,7 @@ export function useGnarsV2AuctionHouseSetTimeBuffer<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseSettleAuction<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3239,6 +3267,7 @@ export function useGnarsV2AuctionHouseSettleAuction<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3269,6 +3298,7 @@ export function useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseTransferOwnership<
   TMode extends writeContract = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3293,12 +3323,13 @@ export function useGnarsV2AuctionHouseTransferOwnership<
     ...config,
   } as any)
 }
-
+*/
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"unpause"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseUnpause<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3323,12 +3354,13 @@ export function useGnarsV2AuctionHouseUnpause<
     ...config,
   } as any)
 }
-
+*/
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"upgradeTo"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
+/*
 export function useGnarsV2AuctionHouseUpgradeTo<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsV2AuctionHouseAddress,
@@ -3353,7 +3385,7 @@ export function useGnarsV2AuctionHouseUpgradeTo<
     ...config,
   } as any)
 }
-
+*/
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gnarsV2AuctionHouseABI}__ and `functionName` set to `"upgradeToAndCall"`.
  *
@@ -7600,6 +7632,7 @@ export function useGnarsOgTransferFrom<
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
+/*
 export function useGnarsOgTransferOwnership<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsOgAddress,
@@ -7624,12 +7657,14 @@ export function useGnarsOgTransferOwnership<
     ...config,
   } as any)
 }
+*/
 
 /**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gnarsOgABI}__ and `functionName` set to `"unpause"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
+/*
 export function useGnarsOgUnpause<
   TMode extends WriteContractMode = undefined,
   TChainId extends number = keyof typeof gnarsOgAddress,
@@ -7654,12 +7689,13 @@ export function useGnarsOgUnpause<
     ...config,
   } as any)
 }
-
+*/
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gnarsOgABI}__.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
+/*
 export function usePrepareGnarsOgWrite<TFunctionName extends string>(
   config: Omit<UsePrepareContractWriteConfig<typeof gnarsOgABI, TFunctionName>, 'abi' | 'address'> & {
     chainId?: keyof typeof gnarsOgAddress
@@ -7670,13 +7706,14 @@ export function usePrepareGnarsOgWrite<TFunctionName extends string>(
     address: gnarsOgAddress[1],
     ...config,
   } as UsePrepareContractWriteConfig<typeof gnarsOgABI, TFunctionName>)
-}
+}*/
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gnarsOgABI}__ and `functionName` set to `"approve"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
+/*
 export function usePrepareGnarsOgApprove(
   config: Omit<UsePrepareContractWriteConfig<typeof gnarsOgABI, 'approve'>, 'abi' | 'address' | 'functionName'> & {
     chainId?: keyof typeof gnarsOgAddress
@@ -7689,12 +7726,12 @@ export function usePrepareGnarsOgApprove(
     ...config,
   } as UsePrepareContractWriteConfig<typeof gnarsOgABI, 'approve'>)
 }
-
+*/
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gnarsOgABI}__ and `functionName` set to `"auctionStart"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
- */
+ *//*
 export function usePrepareGnarsOgAuctionStart(
   config: Omit<UsePrepareContractWriteConfig<typeof gnarsOgABI, 'auctionStart'>, 'abi' | 'address' | 'functionName'> & {
     chainId?: keyof typeof gnarsOgAddress
@@ -7706,13 +7743,14 @@ export function usePrepareGnarsOgAuctionStart(
     functionName: 'auctionStart',
     ...config,
   } as UsePrepareContractWriteConfig<typeof gnarsOgABI, 'auctionStart'>)
-}
+}*/
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gnarsOgABI}__ and `functionName` set to `"burn"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
+/*
 export function usePrepareGnarsOgBurn(
   config: Omit<UsePrepareContractWriteConfig<typeof gnarsOgABI, 'burn'>, 'abi' | 'address' | 'functionName'> & {
     chainId?: keyof typeof gnarsOgAddress
@@ -7725,12 +7763,13 @@ export function usePrepareGnarsOgBurn(
     ...config,
   } as UsePrepareContractWriteConfig<typeof gnarsOgABI, 'burn'>)
 }
-
+*/
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gnarsOgABI}__ and `functionName` set to `"createBid"`.
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
+/*
 export function usePrepareGnarsOgCreateBid(
   config: Omit<UsePrepareContractWriteConfig<typeof gnarsOgABI, 'createBid'>, 'abi' | 'address' | 'functionName'> & {
     chainId?: keyof typeof gnarsOgAddress
@@ -7742,7 +7781,7 @@ export function usePrepareGnarsOgCreateBid(
     functionName: 'createBid',
     ...config,
   } as UsePrepareContractWriteConfig<typeof gnarsOgABI, 'createBid'>)
-}
+}*/
 
 /**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gnarsOgABI}__ and `functionName` set to `"pause"`.
