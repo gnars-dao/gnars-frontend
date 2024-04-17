@@ -19,7 +19,7 @@ import {
 import { useRouter } from "next/router"
 import { FC, useMemo } from "react"
 import { FaTrashAlt } from "react-icons/fa"
-import { useWritePrepareGnarsDaoPropose } from "utils/sdk"
+import { useWriteGnarsDaoPropose } from "utils/sdk"
 import { useContractWrite } from "wagmi"
 import { waitForTransactionReceipt } from "wagmi/actions"
 import { AddTransactionForm } from "./AddTransactionForm"
@@ -56,7 +56,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
     [transactions, isInvalid]
   )
   const proposalDescription = useMemo(() => `# ${title}\n\n${description}`, [title, description])
-  const { config } = useWritePrepareGnarsDaoPropose({
+  const { config } = useWriteGnarsDaoPropose({
     args: [targets, values, signatures, calldatas, proposalDescription],
     enabled: !isInvalid,
     cacheTime: 2000,
@@ -171,7 +171,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
         alignSelf={"end"}
         onClick={() => {
           propose?.()
-            .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // TODO: Needs config param
+            .then((tx) => waitForTransactionReceipt({ hash: tx })) // TODO: Needs config param
             .then(() => {
               toast({
                 title: "Proposal submitted",

@@ -82,7 +82,7 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
             args: [propId, support],
           })
       )
-        .then((tx) => waitForTransactionReceipt(queryClient, { hash: tx.hash }))
+        .then((tx) => waitForTransactionReceipt(queryClient, { hash: tx }))
         .then(() => {
           toast({ status: "success", title: "Vote submitted" })
           onClose()

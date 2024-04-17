@@ -2,14 +2,14 @@
   "name": "webapp",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "clean": "",
     "lint": "next lint",
     "test": "jest",
-    "build:wagmi": "wagmi generate --watch",
+    "build:wagmi": "wagmi generate",
     "build:graphclient": "graphclient build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
