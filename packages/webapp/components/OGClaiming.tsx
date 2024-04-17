@@ -18,7 +18,7 @@ import { useAccount, useContractWrite } from "wagmi"
 import { mainnet } from "wagmi/chains"
 import { useWalletOgGnars } from "../hooks/useWalletOgGnars"
 import { getGnartwork } from "../utils"
-import { usePrepareGnarsV2AuctionHouseClaimGnars } from "../utils/sdk"
+import { useWriteGnarsV2AuctionHouseClaimGnars } from "../utils/sdk"
 import { ContractActionButton } from "./ContractActionButton"
 import { GnarImage } from "./GnarImage"
 import { WalletButton } from "./WalletButton"
@@ -35,15 +35,14 @@ export const OGClaiming = () => {
   const deselectOg = (id: string) => setSelectedOgGnars(selectedOgGnars.filter((s) => s !== id))
 
   const { isLoading, data: ogGnars } = useWalletOgGnars(address)
-
-  const { config } = usePrepareGnarsV2AuctionHouseClaimGnars({
+  // TODO: Fix params and return type for wagmiv2
+  const { config } = useWriteGnarsV2AuctionHouseClaimGnars({
     args: [selectedOgGnars.map((id) => BigInt(id))],
     enabled: selectedOgGnars.length > 0,
     chainId: mainnet.id,
   })
 
-  // TODO: Needs refactoring
-  // const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config)
+  const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config)
 
   if (isDisconnected) {
     return <WalletButton alignSelf={"center"} />
@@ -110,11 +109,9 @@ export const OGClaiming = () => {
                   {selectedOgGnars.length}
                 </Tag>
               }
-              isLoading={false}
-              isDisabled={true}
-            // isDisabled={!claimGnars}
-            // isLoading={isClaiming}
-            // onClick={() => claimGnars?.()}
+              isDisabled={!claimGnars}
+              isLoading={isClaiming}
+              onClick={() => claimGnars?.()}
             >
               Claim selected
             </ContractActionButton>

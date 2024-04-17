@@ -19,20 +19,17 @@ import { BaseAlertHeader } from 'components/BaseJumpAnnouncement';
 const config = createConfig(
   getDefaultConfig({
     appName: "Gnars",
-    // TODO: Check if SSR prop is needed (defaults to false)
     ssr: true,
     // TODO: Determine if alchemy key is needed and where
     chains: [mainnet, sepolia],
     walletConnectProjectId,
     transports: {
-      // TODO: replace example.com (fallback?: https://eth-mainnet.g.alchemy.com/v2/...)
-      // https://viem.sh/docs/clients/transports/fallback#usage
+      // TODO: Possibly add fallback https://viem.sh/docs/clients/transports/fallback#usage
       [mainnet.id]: http(),
       [sepolia.id]: http(),
       [baseSepolia.id]: http()
     },
-  }),
-  // persister: null,
+  })
 )
 
 export default function App({ Component, pageProps }: AppProps) {

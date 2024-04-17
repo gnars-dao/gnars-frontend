@@ -17,8 +17,8 @@ import { useQueryClient } from "@tanstack/react-query"
 import { useWalletHDGnars, walletHDGnarsQueryKey } from "hooks/useWalletHDGnars"
 import { useEffect, useState } from "react"
 import { useAccount } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
-import { useGnarsHdAssertOwnership } from "../utils/sdk"
+import { waitForTransactionReceipt } from "wagmi/actions"
+import { useWriteGnarsHdAssertOwnership } from "../utils/sdk"
 import { ContractActionButton } from "./ContractActionButton"
 import { GnarHDImage } from "./GnarHDImage"
 import { WalletButton } from "./WalletButton"
@@ -37,10 +37,10 @@ export const HDClaiming = () => {
   const deselectHD = (id: string) => setSelectedHDGnars(selectedHDGnars.filter((s) => s !== id))
 
   const { isLoading, data: hdGnars } = useWalletHDGnars(address)
-  // TODO: Needs refactoring
-  /*const { writeAsync: claimGnars } = useGnarsHdAssertOwnership({
+  // TODO: Fix to accomodate wagmiv2
+  const { writeAsync: claimGnars } = useWriteGnarsHdAssertOwnership({
     args: [selectedHDGnars.map((id) => BigInt(id))],
-  })*/
+  })
 
   if (isDisconnected) {
     return <WalletButton alignSelf={"center"} />
@@ -114,15 +114,14 @@ export const HDClaiming = () => {
               loadingText={"Claiming"}
               onClick={() => {
                 console.log(`HD Claiming btn clicked`);
-                /*setIsClaiming(true)
+                setIsClaiming(true)
                 claimGnars()
-                  .then((tx) => waitForTransaction({ hash: tx.hash }))
+                  .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // TODO: Fix to accomodate wagmiv2 (needs client param)
                   .then(() => invalidateQueries({ queryKey: [walletHDGnarsQueryKey] }))
                   .catch(console.error)
                   .finally(() => {
                     setIsClaiming(false)
                   })
-                }*/
               }
               }
             >
@@ -130,7 +129,8 @@ export const HDClaiming = () => {
             </ContractActionButton>
           </WrapItem>
         </Wrap>
-      )}
+      )
+      }
       <Box minW={{ base: "full", lg: "4xl" }} maxW={"full"}>
         <SimpleGrid
           justifyContent={"center"}
@@ -176,6 +176,6 @@ export const HDClaiming = () => {
           })}
         </SimpleGrid>
       </Box>
-    </VStack>
+    </VStack >
   )
 }

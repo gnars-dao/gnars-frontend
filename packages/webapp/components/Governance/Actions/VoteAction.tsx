@@ -31,11 +31,11 @@ import { AvatarWallet } from "components/AvatarWallet"
 import { find } from "lodash"
 import { FC, useCallback, useMemo, useState } from "react"
 import { BiCommentDetail } from "react-icons/bi"
+import { queryClient } from "utils"
 import { DetailedProposalData, Support } from "utils/governanceUtils"
 import { useWriteGnarsDaoCastVote, useWriteGnarsDaoCastVoteWithReason, useReadGnarsV2TokenGetPriorVotes } from "utils/sdk"
 import { waitForTransactionReceipt } from "viem/actions"
 import { useAccount } from "wagmi"
-
 
 export interface VoteActionProps extends ButtonProps {
   proposal?: DetailedProposalData
@@ -49,8 +49,8 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
   const { data: accountVotesOnProp } = useReadGnarsV2TokenGetPriorVotes({
     args: [address!, proposal?.createdBlock],
     // enabled: !!address && proposal?.createdBlock,
-    cacheTime: Infinity,
-    staleTime: Infinity,
+    // cacheTime: Infinity,
+    // staleTime: Infinity,
   })
   const [reason, setReason] = useState<string>("")
   const [isVotingSupport, setIsVotingSupport] = useState<Support | undefined>()
@@ -82,7 +82,7 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
             args: [propId, support],
           })
       )
-        .then((tx) => waitForTransactionReceipt({ hash: tx.hash }))
+        .then((tx) => waitForTransactionReceipt(queryClient, { hash: tx.hash }))
         .then(() => {
           toast({ status: "success", title: "Vote submitted" })
           onClose()
