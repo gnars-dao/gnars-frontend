@@ -19,9 +19,9 @@ import {
 import { useRouter } from "next/router"
 import { FC, useMemo } from "react"
 import { FaTrashAlt } from "react-icons/fa"
-import { usePrepareGnarsDaoPropose } from "utils/sdk"
+import { useWritePrepareGnarsDaoPropose } from "utils/sdk"
 import { useContractWrite } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
+import { waitForTransactionReceipt } from "wagmi/actions"
 import { AddTransactionForm } from "./AddTransactionForm"
 import { useAddTransactionFormState } from "./AddTransactionForm.state"
 import { useProposalCreationState } from "./ProposalCreationForm.state"
@@ -56,13 +56,13 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
     [transactions, isInvalid]
   )
   const proposalDescription = useMemo(() => `# ${title}\n\n${description}`, [title, description])
-  const { config } = usePrepareGnarsDaoPropose({
+  const { config } = useWritePrepareGnarsDaoPropose({
     args: [targets, values, signatures, calldatas, proposalDescription],
     enabled: !isInvalid,
     cacheTime: 2000,
   })
-  // TODO: Needs refactoring
-  // const { writeAsync: propose } = useContractWrite(config)
+
+  const { writeAsync: propose } = useContractWrite(config)
   const toast = useToast()
 
   return (
@@ -167,12 +167,11 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
         _dark={{
           bg: "pink.700",
         }}
-        // isDisabled={isInvalid || !propose}
-        isDisabled={true}
+        isDisabled={isInvalid || !propose}
         alignSelf={"end"}
         onClick={() => {
-          /*propose?.()
-            .then((tx) => waitForTransaction({ hash: tx.hash }))
+          propose?.()
+            .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // TODO: Needs config param
             .then(() => {
               toast({
                 title: "Proposal submitted",
@@ -192,11 +191,11 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
                 description: "Something went wrong. Check your wallet for details.",
               })
             })
-        }*/
-        }}
+        }
+        }
       >
         Submit proposal
       </Button>
-    </VStack>
+    </VStack >
   )
 }
