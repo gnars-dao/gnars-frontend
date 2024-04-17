@@ -28,7 +28,7 @@ import { useDebounceValue } from "usehooks-ts"
 import { useGnarsV2TokenDelegate } from "utils/sdk"
 import { normalize } from "viem/ens"
 import { useAccount } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
+import { waitForTransaction, waitForTransactionReceipt } from "wagmi/actions"
 
 export interface UpdateDelegateModalProps extends Omit<ModalProps, "children"> { }
 
@@ -43,10 +43,10 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
   const debouncedAccountQuery = "" // useDebounceValue(accountQuery, 600)
   const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountQuery)
   const toast = useToast()
-  // TODO: needs refactoring
-  /*const { writeAsync: delegate, isLoading: isDelegating } = useGnarsV2TokenDelegate({
+
+  const { writeAsync: delegate, isLoading: isDelegating } = useGnarsV2TokenDelegate({
     args: [address!],
-  })*/
+  })
   useEffect(() => {
     try {
       normalize(accountQuery)
@@ -99,16 +99,15 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
               Cancel
             </Button>
             <Button
-              isLoading={false} // {isDelegating}
+              isLoading={isDelegating}
               loadingText={"Delegating"}
-              // isDisabled={!address || currentDelegate.toLowerCase() === address.toLowerCase()}
-              isDisabled={true}
+              isDisabled={!address || currentDelegate.toLowerCase() === address.toLowerCase()}
               onClick={() => {
                 console.log(`UpdateDelegateModal btn clicked`);
-                /*delegate?.()
-                  .then((tx) => waitForTransaction({ hash: tx.hash }))
+                delegate?.()
+                  .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // TODO: Needs config fix wagmiv2
                   .then(() => {
-                    invalidateQueries(delegationInfoQueryKey(userAddress))
+                    invalidateQueries(delegationInfoQueryKey(userAddress)) // TODO: This should be a string, need to verify
                     setAccountQuery("")
                     onClose()
                   })
@@ -118,7 +117,7 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
                       title: "Error",
                       description: "Something went wrong. Check your wallet for details",
                     })
-                  )*/
+                  )
               }}
             >
               Delegate
