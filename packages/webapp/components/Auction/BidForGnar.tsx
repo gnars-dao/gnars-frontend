@@ -17,7 +17,7 @@ import {
 import { FC, useState } from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa"
 import { formatEther, parseEther } from "viem"
-import { useGnarsV2AuctionHouseCreateBid } from "../../utils/sdk"
+import { useWriteGnarsV2AuctionHouseCreateBid } from "../../utils/sdk"
 import { ContractActionButton } from "../ContractActionButton"
 
 const minBidIncrementPercentage = 5n

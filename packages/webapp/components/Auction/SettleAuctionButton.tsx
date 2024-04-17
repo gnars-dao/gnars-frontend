@@ -1,6 +1,6 @@
 import { ButtonProps } from "@chakra-ui/react"
 import { FC } from "react"
-import { useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction } from "../../utils/sdk"
+import { useWriteGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction } from "../../utils/sdk"
 import { ContractActionButton } from "../ContractActionButton"
 
 export type SettleAuctionButtonProps = ButtonProps
