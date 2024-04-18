@@ -21,11 +21,10 @@ import {
   BASE_V2_GNAR_ADDRESS,
 } from "constants/gnarsDao"
 import { ReactNode, useEffect, useMemo, useState } from "react"
-import { formatUsdcBalance } from "utils/formatUsdcBalance"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
 import { getTokensValues } from "utils/web3"
 import { base } from "wagmi/chains"
-import { formatEtherBalance } from "../utils/formatEtherBalance"
+import { formatSuffixedBalance } from "../utils/formatBalance"
 import { ShredIcon } from "./Icons"
 
 interface TokenData {
@@ -50,21 +49,21 @@ export const TreasuryBalance = () => {
         ...treasuryBalance,
         {
           value: treasuryTokens[0].value,
-          formatted: formatEtherBalance(treasuryTokens[0].value),
+          formatted: formatSuffixedBalance(treasuryTokens[0].value, treasuryTokens[0].decimals),
           label: "Ether",
           icon: "Ξ",
           url: `https://basescan.org/address/${BASE_TREASURY_ADDRESS}`,
         },
         {
           value: treasuryTokens[1].value,
-          formatted: formatUsdcBalance(treasuryTokens[1].value),
+          formatted: formatSuffixedBalance(treasuryTokens[1].value, treasuryTokens[1].decimals),
           label: "USDC",
           icon: "$",
           url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
         },
         {
           value: treasuryTokens[2].value,
-          formatted: formatEtherBalance(treasuryTokens[2].value),
+          formatted: formatSuffixedBalance(treasuryTokens[2].value, treasuryTokens[2].decimals),
           label: "Sendit",
           icon: "↗",
           url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
@@ -79,21 +78,21 @@ export const TreasuryBalance = () => {
         ...multisigBalance,
         {
           value: multisigTokens[0].value,
-          formatted: formatEtherBalance(multisigTokens[0].value),
+          formatted: formatSuffixedBalance(multisigTokens[0].value, multisigTokens[0].decimals),
           label: "Ether",
           icon: "Ξ",
           url: `https://basescan.org/address/${BASE_MULTISIG_ADDRESS}`,
         },
         {
           value: multisigTokens[1].value,
-          formatted: formatUsdcBalance(multisigTokens[1].value),
+          formatted: formatSuffixedBalance(multisigTokens[1].value, multisigTokens[1].decimals),
           label: "USDC",
           icon: "$",
           url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
         },
         {
           value: multisigTokens[2].value,
-          formatted: formatEtherBalance(multisigTokens[2].value),
+          formatted: formatSuffixedBalance(multisigTokens[2].value, multisigTokens[2].decimals),
           label: "Sendit",
           icon: "↗",
           url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
@@ -160,7 +159,7 @@ export const TreasuryBalance = () => {
     if (gnarsMultisig) gnarsTotal += gnarsMultisig.value
 
     return {
-      "eth": formatEtherBalance(ethTotal),
+      "eth": formatSuffixedBalance(ethTotal, 18),
       "gnars": gnarsTotal.toString()
     }
   }, [treasuryBalance, multisigBalance])
@@ -187,7 +186,7 @@ export const TreasuryBalance = () => {
           </VStack>
         </Button>
       </PopoverTrigger>
-      <PopoverContent w={"fit-content"}>
+      <PopoverContent w={"160px"}>
         <PopoverArrow />
         <PopoverBody>
           <VStack>
