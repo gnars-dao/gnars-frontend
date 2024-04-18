@@ -24,6 +24,7 @@ import { ReactNode, useEffect, useMemo, useState } from "react"
 import { formatUsdcBalance } from "utils/formatUsdcBalance"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
 import { getTokensValues } from "utils/web3"
+import { base } from "wagmi/chains"
 import { formatEtherBalance } from "../utils/formatEtherBalance"
 import { ShredIcon } from "./Icons"
 
@@ -44,7 +45,7 @@ export const TreasuryBalance = () => {
       const treasuryTokens = await getTokensValues(BASE_TREASURY_ADDRESS, [
         BASE_USDC_TOKEN_ADDRESS,
         BASE_SENDIT_TOKEN_ADDRESS,
-      ])
+      ], base.id)
       setTreasuryBalance((treasuryBalance) => [
         ...treasuryBalance,
         {
@@ -73,7 +74,7 @@ export const TreasuryBalance = () => {
       const multisigTokens = await getTokensValues(BASE_MULTISIG_ADDRESS, [
         BASE_USDC_TOKEN_ADDRESS,
         BASE_SENDIT_TOKEN_ADDRESS,
-      ])
+      ], base.id)
       setMultisigBalance((multisigBalance) => [
         ...multisigBalance,
         {
@@ -106,6 +107,8 @@ export const TreasuryBalance = () => {
 
   const { data: multisigGnarsBalance } = useGnarsV2TokenBalanceOf({
     args: [BASE_MULTISIG_ADDRESS],
+    // @ts-expect-error remove comment after `wagmi generate` for new contracts
+    chainId: base.id
   })
   useEffect(() => {
     if (multisigGnarsBalance)
@@ -123,6 +126,8 @@ export const TreasuryBalance = () => {
 
   const { data: treasuryGnarsBalance } = useGnarsV2TokenBalanceOf({
     args: [BASE_TREASURY_ADDRESS],
+    // @ts-expect-error remove comment after `wagmi generate` for new contracts
+    chainId: base.id
   })
   useEffect(() => {
     if (treasuryGnarsBalance)
