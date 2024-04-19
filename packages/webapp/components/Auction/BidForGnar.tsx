@@ -53,10 +53,9 @@ export const BidForGnar: FC<BidForGnarProps> = ({ gnarId, latestBid, ...props })
   const input = getInputProps()
   const isValidBid = parseEther(bidAmount) > minBid
 
-  // TODO: fix is loading refactor
-
-  const { isLoading, writeContractAsync: placeBid } = useWriteGnarsV2AuctionHouseCreateBid({
-    args: [BigInt(gnarId), founderAllocation, treasuryAllocation],
+  // @TODO fix Config and "parameters" params
+  const { status, writeContractAsync: placeBid } = useWriteGnarsV2AuctionHouseCreateBid({
+    data: [BigInt(gnarId), founderAllocation, treasuryAllocation],
     value: parseEther(bidAmount),
     gas: 100_000n, // to prevent out of gas errors with auction extensions
   })
@@ -158,12 +157,10 @@ export const BidForGnar: FC<BidForGnarProps> = ({ gnarId, latestBid, ...props })
         size={"lg"}
         h={12}
         px={10}
-        isLoading={isLoading}
+        isLoading={status !== "success"}
         loadingText={"Bidding"}
         isDisabled={!isValidBid}
-        /// isDisabled={true}
         onClick={() => placeBid?.()}
-      // onClick={() => { window && console.log(`Contract action button clicked`); }}
       >
         {!isValidBid ? "Bid too low" : "Place Bid"}
       </ContractActionButton>

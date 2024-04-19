@@ -40,7 +40,7 @@ import { useAccount } from "wagmi"
 export interface VoteActionProps extends ButtonProps {
   proposal?: DetailedProposalData
 }
-// TODO: Needs refactoring useGnarsV2TokenGetPriorVotes
+// @TODO Needs refactoring useGnarsV2TokenGetPriorVotes
 
 
 export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {

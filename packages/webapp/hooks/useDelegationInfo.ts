@@ -10,7 +10,7 @@ export const useDelegationInfo = (address?: `0x${string}`) => {
                     .then((q: { data: any }) => q.data),
     enabled: !!address,
     refetchInterval: 15000
-    // TODO: keepPreviousData is implementend different in react-query v5
+    // @TODO keepPreviousData is implementend different in react-query v5
     // keepPreviousData: true,
 })
 }

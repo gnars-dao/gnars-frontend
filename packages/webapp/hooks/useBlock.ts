@@ -3,7 +3,7 @@ import { usePublicClient } from "wagmi"
 
 export const useBlock = () => {
   const client = usePublicClient()
-  // TODO: This could be handled more elegantly with a fallback
+  // @TODO This could be handled more elegantly with a fallback
   if(typeof client === 'undefined') {
     throw Error(`hooks/useBlock usePublicClient => client is undefined`, client);
   }

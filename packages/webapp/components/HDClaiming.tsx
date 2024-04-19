@@ -37,7 +37,7 @@ export const HDClaiming = () => {
   const deselectHD = (id: string) => setSelectedHDGnars(selectedHDGnars.filter((s) => s !== id))
 
   const { isLoading, data: hdGnars } = useWalletHDGnars(address)
-  // TODO: Fix to accomodate wagmiv2
+  // @TODO Fix to accomodate wagmiv2
   const { writeAsync: claimGnars } = useWriteGnarsHdAssertOwnership({
     args: [selectedHDGnars.map((id) => BigInt(id))],
   })
@@ -116,7 +116,7 @@ export const HDClaiming = () => {
                 console.log(`HD Claiming btn clicked`);
                 setIsClaiming(true)
                 claimGnars()
-                  .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // TODO: Fix to accomodate wagmiv2 (needs client param)
+                  .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // @TODO Fix to accomodate wagmiv2 (needs client param)
                   .then(() => invalidateQueries({ queryKey: [walletHDGnarsQueryKey] }))
                   .catch(console.error)
                   .finally(() => {

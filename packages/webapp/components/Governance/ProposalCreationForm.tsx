@@ -20,7 +20,7 @@ import { useRouter } from "next/router"
 import { FC, useMemo } from "react"
 import { FaTrashAlt } from "react-icons/fa"
 import { useWriteGnarsDaoPropose } from "utils/sdk"
-import { useContractWrite } from "wagmi"
+import { useWriteContract } from "wagmi"
 import { waitForTransactionReceipt } from "wagmi/actions"
 import { AddTransactionForm } from "./AddTransactionForm"
 import { useAddTransactionFormState } from "./AddTransactionForm.state"
@@ -62,7 +62,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
     cacheTime: 2000,
   })
 
-  const { writeAsync: propose } = useContractWrite(config)
+  const { writeAsync: propose } = useWriteContract(config)
   const toast = useToast()
 
   return (
@@ -171,7 +171,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
         alignSelf={"end"}
         onClick={() => {
           propose?.()
-            .then((tx) => waitForTransactionReceipt({ hash: tx })) // TODO: Needs config param
+            .then((tx) => waitForTransactionReceipt({ hash: tx })) // @TODO Needs config param
             .then(() => {
               toast({
                 title: "Proposal submitted",

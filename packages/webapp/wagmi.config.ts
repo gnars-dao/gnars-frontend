@@ -54,7 +54,7 @@ export default defineConfig({
         },
       ],
     }),
-    // TODO: wagmi migration v2 (possibly)
+    // @TODO wagmi migration v2 (possibly)
     react()
   ],
 })

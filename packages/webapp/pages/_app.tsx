@@ -20,11 +20,11 @@ const config = createConfig(
   getDefaultConfig({
     appName: "Gnars",
     ssr: true,
-    // TODO: Determine if alchemy key is needed and where
+    // @TODO Determine if alchemy key is needed and where
     chains: [mainnet, sepolia],
     walletConnectProjectId,
     transports: {
-      // TODO: Possibly add fallback https://viem.sh/docs/clients/transports/fallback#usage
+      // @TODO Possibly add fallback https://viem.sh/docs/clients/transports/fallback#usage
       [mainnet.id]: http(),
       [sepolia.id]: http(),
       [baseSepolia.id]: http()

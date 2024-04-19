@@ -121,7 +121,7 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({ }) => {
     }
   }, [abi, func, funcParams])
 
-  // TODO: needs refactoring
+  // @TODO needs refactoring
   const debouncedAccountQuery = "" // useDebounceValue(accountQuery, 600)
   const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountQuery)
   const { data: contractInfo } = useEtherscanContractInfo(address)
@@ -272,7 +272,7 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({ }) => {
                 {
                   calldata: (txKind === "Send ETH" ? "0x" : "0x" + calldata!.substring(10)) as `0x${string}`,
                   signature:
-                    // TODO: needs refactor
+                    // @TODO needs refactor
                     txKind === "Send ETH" ? "" : "NEEDS REFACTOR: getSignature(getAbiItem({ abi: JSON.parse(abi), name: func!.name }))",// getSignature(getAbiItem({ abi: JSON.parse(abi), name: func!.name })),
                   target: address!,
                   value:

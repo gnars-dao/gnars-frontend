@@ -52,7 +52,7 @@ export default function Proposal() {
     queryKey: ["proposal", propId],
     queryFn: () => execute(ProposalDocument, { id: propId }).then((r: any) => r!.data!.proposal),
     // https://tanstack.com/query/latest/docs/react/guides/migrating-to-v5#supports-a-single-signature-one-object
-    // TODO: Implement new way to retain prev data
+    // @TODO Implement new way to retain prev data
     // keepPreviousData: true 
   })
 
@@ -89,7 +89,7 @@ export default function Proposal() {
   })
 
   const refreshProposal = useCallback(() => {
-    invalidateQueries(["proposal", propId]) //FIXME TypeError: Cannot read properties of undefined (reading 'queryCache')
+    invalidateQueries(["proposal", propId]) // FIXME TypeError: Cannot read properties of undefined (reading 'queryCache')
   }, [invalidateQueries, propId])
 
   const quorumVotes = proposal ? getQuorumVotes(proposal) : undefined
@@ -205,7 +205,7 @@ export default function Proposal() {
                                 onClick={() => {
                                   console.log(`Cancel proposal button clicked`);
                                   cancelProp?.()
-                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // TODO: Needs config param
+                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // @TODO Needs config param
                                     .then(refreshProposal)
                                 }
                                 }
@@ -219,7 +219,7 @@ export default function Proposal() {
                                 onClick={() => {
                                   console.log(`Queue proposal button clicked`);
                                   queueProp?.()
-                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // TODO: Needs config param
+                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // @TODO Needs config param
                                     .then(refreshProposal)
                                 }}
                                 variant={"outline"}
@@ -232,7 +232,7 @@ export default function Proposal() {
                                 onClick={() => {
                                   console.log(`Execute proposal button clicked`);
                                   executeProp?.()
-                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // TODO: Needs config param
+                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // @TODO Needs config param
                                     .then(refreshProposal)
                                 }
                                 }

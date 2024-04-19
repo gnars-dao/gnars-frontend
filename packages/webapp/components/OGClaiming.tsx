@@ -35,7 +35,7 @@ export const OGClaiming = () => {
   const deselectOg = (id: string) => setSelectedOgGnars(selectedOgGnars.filter((s) => s !== id))
 
   const { isLoading, data: ogGnars } = useWalletOgGnars(address)
-  // TODO: Fix params and return type for wagmiv2
+  // @TODO Fix params and return type for wagmiv2
   const { config } = useWriteGnarsV2AuctionHouseClaimGnars({
     args: [selectedOgGnars.map((id) => BigInt(id))],
     enabled: selectedOgGnars.length > 0,
