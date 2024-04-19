@@ -60,7 +60,6 @@ export const BidForGnar: FC<BidForGnarProps> = ({ gnarId, latestBid, ...props })
     gas: 100_000n, // to prevent out of gas errors with auction extensions
   })
 
-
   return (
     <Stack direction={{ base: "column", md: "row" }} spacing={4} {...props}>
       <ButtonGroup isAttached w={{ base: "full", md: "sm", lg: "2xs" }} minW={{ base: "full", md: "sm", lg: 60 }}>

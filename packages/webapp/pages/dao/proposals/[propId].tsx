@@ -76,15 +76,15 @@ export default function Proposal() {
     address &&
     (proposer.toLowerCase() === address?.toLowerCase() || currentProposerVotes < proposalThreshold)
 
-  const { writeAsync: cancelProp } = useWriteGnarsDaoCancel({
+  const { writeContractAsync: cancelProp } = useWriteGnarsDaoCancel({
     args: [BigInt(propId ?? 0)],
   })
 
-  const { writeAsync: queueProp } = useWriteGnarsDaoQueue({
+  const { writeContractAsync: queueProp } = useWriteGnarsDaoQueue({
     args: [BigInt(propId ?? 0)],
   })
 
-  const { writeAsync: executeProp } = useWriteGnarsDaoExecute({
+  const { writeContractAsync: executeProp } = useWriteGnarsDaoExecute({
     args: [BigInt(propId ?? 0)],
   })
 
@@ -205,7 +205,7 @@ export default function Proposal() {
                                 onClick={() => {
                                   console.log(`Cancel proposal button clicked`);
                                   cancelProp?.()
-                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // @TODO Needs config param
+                                    .then((tx) => waitForTransactionReceipt({ hash: tx })) // @TODO Needs config param
                                     .then(refreshProposal)
                                 }
                                 }
@@ -219,7 +219,7 @@ export default function Proposal() {
                                 onClick={() => {
                                   console.log(`Queue proposal button clicked`);
                                   queueProp?.()
-                                    .then((tx) => waitForTransactionReceipt({ hash: tx.hash })) // @TODO Needs config param
+                                    .then((tx) => waitForTransactionReceipt({ hash: tx })) // @TODO Needs config param
                                     .then(refreshProposal)
                                 }}
                                 variant={"outline"}

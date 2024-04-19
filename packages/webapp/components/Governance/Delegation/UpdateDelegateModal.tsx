@@ -39,7 +39,7 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
   const { invalidateQueries } = useQueryClient()
   const [accountQuery, setAccountQuery] = useState<string>("")
   const [isValidName, setIsValidName] = useBoolean(false)
-  // @TODO needs refactoring
+  // @TODO needs usehooks-ts refactoring
   const debouncedAccountQuery = "" // useDebounceValue(accountQuery, 600)
   const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountQuery)
   const toast = useToast()
@@ -125,6 +125,6 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
           </HStack>
         </ModalFooter>
       </ModalContent>
-    </Modal>
+    </Modal >
   )
 }
