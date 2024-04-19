@@ -6,31 +6,27 @@ import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 import type { AppProps } from "next/app"
 import { createConfig, WagmiProvider, http } from "wagmi"
 
-
 import { walletConnectProjectId } from "constants/env"
 import Head from "next/head"
 import { queryClient } from "utils"
-import { mainnet, sepolia, baseSepolia } from "wagmi/chains"
+import { mainnet, sepolia, baseSepolia, base } from "wagmi/chains"
+import { injected, walletConnect } from 'wagmi/connectors';
 
 import theme from "../theme"
 import { BaseAlertHeader } from 'components/BaseJumpAnnouncement';
 
 // https://viem.sh/docs/clients/test#extending-with-public--wallet-actions
-const config = createConfig(
-  getDefaultConfig({
-    appName: "Gnars",
-    ssr: true,
-    // @TODO Determine if alchemy key is needed and where
-    chains: [mainnet, sepolia],
-    walletConnectProjectId,
-    transports: {
-      // @TODO Possibly add fallback https://viem.sh/docs/clients/transports/fallback#usage
-      [mainnet.id]: http(),
-      [sepolia.id]: http(),
-      [baseSepolia.id]: http()
-    },
-  })
-)
+// @TODO Possibly add fallback https://viem.sh/docs/clients/transports/fallback#usage
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  connectors: [injected(), walletConnect({ projectId: walletConnectProjectId })],
+  transports: {
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+    [base.id]: http(),
+    [baseSepolia.id]: http()
+  }
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

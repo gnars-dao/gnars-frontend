@@ -1,7 +1,7 @@
 import { DarkMode, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack } from "@chakra-ui/react"
 import { HDClaiming } from "components/HDClaiming"
 import Menu from "../components/Menu"
-import { OGClaiming } from "../components/OGClaiming"
+import { OGClaiming } from "components/OGClaiming"
 
 export default function Claim() {
   return (

@@ -14,7 +14,7 @@ import {
   WrapItem,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { useAccount, useContractWrite } from "wagmi"
+import { useAccount, useWriteContract } from "wagmi"
 import { mainnet } from "wagmi/chains"
 import { useWalletOgGnars } from "../hooks/useWalletOgGnars"
 import { getGnartwork } from "../utils"
@@ -36,13 +36,13 @@ export const OGClaiming = () => {
 
   const { isLoading, data: ogGnars } = useWalletOgGnars(address)
   // @TODO Fix params and return type for wagmiv2
-  const { config } = useWriteGnarsV2AuctionHouseClaimGnars({
+  const { writeContract: claimGnars, status, error } = useWriteGnarsV2AuctionHouseClaimGnars({
     args: [selectedOgGnars.map((id) => BigInt(id))],
     enabled: selectedOgGnars.length > 0,
     chainId: mainnet.id,
   })
 
-  const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config)
+  // const { writeContract: claimGnars, isLoading: isClaiming } = useWriteContract(config)
 
   if (isDisconnected) {
     return <WalletButton alignSelf={"center"} />

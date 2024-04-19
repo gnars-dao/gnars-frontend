@@ -335,9 +335,27 @@ export const gnarsDaoAbi = [
     name: 'REFUND_BASE_GAS',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
-  { stateMutability: 'nonpayable', type: 'function', inputs: [], name: '_acceptAdmin', outputs: [] },
-  { stateMutability: 'nonpayable', type: 'function', inputs: [], name: '_acceptVetoer', outputs: [] },
-  { stateMutability: 'nonpayable', type: 'function', inputs: [], name: '_burnVetoPower', outputs: [] },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: '_acceptAdmin',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: '_acceptVetoer',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: '_burnVetoPower',
+    outputs: [],
+  },
   {
     stateMutability: 'nonpayable',
     type: 'function',
@@ -758,7 +776,9 @@ export const gnarsDaoAbi = [
     type: 'function',
     inputs: [{ name: 'proposalId', internalType: 'uint256', type: 'uint256' }],
     name: 'state',
-    outputs: [{ name: '', internalType: 'enum GnarsDAOStorageV1Adjusted.ProposalState', type: 'uint8' }],
+    outputs: [
+      { name: '', internalType: 'enum GnarsDAOStorageV1Adjusted.ProposalState', type: 'uint8' },
+    ],
   },
   {
     stateMutability: 'view',
@@ -841,7 +861,11 @@ export const gnarsHdAbi = [
       { name: '_owner', internalType: 'address', type: 'address' },
     ],
   },
-  { type: 'error', inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }], name: 'TokenDoesNotExist' },
+  {
+    type: 'error',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'TokenDoesNotExist',
+  },
   { type: 'error', inputs: [], name: 'Untransferable' },
   {
     type: 'event',
@@ -1273,7 +1297,13 @@ export const gnarsOgAbi = [
     name: 'auctionPeriodBlocks',
     outputs: [{ name: '', internalType: 'uint16', type: 'uint16' }],
   },
-  { stateMutability: 'nonpayable', type: 'function', inputs: [], name: 'auctionStart', outputs: [] },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'auctionStart',
+    outputs: [],
+  },
   {
     stateMutability: 'view',
     type: 'function',
@@ -1380,7 +1410,13 @@ export const gnarsOgAbi = [
     name: 'remainBlocks',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
-  { stateMutability: 'nonpayable', type: 'function', inputs: [], name: 'renounceOwnership', outputs: [] },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+  },
   {
     stateMutability: 'view',
     type: 'function',
@@ -1629,7 +1665,14 @@ export const gnarsV2AuctionHouseAbi = [
   {
     type: 'event',
     anonymous: false,
-    inputs: [{ name: 'minBidIncrementPercentage', internalType: 'uint256', type: 'uint256', indexed: false }],
+    inputs: [
+      {
+        name: 'minBidIncrementPercentage',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
     name: 'AuctionMinBidIncrementPercentageUpdated',
   },
   {
@@ -1828,7 +1871,13 @@ export const gnarsV2AuctionHouseAbi = [
     name: 'remainingTime',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
-  { stateMutability: 'nonpayable', type: 'function', inputs: [], name: 'renounceOwnership', outputs: [] },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+  },
   {
     stateMutability: 'view',
     type: 'function',
@@ -1867,7 +1916,13 @@ export const gnarsV2AuctionHouseAbi = [
     name: 'setTimeBuffer',
     outputs: [],
   },
-  { stateMutability: 'nonpayable', type: 'function', inputs: [], name: 'settleAuction', outputs: [] },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'settleAuction',
+    outputs: [],
+  },
   {
     stateMutability: 'nonpayable',
     type: 'function',
@@ -1940,7 +1995,10 @@ export const gnarsV2AuctionHouseAddress = {
 /**
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const gnarsV2AuctionHouseConfig = { address: gnarsV2AuctionHouseAddress, abi: gnarsV2AuctionHouseAbi } as const
+export const gnarsV2AuctionHouseConfig = {
+  address: gnarsV2AuctionHouseAddress,
+  abi: gnarsV2AuctionHouseAbi,
+} as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // GnarsV2Token
@@ -2006,7 +2064,14 @@ export const gnarsV2TokenAbi = [
   {
     type: 'event',
     anonymous: false,
-    inputs: [{ name: 'descriptor', internalType: 'contract IGnarDescriptorV2', type: 'address', indexed: false }],
+    inputs: [
+      {
+        name: 'descriptor',
+        internalType: 'contract IGnarDescriptorV2',
+        type: 'address',
+        indexed: false,
+      },
+    ],
     name: 'DescriptorUpdated',
   },
   {
@@ -2056,7 +2121,9 @@ export const gnarsV2TokenAbi = [
   {
     type: 'event',
     anonymous: false,
-    inputs: [{ name: 'seeder', internalType: 'contract IGnarSeederV2', type: 'address', indexed: false }],
+    inputs: [
+      { name: 'seeder', internalType: 'contract IGnarSeederV2', type: 'address', indexed: false },
+    ],
     name: 'SeederUpdated',
   },
   {
@@ -2231,7 +2298,13 @@ export const gnarsV2TokenAbi = [
     name: 'isSeederLocked',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
-  { stateMutability: 'nonpayable', type: 'function', inputs: [], name: 'lockDescriptor', outputs: [] },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'lockDescriptor',
+    outputs: [],
+  },
   { stateMutability: 'nonpayable', type: 'function', inputs: [], name: 'lockMinter', outputs: [] },
   { stateMutability: 'nonpayable', type: 'function', inputs: [], name: 'lockSeeder', outputs: [] },
   {
@@ -2297,7 +2370,13 @@ export const gnarsV2TokenAbi = [
     name: 'proxyRegistry',
     outputs: [{ name: '', internalType: 'contract IProxyRegistry', type: 'address' }],
   },
-  { stateMutability: 'nonpayable', type: 'function', inputs: [], name: 'renounceOwnership', outputs: [] },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+  },
   {
     stateMutability: 'nonpayable',
     type: 'function',
@@ -2536,7 +2615,10 @@ export const nnsensReverseResolverConfig = {
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3)
  */
-export const useReadGnarsDao = /*#__PURE__*/ createUseReadContract({ abi: gnarsDaoAbi, address: gnarsDaoAddress })
+export const useReadGnarsDao = /*#__PURE__*/ createUseReadContract({
+  abi: gnarsDaoAbi,
+  address: gnarsDaoAddress,
+})
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link gnarsDaoAbi}__ and `functionName` set to `"BALLOT_TYPEHASH"`
@@ -3005,7 +3087,10 @@ export const useReadGnarsDaoVotingPeriod = /*#__PURE__*/ createUseReadContract({
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3)
  */
-export const useWriteGnarsDao = /*#__PURE__*/ createUseWriteContract({ abi: gnarsDaoAbi, address: gnarsDaoAddress })
+export const useWriteGnarsDao = /*#__PURE__*/ createUseWriteContract({
+  abi: gnarsDaoAbi,
+  address: gnarsDaoAddress,
+})
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link gnarsDaoAbi}__ and `functionName` set to `"_acceptAdmin"`
@@ -3451,11 +3536,12 @@ export const useSimulateGnarsDaoCastRefundableVote = /*#__PURE__*/ createUseSimu
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3)
  */
-export const useSimulateGnarsDaoCastRefundableVoteWithReason = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsDaoAbi,
-  address: gnarsDaoAddress,
-  functionName: 'castRefundableVoteWithReason',
-})
+export const useSimulateGnarsDaoCastRefundableVoteWithReason =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsDaoAbi,
+    address: gnarsDaoAddress,
+    functionName: 'castRefundableVoteWithReason',
+  })
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsDaoAbi}__ and `functionName` set to `"castVote"`
@@ -3659,11 +3745,12 @@ export const useWatchGnarsDaoProposalCreatedEvent = /*#__PURE__*/ createUseWatch
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3)
  */
-export const useWatchGnarsDaoProposalCreatedWithRequirementsEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsDaoAbi,
-  address: gnarsDaoAddress,
-  eventName: 'ProposalCreatedWithRequirements',
-})
+export const useWatchGnarsDaoProposalCreatedWithRequirementsEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsDaoAbi,
+    address: gnarsDaoAddress,
+    eventName: 'ProposalCreatedWithRequirements',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsDaoAbi}__ and `eventName` set to `"ProposalExecuted"`
@@ -3692,11 +3779,12 @@ export const useWatchGnarsDaoProposalQueuedEvent = /*#__PURE__*/ createUseWatchC
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3)
  */
-export const useWatchGnarsDaoProposalThresholdBpsSetEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsDaoAbi,
-  address: gnarsDaoAddress,
-  eventName: 'ProposalThresholdBPSSet',
-})
+export const useWatchGnarsDaoProposalThresholdBpsSetEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsDaoAbi,
+    address: gnarsDaoAddress,
+    eventName: 'ProposalThresholdBPSSet',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsDaoAbi}__ and `eventName` set to `"ProposalVetoed"`
@@ -3791,7 +3879,10 @@ export const useWatchGnarsDaoWithdrawEvent = /*#__PURE__*/ createUseWatchContrac
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x75Cd3F538c091C1D514aB1aD9832f54198CAceC0)
  */
-export const useReadGnarsHd = /*#__PURE__*/ createUseReadContract({ abi: gnarsHdAbi, address: gnarsHdAddress })
+export const useReadGnarsHd = /*#__PURE__*/ createUseReadContract({
+  abi: gnarsHdAbi,
+  address: gnarsHdAddress,
+})
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link gnarsHdAbi}__ and `functionName` set to `"approve"`
@@ -4051,7 +4142,10 @@ export const useReadGnarsHdTransferFrom = /*#__PURE__*/ createUseReadContract({
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x75Cd3F538c091C1D514aB1aD9832f54198CAceC0)
  */
-export const useWriteGnarsHd = /*#__PURE__*/ createUseWriteContract({ abi: gnarsHdAbi, address: gnarsHdAddress })
+export const useWriteGnarsHd = /*#__PURE__*/ createUseWriteContract({
+  abi: gnarsHdAbi,
+  address: gnarsHdAddress,
+})
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link gnarsHdAbi}__ and `functionName` set to `"assertOwnership"`
@@ -4113,7 +4207,10 @@ export const useWriteGnarsHdTransferOwnership = /*#__PURE__*/ createUseWriteCont
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x75Cd3F538c091C1D514aB1aD9832f54198CAceC0)
  */
-export const useSimulateGnarsHd = /*#__PURE__*/ createUseSimulateContract({ abi: gnarsHdAbi, address: gnarsHdAddress })
+export const useSimulateGnarsHd = /*#__PURE__*/ createUseSimulateContract({
+  abi: gnarsHdAbi,
+  address: gnarsHdAddress,
+})
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsHdAbi}__ and `functionName` set to `"assertOwnership"`
@@ -4207,7 +4304,10 @@ export const useWatchGnarsHdTransferEvent = /*#__PURE__*/ createUseWatchContract
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
-export const useReadGnarsOg = /*#__PURE__*/ createUseReadContract({ abi: gnarsOgAbi, address: gnarsOgAddress })
+export const useReadGnarsOg = /*#__PURE__*/ createUseReadContract({
+  abi: gnarsOgAbi,
+  address: gnarsOgAddress,
+})
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link gnarsOgAbi}__ and `functionName` set to `"auction"`
@@ -4478,7 +4578,10 @@ export const useReadGnarsOgTotalSupply = /*#__PURE__*/ createUseReadContract({
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
-export const useWriteGnarsOg = /*#__PURE__*/ createUseWriteContract({ abi: gnarsOgAbi, address: gnarsOgAddress })
+export const useWriteGnarsOg = /*#__PURE__*/ createUseWriteContract({
+  abi: gnarsOgAbi,
+  address: gnarsOgAddress,
+})
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link gnarsOgAbi}__ and `functionName` set to `"approve"`
@@ -4639,11 +4742,9 @@ export const useWriteGnarsOgSetSkateDaoAddresses = /*#__PURE__*/ createUseWriteC
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
-export const useWriteGnarsOgSettleCurrentAndCreateNewAuction = /*#__PURE__*/ createUseWriteContract({
-  abi: gnarsOgAbi,
-  address: gnarsOgAddress,
-  functionName: 'settleCurrentAndCreateNewAuction',
-})
+export const useWriteGnarsOgSettleCurrentAndCreateNewAuction = /*#__PURE__*/ createUseWriteContract(
+  { abi: gnarsOgAbi, address: gnarsOgAddress, functionName: 'settleCurrentAndCreateNewAuction' },
+)
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link gnarsOgAbi}__ and `functionName` set to `"transferFrom"`
@@ -4683,7 +4784,10 @@ export const useWriteGnarsOgUnpause = /*#__PURE__*/ createUseWriteContract({
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
-export const useSimulateGnarsOg = /*#__PURE__*/ createUseSimulateContract({ abi: gnarsOgAbi, address: gnarsOgAddress })
+export const useSimulateGnarsOg = /*#__PURE__*/ createUseSimulateContract({
+  abi: gnarsOgAbi,
+  address: gnarsOgAddress,
+})
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsOgAbi}__ and `functionName` set to `"approve"`
@@ -4800,11 +4904,12 @@ export const useSimulateGnarsOgSetDescriptor = /*#__PURE__*/ createUseSimulateCo
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
-export const useSimulateGnarsOgSetMinBidIncrementPercentage = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsOgAbi,
-  address: gnarsOgAddress,
-  functionName: 'setMinBidIncrementPercentage',
-})
+export const useSimulateGnarsOgSetMinBidIncrementPercentage =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsOgAbi,
+    address: gnarsOgAddress,
+    functionName: 'setMinBidIncrementPercentage',
+  })
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsOgAbi}__ and `functionName` set to `"setReservePrice"`
@@ -4844,11 +4949,12 @@ export const useSimulateGnarsOgSetSkateDaoAddresses = /*#__PURE__*/ createUseSim
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
-export const useSimulateGnarsOgSettleCurrentAndCreateNewAuction = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsOgAbi,
-  address: gnarsOgAddress,
-  functionName: 'settleCurrentAndCreateNewAuction',
-})
+export const useSimulateGnarsOgSettleCurrentAndCreateNewAuction =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsOgAbi,
+    address: gnarsOgAddress,
+    functionName: 'settleCurrentAndCreateNewAuction',
+  })
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsOgAbi}__ and `functionName` set to `"transferFrom"`
@@ -4953,11 +5059,12 @@ export const useWatchGnarsOgAuctionSettledEvent = /*#__PURE__*/ createUseWatchCo
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x494715b2a3c75dadd24929835b658a1c19bd4552)
  */
-export const useWatchGnarsOgMinBidIncrementPercentageUpdatedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsOgAbi,
-  address: gnarsOgAddress,
-  eventName: 'MinBidIncrementPercentageUpdated',
-})
+export const useWatchGnarsOgMinBidIncrementPercentageUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsOgAbi,
+    address: gnarsOgAddress,
+    eventName: 'MinBidIncrementPercentageUpdated',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsOgAbi}__ and `eventName` set to `"OwnershipTransferred"`
@@ -5084,11 +5191,12 @@ export const useReadGnarsV2AuctionHouseGnarsClaimedFor = /*#__PURE__*/ createUse
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useReadGnarsV2AuctionHouseMinBidIncrementPercentage = /*#__PURE__*/ createUseReadContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'minBidIncrementPercentage',
-})
+export const useReadGnarsV2AuctionHouseMinBidIncrementPercentage =
+  /*#__PURE__*/ createUseReadContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'minBidIncrementPercentage',
+  })
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"owner"`
@@ -5248,11 +5356,12 @@ export const useWriteGnarsV2AuctionHouseRenounceOwnership = /*#__PURE__*/ create
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWriteGnarsV2AuctionHouseSetMinBidIncrementPercentage = /*#__PURE__*/ createUseWriteContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'setMinBidIncrementPercentage',
-})
+export const useWriteGnarsV2AuctionHouseSetMinBidIncrementPercentage =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'setMinBidIncrementPercentage',
+  })
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"setReservePrice"`
@@ -5270,11 +5379,13 @@ export const useWriteGnarsV2AuctionHouseSetReservePrice = /*#__PURE__*/ createUs
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWriteGnarsV2AuctionHouseSetSkateDaoAddresses = /*#__PURE__*/ createUseWriteContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'setSkateDaoAddresses',
-})
+export const useWriteGnarsV2AuctionHouseSetSkateDaoAddresses = /*#__PURE__*/ createUseWriteContract(
+  {
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'setSkateDaoAddresses',
+  },
+)
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"setTimeBuffer"`
@@ -5303,11 +5414,12 @@ export const useWriteGnarsV2AuctionHouseSettleAuction = /*#__PURE__*/ createUseW
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWriteGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction = /*#__PURE__*/ createUseWriteContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'settleCurrentAndCreateNewAuction',
-})
+export const useWriteGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction =
+  /*#__PURE__*/ createUseWriteContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'settleCurrentAndCreateNewAuction',
+  })
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"transferOwnership"`
@@ -5412,44 +5524,48 @@ export const useSimulateGnarsV2AuctionHousePause = /*#__PURE__*/ createUseSimula
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useSimulateGnarsV2AuctionHouseRenounceOwnership = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'renounceOwnership',
-})
+export const useSimulateGnarsV2AuctionHouseRenounceOwnership =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'renounceOwnership',
+  })
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"setMinBidIncrementPercentage"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useSimulateGnarsV2AuctionHouseSetMinBidIncrementPercentage = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'setMinBidIncrementPercentage',
-})
+export const useSimulateGnarsV2AuctionHouseSetMinBidIncrementPercentage =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'setMinBidIncrementPercentage',
+  })
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"setReservePrice"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useSimulateGnarsV2AuctionHouseSetReservePrice = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'setReservePrice',
-})
+export const useSimulateGnarsV2AuctionHouseSetReservePrice =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'setReservePrice',
+  })
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"setSkateDaoAddresses"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useSimulateGnarsV2AuctionHouseSetSkateDaoAddresses = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'setSkateDaoAddresses',
-})
+export const useSimulateGnarsV2AuctionHouseSetSkateDaoAddresses =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'setSkateDaoAddresses',
+  })
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"setTimeBuffer"`
@@ -5478,22 +5594,24 @@ export const useSimulateGnarsV2AuctionHouseSettleAuction = /*#__PURE__*/ createU
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useSimulateGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'settleCurrentAndCreateNewAuction',
-})
+export const useSimulateGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'settleCurrentAndCreateNewAuction',
+  })
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"transferOwnership"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useSimulateGnarsV2AuctionHouseTransferOwnership = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'transferOwnership',
-})
+export const useSimulateGnarsV2AuctionHouseTransferOwnership =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'transferOwnership',
+  })
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `functionName` set to `"unpause"`
@@ -5522,11 +5640,12 @@ export const useSimulateGnarsV2AuctionHouseUpgradeTo = /*#__PURE__*/ createUseSi
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useSimulateGnarsV2AuctionHouseUpgradeToAndCall = /*#__PURE__*/ createUseSimulateContract({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  functionName: 'upgradeToAndCall',
-})
+export const useSimulateGnarsV2AuctionHouseUpgradeToAndCall =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    functionName: 'upgradeToAndCall',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__
@@ -5543,44 +5662,45 @@ export const useWatchGnarsV2AuctionHouseEvent = /*#__PURE__*/ createUseWatchCont
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseAdminChangedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'AdminChanged',
-})
+export const useWatchGnarsV2AuctionHouseAdminChangedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'AdminChanged',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"AuctionBid"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseAuctionBidEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'AuctionBid',
-})
+export const useWatchGnarsV2AuctionHouseAuctionBidEvent = /*#__PURE__*/ createUseWatchContractEvent(
+  { abi: gnarsV2AuctionHouseAbi, address: gnarsV2AuctionHouseAddress, eventName: 'AuctionBid' },
+)
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"AuctionCreated"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseAuctionCreatedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'AuctionCreated',
-})
+export const useWatchGnarsV2AuctionHouseAuctionCreatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'AuctionCreated',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"AuctionExtended"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseAuctionExtendedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'AuctionExtended',
-})
+export const useWatchGnarsV2AuctionHouseAuctionExtendedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'AuctionExtended',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"AuctionMinBidIncrementPercentageUpdated"`
@@ -5599,66 +5719,72 @@ export const useWatchGnarsV2AuctionHouseAuctionMinBidIncrementPercentageUpdatedE
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseAuctionReservePriceUpdatedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'AuctionReservePriceUpdated',
-})
+export const useWatchGnarsV2AuctionHouseAuctionReservePriceUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'AuctionReservePriceUpdated',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"AuctionSettled"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseAuctionSettledEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'AuctionSettled',
-})
+export const useWatchGnarsV2AuctionHouseAuctionSettledEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'AuctionSettled',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"AuctionTimeBufferUpdated"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseAuctionTimeBufferUpdatedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'AuctionTimeBufferUpdated',
-})
+export const useWatchGnarsV2AuctionHouseAuctionTimeBufferUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'AuctionTimeBufferUpdated',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"BeaconUpgraded"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseBeaconUpgradedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'BeaconUpgraded',
-})
+export const useWatchGnarsV2AuctionHouseBeaconUpgradedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'BeaconUpgraded',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"OGGnarClaimed"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseOgGnarClaimedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'OGGnarClaimed',
-})
+export const useWatchGnarsV2AuctionHouseOgGnarClaimedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'OGGnarClaimed',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"OwnershipTransferred"`
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseOwnershipTransferredEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'OwnershipTransferred',
-})
+export const useWatchGnarsV2AuctionHouseOwnershipTransferredEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'OwnershipTransferred',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"Paused"`
@@ -5676,11 +5802,12 @@ export const useWatchGnarsV2AuctionHousePausedEvent = /*#__PURE__*/ createUseWat
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0xC28e0d3c00296dD8c5C3F2E9707361920f92a209)
  */
-export const useWatchGnarsV2AuctionHouseSkateDaoAddressesUpdatedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2AuctionHouseAbi,
-  address: gnarsV2AuctionHouseAddress,
-  eventName: 'SkateDaoAddressesUpdated',
-})
+export const useWatchGnarsV2AuctionHouseSkateDaoAddressesUpdatedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2AuctionHouseAbi,
+    address: gnarsV2AuctionHouseAddress,
+    eventName: 'SkateDaoAddressesUpdated',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2AuctionHouseAbi}__ and `eventName` set to `"Unpaused"`
@@ -6530,11 +6657,12 @@ export const useWatchGnarsV2TokenDelegateChangedEvent = /*#__PURE__*/ createUseW
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x558BFFF0D583416f7C4e380625c7865821b8E95C)
  */
-export const useWatchGnarsV2TokenDelegateVotesChangedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2TokenAbi,
-  address: gnarsV2TokenAddress,
-  eventName: 'DelegateVotesChanged',
-})
+export const useWatchGnarsV2TokenDelegateVotesChangedEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2TokenAbi,
+    address: gnarsV2TokenAddress,
+    eventName: 'DelegateVotesChanged',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2TokenAbi}__ and `eventName` set to `"DescriptorLocked"`
@@ -6552,11 +6680,9 @@ export const useWatchGnarsV2TokenDescriptorLockedEvent = /*#__PURE__*/ createUse
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x558BFFF0D583416f7C4e380625c7865821b8E95C)
  */
-export const useWatchGnarsV2TokenDescriptorUpdatedEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2TokenAbi,
-  address: gnarsV2TokenAddress,
-  eventName: 'DescriptorUpdated',
-})
+export const useWatchGnarsV2TokenDescriptorUpdatedEvent = /*#__PURE__*/ createUseWatchContractEvent(
+  { abi: gnarsV2TokenAbi, address: gnarsV2TokenAddress, eventName: 'DescriptorUpdated' },
+)
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2TokenAbi}__ and `eventName` set to `"GnarBurned"`
@@ -6607,11 +6733,12 @@ export const useWatchGnarsV2TokenMinterUpdatedEvent = /*#__PURE__*/ createUseWat
  *
  * [__View Contract on Ethereum Etherscan__](https://etherscan.io/address/0x558BFFF0D583416f7C4e380625c7865821b8E95C)
  */
-export const useWatchGnarsV2TokenOwnershipTransferredEvent = /*#__PURE__*/ createUseWatchContractEvent({
-  abi: gnarsV2TokenAbi,
-  address: gnarsV2TokenAddress,
-  eventName: 'OwnershipTransferred',
-})
+export const useWatchGnarsV2TokenOwnershipTransferredEvent =
+  /*#__PURE__*/ createUseWatchContractEvent({
+    abi: gnarsV2TokenAbi,
+    address: gnarsV2TokenAddress,
+    eventName: 'OwnershipTransferred',
+  })
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link gnarsV2TokenAbi}__ and `eventName` set to `"SeederLocked"`

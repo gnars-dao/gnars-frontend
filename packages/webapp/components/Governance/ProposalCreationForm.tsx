@@ -56,13 +56,14 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
     [transactions, isInvalid]
   )
   const proposalDescription = useMemo(() => `# ${title}\n\n${description}`, [title, description])
-  const { config } = useWriteGnarsDaoPropose({
+  // @TODO Fix this update wagmiv2
+  const { data, error, isError, status, variables } = useWriteGnarsDaoPropose({
     args: [targets, values, signatures, calldatas, proposalDescription],
     enabled: !isInvalid,
     cacheTime: 2000,
   })
 
-  const { writeAsync: propose } = useWriteContract(config)
+  const { writeContractAsync: propose } = useWriteContract()
   const toast = useToast()
 
   return (

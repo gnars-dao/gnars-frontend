@@ -38,8 +38,9 @@ export const HDClaiming = () => {
 
   const { isLoading, data: hdGnars } = useWalletHDGnars(address)
   // @TODO Fix to accomodate wagmiv2
-  const { writeContractAsync: claimGnars } = useWriteGnarsHdAssertOwnership({
+  const { writeContract: claimGnars } = useWriteGnarsHdAssertOwnership({
     args: [selectedHDGnars.map((id) => BigInt(id))],
+
   })
 
   if (isDisconnected) {

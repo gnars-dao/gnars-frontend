@@ -33,9 +33,9 @@ import { FC, useCallback, useMemo, useState } from "react"
 import { BiCommentDetail } from "react-icons/bi"
 import { queryClient } from "utils"
 import { DetailedProposalData, Support } from "utils/governanceUtils"
-import { useWriteGnarsDaoCastVote, useWriteGnarsDaoCastVoteWithReason, useReadGnarsV2TokenGetPriorVotes } from "utils/sdk"
+import { useWriteGnarsDaoCastVote, useWriteGnarsDaoCastVoteWithReason, useReadGnarsV2TokenGetPriorVotes, gnarsV2AuctionHouseConfig } from "utils/sdk"
 import { waitForTransactionReceipt } from "viem/actions"
-import { useAccount } from "wagmi"
+import { useAccount, useClient } from "wagmi"
 
 export interface VoteActionProps extends ButtonProps {
   proposal?: DetailedProposalData
@@ -82,7 +82,8 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
             args: [propId, support],
           })
       )
-        .then((tx) => waitForTransactionReceipt(queryClient, { hash: tx }))
+        // @TODO Need client param
+        .then((tx) => waitForTransactionReceipt(tx))
         .then(() => {
           toast({ status: "success", title: "Vote submitted" })
           onClose()

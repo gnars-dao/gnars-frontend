@@ -6,10 +6,9 @@ const nextConfig = {
     config.module = {
       ...config.module,
       exprContextCritical: false,
-    },
+    }
     // wagmi ssr fallback
-    config.resolve.fallback = { fs: false, net: false, tls: false };
-
+    // config.resolve.fallback = { fs: false, net: false, tls: false };
     return config
   },
   redirects: async () => [
@@ -21,4 +20,4 @@ const nextConfig = {
   ],
 }
 
-module.exports = nextConfig
+export default nextConfig
