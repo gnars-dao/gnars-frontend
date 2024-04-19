@@ -9,5 +9,11 @@
   "devDependencies": {
     "prettier": "^2.8.8",
     "turbo": "^1.8.3"
+  },
+  "engines": {
+    "node": ">=18.20.2"
+  },
+  "peerDependencies": {
+    "utf-8-validate": "^5.0.2"
   }
 }
