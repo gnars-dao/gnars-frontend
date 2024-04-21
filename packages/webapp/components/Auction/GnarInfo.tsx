@@ -149,7 +149,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
             {isOg || isClaimedGnar ? <OGNogglesIcon /> : <ShredIcon />}
             <Text>Owned by </Text>
             <Link isExternal href={`https://etherscan.io/address/${gnarData.gnar.owner}`}>
-              {ownerName ?? shortAddress(gnarData.gnar.owner)}
+              {String(ownerName) ?? shortAddress(gnarData.gnar.owner)}
               <HiExternalLink style={{ display: "inline", marginBottom: "2px" }} />
             </Link>
           </HStack>

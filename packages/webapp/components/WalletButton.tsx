@@ -10,7 +10,7 @@ export const WalletButton = (props: ButtonProps) => {
   const { open } = useModal()
   const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(address)
   const { data: avatarImg, isLoading: isLoadingAvatar } = useEnsAvatar({
-    name: nnsOrEnsName,
+    name: String(nnsOrEnsName),
   })
   return (
     <ConnectKitButton.Custom>
@@ -25,7 +25,7 @@ export const WalletButton = (props: ButtonProps) => {
                   isLoading={isLoadingAvatar || isLoadingNnsOrEnsName}
                 />
                 <Text px={2} whiteSpace={"nowrap"}>
-                  {nnsOrEnsName ?? shortAddress(address)}
+                  {String(nnsOrEnsName) ?? shortAddress(address)}
                 </Text>
               </HStack>
             ) : (
