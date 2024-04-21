@@ -61,8 +61,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
   // @TODO add slide animation when changing Gnar
   // @TODO add fake loader like https://github.com/rstacruz/nprogress
 
-  const { data: ownerName
-  } = useNnsNameWithEnsFallback(gnarData.gnar.owner)
+  const ownerName = useNnsNameWithEnsFallback(gnarData.gnar.owner)
 
   const auctionEnded =
     endTimestamp && blockTimestamp ? Date.now() > endTimestamp * 1000 && blockTimestamp > endTimestamp : true
@@ -150,7 +149,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
             {isOg || isClaimedGnar ? <OGNogglesIcon /> : <ShredIcon />}
             <Text>Owned by </Text>
             <Link isExternal href={`https://etherscan.io/address/${gnarData.gnar.owner}`}>
-              {String(ownerName) ?? shortAddress(gnarData.gnar.owner)}
+              {ownerName ?? shortAddress(gnarData.gnar.owner)}
               <HiExternalLink style={{ display: "inline", marginBottom: "2px" }} />
             </Link>
           </HStack>
