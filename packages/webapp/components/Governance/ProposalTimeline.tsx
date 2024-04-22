@@ -9,7 +9,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { AvatarWallet } from "components/AvatarWallet"
-import { FC } from "react"
+import { AwaitedReactNode, FC, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from "react"
 import { HiExternalLink } from "react-icons/hi"
 import { DetailedProposalData, Support } from "utils/governanceUtils"
 import { EventTime } from "./EventTime"
@@ -57,18 +57,18 @@ export const ProposalTimeline: FC<ProposalTimelineProps> = ({
                       <Text
                         whiteSpace={"nowrap"}
                         color={`governance.vote.${Support[
-                          event.vote.supportDetailed
+                          Number(event.vote.supportDetailed)
                         ].toLowerCase()}`}
                       >
                         {` ${event.vote.votes} ${Support[
-                          event.vote.supportDetailed
+                          Number(event.vote.supportDetailed)
                         ].toUpperCase()}`}
                       </Text>
                     </HStack>
                   ) : (
                     <Text
                       textAlign={"end"}
-                      color={`governance.proposal.event.${event.kind.toLowerCase()}`}
+                      color={`governance.proposal.event.${String(event?.kind).toLowerCase()}`}
                     >
                       {event.kind} PROP
                     </Text>
