@@ -121,8 +121,8 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({ }) => {
     }
   }, [abi, func, funcParams])
 
-  const debouncedAccountQuery = useDebounceValue(accountQuery, 600)
-  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountQuery)
+  const [debouncedAccountValue,] = useDebounceValue(accountQuery, 600)
+  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountValue)
   const { data: contractInfo } = useEtherscanContractInfo(address)
 
   useEffect(() => {
