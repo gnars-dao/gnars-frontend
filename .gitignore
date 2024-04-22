@@ -38,6 +38,3 @@ yarn-error.log*
 .turbo
 
 dist/
-
-# Generated .graphclient
-# .graphclient
