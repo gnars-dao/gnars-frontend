@@ -35,9 +35,9 @@ export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature,
     () =>
       partialFunc
         ? decodeFunctionData({
-          abi: [partialFunc],
-          data: (getFunctionSelector(signature) + calldata.substring(2)) as `0x${string}`,
-        })
+            abi: [partialFunc],
+            data: (getFunctionSelector(signature) + calldata.substring(2)) as `0x${string}`,
+          })
         : undefined,
     [partialFunc, calldata, signature]
   )

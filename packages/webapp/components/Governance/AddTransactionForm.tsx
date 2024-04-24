@@ -58,7 +58,7 @@ export const AddTransactionForm: FC<AddTransactionFormProps> = ({ onAddTransacti
   )
 }
 
-const PickTransactionKind = ({ }) => {
+const PickTransactionKind = ({}) => {
   const { pickKind, txKind, close, clear } = useAddTransactionFormState()
   return (
     <>
@@ -86,9 +86,9 @@ const PickTransactionKind = ({ }) => {
   )
 }
 
-interface TransactionDataFormProps { }
+interface TransactionDataFormProps {}
 
-const TransactionDataForm: FC<TransactionDataFormProps> = ({ }) => {
+const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
   const { transactions, setTransactions } = useProposalCreationState()
   const {
     txKind,
@@ -139,9 +139,9 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({ }) => {
     txKind === "Send ETH"
       ? isValidEthValue && address !== undefined
       : !!calldata &&
-      address !== undefined &&
-      func !== undefined &&
-      (func.stateMutability === "payable" ? ethValue !== "" : true)
+        address !== undefined &&
+        func !== undefined &&
+        (func.stateMutability === "payable" ? ethValue !== "" : true)
 
   return (
     <>
@@ -277,8 +277,8 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({ }) => {
                     txKind === "Send ETH"
                       ? parseEther(ethValue)
                       : func?.stateMutability === "payable"
-                        ? parseEther(ethValue)
-                        : 0n,
+                      ? parseEther(ethValue)
+                      : 0n,
                 },
               ])
               close()

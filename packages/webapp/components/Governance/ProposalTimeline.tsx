@@ -9,7 +9,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { AvatarWallet } from "components/AvatarWallet"
-import { AwaitedReactNode, FC, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from "react"
+import { FC } from "react"
 import { HiExternalLink } from "react-icons/hi"
 import { DetailedProposalData, Support } from "utils/governanceUtils"
 import { EventTime } from "./EventTime"
