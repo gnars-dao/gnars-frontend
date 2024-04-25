@@ -11,7 +11,7 @@
     "turbo": "^1.13.2"
   },
   "engines": {
-    "node": "18.20.2"
+    "node": "18"
   },
   "peerDependencies": {
     "utf-8-validate": "^5.0.2"
