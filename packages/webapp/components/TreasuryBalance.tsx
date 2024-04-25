@@ -41,10 +41,11 @@ export const TreasuryBalance = () => {
 
   useEffect(() => {
     const getTokens = async () => {
-      const treasuryTokens = await getTokensValues(BASE_TREASURY_ADDRESS, [
-        BASE_USDC_TOKEN_ADDRESS,
-        BASE_SENDIT_TOKEN_ADDRESS,
-      ], base.id)
+      const treasuryTokens = await getTokensValues(
+        BASE_TREASURY_ADDRESS,
+        [BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS],
+        base.id
+      )
       setTreasuryBalance((treasuryBalance) => [
         ...treasuryBalance,
         {
@@ -70,10 +71,11 @@ export const TreasuryBalance = () => {
         },
       ])
 
-      const multisigTokens = await getTokensValues(BASE_MULTISIG_ADDRESS, [
-        BASE_USDC_TOKEN_ADDRESS,
-        BASE_SENDIT_TOKEN_ADDRESS,
-      ], base.id)
+      const multisigTokens = await getTokensValues(
+        BASE_MULTISIG_ADDRESS,
+        [BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS],
+        base.id
+      )
       setMultisigBalance((multisigBalance) => [
         ...multisigBalance,
         {
@@ -106,8 +108,7 @@ export const TreasuryBalance = () => {
 
   const { data: multisigGnarsBalance } = useGnarsV2TokenBalanceOf({
     args: [BASE_MULTISIG_ADDRESS],
-    // @ts-expect-error remove comment after `wagmi generate` for new contracts
-    chainId: base.id
+    chainId: base.id,
   })
   useEffect(() => {
     if (multisigGnarsBalance)
@@ -125,8 +126,7 @@ export const TreasuryBalance = () => {
 
   const { data: treasuryGnarsBalance } = useGnarsV2TokenBalanceOf({
     args: [BASE_TREASURY_ADDRESS],
-    // @ts-expect-error remove comment after `wagmi generate` for new contracts
-    chainId: base.id
+    chainId: base.id,
   })
   useEffect(() => {
     if (treasuryGnarsBalance)
@@ -146,21 +146,21 @@ export const TreasuryBalance = () => {
     let ethTotal = 0n
     let gnarsTotal = 0n
 
-    const ethTreasury = treasuryBalance.find(token => token.label === "Ether")
+    const ethTreasury = treasuryBalance.find((token) => token.label === "Ether")
     if (ethTreasury) ethTotal += ethTreasury.value
 
-    const ethMultisig = multisigBalance.find(token => token.label === "Ether")
+    const ethMultisig = multisigBalance.find((token) => token.label === "Ether")
     if (ethMultisig) ethTotal += ethMultisig.value
 
-    const gnarsTreasury = treasuryBalance.find(token => token.label === "Gnars")
+    const gnarsTreasury = treasuryBalance.find((token) => token.label === "Gnars")
     if (gnarsTreasury) gnarsTotal += gnarsTreasury.value
 
-    const gnarsMultisig = multisigBalance.find(token => token.label === "Gnars")
+    const gnarsMultisig = multisigBalance.find((token) => token.label === "Gnars")
     if (gnarsMultisig) gnarsTotal += gnarsMultisig.value
 
     return {
-      "eth": formatSuffixedBalance(ethTotal, 18),
-      "gnars": gnarsTotal.toString()
+      eth: formatSuffixedBalance(ethTotal, 18),
+      gnars: gnarsTotal.toString(),
     }
   }, [treasuryBalance, multisigBalance])
 
@@ -172,13 +172,13 @@ export const TreasuryBalance = () => {
             <Text fontSize={"2xs"} opacity={0.4}>
               TREASURY
             </Text>
-            {multisigBalance.find(token => token.label === "Gnars") ? (
+            {multisigBalance.find((token) => token.label === "Gnars") ? (
               <HStack whiteSpace={"nowrap"} divider={<Text px={2}>+</Text>}>
                 <Text whiteSpace={"nowrap"}>{`Ξ ${totalValues.eth}`}</Text>
-                  <Text>
-                    <ShredIcon style={{ verticalAlign: "sub" }} />
-                    {totalValues.gnars}
-                  </Text>
+                <Text>
+                  <ShredIcon style={{ verticalAlign: "sub" }} />
+                  {totalValues.gnars}
+                </Text>
               </HStack>
             ) : (
               <Spinner size={"sm"} />
@@ -196,11 +196,7 @@ export const TreasuryBalance = () => {
                   token.value > 1 ? (
                     <Tooltip key={token.label} label={token.label}>
                       <Button size={"sm"} w={"100%"} variant={"outline"}>
-                        <Link
-                          href={token.url}
-                          target="_blank"
-                          whiteSpace={"nowrap"}
-                        >
+                        <Link href={token.url} target="_blank" whiteSpace={"nowrap"}>
                           {token.icon} {token.formatted}
                         </Link>
                       </Button>
@@ -215,11 +211,7 @@ export const TreasuryBalance = () => {
                   token.value > 1 ? (
                     <Tooltip key={token.label} label={token.label}>
                       <Button size={"sm"} w={"100%"} variant={"outline"}>
-                        <Link
-                          href={token.url}
-                          target="_blank"
-                          whiteSpace={"nowrap"}
-                        >
+                        <Link href={token.url} target="_blank" whiteSpace={"nowrap"}>
                           {token.icon} {token.formatted}
                         </Link>
                       </Button>
