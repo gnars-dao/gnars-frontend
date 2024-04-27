@@ -4,20 +4,20 @@ import { Analytics } from "@vercel/analytics/react"
 import Footer from "components/Footer"
 import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 import type { AppProps } from "next/app"
-import { createConfig, WagmiConfig } from "wagmi"
+import { WagmiConfig, createConfig } from "wagmi"
 
+import { BaseAlertHeader } from "components/BaseJumpAnnouncement"
 import { alchemyApiKey, walletConnectProjectId } from "constants/env"
 import Head from "next/head"
 import { queryClient } from "utils"
-import { mainnet } from "wagmi/chains"
+import { base, mainnet } from "wagmi/chains"
 import theme from "../theme"
-import { BaseAlertHeader } from 'components/BaseJumpAnnouncement';
 
 const config = createConfig({
   ...getDefaultConfig({
     appName: "Gnars",
     alchemyId: alchemyApiKey,
-    chains: [mainnet],
+    chains: [mainnet, base],
     walletConnectProjectId,
   }),
   persister: null,
