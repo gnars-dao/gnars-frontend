@@ -1,8 +1,9 @@
 import { ContractConfig, defineConfig } from "@wagmi/cli"
 import { etherscan, react } from "@wagmi/cli/plugins"
-import { mainnet } from "wagmi/chains"
+import { base, mainnet } from "wagmi/chains"
 
 import gnarsDaoAbi from "./abis/GnarsDAOLogicV2.json"
+import gnarsV2TokenABI from "./abis/GnarsV2Token.json"
 import gnarsV2AuctionHouseABI from "./abis/SkateContractV2AuctionHouseV2.json"
 
 export default defineConfig({
@@ -22,6 +23,14 @@ export default defineConfig({
         [mainnet.id as 1]: "0x156E94a6e16244cCFDf16E1193198Ea9d80dD7E3" as `0x${string}`,
       },
     },
+    {
+      name: "GnarsV2Token",
+      abi: gnarsV2TokenABI as ContractConfig["abi"],
+      address: {
+        [mainnet.id as 1]: "0x558BFFF0D583416f7C4e380625c7865821b8E95C" as `0x${string}`,
+        [base.id as 8453]: "0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17" as `0x${string}`,
+      },
+    },
   ],
   plugins: [
     etherscan({
@@ -32,12 +41,6 @@ export default defineConfig({
           name: "GnarsOG",
           address: {
             [mainnet.id as 1]: "0x494715b2a3c75dadd24929835b658a1c19bd4552" as `0x${string}`,
-          },
-        },
-        {
-          name: "GnarsV2Token",
-          address: {
-            [mainnet.id as 1]: "0x558BFFF0D583416f7C4e380625c7865821b8E95C" as `0x${string}`,
           },
         },
         {
