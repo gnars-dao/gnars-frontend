@@ -48,10 +48,11 @@ export default function Proposal() {
   const block = useBlock()
   const { address } = useAccount()
   const { propId } = router.query as { propId: string }
-  const { data: proposal } = useQuery<DetailedProposalData>(
-    ["proposal", propId],
-    () => execute(ProposalDocument, { id: propId }).then((r: any) => r!.data!.proposal),
-    { keepPreviousData: true }
+  const { data: proposal } = useQuery<DetailedProposalData, Error>({
+    queryKey: ["proposal", propId],
+    queryFn: () => execute(ProposalDocument, { id: propId }).then((r: any) => r!.data!.proposal),
+    keepPreviousData: true
+  }
   )
 
   const effectiveStatus = proposal && getProposalEffectiveStatus(proposal, block?.number, block?.timestamp)

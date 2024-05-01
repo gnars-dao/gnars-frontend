@@ -32,7 +32,7 @@ import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanCon
 import { useFunctions } from "hooks/useFunctions"
 import { useParameterValidation } from "hooks/useParameterValidation"
 import { FC, useEffect, useMemo } from "react"
-import { useDebounce } from "usehooks-ts"
+import { useDebounceValue } from "usehooks-ts"
 import { isValidName } from "utils/ensUtils"
 import { getSignature } from "utils/functionUtils"
 import { NounsTransactionData } from "utils/governanceUtils"
@@ -121,8 +121,8 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
     }
   }, [abi, func, funcParams])
 
-  const debouncedAccountQuery = useDebounce(accountQuery, 600)
-  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountQuery)
+  const [debouncedAccountValue,] = useDebounceValue(accountQuery, 600)
+  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountValue)
   const { data: contractInfo } = useEtherscanContractInfo(address)
 
   useEffect(() => {

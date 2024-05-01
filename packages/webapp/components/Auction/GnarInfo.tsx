@@ -61,7 +61,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
   // @TODO add slide animation when changing Gnar
   // @TODO add fake loader like https://github.com/rstacruz/nprogress
 
-  const { data: ownerName } = useNnsNameWithEnsFallback(gnarData.gnar.owner)
+  const ownerName = useNnsNameWithEnsFallback(gnarData.gnar.owner)
 
   const auctionEnded =
     endTimestamp && blockTimestamp ? Date.now() > endTimestamp * 1000 && blockTimestamp > endTimestamp : true

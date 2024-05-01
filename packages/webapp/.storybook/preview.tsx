@@ -3,7 +3,7 @@ import { Preview } from "@storybook/react"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { getDefaultClient } from "connectkit"
 import React from "react"
-import { createClient, mainnet, WagmiConfig } from "wagmi"
+import { createConfig, mainnet, WagmiConfig } from "wagmi"
 import theme from "../theme"
 import { queryClient } from "../utils"
 
@@ -28,7 +28,7 @@ const preview: Preview = {
       </ChakraProvider>
     ),
     (Story) => {
-      const client = createClient({
+      const client = createConfig({
         ...getDefaultClient({
           appName: "Gnars",
           alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
@@ -38,7 +38,7 @@ const preview: Preview = {
       })
 
       return (
-        <WagmiConfig client={client}>
+        <WagmiConfig config={client}>
           <Story />
         </WagmiConfig>
       )

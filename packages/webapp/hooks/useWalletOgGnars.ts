@@ -3,16 +3,15 @@ import { getBuiltGraphSDK, WalletOgGnarsQuery } from "../.graphclient"
 
 export const useWalletOgGnars = (address?: string) => {
   const sdk = getBuiltGraphSDK()
-  return useQuery<WalletOgGnarsQuery["ogGnars"]>(
-    ["ogGnarsClaimStatus", address],
-    () => {
+  return useQuery<WalletOgGnarsQuery["ogGnars"], Error>({
+    queryKey: ["ogGnarsClaimStatus", address],
+    queryFn: () => {
       if (!address) {
         return []
       }
 
       return sdk.WalletOgGnars({ owner: address }).then((r) => r.ogGnars)
     },
-    {
       refetchInterval: 12000,
     }
   )

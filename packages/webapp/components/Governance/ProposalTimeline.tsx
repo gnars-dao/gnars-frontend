@@ -57,18 +57,18 @@ export const ProposalTimeline: FC<ProposalTimelineProps> = ({
                       <Text
                         whiteSpace={"nowrap"}
                         color={`governance.vote.${Support[
-                          event.vote.supportDetailed
+                          Number(event.vote.supportDetailed)
                         ].toLowerCase()}`}
                       >
                         {` ${event.vote.votes} ${Support[
-                          event.vote.supportDetailed
+                          Number(event.vote.supportDetailed)
                         ].toUpperCase()}`}
                       </Text>
                     </HStack>
                   ) : (
                     <Text
                       textAlign={"end"}
-                      color={`governance.proposal.event.${event.kind.toLowerCase()}`}
+                      color={`governance.proposal.event.${String(event?.kind).toLowerCase()}`}
                     >
                       {event.kind} PROP
                     </Text>
