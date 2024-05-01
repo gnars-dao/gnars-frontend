@@ -1,12 +1,4 @@
-import {
-  Link,
-  Progress,
-  SimpleGrid,
-  SimpleGridProps,
-  Text,
-  TypographyProps,
-  type SystemProps,
-} from "@chakra-ui/react"
+import { Link, Progress, SimpleGrid, SimpleGridProps, Text, TypographyProps, type SystemProps } from "@chakra-ui/react"
 import { GnarvingData } from "hooks/useGnarData"
 import { FC } from "react"
 import { formatConciseDurationInDays } from "utils/dateTimeFormat"
@@ -24,11 +16,7 @@ const typographyProps: TypographyProps & SystemProps = {
 }
 
 export const GnarvingTracker: FC<GnarvingTrackerProps> = ({
-  gnarvingData: {
-    auctionDuration,
-    auctionsBetweenGnarvings,
-    auctionsUntilNextGnarving,
-  },
+  gnarvingData: { auctionDuration, auctionsBetweenGnarvings, auctionsUntilNextGnarving },
   ...props
 }) => {
   return (
@@ -40,36 +28,7 @@ export const GnarvingTracker: FC<GnarvingTrackerProps> = ({
       spacing={0}
       {...props}
     >
-      <Link
-        gridArea={"counter"}
-        justifySelf={["center", "start"]}
-        {...typographyProps}
-        href={"#gnarving"}
-      >
-        {auctionsUntilNextGnarving} auctions until Gnarving (?)
-      </Link>
-      <Text
-        textAlign={["center", "end"]}
-        gridArea={"duration"}
-        {...typographyProps}
-      >
-        current auction duration: {formatConciseDurationInDays(auctionDuration)}
-      </Text>
-      <Progress
-        gridArea={"progress"}
-        sx={{
-          "div[role='progressbar']": {
-            bgColor: "chakra-body-text",
-          },
-        }}
-        w={"full"}
-        h={"2px"}
-        min={auctionsBetweenGnarvings}
-        max={0}
-        value={auctionsUntilNextGnarving}
-        _light={{ bgColor: "blackAlpha.200" }}
-        _dark={{ bgColor: "whiteAlpha.500" }}
-      />
+      <Link gridArea={"counter"} justifySelf={["center", "start"]} {...typographyProps} href={"#gnarving"}></Link>
     </SimpleGrid>
   )
 }

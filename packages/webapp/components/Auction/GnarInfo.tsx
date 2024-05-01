@@ -1,6 +1,7 @@
 import {
   Button,
   HStack,
+  Heading,
   IconButton,
   Link,
   SimpleGrid,
@@ -13,7 +14,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion"
 import { Londrina_Solid } from "next/font/google"
 import { FC, useEffect, useState } from "react"
-import { FiInfo } from "react-icons/fi"
+import { FiExternalLink, FiInfo } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
 import { RiAuctionLine } from "react-icons/ri"
 import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/gnarsDao"
@@ -38,6 +39,8 @@ interface GnarInfoProps extends StackProps {
   isOg: boolean
   gnarData: GnarData
 }
+
+const baseLink = "https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17"
 
 export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarInfoProps) => {
   const { endTimestamp, latestBidder, latestBid, settled, bids } = {
@@ -72,6 +75,16 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
   const isClaimedGnar = !isTreasuryGnar && !gnarData.gnar.auction
   return (
     <VStack w={"full"} alignItems={"start"} spacing={6} maxW={{ base: "full", lg: "500px", xl: "xl" }} {...props}>
+      <Heading>Under Construction</Heading>
+
+      <Heading as="h3" size={"lg"}>
+        Use{" "}
+        <Link href="https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17" color={"#1f1d29"}>
+          Nouns Builder
+        </Link>{" "}
+        in the mean time
+      </Heading>
+      {/*
       <SimpleGrid
         w="full"
         rowGap={[4, 2]}
@@ -90,7 +103,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
           gnarvingData={gnarData.gnarving}
           w={"full"}
         />
-        <HStack
+        <VStack
           justifySelf={["center", "start"]}
           gridArea={"gnarId"}
           lineHeight={"80%"}
@@ -99,7 +112,9 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
         >
           {isOg && <Text position={"relative"}>OG</Text>}
           {gnarData ? <Text>Gnar {gnarData.gnar.gnarId}</Text> : <Spinner />}
-        </HStack>
+        </VStack>
+
+
         <GnarNavigation gridArea={"navigation"} alignSelf={"end"} justifySelf={["center", "end"]} gnarData={gnarData} />
         <AuctionStatus
           gridArea={"auction"}
@@ -111,8 +126,9 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
           isClaimedGnar={isClaimedGnar}
           latestBid={latestBid}
           winner={winner}
-        />
+        />{" "}
       </SimpleGrid>
+        */}
       <VStack alignItems={"start"} spacing={10} w={"full"}>
         {(isTreasuryGnar || isOg || isClaimedGnar) && (
           <VStack alignItems={"start"} spacing={1}>
@@ -144,7 +160,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
             </Text>
           </VStack>
         )}
-        {(!gnarData.gnar.auction || (gnarData.gnar.auction && settled)) && !isBurned && (
+        {/*(!gnarData.gnar.auction || (gnarData.gnar.auction && settled)) && !isBurned && (
           <HStack spacing={1} fontSize={"lg"} color={"chakra-body-text"} fontWeight={"semibold"}>
             {isOg || isClaimedGnar ? <OGNogglesIcon /> : <ShredIcon />}
             <Text>Owned by </Text>
@@ -171,7 +187,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
               </VStack>
             )}
           </VStack>
-        )}
+        ) */}
       </VStack>
       {/*@TODO prevent flashing bid when cached auction was already settled*/}
       {gnarData && (!gnarData.gnar.auction || settled) && (
