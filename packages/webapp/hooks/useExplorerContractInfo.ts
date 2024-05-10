@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { Abi } from "abitype"
-import { etherscanApiKey } from "constants/env"
+import { baseScanApiKey } from "constants/env"
 import { isAddress } from "viem"
 import { PublicClient, usePublicClient } from "wagmi"
 
@@ -18,9 +18,9 @@ export interface ProxyContractInfo extends RegularContractInfo {
 
 export type ContractInfo = RegularContractInfo | ProxyContractInfo
 
-export const useEtherscanContractInfo = (address?: string) => {
+export const useExplorerContractInfo = (address?: string) => {
   const client = usePublicClient()
-  return useQuery<ContractInfo | null>({queryKey: ["etherscanAbi", address], queryFn: async ({ signal }) => {
+  return useQuery<ContractInfo | null>({queryKey: ["baseScanAbi", address], queryFn: async ({ signal }) => {
     if (!address || !isAddress(address)) return null
 
     return fetchContractInfo(address, client, signal)
@@ -34,7 +34,7 @@ const fetchContractInfo = async (
 ): Promise<ContractInfo | null> => {
   try {
     const contractInfo = await fetch(
-      `https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${etherscanApiKey}`,
+      `https://api.basescan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${baseScanApiKey}`,
       { signal }
     ).then((res) => res.json())
 

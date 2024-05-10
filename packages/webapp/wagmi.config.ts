@@ -1,7 +1,6 @@
 import { ContractConfig, defineConfig } from "@wagmi/cli"
 import { etherscan, react } from "@wagmi/cli/plugins"
 import { base, mainnet } from "wagmi/chains"
-
 import gnarsDaoAbi from "./abis/GnarsDAOLogicV2.json"
 import gnarsV2TokenABI from "./abis/GnarsV2Token.json"
 import gnarsV2AuctionHouseABI from "./abis/SkateContractV2AuctionHouseV2.json"

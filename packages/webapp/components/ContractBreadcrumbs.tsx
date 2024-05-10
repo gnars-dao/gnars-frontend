@@ -10,7 +10,7 @@ import {
   ContractInfo,
   getProxyAndImplementations,
   isProxy,
-} from "hooks/useEtherscanContractInfo"
+} from "hooks/useExplorerContractInfo"
 
 export interface ContractBreadcrumbsProps extends StackProps {
   contractInfo: ContractInfo

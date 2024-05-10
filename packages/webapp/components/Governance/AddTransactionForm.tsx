@@ -28,7 +28,7 @@ import { AccountWithAvatar } from "components/AccountWithAvatar"
 import { ContractBreadcrumbs } from "components/ContractBreadcrumbs"
 import { ParamSpec, ParamsTable } from "components/ParamsTable"
 import { useAccountQuery } from "hooks/useAccountQuery"
-import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo"
+import { getEffectiveAbi, useExplorerContractInfo } from "hooks/useExplorerContractInfo"
 import { useFunctions } from "hooks/useFunctions"
 import { useParameterValidation } from "hooks/useParameterValidation"
 import { FC, useEffect, useMemo } from "react"
@@ -123,7 +123,7 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
 
   const [debouncedAccountValue,] = useDebounceValue(accountQuery, 600)
   const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountValue)
-  const { data: contractInfo } = useEtherscanContractInfo(address)
+  const { data: contractInfo } = useExplorerContractInfo(address)
 
   useEffect(() => {
     if (!contractInfo) {

@@ -44,6 +44,13 @@ const config: HardhatUserConfig = {
         ? [process.env.DEPLOYER_PRIVATE_KEY]
         : undefined,
     },
+    base: {
+      url: process.env.BASE_JSON_RPC_URL,
+      chainId: 8453,
+      accounts: process.env.DEPLOYER_PRIVATE_KEY
+        ? [process.env.DEPLOYER_PRIVATE_KEY]
+        : undefined,
+    }
   },
   abiExporter: {
     runOnCompile: true,
@@ -56,6 +63,7 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       mainnet: process.env.ETHERSCAN_API_KEY!,
+      base: process.env.BASESCAN_API_KEY!,
     },
   },
 }
