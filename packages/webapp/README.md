@@ -30,8 +30,8 @@ the bindings should be generated on the `.graphclient` folder
 
 this project uses [Wagmi CLI](https://wagmi.sh/cli/getting-started) to interact with contracts
 
-to add new contracts, set them up on `wagmi.config.ts` and run `yarn wagmi generate` to update the sdk
-You might need to add a ETHERSCAN_API_KEY for it to work, like so:
+to add new contracts, set them up on `wagmi.config.ts` and run `pnpm wagmi generate` to update the sdk
+You might need to add a BASESCAN_API_KEY for it to work, like so:
 ```
-ETHERSCAN_API_KEY=<key-here> pnpm wagmi generate
+BASESCAN_API_KEY=<key-here> pnpm wagmi generate
 ```
