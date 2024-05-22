@@ -18,7 +18,7 @@ import {
   BASE_SENDIT_TOKEN_ADDRESS,
   BASE_TREASURY_ADDRESS,
   BASE_USDC_TOKEN_ADDRESS,
-  BASE_V2_GNAR_ADDRESS,
+  BASE_GNAR_ADDRESS,
 } from "constants/gnarsDao"
 import { ReactNode, useEffect, useMemo, useState } from "react"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
@@ -119,7 +119,7 @@ export const TreasuryBalance = () => {
           formatted: multisigGnarsBalance.toString(),
           value: multisigGnarsBalance,
           label: "Gnars",
-          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
+          url: `https://basescan.org/token/${BASE_GNAR_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
         },
       ])
   }, [multisigGnarsBalance])
@@ -137,7 +137,7 @@ export const TreasuryBalance = () => {
           formatted: treasuryGnarsBalance.toString(),
           value: treasuryGnarsBalance,
           label: "Gnars",
-          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
+          url: `https://basescan.org/token/${BASE_GNAR_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
         },
       ])
   }, [treasuryGnarsBalance])

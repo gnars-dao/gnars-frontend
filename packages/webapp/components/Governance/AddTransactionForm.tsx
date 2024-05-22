@@ -153,11 +153,16 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
               id={"destination"}
               value={accountQuery}
               onChange={(e) => setAccountQuery(e.target.value)}
-              placeholder="gnars.eth / 0x558bfff0d583416f7c4e380625c7865821b8e95c"
+              placeholder={
+                txKind === "Send ETH"
+                  ? "gami.eth / 0x387a161C6b25aA854100aBaED39274e51aaffffd"
+                  : "0x............."
+              }
             />
             <FormHelperText>
-              {txKind === "Send ETH" ? "The account that will receive the ETH." : "The contract to be called."} You can
-              use an address or an ENS name
+              {txKind === "Send ETH"
+                ? "The account that will receive the ETH. You can use an address or an ENS name."
+                : "The contract address to be called."}
             </FormHelperText>
           </FormControl>
           <AccountWithAvatar isLoading={isLoading} address={address} avatarImg={ensAvatar}>
@@ -310,6 +315,7 @@ interface ParamInputProps extends TextareaProps {
   param: AbiParameter
   indices: number[]
 }
+
 const ParamInput = forwardRef<ParamInputProps, "div">(({ param, indices, ...props }, ref) => {
   const { funcParams, setFuncParam } = useAddTransactionFormState()
   const value = getFuncParam(funcParams, indices) as string
@@ -322,8 +328,6 @@ const ParamInput = forwardRef<ParamInputProps, "div">(({ param, indices, ...prop
         pt={"6px"}
         px={2}
         pb={0}
-        // p={"6px 8px 0 8px"}
-
         resize={"vertical"}
         size={"sm"}
         borderRadius={"md"}

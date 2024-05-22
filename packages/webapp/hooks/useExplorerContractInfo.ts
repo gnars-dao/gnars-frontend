@@ -34,7 +34,7 @@ const fetchContractInfo = async (
 ): Promise<ContractInfo | null> => {
   try {
     const contractInfo = await fetch(
-      `https://api.basescan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${baseScanApiKey}`,
+      `https://api.basescan.org/api?module=contract&action=getsourcecode&address=${address}&apikey=${baseScanApiKey}`,
       { signal }
     ).then((res) => res.json())
 
