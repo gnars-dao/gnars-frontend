@@ -23,7 +23,7 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
       isLoading={isLoadingNnsOrEnsName || isLoadingEnsAvatar}
       {...props}
     >
-      {String(nnsOrEnsName) && <Text whiteSpace={"nowrap"}>{String(nnsOrEnsName)}</Text>}
+      {nnsOrEnsName && <Text whiteSpace={"nowrap"}>{String(nnsOrEnsName)}</Text>}
       <AccountAddress truncate address={address as `0x${string}`} />
     </AccountWithAvatar>
   )

@@ -67,7 +67,6 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             pl={"16px"}
             wordBreak={"break-word"}
             {...titleProps}
-            // textIndent={"-16px"}
           >
             {title}
           </Text>
