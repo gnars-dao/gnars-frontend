@@ -1,5 +1,5 @@
 {
-  "name": "gnars-hd-artwork",
+  "name": "@gnars/gnars-hd-artwork",
   "version": "1.0.0",
   "main": "prepare.js",
   "author": "Volky",

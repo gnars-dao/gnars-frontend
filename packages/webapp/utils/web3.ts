@@ -10,9 +10,14 @@ import { FetchBalanceResult, fetchBalance } from "wagmi/actions"
 export function getTokensValues(
   holder: `0x${string}`,
   tokens: `0x${string}`[],
-  chainId?: number
+  chainId: number
 ): Promise<[FetchBalanceResult, ...FetchBalanceResult[]]> {
-  const ethBalancePromise = fetchBalance({ address: holder, chainId })
-  const balancePromises = tokens.map((token) => fetchBalance({ address: holder, token, chainId }))
-  return Promise.all([ethBalancePromise, ...balancePromises])
+  try {
+    const ethBalancePromise = fetchBalance({ address: holder, chainId })
+    const balancePromises = tokens.map((token) => fetchBalance({ address: holder, token, chainId }))
+    return Promise.all([ethBalancePromise, ...balancePromises])
+  } catch (error) {
+    console.error(error)
+    return Promise.reject(error)
+  }
 }

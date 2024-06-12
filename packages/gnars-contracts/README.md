@@ -5,9 +5,12 @@ This project demonstrates a basic Hardhat use case. It comes with a sample contr
 Try running some of the following tasks:
 
 ```shell
-yarn hardhat help
-yarn hardhat test
-REPORT_GAS=true yarn hardhat test
-yarn hardhat node
-yarn hardhat run scripts/proposeAuctionHouseUpgrade.ts
+pnpm hardhat help
+pnpm hardhat test
+REPORT_GAS=true pnpm hardhat test
+pnpm hardhat node
+pnpm hardhat run scripts/proposeAuctionHouseUpgrade.ts
+
+Here’s a draft script for our broadcast tomorrow. Feel free to make any changes you want! 
+—
 ```

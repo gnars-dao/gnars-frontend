@@ -7,7 +7,7 @@ import { LatestAuctionDocument, execute } from "../.graphclient"
  * @returns The last auction id and bid from the subgraph.
  */
 export const getLastAuction = (): Promise<AuctionBids> =>
-  execute(LatestAuctionDocument, {}).then((r) => {
+  execute(LatestAuctionDocument, {}).then((r: { errors: string | any[]; data: { [x: string]: any[] } }) => {
     if (r.errors && r.errors.length > 0) throw r.errors
     return r.data["auctions"][0]
   })

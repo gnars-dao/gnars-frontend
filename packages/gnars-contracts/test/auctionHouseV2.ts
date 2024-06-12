@@ -1,10 +1,9 @@
-import {SignerWithAddress} from "@nomiclabs/hardhat-ethers/signers"
-import {expect} from "chai"
-import {impersonateAccount, time,} from "@nomicfoundation/hardhat-network-helpers"
-import {utils} from "ethers"
-import {ethers, upgrades} from "hardhat"
-import {SkateContractV2AuctionHouse, SkateContractV2AuctionHouseV2,} from "../typechain-types"
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers"
+import { expect } from "chai"
+import { impersonateAccount, time } from "@nomicfoundation/hardhat-network-helpers"
+import { ethers, upgrades } from "hardhat"
 import {SkateContractV2} from "../typechain-types/gnarsV2/token"
+const { utils } = ethers
 
 describe("GnarsAuctionHouseV2", () => {
   const gnarsAuctionHouseProxyAddress =
@@ -19,43 +18,26 @@ describe("GnarsAuctionHouseV2", () => {
   let snapshotId: number
 
   const getAuctionHouseV2 = async (wallet?: SignerWithAddress) => {
-    const auctionHouseV1Factory = await ethers.getContractFactory(
-      "SkateContractV2AuctionHouse",
-      gami
-    )
+    const auctionHouseV1Factory = await ethers.getContractFactory("SkateContractV2AuctionHouse", gami)
 
-    const auctionHouseV2Factory = await ethers.getContractFactory(
-      "SkateContractV2AuctionHouseV2",
-      gami
-    )
+    const auctionHouseV2Factory = await ethers.getContractFactory("SkateContractV2AuctionHouseV2", gami)
 
-    await upgrades.forceImport(
-      gnarsAuctionHouseProxyAddress,
-      auctionHouseV1Factory,
-      { kind: "uups" }
-    )
+    await upgrades.forceImport(gnarsAuctionHouseProxyAddress, auctionHouseV1Factory, { kind: "uups" })
 
     await impersonateAccount(gami.address)
 
-    await upgrades.upgradeProxy(
-      gnarsAuctionHouseProxyAddress,
-      auctionHouseV2Factory,
-      {
-        kind: "uups",
-        call: { fn: "setTimeBuffer", args: [90] },
-      }
-    )
+    await upgrades.upgradeProxy(gnarsAuctionHouseProxyAddress, auctionHouseV2Factory, {
+      kind: "uups",
+      call: { fn: "setTimeBuffer", args: [90] },
+    })
 
-    const auctionHouseV2 = auctionHouseV2Factory.attach(
-      gnarsAuctionHouseProxyAddress
-    )
+    const auctionHouseV2 = auctionHouseV2Factory.attach(gnarsAuctionHouseProxyAddress)
 
     return wallet ? auctionHouseV2.connect(wallet) : auctionHouseV2
   }
 
   before(async () => {
-    ;[deployer, gnarsDAO, bidderA, bidderB, randomWallet] =
-      await ethers.getSigners()
+    ;[deployer, gnarsDAO, bidderA, bidderB, randomWallet] = await ethers.getSigners()
     gnarsV2Token = await ethers
       .getContractFactory("SkateContractV2")
       .then((f) => f.attach("0x558BFFF0D583416f7C4e380625c7865821b8E95C"))
@@ -72,14 +54,9 @@ describe("GnarsAuctionHouseV2", () => {
   })
 
   it("should keep the old auction house state", async () => {
-    const auctionHouseV1Factory = await ethers.getContractFactory(
-      "SkateContractV2AuctionHouse",
-      gami
-    )
+    const auctionHouseV1Factory = await ethers.getContractFactory("SkateContractV2AuctionHouse", gami)
 
-    const auctionHouseV1 = auctionHouseV1Factory.attach(
-      gnarsAuctionHouseProxyAddress
-    )
+    const auctionHouseV1 = auctionHouseV1Factory.attach(gnarsAuctionHouseProxyAddress)
 
     const previousState = await Promise.all([
       auctionHouseV1.dao(),
@@ -118,9 +95,7 @@ describe("GnarsAuctionHouseV2", () => {
   describe("OG Gnars claiming", () => {
     it("should not allow wallets other than the OG Gnar holder to claim the Gnars", async () => {
       const auctionHouseV2 = await getAuctionHouseV2(randomWallet)
-      await expect(auctionHouseV2.claimGnars([0])).to.be.revertedWith(
-        "Not owner of OG Gnar"
-      )
+      await expect(auctionHouseV2.claimGnars([0])).to.be.revertedWith("Not owner of OG Gnar")
     })
 
     it("should allow Gami to claim for a single OG Gnar", async () => {
@@ -129,9 +104,7 @@ describe("GnarsAuctionHouseV2", () => {
 
       await auctionHouseV2.claimGnars([53])
 
-      expect(await gnarsV2Token.balanceOf(gami.address)).to.be.equal(
-        initialAmountOfGnars.add(2)
-      )
+      expect(await gnarsV2Token.balanceOf(gami.address)).to.be.equal(initialAmountOfGnars.add(2))
     })
 
     it("should allow Gami to claim for all of his OG Gnars at once", async () => {
@@ -140,16 +113,14 @@ describe("GnarsAuctionHouseV2", () => {
 
       await auctionHouseV2.claimGnars([53, 462, 478, 539, 613, 623])
 
-      expect(await gnarsV2Token.balanceOf(gami.address)).to.be.equal(
-        initialAmountOfGnars.add(12)
-      )
+      expect(await gnarsV2Token.balanceOf(gami.address)).to.be.equal(initialAmountOfGnars.add(12))
     })
 
     it("should emit on OGGnarClaimed event for each OG Gnar claimed", async () => {
       const auctionHouseV2 = await getAuctionHouseV2(gami)
 
       const timestamp = Math.floor(12 + Date.now() / 1000)
-      time.setNextBlockTimestamp(timestamp)
+      await time.setNextBlockTimestamp(timestamp)
 
       await expect(auctionHouseV2.claimGnars([53, 462]))
         .to.emit(auctionHouseV2, "OGGnarClaimed")
@@ -162,9 +133,7 @@ describe("GnarsAuctionHouseV2", () => {
       const auctionHouseV2 = await getAuctionHouseV2(gami)
       await auctionHouseV2.claimGnars([53])
 
-      await expect(auctionHouseV2.claimGnars([462, 53])).to.be.revertedWith(
-        "OG Gnar already used to claim Gnars"
-      )
+      await expect(auctionHouseV2.claimGnars([462, 53])).to.be.revertedWith("OG Gnar already used to claim Gnars")
     })
 
     it("should not affect the gnarving counter", async () => {
@@ -173,9 +142,7 @@ describe("GnarsAuctionHouseV2", () => {
 
       await auctionHouseV2.claimGnars([53])
 
-      expect(await auctionHouseV2.auctionCounter()).to.be.equal(
-        initialAuctionCounter
-      )
+      expect(await auctionHouseV2.auctionCounter()).to.be.equal(initialAuctionCounter)
     })
   })
 

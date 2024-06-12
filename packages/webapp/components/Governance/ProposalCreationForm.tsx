@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonGroup,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -44,13 +45,13 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
               targets: [...transactions.targets, transaction.target as `0x${string}`],
               values: [...transactions.values, transaction.value],
               signatures: [...transactions.signatures, transaction.signature],
-              calldatas: [...transactions.calldatas, transaction.calldata as `0x${string}`],
+              calldatas: [...transactions.calldatas, transaction.calldata],
             }),
             {
               targets: [] as `0x${string}`[],
               values: [] as bigint[],
               signatures: [] as string[],
-              calldatas: [] as `0x${string}`[],
+              calldatas: [] as string[],
             }
           ),
     [transactions, isInvalid]
@@ -163,38 +164,50 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
           )}
         </VStack>
       </FormControl>
-      <Button
-        _dark={{
-          bg: "pink.700",
-        }}
-        isDisabled={isInvalid || !propose}
-        alignSelf={"end"}
-        onClick={() =>
-          propose?.()
-            .then((tx) => waitForTransaction({ hash: tx.hash }))
-            .then(() => {
-              toast({
-                title: "Proposal submitted",
-                status: "success",
-                description: "Your proposal has been submitted successfully. Redirecting to proposals page ...",
-                duration: 3000,
-                onCloseComplete: () => {
-                  clear()
-                  push("/dao")
-                },
+      <ButtonGroup spacing="10rem">
+        <Button
+          variant={"outline"}
+          bgColor={"whiteAlpha.50"}
+          onClick={() => {
+            clear()
+            void push("/dao")
+          }}
+        >
+          Clear proposal
+        </Button>
+        <Button
+          bgColor="whiteAlpha.50"
+          variant="outline"
+          isDisabled={isInvalid || !propose}
+          alignSelf={"end"}
+          onClick={() =>
+            propose?.()
+              .then((tx) => waitForTransaction({ hash: tx.hash }))
+              .then(() => {
+                toast({
+                  title: "Proposal submitted",
+                  status: "success",
+                  description: "Your proposal has been submitted successfully. Redirecting to proposals page ...",
+                  duration: 3000,
+                  onCloseComplete: () => {
+                    clear()
+                    void push("/dao")
+                  },
+                })
               })
-            })
-            .catch(() => {
-              toast({
-                title: "Submission failed",
-                status: "error",
-                description: "Something went wrong. Check your wallet for details.",
+              .catch((e) => {
+                console.error("Submission failed", e)
+                toast({
+                  title: "Submission failed",
+                  status: "error",
+                  description: "Something went wrong. Check your wallet for details.",
+                })
               })
-            })
-        }
-      >
-        Submit proposal
-      </Button>
+          }
+        >
+          Submit proposal
+        </Button>
+      </ButtonGroup>
     </VStack>
   )
 }

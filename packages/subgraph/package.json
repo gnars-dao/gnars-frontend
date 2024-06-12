@@ -1,5 +1,5 @@
 {
-  "name": "gnars-subgraph",
+  "name": "@gnars/gnars-subgraph",
   "version": "0.3.2",
   "license": "UNLICENSED",
   "scripts": {

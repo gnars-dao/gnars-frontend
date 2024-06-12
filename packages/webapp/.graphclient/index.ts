@@ -30,6 +30,8 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 
 
@@ -4054,13 +4056,13 @@ const merger = new(BareMerger as any)({
         store: rootStore.child('bareMerger')
       })
 const documentHashMap = {
-        '49af254067807975961b3972baa93a714cfa4daddd0c27fcbe313303b061f310': DelegateDocument,
+'49af254067807975961b3972baa93a714cfa4daddd0c27fcbe313303b061f310': DelegateDocument,
+'4a8c8a0ac1a479856c5a01a186bf280b54b8b84202000588f8675c657aaf4fab': OgGnarDocument,
+'3c9d11595e2ba81c14798b58ba793b893dcceaec8e72245db147115176acbd4e': GnarDocument,
 'ea499484d4d27f59b2fe0841504144f3fe78f93131d13dfd25e657baec0ab56d': ProposalsDocument,
 'a40247e8c0c6d9e3ba4b186f2e5f4eca3fd65fed15b6363e5cf6e52134e2c428': WalletHdGnarsDocument,
-'4122ed28d0fcf031fd272146957717465abed852e412be775b531d524d070784': WalletOgGnarsDocument,
-'4a8c8a0ac1a479856c5a01a186bf280b54b8b84202000588f8675c657aaf4fab': OgGnarDocument,
 '424217317ac33c65bdbdfc2bab85dc6aa532707284249c0b170414e696820c59': ProposalDocument,
-'3c9d11595e2ba81c14798b58ba793b893dcceaec8e72245db147115176acbd4e': GnarDocument
+'4122ed28d0fcf031fd272146957717465abed852e412be775b531d524d070784': WalletOgGnarsDocument
       }
 additionalEnvelopPlugins.push(usePersistedOperations({
         getPersistedOperation(key) {
@@ -4088,6 +4090,20 @@ additionalEnvelopPlugins.push(usePersistedOperations({
         location: 'DelegateDocument.graphql',
         sha256Hash: '49af254067807975961b3972baa93a714cfa4daddd0c27fcbe313303b061f310'
       },{
+        document: OgGnarDocument,
+        get rawSDL() {
+          return printWithCache(OgGnarDocument);
+        },
+        location: 'OgGnarDocument.graphql',
+        sha256Hash: '4a8c8a0ac1a479856c5a01a186bf280b54b8b84202000588f8675c657aaf4fab'
+      },{
+        document: GnarDocument,
+        get rawSDL() {
+          return printWithCache(GnarDocument);
+        },
+        location: 'GnarDocument.graphql',
+        sha256Hash: '3c9d11595e2ba81c14798b58ba793b893dcceaec8e72245db147115176acbd4e'
+      },{
         document: ProposalsDocument,
         get rawSDL() {
           return printWithCache(ProposalsDocument);
@@ -4102,20 +4118,6 @@ additionalEnvelopPlugins.push(usePersistedOperations({
         location: 'WalletHdGnarsDocument.graphql',
         sha256Hash: 'a40247e8c0c6d9e3ba4b186f2e5f4eca3fd65fed15b6363e5cf6e52134e2c428'
       },{
-        document: WalletOgGnarsDocument,
-        get rawSDL() {
-          return printWithCache(WalletOgGnarsDocument);
-        },
-        location: 'WalletOgGnarsDocument.graphql',
-        sha256Hash: '4122ed28d0fcf031fd272146957717465abed852e412be775b531d524d070784'
-      },{
-        document: OgGnarDocument,
-        get rawSDL() {
-          return printWithCache(OgGnarDocument);
-        },
-        location: 'OgGnarDocument.graphql',
-        sha256Hash: '4a8c8a0ac1a479856c5a01a186bf280b54b8b84202000588f8675c657aaf4fab'
-      },{
         document: ProposalDocument,
         get rawSDL() {
           return printWithCache(ProposalDocument);
@@ -4123,12 +4125,12 @@ additionalEnvelopPlugins.push(usePersistedOperations({
         location: 'ProposalDocument.graphql',
         sha256Hash: '424217317ac33c65bdbdfc2bab85dc6aa532707284249c0b170414e696820c59'
       },{
-        document: GnarDocument,
+        document: WalletOgGnarsDocument,
         get rawSDL() {
-          return printWithCache(GnarDocument);
+          return printWithCache(WalletOgGnarsDocument);
         },
-        location: 'GnarDocument.graphql',
-        sha256Hash: '3c9d11595e2ba81c14798b58ba793b893dcceaec8e72245db147115176acbd4e'
+        location: 'WalletOgGnarsDocument.graphql',
+        sha256Hash: '4122ed28d0fcf031fd272146957717465abed852e412be775b531d524d070784'
       }
     ];
     },

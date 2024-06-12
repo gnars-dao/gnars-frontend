@@ -103,7 +103,7 @@ export const TreasuryBalance = () => {
     }
     setMultisigBalance([])
     setTreasuryBalance([])
-    getTokens()
+    void getTokens()
   }, [])
 
   const { data: multisigGnarsBalance } = useGnarsV2TokenBalanceOf({
