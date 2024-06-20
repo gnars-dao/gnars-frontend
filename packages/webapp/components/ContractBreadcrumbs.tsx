@@ -10,7 +10,7 @@ import {
   ContractInfo,
   getProxyAndImplementations,
   isProxy,
-} from "hooks/useEtherscanContractInfo"
+} from "hooks/useExplorerContractInfo"
 
 export interface ContractBreadcrumbsProps extends StackProps {
   contractInfo: ContractInfo
@@ -35,7 +35,7 @@ export const ContractBreadcrumbs = forwardRef<ContractBreadcrumbsProps, "div">(
           <HStack key={contractInfo.address}>
             <Link
               color={i > 0 ? "gray.500" : "white"}
-              href={`https://etherscan.io/address/${contractInfo.address}#code`}
+              href={`https://basescan.org/address/${contractInfo.address}#code`}
             >
               <Text>{contractInfo.name}</Text>
             </Link>

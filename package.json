@@ -1,6 +1,9 @@
 {
-  "name": "gnars",
+  "name": "@gnars/gnars-frontend",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -11,7 +14,7 @@
     "turbo": "^1.13.2"
   },
   "engines": {
-    "node": "18"
+    "node": ">=18"
   },
   "peerDependencies": {
     "utf-8-validate": "^5.0.2"

@@ -10,17 +10,16 @@ import { BaseAlertHeader } from "components/BaseJumpAnnouncement"
 import { alchemyApiKey, walletConnectProjectId } from "constants/env"
 import Head from "next/head"
 import { queryClient } from "utils"
-import { base, mainnet } from "wagmi/chains"
+import { base } from "wagmi/chains"
 import theme from "../theme"
 
 const config = createConfig({
   ...getDefaultConfig({
     appName: "Gnars",
     alchemyId: alchemyApiKey,
-    chains: [mainnet, base],
+    chains: [base],
     walletConnectProjectId,
-  }),
-  persister: null,
+  })
 })
 
 export default function App({ Component, pageProps }: AppProps) {

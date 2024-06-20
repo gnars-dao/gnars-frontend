@@ -17,7 +17,7 @@ export interface SendEthTransactionData {
 }
 
 export interface CallContractTransactionData {
-  txKind: TransactionKind
+  txKind: "Call contract"
   address: `0x${string}`
   ethValue: bigint
   abi: string

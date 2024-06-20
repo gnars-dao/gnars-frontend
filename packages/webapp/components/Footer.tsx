@@ -1,12 +1,12 @@
 import { Link } from "@chakra-ui/next-js"
 import { ButtonGroup, Container, HStack, IconButton, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react"
 import {
-  DAO_ADDRESS,
-  MULTISIG_ADDRESS,
   OG_GNAR_ADDRESS,
-  TREASURY_ADDRESS,
-  V2_AUCTION_ADDRESS,
-  V2_GNAR_ADDRESS,
+  BASE_TREASURY_ADDRESS,
+  BASE_GNAR_ADDRESS,
+  BASE_AUCTION_HOUSE_ADDRESS,
+  BASE_MULTISIG_ADDRESS,
+  BASE_GOVERNOR_ADDRESS,
 } from "constants/gnarsDao"
 import { GNARS_HD_ADDRESS } from "constants/gnarsHD"
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa"
@@ -35,32 +35,32 @@ const links = [
     title: "Contracts",
     links: [
       {
-        label: "Gnars OG NFT",
-        href: `https://etherscan.io/address/${OG_GNAR_ADDRESS}`,
-      },
-      {
         label: "Gnars NFT",
-        href: `https://etherscan.io/address/${V2_GNAR_ADDRESS}`,
-      },
-      {
-        label: "Gnars HD NFT",
-        href: `https://etherscan.io/address/${GNARS_HD_ADDRESS}`,
+        href: `https://basescan.org/address/${BASE_GNAR_ADDRESS}`,
       },
       {
         label: "Gnars Auction House",
-        href: `https://etherscan.io/address/${V2_AUCTION_ADDRESS}`,
+        href: `https://basescan.org/address/${BASE_AUCTION_HOUSE_ADDRESS}`,
       },
       {
         label: "Gnars Treasury",
-        href: `https://etherscan.io/address/${TREASURY_ADDRESS}`,
+        href: `https://basescan.org/address/${BASE_TREASURY_ADDRESS}`,
       },
       {
         label: "Gnars Safe",
-        href: `https://app.safe.global/home?safe=eth:${MULTISIG_ADDRESS}`,
+        href: `https://app.safe.global/home?safe=base:${BASE_MULTISIG_ADDRESS}`,
       },
       {
         label: "Gnars DAO",
-        href: `https://etherscan.io/address/${DAO_ADDRESS}`,
+        href: `https://basescan.org/address/${BASE_GOVERNOR_ADDRESS}`,
+      },
+      {
+        label: "Gnars Mainnet OG NFT",
+        href: `https://etherscan.io/address/${OG_GNAR_ADDRESS}`,
+      },
+      {
+        label: "Gnars Mainnet HD NFT",
+        href: `https://etherscan.io/address/${GNARS_HD_ADDRESS}`,
       },
     ],
   },
@@ -96,7 +96,6 @@ export default function Footer() {
         <SimpleGrid
           flexGrow={1}
           as={"nav"}
-          // px={{ base: 10, sm: 0 }}
           columns={{ base: 2, sm: 3 }}
           justifyItems={"start"}
           gap="8"

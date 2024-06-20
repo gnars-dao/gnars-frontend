@@ -29,7 +29,7 @@ export const useAccountQuery = (addressOrEnsDomain?: string): Account => {
   })
   return {
     address,
-    nnsOrEnsName: String(nnsOrEnsName) ?? undefined,
+    nnsOrEnsName: nnsOrEnsName ?? undefined,
     ensAvatar: ensAvatar ?? undefined,
     isLoading: isLoadingEnsAddress || isLoadingEnsAvatar || isLoadingNnsOrEnsName,
     isValid,

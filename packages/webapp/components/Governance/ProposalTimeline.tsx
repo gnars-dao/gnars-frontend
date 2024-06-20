@@ -40,6 +40,7 @@ export const ProposalTimeline: FC<ProposalTimelineProps> = ({
               address={event.from}
               fontSize={"sm"}
               fontWeight={"semibold"}
+              isLoading={true}
             />
             <VStack spacing={0} align={"end"}>
               <Button

@@ -12,6 +12,7 @@ function NewProposal() {
   const { address } = useAccount()
 
   const { title, description, transactions } = useProposalCreationState()
+  const hidePreview = !title && !description && transactions.length === 0
 
   return (
     <DarkMode>
@@ -26,22 +27,23 @@ function NewProposal() {
             alignItems={"start"}
           >
             <ProposalCreationForm flexGrow={1} maxW={"container.lg"} w="full" />
-            {/* TODO add back button */}
-            <ProposalCard
-              flexShrink={0}
-              maxW={"container.lg"}
-              w="full"
-              id={"NEW"}
-              title={title}
-              status={"PREVIEW"}
-              borderColor={"chakra-border-color"}
-            >
-              <ProposalContent
-                description={description}
-                transactions={transactions}
-                proposer={address || zeroAddress}
-              />
-            </ProposalCard>
+            {!hidePreview && (
+              <ProposalCard
+                flexShrink={0}
+                maxW={"container.lg"}
+                w="full"
+                id={"NEW"}
+                title={title}
+                status={"PREVIEW"}
+                borderColor={"chakra-border-color"}
+              >
+                <ProposalContent
+                  description={description}
+                  transactions={transactions}
+                  proposer={address || zeroAddress}
+                />
+              </ProposalCard>
+            )}
           </Stack>
         </Container>
       </VStack>

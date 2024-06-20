@@ -3,8 +3,6 @@ import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../.graphclient"
 
 export type ProposalData = ProposalsQuery["proposals"][0]
 
-export type NewProposalData = {}
-
 export type EffectiveProposalStatus =
   | ProposalStatus
   | "SUCCEEDED"

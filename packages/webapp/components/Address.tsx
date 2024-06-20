@@ -1,6 +1,5 @@
-import { Avatar, AvatarProps, Box, HStack, Image, Link, PropsOf, Spinner, StackProps, Text } from "@chakra-ui/react"
-import { FC, useMemo } from "react"
-import { useEnsAvatar } from "wagmi"
+import { HStack, Link, Spinner, StackProps, Text } from "@chakra-ui/react"
+import { FC } from "react"
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
 import { shortAddress } from "../utils"
 import { HiExternalLink } from "react-icons/hi"
@@ -35,7 +34,7 @@ export const Address: FC<AddressProps> = ({ address, withLink = false, truncate 
   )
 
   return withLink ? (
-    <Link isExternal href={`https://etherscan.io/address/${address}`}>
+    <Link isExternal href={`https://basescan.org/address/${address}`}>
       {content}
     </Link>
   ) : (

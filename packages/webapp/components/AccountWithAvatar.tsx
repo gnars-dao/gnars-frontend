@@ -5,13 +5,13 @@ import { AccountAvatar } from "./AccountAvatar"
 
 export interface AccountWithAvatarProps extends StackProps {
   address?: string
-  isLoading?: boolean
+  isLoading: boolean
   avatarImg?: string
 }
 
 export const AccountWithAvatar: FC<AccountWithAvatarProps> = ({
   address,
-  isLoading,
+  isLoading = true,
   avatarImg,
   children,
   ...props

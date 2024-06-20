@@ -1,5 +1,5 @@
 {
-  "name": "webapp",
+  "name": "@gnars/webapp",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -14,13 +14,14 @@
     "build-storybook": "storybook build"
   },
   "engines": {
-    "node": "18"
+    "node": ">=18"
   },
   "dependencies": {
     "@chakra-ui/anatomy": "^2.2.2",
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/next-js": "^2.2.0",
     "@chakra-ui/react": "^2.8.2",
+    "@gnars/gnars-contracts": "workspace:*",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@tanstack/react-query": "^4.28.0",
