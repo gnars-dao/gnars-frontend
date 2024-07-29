@@ -2,7 +2,7 @@ sources:
   - name: gnars
     handler:
       graphql:
-        endpoint: https://api.thegraph.com/subgraphs/name/gnarsdao/gnars
+        endpoint: https://api.studio.thegraph.com/query/84925/gnars-mainnet/version/latest
     transforms:
       - blockTracking:
           validateSchema: true
