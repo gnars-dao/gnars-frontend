@@ -1,6 +1,6 @@
 {
   "name": "gnars-mainnet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",

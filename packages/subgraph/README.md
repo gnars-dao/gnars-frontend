@@ -45,11 +45,12 @@ pnpm build;
 
 **Note:** The subgraph name is `gnars-mainnet` and you should always bump the version if you make changes, but the --tag
 allows it to always point to the latest version so the front ends never need to make changes to the URI on every minor
-deploy.
+deploy. Never forget to tag!
 
 ```bash
 # FROM: ./subgraph
-goldsky subgraph tag create gnars-mainnet/1.0.0 --tag latest
+$ goldsky subgraph deploy gnars-mainnet/1.0.1 --path .        
+$ goldsky subgraph tag create gnars-mainnet/1.0.1 --tag latest
 ```
 
 ### Step 5 - Query the Subgraph
