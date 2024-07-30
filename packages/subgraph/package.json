@@ -5,7 +5,7 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ gnars-subgraph",
+    "deploy": "graph deploy --node https://api.goldsky.com/deploy gnars-subgraph",
     "auth-hosted-service": "dotenv cross-var -- graph auth --product hosted-service %HOSTED_SERVICE_ACCESS_TOKEN%",
     "deploy-hosted-service": "graph deploy --product hosted-service gnarsdao/gnars",
     "test": "graph test"
