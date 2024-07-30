@@ -79,7 +79,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
 
       <Heading as="h3" size={"lg"}>
         Use{" "}
-        <Link href="https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17" color={"#1f1d29"}>
+        <Link href="https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17" color={"#fce464"}>
           Nouns Builder
         </Link>{" "}
         in the mean time
