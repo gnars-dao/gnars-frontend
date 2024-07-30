@@ -15,16 +15,13 @@ run dev server
 pnpm dev
 ```
 
-## subgraph queries
+## Subgraph Queries
 
-this project uses [Graph Client](https://github.com/graphprotocol/graph-client) to interact with the gnars subgraph in a type-safe way
+This project uses [The Goldsky Client](https://goldsky.com/) to interact with the gnars subgraph in a type-safe way
 
-to add new queries, add them on the `queries` folder, then generate new typescript binding by running:
-```
-pnpm graphclient build
-```
+To add new queries, add them on the `queries` folder, then generate follow the README instructions in the subgraph
+package
 
-the bindings should be generated on the `.graphclient` folder
 
 ## Wagmi cli
 

@@ -9,7 +9,6 @@
     "lint": "next lint",
     "test": "jest",
     "build:wagmi": "wagmi generate",
-    "build:graphclient": "graphclient build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

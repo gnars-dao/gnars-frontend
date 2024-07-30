@@ -1,14 +1,10 @@
 {
-  "name": "gnars-subgraph",
-  "version": "0.3.2",
+  "name": "gnars-mainnet",
+  "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
-    "build": "graph build",
-    "deploy": "graph deploy --node https://api.goldsky.com/deploy gnars-subgraph",
-    "auth-hosted-service": "dotenv cross-var -- graph auth --product hosted-service %HOSTED_SERVICE_ACCESS_TOKEN%",
-    "deploy-hosted-service": "graph deploy --product hosted-service gnarsdao/gnars",
-    "test": "graph test"
+    "build": "graph build"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "^0.61.0",

@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt,
+  BigInt
 } from "@graphprotocol/graph-ts";
 
 export class Approval extends ethereum.Event {
@@ -242,7 +242,7 @@ export class GnarsOG__auctionResult {
     value4: Address,
     value5: i32,
     value6: i32,
-    value7: boolean,
+    value7: boolean
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -263,11 +263,11 @@ export class GnarsOG__auctionResult {
     map.set("value4", ethereum.Value.fromAddress(this.value4));
     map.set(
       "value5",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value5)),
+      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value5))
     );
     map.set(
       "value6",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value6)),
+      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value6))
     );
     map.set("value7", ethereum.Value.fromBoolean(this.value7));
     return map;
@@ -318,7 +318,7 @@ export class GnarsOG__seedsResult {
     value1: BigInt,
     value2: BigInt,
     value3: BigInt,
-    value4: BigInt,
+    value4: BigInt
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -367,7 +367,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.call(
       "auction",
       "auction():(uint256,uint256,uint256,uint256,address,uint8,uint8,bool)",
-      [],
+      []
     );
 
     return new GnarsOG__auctionResult(
@@ -378,7 +378,7 @@ export class GnarsOG extends ethereum.SmartContract {
       result[4].toAddress(),
       result[5].toI32(),
       result[6].toI32(),
-      result[7].toBoolean(),
+      result[7].toBoolean()
     );
   }
 
@@ -386,7 +386,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.tryCall(
       "auction",
       "auction():(uint256,uint256,uint256,uint256,address,uint8,uint8,bool)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -401,8 +401,8 @@ export class GnarsOG extends ethereum.SmartContract {
         value[4].toAddress(),
         value[5].toI32(),
         value[6].toI32(),
-        value[7].toBoolean(),
-      ),
+        value[7].toBoolean()
+      )
     );
   }
 
@@ -410,7 +410,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.call(
       "auctionPeriodBlocks",
       "auctionPeriodBlocks():(uint16)",
-      [],
+      []
     );
 
     return result[0].toI32();
@@ -420,7 +420,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.tryCall(
       "auctionPeriodBlocks",
       "auctionPeriodBlocks():(uint16)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -431,7 +431,7 @@ export class GnarsOG extends ethereum.SmartContract {
 
   balanceOf(owner: Address): BigInt {
     let result = super.call("balanceOf", "balanceOf(address):(uint256)", [
-      ethereum.Value.fromAddress(owner),
+      ethereum.Value.fromAddress(owner)
     ]);
 
     return result[0].toBigInt();
@@ -439,7 +439,7 @@ export class GnarsOG extends ethereum.SmartContract {
 
   try_balanceOf(owner: Address): ethereum.CallResult<BigInt> {
     let result = super.tryCall("balanceOf", "balanceOf(address):(uint256)", [
-      ethereum.Value.fromAddress(owner),
+      ethereum.Value.fromAddress(owner)
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -458,7 +458,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.tryCall(
       "currentGnarId",
       "currentGnarId():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -499,7 +499,7 @@ export class GnarsOG extends ethereum.SmartContract {
 
   getApproved(tokenId: BigInt): Address {
     let result = super.call("getApproved", "getApproved(uint256):(address)", [
-      ethereum.Value.fromUnsignedBigInt(tokenId),
+      ethereum.Value.fromUnsignedBigInt(tokenId)
     ]);
 
     return result[0].toAddress();
@@ -509,7 +509,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.tryCall(
       "getApproved",
       "getApproved(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(tokenId)],
+      [ethereum.Value.fromUnsignedBigInt(tokenId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -522,7 +522,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.call(
       "isApprovedForAll",
       "isApprovedForAll(address,address):(bool)",
-      [ethereum.Value.fromAddress(owner), ethereum.Value.fromAddress(operator)],
+      [ethereum.Value.fromAddress(owner), ethereum.Value.fromAddress(operator)]
     );
 
     return result[0].toBoolean();
@@ -530,12 +530,12 @@ export class GnarsOG extends ethereum.SmartContract {
 
   try_isApprovedForAll(
     owner: Address,
-    operator: Address,
+    operator: Address
   ): ethereum.CallResult<boolean> {
     let result = super.tryCall(
       "isApprovedForAll",
       "isApprovedForAll(address,address):(bool)",
-      [ethereum.Value.fromAddress(owner), ethereum.Value.fromAddress(operator)],
+      [ethereum.Value.fromAddress(owner), ethereum.Value.fromAddress(operator)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -548,7 +548,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.call(
       "minBidIncrementPercentage",
       "minBidIncrementPercentage():(uint8)",
-      [],
+      []
     );
 
     return result[0].toI32();
@@ -558,7 +558,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.tryCall(
       "minBidIncrementPercentage",
       "minBidIncrementPercentage():(uint8)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -599,7 +599,7 @@ export class GnarsOG extends ethereum.SmartContract {
 
   ownerOf(tokenId: BigInt): Address {
     let result = super.call("ownerOf", "ownerOf(uint256):(address)", [
-      ethereum.Value.fromUnsignedBigInt(tokenId),
+      ethereum.Value.fromUnsignedBigInt(tokenId)
     ]);
 
     return result[0].toAddress();
@@ -607,7 +607,7 @@ export class GnarsOG extends ethereum.SmartContract {
 
   try_ownerOf(tokenId: BigInt): ethereum.CallResult<Address> {
     let result = super.tryCall("ownerOf", "ownerOf(uint256):(address)", [
-      ethereum.Value.fromUnsignedBigInt(tokenId),
+      ethereum.Value.fromUnsignedBigInt(tokenId)
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -680,7 +680,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.call(
       "seeds",
       "seeds(uint256):(uint48,uint48,uint48,uint48,uint48)",
-      [ethereum.Value.fromUnsignedBigInt(param0)],
+      [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
     return new GnarsOG__seedsResult(
@@ -688,7 +688,7 @@ export class GnarsOG extends ethereum.SmartContract {
       result[1].toBigInt(),
       result[2].toBigInt(),
       result[3].toBigInt(),
-      result[4].toBigInt(),
+      result[4].toBigInt()
     );
   }
 
@@ -696,7 +696,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.tryCall(
       "seeds",
       "seeds(uint256):(uint48,uint48,uint48,uint48,uint48)",
-      [ethereum.Value.fromUnsignedBigInt(param0)],
+      [ethereum.Value.fromUnsignedBigInt(param0)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -708,8 +708,8 @@ export class GnarsOG extends ethereum.SmartContract {
         value[1].toBigInt(),
         value[2].toBigInt(),
         value[3].toBigInt(),
-        value[4].toBigInt(),
-      ),
+        value[4].toBigInt()
+      )
     );
   }
 
@@ -732,7 +732,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.call(
       "supportsInterface",
       "supportsInterface(bytes4):(bool)",
-      [ethereum.Value.fromFixedBytes(interfaceId)],
+      [ethereum.Value.fromFixedBytes(interfaceId)]
     );
 
     return result[0].toBoolean();
@@ -742,7 +742,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.tryCall(
       "supportsInterface",
       "supportsInterface(bytes4):(bool)",
-      [ethereum.Value.fromFixedBytes(interfaceId)],
+      [ethereum.Value.fromFixedBytes(interfaceId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -768,7 +768,7 @@ export class GnarsOG extends ethereum.SmartContract {
 
   tokenByIndex(index: BigInt): BigInt {
     let result = super.call("tokenByIndex", "tokenByIndex(uint256):(uint256)", [
-      ethereum.Value.fromUnsignedBigInt(index),
+      ethereum.Value.fromUnsignedBigInt(index)
     ]);
 
     return result[0].toBigInt();
@@ -778,7 +778,7 @@ export class GnarsOG extends ethereum.SmartContract {
     let result = super.tryCall(
       "tokenByIndex",
       "tokenByIndex(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(index)],
+      [ethereum.Value.fromUnsignedBigInt(index)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -793,8 +793,8 @@ export class GnarsOG extends ethereum.SmartContract {
       "tokenOfOwnerByIndex(address,uint256):(uint256)",
       [
         ethereum.Value.fromAddress(owner),
-        ethereum.Value.fromUnsignedBigInt(index),
-      ],
+        ethereum.Value.fromUnsignedBigInt(index)
+      ]
     );
 
     return result[0].toBigInt();
@@ -802,15 +802,15 @@ export class GnarsOG extends ethereum.SmartContract {
 
   try_tokenOfOwnerByIndex(
     owner: Address,
-    index: BigInt,
+    index: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "tokenOfOwnerByIndex",
       "tokenOfOwnerByIndex(address,uint256):(uint256)",
       [
         ethereum.Value.fromAddress(owner),
-        ethereum.Value.fromUnsignedBigInt(index),
-      ],
+        ethereum.Value.fromUnsignedBigInt(index)
+      ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -821,7 +821,7 @@ export class GnarsOG extends ethereum.SmartContract {
 
   tokenURI(tokenId: BigInt): string {
     let result = super.call("tokenURI", "tokenURI(uint256):(string)", [
-      ethereum.Value.fromUnsignedBigInt(tokenId),
+      ethereum.Value.fromUnsignedBigInt(tokenId)
     ]);
 
     return result[0].toString();
@@ -829,7 +829,7 @@ export class GnarsOG extends ethereum.SmartContract {
 
   try_tokenURI(tokenId: BigInt): ethereum.CallResult<string> {
     let result = super.tryCall("tokenURI", "tokenURI(uint256):(string)", [
-      ethereum.Value.fromUnsignedBigInt(tokenId),
+      ethereum.Value.fromUnsignedBigInt(tokenId)
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();

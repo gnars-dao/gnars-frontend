@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt,
+  BigInt
 } from "@graphprotocol/graph-ts";
 
 export class MaxQuorumVotesBPSSet extends ethereum.Event {
@@ -589,7 +589,7 @@ export class GnarsDAO__getActionsResult {
     value0: Array<Address>,
     value1: Array<BigInt>,
     value2: Array<string>,
-    value3: Array<Bytes>,
+    value3: Array<Bytes>
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -733,7 +733,7 @@ export class GnarsDAO__quorumParamsCheckpointsResult {
 
   constructor(
     value0: BigInt,
-    value1: GnarsDAO__quorumParamsCheckpointsResultParamsStruct,
+    value1: GnarsDAO__quorumParamsCheckpointsResultParamsStruct
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -764,7 +764,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "BALLOT_TYPEHASH",
       "BALLOT_TYPEHASH():(bytes32)",
-      [],
+      []
     );
 
     return result[0].toBytes();
@@ -774,7 +774,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "BALLOT_TYPEHASH",
       "BALLOT_TYPEHASH():(bytes32)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -787,7 +787,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "DOMAIN_TYPEHASH",
       "DOMAIN_TYPEHASH():(bytes32)",
-      [],
+      []
     );
 
     return result[0].toBytes();
@@ -797,7 +797,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "DOMAIN_TYPEHASH",
       "DOMAIN_TYPEHASH():(bytes32)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -810,7 +810,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MAX_PROPOSAL_THRESHOLD_BPS",
       "MAX_PROPOSAL_THRESHOLD_BPS():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -820,7 +820,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MAX_PROPOSAL_THRESHOLD_BPS",
       "MAX_PROPOSAL_THRESHOLD_BPS():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -833,7 +833,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MAX_QUORUM_VOTES_BPS",
       "MAX_QUORUM_VOTES_BPS():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -843,7 +843,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MAX_QUORUM_VOTES_BPS",
       "MAX_QUORUM_VOTES_BPS():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -856,7 +856,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MAX_QUORUM_VOTES_BPS_UPPER_BOUND",
       "MAX_QUORUM_VOTES_BPS_UPPER_BOUND():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -866,7 +866,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MAX_QUORUM_VOTES_BPS_UPPER_BOUND",
       "MAX_QUORUM_VOTES_BPS_UPPER_BOUND():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -879,7 +879,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MAX_REFUND_BASE_FEE",
       "MAX_REFUND_BASE_FEE():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -889,7 +889,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MAX_REFUND_BASE_FEE",
       "MAX_REFUND_BASE_FEE():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -902,7 +902,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MAX_REFUND_GAS_USED",
       "MAX_REFUND_GAS_USED():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -912,7 +912,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MAX_REFUND_GAS_USED",
       "MAX_REFUND_GAS_USED():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -925,7 +925,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MAX_REFUND_PRIORITY_FEE",
       "MAX_REFUND_PRIORITY_FEE():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -935,7 +935,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MAX_REFUND_PRIORITY_FEE",
       "MAX_REFUND_PRIORITY_FEE():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -948,7 +948,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MAX_VOTING_DELAY",
       "MAX_VOTING_DELAY():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -958,7 +958,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MAX_VOTING_DELAY",
       "MAX_VOTING_DELAY():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -971,7 +971,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MAX_VOTING_PERIOD",
       "MAX_VOTING_PERIOD():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -981,7 +981,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MAX_VOTING_PERIOD",
       "MAX_VOTING_PERIOD():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -994,7 +994,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MIN_PROPOSAL_THRESHOLD_BPS",
       "MIN_PROPOSAL_THRESHOLD_BPS():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -1004,7 +1004,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MIN_PROPOSAL_THRESHOLD_BPS",
       "MIN_PROPOSAL_THRESHOLD_BPS():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1017,7 +1017,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MIN_QUORUM_VOTES_BPS_LOWER_BOUND",
       "MIN_QUORUM_VOTES_BPS_LOWER_BOUND():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -1027,7 +1027,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MIN_QUORUM_VOTES_BPS_LOWER_BOUND",
       "MIN_QUORUM_VOTES_BPS_LOWER_BOUND():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1040,7 +1040,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MIN_QUORUM_VOTES_BPS_UPPER_BOUND",
       "MIN_QUORUM_VOTES_BPS_UPPER_BOUND():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -1050,7 +1050,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MIN_QUORUM_VOTES_BPS_UPPER_BOUND",
       "MIN_QUORUM_VOTES_BPS_UPPER_BOUND():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1063,7 +1063,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MIN_VOTING_DELAY",
       "MIN_VOTING_DELAY():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -1073,7 +1073,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MIN_VOTING_DELAY",
       "MIN_VOTING_DELAY():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1086,7 +1086,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "MIN_VOTING_PERIOD",
       "MIN_VOTING_PERIOD():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -1096,7 +1096,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "MIN_VOTING_PERIOD",
       "MIN_VOTING_PERIOD():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1109,7 +1109,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "REFUND_BASE_GAS",
       "REFUND_BASE_GAS():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -1119,7 +1119,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "REFUND_BASE_GAS",
       "REFUND_BASE_GAS():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1133,7 +1133,7 @@ export class GnarsDAO extends ethereum.SmartContract {
 
     return new GnarsDAO___withdrawResult(
       result[0].toBigInt(),
-      result[1].toBoolean(),
+      result[1].toBoolean()
     );
   }
 
@@ -1144,7 +1144,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new GnarsDAO___withdrawResult(value[0].toBigInt(), value[1].toBoolean()),
+      new GnarsDAO___withdrawResult(value[0].toBigInt(), value[1].toBoolean())
     );
   }
 
@@ -1166,7 +1166,7 @@ export class GnarsDAO extends ethereum.SmartContract {
   dynamicQuorumVotes(
     againstVotes: BigInt,
     totalSupply: BigInt,
-    params: GnarsDAO__dynamicQuorumVotesInputParamsStruct,
+    params: GnarsDAO__dynamicQuorumVotesInputParamsStruct
   ): BigInt {
     let result = super.call(
       "dynamicQuorumVotes",
@@ -1174,8 +1174,8 @@ export class GnarsDAO extends ethereum.SmartContract {
       [
         ethereum.Value.fromUnsignedBigInt(againstVotes),
         ethereum.Value.fromUnsignedBigInt(totalSupply),
-        ethereum.Value.fromTuple(params),
-      ],
+        ethereum.Value.fromTuple(params)
+      ]
     );
 
     return result[0].toBigInt();
@@ -1184,7 +1184,7 @@ export class GnarsDAO extends ethereum.SmartContract {
   try_dynamicQuorumVotes(
     againstVotes: BigInt,
     totalSupply: BigInt,
-    params: GnarsDAO__dynamicQuorumVotesInputParamsStruct,
+    params: GnarsDAO__dynamicQuorumVotesInputParamsStruct
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "dynamicQuorumVotes",
@@ -1192,8 +1192,8 @@ export class GnarsDAO extends ethereum.SmartContract {
       [
         ethereum.Value.fromUnsignedBigInt(againstVotes),
         ethereum.Value.fromUnsignedBigInt(totalSupply),
-        ethereum.Value.fromTuple(params),
-      ],
+        ethereum.Value.fromTuple(params)
+      ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1206,24 +1206,24 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "getActions",
       "getActions(uint256):(address[],uint256[],string[],bytes[])",
-      [ethereum.Value.fromUnsignedBigInt(proposalId)],
+      [ethereum.Value.fromUnsignedBigInt(proposalId)]
     );
 
     return new GnarsDAO__getActionsResult(
       result[0].toAddressArray(),
       result[1].toBigIntArray(),
       result[2].toStringArray(),
-      result[3].toBytesArray(),
+      result[3].toBytesArray()
     );
   }
 
   try_getActions(
-    proposalId: BigInt,
+    proposalId: BigInt
   ): ethereum.CallResult<GnarsDAO__getActionsResult> {
     let result = super.tryCall(
       "getActions",
       "getActions(uint256):(address[],uint256[],string[],bytes[])",
-      [ethereum.Value.fromUnsignedBigInt(proposalId)],
+      [ethereum.Value.fromUnsignedBigInt(proposalId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1234,32 +1234,32 @@ export class GnarsDAO extends ethereum.SmartContract {
         value[0].toAddressArray(),
         value[1].toBigIntArray(),
         value[2].toStringArray(),
-        value[3].toBytesArray(),
-      ),
+        value[3].toBytesArray()
+      )
     );
   }
 
   getDynamicQuorumParamsAt(
-    blockNumber_: BigInt,
+    blockNumber_: BigInt
   ): GnarsDAO__getDynamicQuorumParamsAtResultValue0Struct {
     let result = super.call(
       "getDynamicQuorumParamsAt",
       "getDynamicQuorumParamsAt(uint256):((uint16,uint16,uint32))",
-      [ethereum.Value.fromUnsignedBigInt(blockNumber_)],
+      [ethereum.Value.fromUnsignedBigInt(blockNumber_)]
     );
 
     return changetype<GnarsDAO__getDynamicQuorumParamsAtResultValue0Struct>(
-      result[0].toTuple(),
+      result[0].toTuple()
     );
   }
 
   try_getDynamicQuorumParamsAt(
-    blockNumber_: BigInt,
+    blockNumber_: BigInt
   ): ethereum.CallResult<GnarsDAO__getDynamicQuorumParamsAtResultValue0Struct> {
     let result = super.tryCall(
       "getDynamicQuorumParamsAt",
       "getDynamicQuorumParamsAt(uint256):((uint16,uint16,uint32))",
-      [ethereum.Value.fromUnsignedBigInt(blockNumber_)],
+      [ethereum.Value.fromUnsignedBigInt(blockNumber_)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1267,47 +1267,47 @@ export class GnarsDAO extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(
       changetype<GnarsDAO__getDynamicQuorumParamsAtResultValue0Struct>(
-        value[0].toTuple(),
-      ),
+        value[0].toTuple()
+      )
     );
   }
 
   getReceipt(
     proposalId: BigInt,
-    voter: Address,
+    voter: Address
   ): GnarsDAO__getReceiptResultValue0Struct {
     let result = super.call(
       "getReceipt",
       "getReceipt(uint256,address):((bool,uint8,uint96))",
       [
         ethereum.Value.fromUnsignedBigInt(proposalId),
-        ethereum.Value.fromAddress(voter),
-      ],
+        ethereum.Value.fromAddress(voter)
+      ]
     );
 
     return changetype<GnarsDAO__getReceiptResultValue0Struct>(
-      result[0].toTuple(),
+      result[0].toTuple()
     );
   }
 
   try_getReceipt(
     proposalId: BigInt,
-    voter: Address,
+    voter: Address
   ): ethereum.CallResult<GnarsDAO__getReceiptResultValue0Struct> {
     let result = super.tryCall(
       "getReceipt",
       "getReceipt(uint256,address):((bool,uint8,uint96))",
       [
         ethereum.Value.fromUnsignedBigInt(proposalId),
-        ethereum.Value.fromAddress(voter),
-      ],
+        ethereum.Value.fromAddress(voter)
+      ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      changetype<GnarsDAO__getReceiptResultValue0Struct>(value[0].toTuple()),
+      changetype<GnarsDAO__getReceiptResultValue0Struct>(value[0].toTuple())
     );
   }
 
@@ -1336,7 +1336,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "implementation",
       "implementation():(address)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1349,7 +1349,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "latestProposalIds",
       "latestProposalIds(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)],
+      [ethereum.Value.fromAddress(param0)]
     );
 
     return result[0].toBigInt();
@@ -1359,7 +1359,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "latestProposalIds",
       "latestProposalIds(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)],
+      [ethereum.Value.fromAddress(param0)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1378,7 +1378,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "maxQuorumVotes",
       "maxQuorumVotes():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1397,7 +1397,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "minQuorumVotes",
       "minQuorumVotes():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1446,7 +1446,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "pendingVetoer",
       "pendingVetoer():(address)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1465,7 +1465,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "proposalCount",
       "proposalCount():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1478,7 +1478,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "proposalMaxOperations",
       "proposalMaxOperations():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -1488,7 +1488,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "proposalMaxOperations",
       "proposalMaxOperations():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1501,7 +1501,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "proposalThreshold",
       "proposalThreshold():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -1511,7 +1511,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "proposalThreshold",
       "proposalThreshold():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1524,7 +1524,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "proposalThresholdBPS",
       "proposalThresholdBPS():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -1534,7 +1534,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "proposalThresholdBPS",
       "proposalThresholdBPS():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1547,28 +1547,28 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.call(
       "proposals",
       "proposals(uint256):((uint256,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool,uint256,uint256))",
-      [ethereum.Value.fromUnsignedBigInt(proposalId)],
+      [ethereum.Value.fromUnsignedBigInt(proposalId)]
     );
 
     return changetype<GnarsDAO__proposalsResultValue0Struct>(
-      result[0].toTuple(),
+      result[0].toTuple()
     );
   }
 
   try_proposals(
-    proposalId: BigInt,
+    proposalId: BigInt
   ): ethereum.CallResult<GnarsDAO__proposalsResultValue0Struct> {
     let result = super.tryCall(
       "proposals",
       "proposals(uint256):((uint256,address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,bool,bool,bool,uint256,uint256))",
-      [ethereum.Value.fromUnsignedBigInt(proposalId)],
+      [ethereum.Value.fromUnsignedBigInt(proposalId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      changetype<GnarsDAO__proposalsResultValue0Struct>(value[0].toTuple()),
+      changetype<GnarsDAO__proposalsResultValue0Struct>(value[0].toTuple())
     );
   }
 
@@ -1577,7 +1577,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     values: Array<BigInt>,
     signatures: Array<string>,
     calldatas: Array<Bytes>,
-    description: string,
+    description: string
   ): BigInt {
     let result = super.call(
       "propose",
@@ -1587,8 +1587,8 @@ export class GnarsDAO extends ethereum.SmartContract {
         ethereum.Value.fromUnsignedBigIntArray(values),
         ethereum.Value.fromStringArray(signatures),
         ethereum.Value.fromBytesArray(calldatas),
-        ethereum.Value.fromString(description),
-      ],
+        ethereum.Value.fromString(description)
+      ]
     );
 
     return result[0].toBigInt();
@@ -1599,7 +1599,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     values: Array<BigInt>,
     signatures: Array<string>,
     calldatas: Array<Bytes>,
-    description: string,
+    description: string
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "propose",
@@ -1609,8 +1609,8 @@ export class GnarsDAO extends ethereum.SmartContract {
         ethereum.Value.fromUnsignedBigIntArray(values),
         ethereum.Value.fromStringArray(signatures),
         ethereum.Value.fromBytesArray(calldatas),
-        ethereum.Value.fromString(description),
-      ],
+        ethereum.Value.fromString(description)
+      ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1620,29 +1620,29 @@ export class GnarsDAO extends ethereum.SmartContract {
   }
 
   quorumParamsCheckpoints(
-    param0: BigInt,
+    param0: BigInt
   ): GnarsDAO__quorumParamsCheckpointsResult {
     let result = super.call(
       "quorumParamsCheckpoints",
       "quorumParamsCheckpoints(uint256):(uint32,(uint16,uint16,uint32))",
-      [ethereum.Value.fromUnsignedBigInt(param0)],
+      [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
     return new GnarsDAO__quorumParamsCheckpointsResult(
       result[0].toBigInt(),
       changetype<GnarsDAO__quorumParamsCheckpointsResultParamsStruct>(
-        result[1].toTuple(),
-      ),
+        result[1].toTuple()
+      )
     );
   }
 
   try_quorumParamsCheckpoints(
-    param0: BigInt,
+    param0: BigInt
   ): ethereum.CallResult<GnarsDAO__quorumParamsCheckpointsResult> {
     let result = super.tryCall(
       "quorumParamsCheckpoints",
       "quorumParamsCheckpoints(uint256):(uint32,(uint16,uint16,uint32))",
-      [ethereum.Value.fromUnsignedBigInt(param0)],
+      [ethereum.Value.fromUnsignedBigInt(param0)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1652,15 +1652,15 @@ export class GnarsDAO extends ethereum.SmartContract {
       new GnarsDAO__quorumParamsCheckpointsResult(
         value[0].toBigInt(),
         changetype<GnarsDAO__quorumParamsCheckpointsResultParamsStruct>(
-          value[1].toTuple(),
-        ),
-      ),
+          value[1].toTuple()
+        )
+      )
     );
   }
 
   quorumVotes(proposalId: BigInt): BigInt {
     let result = super.call("quorumVotes", "quorumVotes(uint256):(uint256)", [
-      ethereum.Value.fromUnsignedBigInt(proposalId),
+      ethereum.Value.fromUnsignedBigInt(proposalId)
     ]);
 
     return result[0].toBigInt();
@@ -1670,7 +1670,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "quorumVotes",
       "quorumVotes(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(proposalId)],
+      [ethereum.Value.fromUnsignedBigInt(proposalId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1689,7 +1689,7 @@ export class GnarsDAO extends ethereum.SmartContract {
     let result = super.tryCall(
       "quorumVotesBPS",
       "quorumVotesBPS():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1700,7 +1700,7 @@ export class GnarsDAO extends ethereum.SmartContract {
 
   state(proposalId: BigInt): i32 {
     let result = super.call("state", "state(uint256):(uint8)", [
-      ethereum.Value.fromUnsignedBigInt(proposalId),
+      ethereum.Value.fromUnsignedBigInt(proposalId)
     ]);
 
     return result[0].toI32();
@@ -1708,7 +1708,7 @@ export class GnarsDAO extends ethereum.SmartContract {
 
   try_state(proposalId: BigInt): ethereum.CallResult<i32> {
     let result = super.tryCall("state", "state(uint256):(uint8)", [
-      ethereum.Value.fromUnsignedBigInt(proposalId),
+      ethereum.Value.fromUnsignedBigInt(proposalId)
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -2461,7 +2461,7 @@ export class InitializeCall__Inputs {
 
   get dynamicQuorumParams_(): InitializeCallDynamicQuorumParams_Struct {
     return changetype<InitializeCallDynamicQuorumParams_Struct>(
-      this._call.inputValues[6].value.toTuple(),
+      this._call.inputValues[6].value.toTuple()
     );
   }
 }

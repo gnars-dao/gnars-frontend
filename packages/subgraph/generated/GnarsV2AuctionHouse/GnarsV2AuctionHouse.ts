@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt,
+  BigInt
 } from "@graphprotocol/graph-ts";
 
 export class AdminChanged extends ethereum.Event {
@@ -354,7 +354,7 @@ export class GnarsV2AuctionHouse__auctionResult {
     value4: Address,
     value5: i32,
     value6: i32,
-    value7: boolean,
+    value7: boolean
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -375,11 +375,11 @@ export class GnarsV2AuctionHouse__auctionResult {
     map.set("value4", ethereum.Value.fromAddress(this.value4));
     map.set(
       "value5",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value5)),
+      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value5))
     );
     map.set(
       "value6",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value6)),
+      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value6))
     );
     map.set("value7", ethereum.Value.fromBoolean(this.value7));
     return map;
@@ -427,7 +427,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.call(
       "SKATE_OG_ADDRESS",
       "SKATE_OG_ADDRESS():(address)",
-      [],
+      []
     );
 
     return result[0].toAddress();
@@ -437,7 +437,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.tryCall(
       "SKATE_OG_ADDRESS",
       "SKATE_OG_ADDRESS():(address)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -450,7 +450,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.call(
       "auction",
       "auction():(uint256,uint256,uint256,uint256,address,uint8,uint8,bool)",
-      [],
+      []
     );
 
     return new GnarsV2AuctionHouse__auctionResult(
@@ -461,7 +461,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
       result[4].toAddress(),
       result[5].toI32(),
       result[6].toI32(),
-      result[7].toBoolean(),
+      result[7].toBoolean()
     );
   }
 
@@ -469,7 +469,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.tryCall(
       "auction",
       "auction():(uint256,uint256,uint256,uint256,address,uint8,uint8,bool)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -484,8 +484,8 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
         value[4].toAddress(),
         value[5].toI32(),
         value[6].toI32(),
-        value[7].toBoolean(),
-      ),
+        value[7].toBoolean()
+      )
     );
   }
 
@@ -499,7 +499,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.tryCall(
       "auctionCounter",
       "auctionCounter():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -512,7 +512,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.call(
       "baseAuctionTime",
       "baseAuctionTime():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -522,7 +522,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.tryCall(
       "baseAuctionTime",
       "baseAuctionTime():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -565,7 +565,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.call(
       "gnarsClaimedFor",
       "gnarsClaimedFor(uint256):(bool)",
-      [ethereum.Value.fromUnsignedBigInt(param0)],
+      [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
     return result[0].toBoolean();
@@ -575,7 +575,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.tryCall(
       "gnarsClaimedFor",
       "gnarsClaimedFor(uint256):(bool)",
-      [ethereum.Value.fromUnsignedBigInt(param0)],
+      [ethereum.Value.fromUnsignedBigInt(param0)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -588,7 +588,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.call(
       "minBidIncrementPercentage",
       "minBidIncrementPercentage():(uint8)",
-      [],
+      []
     );
 
     return result[0].toI32();
@@ -598,7 +598,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.tryCall(
       "minBidIncrementPercentage",
       "minBidIncrementPercentage():(uint8)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -647,7 +647,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.tryCall(
       "remainingTime",
       "remainingTime():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -705,7 +705,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.call(
       "timeDoublingCount",
       "timeDoublingCount():(uint256)",
-      [],
+      []
     );
 
     return result[0].toBigInt();
@@ -715,7 +715,7 @@ export class GnarsV2AuctionHouse extends ethereum.SmartContract {
     let result = super.tryCall(
       "timeDoublingCount",
       "timeDoublingCount():(uint256)",
-      [],
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
