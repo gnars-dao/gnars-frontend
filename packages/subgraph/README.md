@@ -29,7 +29,7 @@ curl https://goldsky.com | sh
 4. Log in with the API key created earlier:
 
 ```bash
-goldsky login  
+goldsky login
 ```
 
 ### Step 3 - Build Subgraph

@@ -1,0 +1,22 @@
+{
+  "name": "base-subgraph",
+  "license": "UNLICENSED",
+  "scripts": {
+    "clean": "rm -rf ./generated ./build subgraph.yaml",
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "prepare": "mustache config/base.json subgraph.yaml.mustache > subgraph.yaml",
+    "create:local": "graph create --node http://localhost:8020/ nouns-builder",
+    "remove:local": "graph remove --node http://localhost:8020/ nouns-builder",
+    "deploy:local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 --network sepolia nouns-builder"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.50.1",
+    "@graphprotocol/graph-ts": "0.30.0",
+    "as-base64": "^0.2.0"
+  },
+  "devDependencies": {
+    "matchstick-as": "0.5.0",
+    "mustache": "^4.2.0"
+  }
+}

@@ -1,0 +1,5 @@
+/build
+/generated
+/data
+.env
+subgraph.yaml
