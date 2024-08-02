@@ -29,7 +29,7 @@ curl https://goldsky.com | sh
 4. Log in with the API key created earlier:
 
 ```bash
-goldsky login  
+goldsky login
 ```
 
 ### Step 3 - Build Subgraph
@@ -43,9 +43,13 @@ pnpm build;
 
 ### Step 4 - Deploy New or Updated subgraph
 
-**Note:** The subgraph name is `gnars-mainnet` and you should always bump the version if you make changes, but the --tag
-allows it to always point to the latest version so the front ends never need to make changes to the URI on every minor
-deploy. Never forget to tag!
+**Note:** The subgraph name is `gnars-mainnet` and you should always bump the version if you make changes, but the *
+*--tag**
+flag allows it to always point to the latest version so the front ends never need to make changes to the URI on every
+minor
+deploy.
+
+**Never forget to tag!**
 
 ```bash
 # FROM: ./subgraph
@@ -55,8 +59,8 @@ $ goldsky subgraph tag create gnars-mainnet/1.0.1 --tag latest
 
 ### Step 5 - Query the Subgraph
 
-You can now query the subgraph in the GraphQL playground to test your changes, but be aware it may take a few hours to
-fully index.
+You can now query the subgraph in the GraphQL playground to test your changes, **but be aware it may take a few hours to
+fully index.**
 
 **TODO: Good practices:**  
 A good practice to deploy in mainnet is to have a duplicate/backup subgraph so that if something goes wrong, the
