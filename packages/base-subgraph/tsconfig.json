@@ -1,70 +1,29 @@
-[
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_logic",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes",
-        "name": "_data",
-        "type": "bytes"
-      }
+{
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "noUnusedLocals": false,
+    "skipLibCheck": true,
+    "noUnusedParameters": false,
+    "types": [
+      "vitest/globals"
     ],
-    "stateMutability": "payable",
-    "type": "constructor"
-  },
-  {
-    "inputs": [],
-    "name": "DELEGATE_CALL_FAILED",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "INVALID_TARGET",
-    "type": "error"
-  },
-  {
-    "inputs": [
+    "plugins": [
       {
-        "internalType": "address",
-        "name": "impl",
-        "type": "address"
+        "name": "next"
       }
-    ],
-    "name": "INVALID_UPGRADE",
-    "type": "error"
+    ]
   },
-  {
-    "inputs": [],
-    "name": "ONLY_UUPS",
-    "type": "error"
-  },
-  {
-    "inputs": [],
-    "name": "UNSUPPORTED_UUID",
-    "type": "error"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "impl",
-        "type": "address"
-      }
-    ],
-    "name": "Upgraded",
-    "type": "event"
-  },
-  {
-    "stateMutability": "payable",
-    "type": "fallback"
-  },
-  {
-    "stateMutability": "payable",
-    "type": "receive"
-  }
-]
+  "include": [
+    "typings",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "node_modules/eslint-plugin-react/lib/types.d.ts",
+    ".next/types/**/*.ts"
+  ]
+}
