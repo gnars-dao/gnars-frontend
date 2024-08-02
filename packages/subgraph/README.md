@@ -59,8 +59,8 @@ $ goldsky subgraph tag create gnars-mainnet/1.0.1 --tag latest
 
 ### Step 5 - Query the Subgraph
 
-You can now query the subgraph in the GraphQL playground to test your changes, but be aware it may take a few hours to
-fully index.
+You can now query the subgraph in the GraphQL playground to test your changes, **but be aware it may take a few hours to
+fully index.**
 
 **TODO: Good practices:**  
 A good practice to deploy in mainnet is to have a duplicate/backup subgraph so that if something goes wrong, the
