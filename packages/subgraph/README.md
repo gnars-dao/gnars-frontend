@@ -43,9 +43,13 @@ pnpm build;
 
 ### Step 4 - Deploy New or Updated subgraph
 
-**Note:** The subgraph name is `gnars-mainnet` and you should always bump the version if you make changes, but the --tag
-allows it to always point to the latest version so the front ends never need to make changes to the URI on every minor
-deploy. Never forget to tag!
+**Note:** The subgraph name is `gnars-mainnet` and you should always bump the version if you make changes, but the *
+*--tag**
+flag allows it to always point to the latest version so the front ends never need to make changes to the URI on every
+minor
+deploy.
+
+**Never forget to tag!**
 
 ```bash
 # FROM: ./subgraph

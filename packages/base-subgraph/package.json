@@ -1,5 +1,6 @@
 {
   "name": "base-subgraph",
+  "version": "1.1.1",
   "license": "UNLICENSED",
   "scripts": {
     "clean": "rm -rf ./generated ./build subgraph.yaml",
