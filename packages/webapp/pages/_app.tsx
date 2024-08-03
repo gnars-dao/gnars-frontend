@@ -1,17 +1,17 @@
 import { ChakraProvider, DarkMode, Divider, VStack } from "@chakra-ui/react"
-import { QueryClientProvider } from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Analytics } from "@vercel/analytics/react"
 import Footer from "components/Footer"
 import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 import type { AppProps } from "next/app"
-import { WagmiConfig, createConfig } from "wagmi"
-
+import { createConfig, WagmiConfig } from "wagmi"
 import { BaseAlertHeader } from "components/BaseJumpAnnouncement"
 import { alchemyApiKey, walletConnectProjectId } from "constants/env"
 import Head from "next/head"
-import { queryClient } from "utils"
 import { base, mainnet } from "wagmi/chains"
 import theme from "../theme"
+
+const queryClient = new QueryClient()
 
 const config = createConfig({
   ...getDefaultConfig({

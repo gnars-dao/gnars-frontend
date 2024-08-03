@@ -1,5 +1,5 @@
 import { zip } from "lodash"
-import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../.graphclient"
+import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../subgraph/layer-1"
 
 export type ProposalData = ProposalsQuery["proposals"][0]
 

@@ -4,7 +4,7 @@ import { DelegateButton } from "components/Governance/Delegation/DelegateButton"
 import { UserVotes } from "components/Governance/Delegation/UserVotes"
 import { isArray, partition } from "lodash"
 import Link from "next/link"
-import { execute, ProposalsDocument } from "../.graphclient"
+import { execute, ProposalsDocument } from "../subgraph/layer-1"
 import { ProposalCard } from "../components/Governance/ProposalCard"
 import Menu from "../components/Menu"
 import { useBlock } from "../hooks/useBlock"
@@ -13,7 +13,7 @@ import {
   getProposalEffectiveStatus,
   getQuorumVotes,
   isFinalized,
-  ProposalData,
+  ProposalData
 } from "../utils/governanceUtils"
 
 export default function Proposals() {
@@ -25,7 +25,7 @@ export default function Proposals() {
         .then((r: { data: { proposals: ProposalData[] } }) =>
           r.data.proposals.map((p: ProposalData) => ({
             ...p,
-            effectiveStatus: getProposalEffectiveStatus(p, block?.number ?? undefined, block?.timestamp ?? undefined),
+            effectiveStatus: getProposalEffectiveStatus(p, block?.number ?? undefined, block?.timestamp ?? undefined)
           }))
         )
         .then(
@@ -92,14 +92,14 @@ export default function Proposals() {
                               abstainVotes: prop.abstainVotes,
                               forVotes: prop.forVotes,
                               againstVotes: prop.againstVotes,
-                              totalSupply: prop.totalSupply,
+                              totalSupply: prop.totalSupply
                             }}
                             startBlock={prop.startBlock}
                             endBlock={prop.endBlock}
                             executionETA={prop.executionETA}
                             _hover={{
                               borderColor: "whiteAlpha.500",
-                              cursor: "pointer",
+                              cursor: "pointer"
                             }}
                           />
                         </Link>
@@ -131,14 +131,14 @@ export default function Proposals() {
                               abstainVotes: prop.abstainVotes,
                               forVotes: prop.forVotes,
                               againstVotes: prop.againstVotes,
-                              totalSupply: prop.totalSupply,
+                              totalSupply: prop.totalSupply
                             }}
                             startBlock={prop.startBlock}
                             endBlock={prop.endBlock}
                             executionETA={prop.executionETA}
                             _hover={{
                               borderColor: "whiteAlpha.500",
-                              cursor: "pointer",
+                              cursor: "pointer"
                             }}
                           />
                         </Link>

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getBuiltGraphSDK, WalletOgGnarsQuery } from "../.graphclient"
+import { getBuiltGraphSDK, WalletOgGnarsQuery } from "../subgraph/layer-1"
 
 export const useWalletOgGnars = (address?: string) => {
   const sdk = getBuiltGraphSDK()
@@ -12,7 +12,6 @@ export const useWalletOgGnars = (address?: string) => {
 
       return sdk.WalletOgGnars({ owner: address }).then((r) => r.ogGnars)
     },
-      refetchInterval: 12000,
-    }
-  )
+    refetchInterval: 12000
+  })
 }

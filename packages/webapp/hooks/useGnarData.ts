@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
-import { getBuiltGraphSDK, GnarQuery } from "../.graphclient"
+import { getBuiltGraphSDK, GnarQuery } from "../subgraph/layer-1"
 import { V2_START_ID } from "../constants/gnarsDao"
 
 export type Bid = {

@@ -1,29 +1,31 @@
 // @ts-nocheck
-import { GraphQLResolveInfo, SelectionSetNode, FieldNode, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-import { gql } from '@graphql-mesh/utils';
+import { FieldNode, GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig, SelectionSetNode } from "graphql"
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core"
+import { DefaultLogger, fileURLToPath, gql, printWithCache, PubSub } from "@graphql-mesh/utils"
 
-import type { GetMeshOptions } from '@graphql-mesh/runtime';
-import type { YamlConfig } from '@graphql-mesh/types';
-import { PubSub } from '@graphql-mesh/utils';
-import { DefaultLogger } from '@graphql-mesh/utils';
-import MeshCache from "@graphql-mesh/cache-localforage";
-import { fetch as fetchFn } from '@whatwg-node/fetch';
-
-import { MeshResolvedSource } from '@graphql-mesh/runtime';
-import { MeshTransform, MeshPlugin } from '@graphql-mesh/types';
+import type { GetMeshOptions } from "@graphql-mesh/runtime"
+import {
+  ExecuteMeshFn,
+  getMesh,
+  MeshContext as BaseMeshContext,
+  MeshInstance,
+  MeshResolvedSource,
+  SubscribeMeshFn
+} from "@graphql-mesh/runtime"
+import type { YamlConfig } from "@graphql-mesh/types"
+import { ImportFn, MeshPlugin, MeshTransform } from "@graphql-mesh/types"
+import MeshCache from "@graphql-mesh/cache-localforage"
+import { fetch as fetchFn } from "@whatwg-node/fetch"
 import GraphqlHandler from "@graphql-mesh/graphql"
-import UsePollingLive from "@graphprotocol/client-polling-live";
-import BlockTrackingTransform from "@graphprotocol/client-block-tracking";
-import BareMerger from "@graphql-mesh/merger-bare";
-import { printWithCache } from '@graphql-mesh/utils';
-import { createMeshHTTPHandler, MeshHTTPHandler } from '@graphql-mesh/http';
-import { getMesh, ExecuteMeshFn, SubscribeMeshFn, MeshContext as BaseMeshContext, MeshInstance } from '@graphql-mesh/runtime';
-import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
-import { path as pathModule } from '@graphql-mesh/cross-helpers';
-import { ImportFn } from '@graphql-mesh/types';
-import type { GnarsTypes } from './sources/gnars/types';
-export type Maybe<T> = T | null;
+import UsePollingLive from "@graphprotocol/client-polling-live"
+import BlockTrackingTransform from "@graphprotocol/client-block-tracking"
+import BareMerger from "@graphql-mesh/merger-bare"
+import { createMeshHTTPHandler, MeshHTTPHandler } from "@graphql-mesh/http"
+import { FsStoreStorageAdapter, MeshStore } from "@graphql-mesh/store"
+import { path as pathModule } from "@graphql-mesh/cross-helpers"
+import type { GnarsTypes } from "./sources/gnars/types.ts"
+
+export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -3930,14 +3932,13 @@ export type DirectiveResolvers<ContextType = MeshContext> = ResolversObject<{
 export type MeshContext = GnarsTypes.Context & BaseMeshContext;
 
 
-import { fileURLToPath } from '@graphql-mesh/utils';
 const baseDir = pathModule.join(pathModule.dirname(fileURLToPath(import.meta.url)), '..');
 
 const importFn: ImportFn = <T>(moduleId: string) => {
   const relativeModuleId = (pathModule.isAbsolute(moduleId) ? pathModule.relative(baseDir, moduleId) : moduleId).split('\\').join('/').replace(baseDir + '/', '');
   switch(relativeModuleId) {
     case ".graphclient/sources/gnars/introspectionSchema":
-      return import("./sources/gnars/introspectionSchema") as T;
+      return import("./sources/gnars/introspectionSchema.ts") as T
     
     default:
       return Promise.reject(new Error(`Cannot find module '${relativeModuleId}'.`));
@@ -4006,9 +4007,8 @@ sources[0] = {
           transforms: gnarsTransforms
         }
 const additionalResolvers = await Promise.all([
-        import("../queries/resolvers")
-            .then(m => m.resolvers || m.default || m)
-      ]);
+  import("../../queries/resolvers.ts").then((m) => m.resolvers || m.default || m)
+])
 const merger = new(BareMerger as any)({
         cache,
         pubsub,

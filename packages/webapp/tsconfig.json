@@ -1,27 +1,49 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "incremental": true,
-    "esModuleInterop": true,
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
+    "lib": [
+      "dom",
+      "es2017",
+      "es2019"
+    ],
+    "jsx": "preserve",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "incremental": true,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "baseUrl": ".",
+    "composite": false,
+    "inlineSources": false,
+    "preserveWatchOutput": true,
+    "allowImportingTsExtensions": true,
     "plugins": [
       {
         "name": "next"
       }
     ]
   },
-  "types": ["jest"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".graphclient/**/*.ts"],
-  "exclude": ["node_modules"]
+  "types": [
+    "jest"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "node_modules/eslint-plugin-react/lib/types.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

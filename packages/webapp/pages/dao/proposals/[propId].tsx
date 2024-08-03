@@ -14,7 +14,7 @@ import {
   Text,
   useBreakpointValue,
   useDisclosure,
-  VStack,
+  VStack
 } from "@chakra-ui/react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { VoteAction } from "components/Governance/Actions/VoteAction"
@@ -32,12 +32,12 @@ import {
   EffectiveProposalStatus,
   getProposalEffectiveStatus,
   getQuorumVotes,
-  getTransactions,
+  getTransactions
 } from "utils/governanceUtils"
 import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "utils/sdk"
 import { useAccount } from "wagmi"
 import { waitForTransaction } from "wagmi/actions"
-import { execute, ProposalDocument } from "../../../.graphclient"
+import { execute, ProposalDocument } from "../../../subgraph/layer-1"
 import { ProposalCard } from "../../../components/Governance/ProposalCard"
 import ProposalContent from "../../../components/Governance/ProposalContent"
 import Menu from "../../../components/Menu"
@@ -52,8 +52,7 @@ export default function Proposal() {
     queryKey: ["proposal", propId],
     queryFn: () => execute(ProposalDocument, { id: propId }).then((r: any) => r!.data!.proposal),
     keepPreviousData: true
-  }
-  )
+  })
 
   const effectiveStatus = proposal && getProposalEffectiveStatus(proposal, block?.number, block?.timestamp)
 
@@ -76,15 +75,15 @@ export default function Proposal() {
     (proposer.toLowerCase() === address?.toLowerCase() || currentProposerVotes < proposalThreshold)
 
   const { writeAsync: cancelProp } = useGnarsDaoCancel({
-    args: [BigInt(propId ?? 0)],
+    args: [BigInt(propId ?? 0)]
   })
 
   const { writeAsync: queueProp } = useGnarsDaoQueue({
-    args: [BigInt(propId ?? 0)],
+    args: [BigInt(propId ?? 0)]
   })
 
   const { writeAsync: executeProp } = useGnarsDaoExecute({
-    args: [BigInt(propId ?? 0)],
+    args: [BigInt(propId ?? 0)]
   })
 
   const refreshProposal = useCallback(() => {
@@ -95,7 +94,7 @@ export default function Proposal() {
 
   const tabIndex = useBreakpointValue({ base: undefined, xl: 0 })
   const { isOpen: showTimeline, onToggle: toggleTimeline } = useDisclosure({
-    defaultIsOpen: true,
+    defaultIsOpen: true
   })
   const [timelineHidden, setTimelineHidden] = useState(false)
 
@@ -119,7 +118,7 @@ export default function Proposal() {
                   <BiCaretLeft
                     style={{
                       transform: showTimeline ? "rotate(-180deg)" : undefined,
-                      transition: "transform 0.5s linear",
+                      transition: "transform 0.5s linear"
                     }}
                   />
                 }
@@ -141,7 +140,7 @@ export default function Proposal() {
                   abstainVotes: proposal.abstainVotes,
                   forVotes: proposal.forVotes,
                   againstVotes: proposal.againstVotes,
-                  totalSupply: proposal.totalSupply,
+                  totalSupply: proposal.totalSupply
                 }}
                 startBlock={proposal.startBlock}
                 endBlock={proposal.endBlock}
@@ -156,7 +155,7 @@ export default function Proposal() {
                     templateColumns={{ md: "repeat(3, 1fr)" }}
                     templateAreas={{
                       base: `"for" "abstain" "against"`,
-                      md: `"for abstain against"`,
+                      md: `"for abstain against"`
                     }}
                   >
                     <HStack spacing={2} gridArea={"for"} divider={<Text color={"governance.quorum"}>/</Text>}>
@@ -274,7 +273,7 @@ export default function Proposal() {
                   padding: showTimeline ? 12 : 0,
                   borderWidth: showTimeline ? 1 : 0,
                   opacity: showTimeline ? 1 : 0,
-                  marginLeft: showTimeline ? 8 : 0,
+                  marginLeft: showTimeline ? 8 : 0
                 }}
                 hideBelow={"lg"}
                 overflowX={"clip"}
