@@ -4,17 +4,17 @@ import { DelegateButton } from "components/Governance/Delegation/DelegateButton"
 import { UserVotes } from "components/Governance/Delegation/UserVotes"
 import { isArray, partition } from "lodash"
 import Link from "next/link"
-import { execute, ProposalsDocument } from "../subgraph/layer-1"
-import { ProposalCard } from "../components/Governance/ProposalCard"
-import Menu from "../components/Menu"
-import { useBlock } from "../hooks/useBlock"
+import { execute, ProposalsDocument } from "subgraph/layer-1"
+import { ProposalCard } from "components/Governance/ProposalCard"
+import Menu from "components/Menu"
+import { useBlock } from "hooks/useBlock"
 import {
   EffectiveProposalStatus,
   getProposalEffectiveStatus,
   getQuorumVotes,
   isFinalized,
   ProposalData
-} from "../utils/governanceUtils"
+} from "utils/governanceUtils"
 
 export default function Proposals() {
   const block = useBlock()

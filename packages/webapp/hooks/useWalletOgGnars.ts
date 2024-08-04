@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getBuiltGraphSDK, WalletOgGnarsQuery } from "../subgraph/layer-1"
+import { getBuiltGraphSDK, WalletOgGnarsQuery } from "subgraph/layer-1"
 
 export const useWalletOgGnars = (address?: string) => {
   const sdk = getBuiltGraphSDK()

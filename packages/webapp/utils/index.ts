@@ -2,10 +2,10 @@ import { Seed } from "subgraph/layer-1"
 import { QueryClient } from "@tanstack/react-query"
 import { random } from "lodash"
 import { formatEther } from "viem"
-import { V2_START_ID } from "../constants/gnarsDao"
-import gnarDataV2 from "../data/image-data-V2.json"
-import ogGnarData from "../data/image-data.json"
-import { GnarData } from "../hooks/useGnarData"
+import { V2_START_ID } from "constants/gnarsDao"
+import gnarDataV2 from "data/image-data-V2.json"
+import ogGnarData from "data/image-data.json"
+import { GnarData } from "hooks/useGnarData"
 
 export const queryClient = new QueryClient()
 
@@ -18,7 +18,7 @@ export const nFormatter = (num: number, digits: number = 2) => {
     { value: 1e9, symbol: "g" },
     { value: 1e12, symbol: "t" },
     { value: 1e15, symbol: "p" },
-    { value: 1e18, symbol: "e" },
+    { value: 1e18, symbol: "e" }
   ]
 
   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/
@@ -54,9 +54,9 @@ export const generateGnarV2Seed = ({ background, glasses, body, head, accessory 
       bodies: { length: amountBodies },
       accessories: { length: amountAccessories },
       heads: { length: amountHeads },
-      glasses: { length: amountGlasses },
+      glasses: { length: amountGlasses }
     },
-    bgcolors: { length: amountBackgrounds },
+    bgcolors: { length: amountBackgrounds }
   } = gnarDataV2
 
   return {
@@ -64,7 +64,7 @@ export const generateGnarV2Seed = ({ background, glasses, body, head, accessory 
     body: body ?? random(amountBodies - 1),
     accessory: accessory ?? random(amountAccessories - 1),
     head: head ?? random(amountHeads - 1),
-    glasses: glasses ?? random(amountGlasses - 1),
+    glasses: glasses ?? random(amountGlasses - 1)
   }
 }
 
@@ -100,9 +100,9 @@ export const getGnartwork = (isOg: boolean, seed: Omit<Seed, "id">): Gnartwork =
       body: bodies[seed.body] as GnarPart,
       accessory: accessories[seed.accessory] as GnarPart,
       head: heads[seed.head] as GnarPart,
-      noggles: glasses[seed.glasses] as GnarPart,
+      noggles: glasses[seed.glasses] as GnarPart
     },
-    background: gnarData.bgcolors[seed.background],
+    background: gnarData.bgcolors[seed.background]
   }
 }
 

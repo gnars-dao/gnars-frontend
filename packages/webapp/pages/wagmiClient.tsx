@@ -3,7 +3,7 @@ import { base, baseSepolia, mainnet, optimism, optimismSepolia, sepolia, zora, z
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc"
 import { useWalletConnectUri } from "connectkit/build/hooks/connectors/useWalletConnectUri"
 import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "constants/types.tsx"
-import { alchemyApiKey, walletConnectProjectId } from "../constants/env.ts"
+import { alchemyApiKey, walletConnectProjectId } from "constants/env.ts"
 
 const MAINNET_CHAINS = [mainnet, base] // Needed due to hooks like useEnsData that only pull data from mainnet
 

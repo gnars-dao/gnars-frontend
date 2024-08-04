@@ -4,8 +4,8 @@ import { QueryClientProvider } from "@tanstack/react-query"
 import { getDefaultClient } from "connectkit"
 import React from "react"
 import { createConfig, mainnet, WagmiConfig } from "wagmi"
-import theme from "../theme"
-import { queryClient } from "../utils"
+import theme from "theme"
+import { queryClient } from "utils"
 
 const preview: Preview = {
   parameters: {
@@ -13,9 +13,9 @@ const preview: Preview = {
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/,
-      },
-    },
+        date: /Date$/
+      }
+    }
   },
   decorators: [
     (Story) => (
@@ -32,9 +32,9 @@ const preview: Preview = {
         ...getDefaultClient({
           appName: "Gnars",
           alchemyId: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
-          chains: [mainnet],
+          chains: [mainnet]
         }),
-        persister: null,
+        persister: null
       })
 
       return (
@@ -47,8 +47,8 @@ const preview: Preview = {
       <QueryClientProvider client={queryClient}>
         <Story />
       </QueryClientProvider>
-    ),
-  ],
+    )
+  ]
 }
 
 export default preview

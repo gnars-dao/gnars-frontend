@@ -1,6 +1,6 @@
-import { GnarPart, Gnartwork, PartKind } from "../utils"
+import { GnarPart, Gnartwork, PartKind } from "utils"
 import { create } from "zustand"
-import gnarDataV2 from "../data/image-data-V2.json"
+import gnarDataV2 from "data/image-data-V2.json"
 import { parseInt, sample } from "lodash"
 
 export type PlaygroundGnarData = {
@@ -28,67 +28,50 @@ export const usePlaygroundState = create<PlaygroundState>((set) => ({
     backgrounds: [],
     bodies: [],
     glasses: [],
-    heads: [],
+    heads: []
   },
   select: (partKind, part) =>
     set(({ selectedParts }) => ({
       selectedParts: {
         ...selectedParts,
-        [partKind]: [part],
-      },
+        [partKind]: [part]
+      }
     })),
   clearSelection: (partKind) =>
     set(({ selectedParts }) => ({
       selectedParts: {
         ...selectedParts,
-        [partKind]: [],
-      },
+        [partKind]: []
+      }
     })),
   generate: () => {
     set(({ selectedParts, parts, counter, generatedGnars }) => {
       const background = sample(
-        selectedParts["backgrounds"].length > 0
-          ? selectedParts["backgrounds"]
-          : parts["backgrounds"]
+        selectedParts["backgrounds"].length > 0 ? selectedParts["backgrounds"] : parts["backgrounds"]
       )!
-      const backgroundColor =
-        gnarDataV2.bgcolors[parseInt(background.data.slice(-2), 16) - 1]
+      const backgroundColor = gnarDataV2.bgcolors[parseInt(background.data.slice(-2), 16) - 1]
 
       const newGnar = {
         id: counter + 1,
         gnartwork: {
           parts: {
             background,
-            body: sample(
-              selectedParts["bodies"].length > 0
-                ? selectedParts["bodies"]
-                : parts["bodies"]
-            ),
+            body: sample(selectedParts["bodies"].length > 0 ? selectedParts["bodies"] : parts["bodies"]),
             accessory: sample(
-              selectedParts["accessories"].length > 0
-                ? selectedParts["accessories"]
-                : parts["accessories"]
+              selectedParts["accessories"].length > 0 ? selectedParts["accessories"] : parts["accessories"]
             ),
-            head: sample(
-              selectedParts["heads"].length > 0
-                ? selectedParts["heads"]
-                : parts["heads"]
-            ),
-            noggles: sample(
-              selectedParts["glasses"].length > 0
-                ? selectedParts["glasses"]
-                : parts["glasses"]
-            ),
+            head: sample(selectedParts["heads"].length > 0 ? selectedParts["heads"] : parts["heads"]),
+            noggles: sample(selectedParts["glasses"].length > 0 ? selectedParts["glasses"] : parts["glasses"])
           },
           palette: gnarDataV2.palette,
-          background: backgroundColor,
-        },
+          background: backgroundColor
+        }
       } as PlaygroundGnarData
       return {
         generatedGnars: [newGnar, ...generatedGnars],
-        counter: counter + 1,
+        counter: counter + 1
       }
     })
   },
-  clear: () => set({ generatedGnars: [] }),
+  clear: () => set({ generatedGnars: [] })
 }))

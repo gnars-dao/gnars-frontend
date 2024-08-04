@@ -2,17 +2,14 @@ import { HStack, StackProps } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { FC } from "react"
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi"
-import { GnarData } from "../../hooks/useGnarData"
-import { RoundButton } from "../RoundButton"
+import { GnarData } from "hooks/useGnarData"
+import { RoundButton } from "RoundButton"
 
 export type AuctionNavigationParams = {
   gnarData?: GnarData
 } & StackProps
 
-export const GnarNavigation: FC<AuctionNavigationParams> = ({
-  gnarData,
-  ...props
-}) => {
+export const GnarNavigation: FC<AuctionNavigationParams> = ({ gnarData, ...props }) => {
   const { push } = useRouter()
 
   if (!gnarData) {
@@ -34,7 +31,7 @@ export const GnarNavigation: FC<AuctionNavigationParams> = ({
   const {
     gnar: { gnarId },
     latestGnarId,
-    latestAuctionGnarId,
+    latestAuctionGnarId
   } = gnarData
   const numericGnarId = parseInt(gnarId)
 
@@ -43,24 +40,13 @@ export const GnarNavigation: FC<AuctionNavigationParams> = ({
 
   return (
     <HStack spacing={1} {...props}>
-      <RoundButton
-        px={0}
-        isDisabled={numericGnarId <= 0}
-        onClick={() => push(`/gnar/${numericGnarId - 1}`)}
-      >
+      <RoundButton px={0} isDisabled={numericGnarId <= 0} onClick={() => push(`/gnar/${numericGnarId - 1}`)}>
         <HiArrowNarrowLeft />
       </RoundButton>
-      <RoundButton
-        px={0}
-        isDisabled={isLatestGnar}
-        onClick={() => push(`/gnar/${numericGnarId + 1}`)}
-      >
+      <RoundButton px={0} isDisabled={isLatestGnar} onClick={() => push(`/gnar/${numericGnarId + 1}`)}>
         <HiArrowNarrowRight />
       </RoundButton>
-      <RoundButton
-        isDisabled={isLatestAuction}
-        onClick={() => push(`/gnar/${latestAuctionGnarId}`)}
-      >
+      <RoundButton isDisabled={isLatestAuction} onClick={() => push(`/gnar/${latestAuctionGnarId}`)}>
         Latest auction
       </RoundButton>
     </HStack>

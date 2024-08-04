@@ -11,14 +11,14 @@ import {
   useBreakpointValue,
   VStack,
   Wrap,
-  WrapItem,
+  WrapItem
 } from "@chakra-ui/react"
 import { useQueryClient } from "@tanstack/react-query"
 import { useWalletHDGnars, walletHDGnarsQueryKey } from "hooks/useWalletHDGnars"
 import { useEffect, useState } from "react"
 import { useAccount } from "wagmi"
 import { waitForTransaction } from "wagmi/actions"
-import { useGnarsHdAssertOwnership } from "../utils/sdk"
+import { useGnarsHdAssertOwnership } from "utils/sdk"
 import { ContractActionButton } from "./ContractActionButton"
 import { GnarHDImage } from "./GnarHDImage"
 import { WalletButton } from "./WalletButton"
@@ -39,7 +39,7 @@ export const HDClaiming = () => {
   const { isLoading, data: hdGnars } = useWalletHDGnars(address)
 
   const { writeAsync: claimGnars } = useGnarsHdAssertOwnership({
-    args: [selectedHDGnars.map((id) => BigInt(id))],
+    args: [selectedHDGnars.map((id) => BigInt(id))]
   })
 
   if (isDisconnected) {

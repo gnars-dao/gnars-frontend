@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getBuiltGraphSDK } from "../subgraph/layer-1"
+import { getBuiltGraphSDK } from "subgraph/layer-1"
 
 export const walletHDGnarsQueryKey = "hdGnarsClaimStatus"
 
@@ -18,7 +18,7 @@ export const useWalletHDGnars = (address?: string) => {
         .then((gnars) => gnars.map((g) => ({ ...g, wasClaimed: address.toLowerCase() === g.hdOwner.toLowerCase() })))
     },
     {
-      refetchInterval: 12000,
+      refetchInterval: 12000
     }
   )
 }

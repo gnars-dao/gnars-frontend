@@ -1,8 +1,8 @@
 import { Button, CenterProps, VStack, Wrap, WrapItem } from "@chakra-ui/react"
 import { FC } from "react"
 import { FaSquareFull } from "react-icons/fa"
-import { usePlaygroundState } from "../../hooks/usePlaygroundState"
-import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "../Icons"
+import { usePlaygroundState } from "hooks/usePlaygroundState"
+import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "components/Icons"
 import { PartPicker } from "./PartPicker"
 
 export type GeneratorProps = {
@@ -42,7 +42,7 @@ export const Generator: FC<GeneratorProps> = ({ buttonSize }) => {
                   display: "inline-block",
                   padding: "4px",
                   width: "24px",
-                  height: "24px",
+                  height: "24px"
                 }}
               />
             }

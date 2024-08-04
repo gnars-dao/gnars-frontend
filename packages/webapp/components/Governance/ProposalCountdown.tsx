@@ -1,8 +1,8 @@
 import { HStack, Spinner, Text, Tooltip } from "@chakra-ui/react"
 import { FC } from "react"
 import { RiTimeFill } from "react-icons/ri"
-import { useBlock } from "../../hooks/useBlock"
-import { EffectiveProposalStatus } from "../../utils/governanceUtils"
+import { useBlock } from "hooks/useBlock"
+import { EffectiveProposalStatus } from "utils/governanceUtils"
 
 export interface ProposalCountdownProps {
   effectiveStatus: EffectiveProposalStatus
@@ -15,7 +15,7 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
   effectiveStatus,
   executionETA,
   startBlock,
-  endBlock,
+  endBlock
 }) => {
   const block = useBlock()
   if (effectiveStatus === "SUCCEEDED") {
@@ -55,7 +55,7 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
         PENDING: block.timestamp + 12n * (BigInt(startBlock) - block.number),
         ACTIVE: block.timestamp + 12n * (BigInt(endBlock) - block.number),
         QUEUED: executionETA!,
-        EXECUTABLE: BigInt(executionETA ?? 0) + 14n * secondsInDay,
+        EXECUTABLE: BigInt(executionETA ?? 0) + 14n * secondsInDay
       }[effectiveStatus]
     ) * 1000
   )
@@ -71,7 +71,7 @@ export const ProposalCountdown: FC<ProposalCountdownProps> = ({
               QUEUED: `EXECUTABLE IN ${estimatedTimeRemaining}`,
               PENDING: `STARTS IN ${estimatedTimeRemaining}`,
               ACTIVE: `ENDS IN ${estimatedTimeRemaining}`,
-              EXECUTABLE: `EXECUTABLE FOR ${estimatedTimeRemaining}`,
+              EXECUTABLE: `EXECUTABLE FOR ${estimatedTimeRemaining}`
             }[effectiveStatus]
           }
         </Text>

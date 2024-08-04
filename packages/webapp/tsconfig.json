@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "lib": [
       "dom",
       "es2017",
@@ -41,9 +41,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "node_modules/eslint-plugin-react/lib/types.d.ts"
   ],
   "exclude": [
-    "node_modules"
-  ]
+      "node_modules",
+      "packages/*/node_modules",
+      "packages/*/*/node_modules"
+    ]
 }

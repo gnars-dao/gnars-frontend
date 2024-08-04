@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react"
 import { FC } from "react"
 import { useEnsAvatar } from "wagmi"
-import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
+import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback"
 // @ts-ignore
 import { AccountAddress } from "./AccountAddress"
 import { AccountWithAvatar, AccountWithAvatarProps } from "./AccountWithAvatar"
@@ -13,7 +13,7 @@ export type AvatarWalletProps = {
 export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
   const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(address)
   const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
-    name: String(nnsOrEnsName),
+    name: String(nnsOrEnsName)
   })
 
   return (

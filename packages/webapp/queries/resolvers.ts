@@ -1,10 +1,9 @@
-import { Resolvers } from "../subgraph/layer-1"
-import { PUBLIC_SUBGRAPH_URL } from "constants/subgraph"
-import { CHAIN_IDS } from "constants/chainId"
-import { getSdk } from "./../subgraph/base/index.ts"
+import { Resolvers } from "subgraph/layer-1"
+import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "constants/types"
+import { getSdk } from "subgraph/base"
 import { GraphQLClient } from "graphql-request"
 
-export const layerOneResolvers: Resolvers = {
+export const resolvers: Resolvers = {
   Query: {
     proposals: async (root, args, context, info) => await context.gnars.Query.proposals({ root, args, context, info }),
     proposal: async (root, args, context, info) => await context.gnars.Query.proposal({ root, args, context, info }),
@@ -33,7 +32,7 @@ export class BaseSDK {
 
     const client = globalBaseClient.subgraphClient.has(chainId)
       ? globalBaseClient.subgraphClient.get(chainId)!
-      : new GraphQLClient(PUBLIC_SUBGRAPH_URL[chainId], {
+      : new GraphQLClient(ALCHEMY_RPC_URLS.get(chainId) as string, {
           headers: {
             "Content-Type": "application/json"
           }

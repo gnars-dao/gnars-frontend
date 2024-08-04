@@ -12,13 +12,13 @@ import {
   Stack,
   StackProps,
   Text,
-  useNumberInput,
+  useNumberInput
 } from "@chakra-ui/react"
 import { FC, useState } from "react"
 import { FaCaretDown, FaCaretUp } from "react-icons/fa"
 import { formatEther, parseEther } from "viem"
-import { useGnarsV2AuctionHouseCreateBid } from "../../utils/sdk"
-import { ContractActionButton } from "../ContractActionButton"
+import { useGnarsV2AuctionHouseCreateBid } from "utils/sdk"
+import { ContractActionButton } from "components/ContractActionButton"
 
 const minBidIncrementPercentage = 5n
 
@@ -39,13 +39,13 @@ export const BidForGnar: FC<BidForGnarProps> = ({ gnarId, latestBid, ...props })
     getInputProps,
     getIncrementButtonProps,
     getDecrementButtonProps,
-    value: bidAmount,
+    value: bidAmount
   } = useNumberInput({
     defaultValue: minBidEth,
     min: minBidEth,
     step: minBidEth * 0.05,
     precision: 7,
-    id: "bid-input",
+    id: "bid-input"
   })
 
   const inc = getIncrementButtonProps()
@@ -56,7 +56,7 @@ export const BidForGnar: FC<BidForGnarProps> = ({ gnarId, latestBid, ...props })
   const { isLoading, write: placeBid } = useGnarsV2AuctionHouseCreateBid({
     args: [BigInt(gnarId), founderAllocation, treasuryAllocation],
     value: parseEther(bidAmount),
-    gas: 100_000n, // to prevent out of gas errors with auction extensions
+    gas: 100_000n // to prevent out of gas errors with auction extensions
   })
 
   return (

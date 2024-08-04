@@ -13,15 +13,15 @@ import {
   StackProps,
   Text,
   useDisclosure,
-  VStack,
+  VStack
 } from "@chakra-ui/react"
 import { memoize, some } from "lodash"
 import { FC, useMemo } from "react"
 import { FaRandom } from "react-icons/fa"
-import gnarDataV2 from "../../data/image-data-V2.json"
-import { usePlaygroundState } from "../../hooks/usePlaygroundState"
-import { GnarPart, PartKind } from "../../utils"
-import buildSvg from "../../utils/buildSvg"
+import gnarDataV2 from "data/image-data-V2.json"
+import { usePlaygroundState } from "hooks/usePlaygroundState"
+import { GnarPart, PartKind } from "utils"
+import buildSvg from "utils/buildSvg"
 
 export type PartPickerProps = {
   part: string
@@ -29,19 +29,13 @@ export type PartPickerProps = {
   icon: JSX.Element
   size: CenterProps["width"]
 } & StackProps
-export const PartPicker: FC<PartPickerProps> = ({
-  part,
-  partKind,
-  icon,
-  size,
-  ...props
-}) => {
+export const PartPicker: FC<PartPickerProps> = ({ part, partKind, icon, size, ...props }) => {
   const { isOpen, onClose, onOpen } = useDisclosure()
   const {
     selectedParts: { [partKind]: selectedParts },
     parts: { [partKind]: parts },
     select,
-    clearSelection,
+    clearSelection
   } = usePlaygroundState()
   const chosenPartImage = useMemo(() => {
     if (!selectedParts || selectedParts.length === 0) {
@@ -53,40 +47,17 @@ export const PartPicker: FC<PartPickerProps> = ({
   }, [selectedParts])
   return (
     <>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        scrollBehavior={"inside"}
-        size={"4xl"}
-      >
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={"inside"} size={"4xl"}>
         <ModalOverlay />
-        <ModalContent
-          mx={2}
-          pb={4}
-          color={"chakra-body-text"}
-          bgColor={"chakra-body-bg"}
-        >
+        <ModalContent mx={2} pb={4} color={"chakra-body-text"} bgColor={"chakra-body-bg"}>
           <ModalHeader textStyle={"h2"} textAlign={"center"}>
             {part} picker
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <SimpleGrid
-              templateColumns={"repeat(auto-fit, 96px)"}
-              columnGap={2}
-              rowGap={4}
-            >
-              <VStack
-                h={"132px"}
-                alignItems={"center"}
-                justifyContent={"end"}
-                spacing={0}
-              >
-                <Text
-                  fontSize={"xs"}
-                  textAlign={"center"}
-                  whiteSpace={"normal"}
-                >
+            <SimpleGrid templateColumns={"repeat(auto-fit, 96px)"} columnGap={2} rowGap={4}>
+              <VStack h={"132px"} alignItems={"center"} justifyContent={"end"} spacing={0}>
+                <Text fontSize={"xs"} textAlign={"center"} whiteSpace={"normal"}>
                   Random
                 </Text>
                 <Button
@@ -108,18 +79,8 @@ export const PartPicker: FC<PartPickerProps> = ({
               {parts.map((part, index) => {
                 const imageUrl = buildPart(part)
                 return (
-                  <VStack
-                    h={"132px"}
-                    key={`part-${index}`}
-                    alignItems={"center"}
-                    justifyContent={"end"}
-                    spacing={0}
-                  >
-                    <Text
-                      fontSize={"xs"}
-                      textAlign={"center"}
-                      whiteSpace={"normal"}
-                    >
+                  <VStack h={"132px"} key={`part-${index}`} alignItems={"center"} justifyContent={"end"} spacing={0}>
+                    <Text fontSize={"xs"} textAlign={"center"} whiteSpace={"normal"}>
                       {part.trait}
                     </Text>
                     <Button
@@ -128,10 +89,7 @@ export const PartPicker: FC<PartPickerProps> = ({
                       h={"fit-content"}
                       w={"fit-content"}
                       variant={"outline"}
-                      isActive={some(
-                        selectedParts,
-                        (selectedPart) => selectedPart.trait === part.trait
-                      )}
+                      isActive={some(selectedParts, (selectedPart) => selectedPart.trait === part.trait)}
                       onClick={() => {
                         select(partKind, part)
                         onClose()
@@ -151,13 +109,7 @@ export const PartPicker: FC<PartPickerProps> = ({
         <Text>
           {icon} {part}
         </Text>
-        <Button
-          variant={"ghost"}
-          p={0}
-          onClick={onOpen}
-          w={"fit-content"}
-          h={"fit-content"}
-        >
+        <Button variant={"ghost"} p={0} onClick={onOpen} w={"fit-content"} h={"fit-content"}>
           <Center w={size} h={size} borderWidth={1} borderRadius={"md"}>
             {chosenPartImage}
           </Center>

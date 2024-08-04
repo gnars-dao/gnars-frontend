@@ -10,13 +10,13 @@ import {
   Spinner,
   Stack,
   useBreakpointValue,
-  VStack,
+  VStack
 } from "@chakra-ui/react"
 import { FC } from "react"
-import { V2_START_ID } from "../../constants/gnarsDao"
-import useGnarData, { GnarData } from "../../hooks/useGnarData"
-import Gnar from "../Gnar"
-import Menu from "../Menu"
+import { V2_START_ID } from "constants/gnarsDao"
+import useGnarData, { GnarData } from "hooks/useGnarData"
+import Gnar from "components/Gnar"
+import Menu from "components/Menu"
 import { GnarInfo } from "./GnarInfo"
 
 interface AuctionProps {
@@ -33,7 +33,7 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarData }) => {
   const gnarInfoColorMode =
     useBreakpointValue<ColorMode>({
       base: "dark",
-      lg: hasDarkBg ? "dark" : "light",
+      lg: hasDarkBg ? "dark" : "light"
     }) ?? "dark"
 
   return (

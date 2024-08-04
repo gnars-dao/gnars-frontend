@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
-import { getBuiltGraphSDK, GnarQuery } from "../subgraph/layer-1"
-import { V2_START_ID } from "../constants/gnarsDao"
+import { getBuiltGraphSDK, GnarQuery } from "subgraph/layer-1"
+import { V2_START_ID } from "constants/gnarsDao"
 
 export type Bid = {
   bidder: string
@@ -83,7 +83,7 @@ export const fetchGnarData = async (desiredGnarId?: number): Promise<GnarData> =
       glasses: ogGnarQueryResponse.ogAuction.gnar.glasses,
       body: ogGnarQueryResponse.ogAuction.gnar.body,
       head: ogGnarQueryResponse.ogAuction.gnar.head,
-      background: ogGnarQueryResponse.ogAuction.gnar.background,
+      background: ogGnarQueryResponse.ogAuction.gnar.background
     }
 
     return {
@@ -100,33 +100,33 @@ export const fetchGnarData = async (desiredGnarId?: number): Promise<GnarData> =
           latestBidder: ogGnarQueryResponse.ogAuction.bidder ?? null,
           latestBid: ogGnarQueryResponse.ogAuction.amount ?? null,
           bids: ogGnarQueryResponse.ogAuction.bids,
-          settled: true,
-        },
+          settled: true
+        }
       } as OGGnar,
-      gnarving: ogGnarQueryResponse.gnarving!,
+      gnarving: ogGnarQueryResponse.gnarving!
     }
   }
 
   const gnarQueryResponse = await sdk.Gnar({
-    filter: desiredGnarId ? { id: `${desiredGnarId}` } : { auction_not: null },
+    filter: desiredGnarId ? { id: `${desiredGnarId}` } : { auction_not: null }
   })
 
   const {
     latestGnar: {
-      [0]: { id: latestGnarId },
+      [0]: { id: latestGnarId }
     },
     latestAuction: {
-      [0]: { id: latestAuctionGnarId },
+      [0]: { id: latestAuctionGnarId }
     },
     gnars: {
       [0]: {
         seed,
         id: gnarId,
         owner: { id: owner },
-        auction: auctionData,
-      },
+        auction: auctionData
+      }
     },
-    gnarving,
+    gnarving
   } = gnarQueryResponse
 
   const auction = auctionData
@@ -140,8 +140,8 @@ export const fetchGnarData = async (desiredGnarId?: number): Promise<GnarData> =
           bidder: bid.bidder?.id,
           blockTimestamp: bid.blockTimestamp,
           amount: bid.amount,
-          id: bid.id,
-        })),
+          id: bid.id
+        }))
       }
     : null
 
@@ -155,17 +155,18 @@ export const fetchGnarData = async (desiredGnarId?: number): Promise<GnarData> =
       gnarId,
       seed,
       owner,
-      auction,
+      auction
     } as GnarV2,
-    gnarving: gnarving!,
+    gnarving: gnarving!
   }
 }
 
 export default function useGnarData(desiredGnarId?: number, initialData?: GnarData): UseQueryResult<GnarData> {
   // https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5#supports-a-single-signature-one-object
-  return useQuery<GnarData, Error>({ queryKey: ["gnar", desiredGnarId], queryFn: () => fetchGnarData(desiredGnarId),
+  return useQuery<GnarData, Error>({
+    queryKey: ["gnar", desiredGnarId],
+    queryFn: () => fetchGnarData(desiredGnarId),
     refetchInterval: 2000,
-    initialData,
+    initialData
   })
 }
-

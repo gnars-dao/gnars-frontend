@@ -11,20 +11,20 @@ import {
   Spinner,
   Text,
   Tooltip,
-  VStack,
+  VStack
 } from "@chakra-ui/react"
 import {
   BASE_MULTISIG_ADDRESS,
   BASE_SENDIT_TOKEN_ADDRESS,
   BASE_TREASURY_ADDRESS,
   BASE_USDC_TOKEN_ADDRESS,
-  BASE_V2_GNAR_ADDRESS,
+  BASE_V2_GNAR_ADDRESS
 } from "constants/gnarsDao"
 import { ReactNode, useEffect, useMemo, useState } from "react"
 import { useGnarsV2TokenBalanceOf } from "utils/sdk"
 import { getTokensValues } from "utils/web3"
 import { base } from "wagmi/chains"
-import { formatSuffixedBalance } from "../utils/formatBalance"
+import { formatSuffixedBalance } from "utils/formatBalance"
 import { ShredIcon } from "./Icons"
 
 interface TokenData {
@@ -53,22 +53,22 @@ export const TreasuryBalance = () => {
           formatted: formatSuffixedBalance(treasuryTokens[0].value, treasuryTokens[0].decimals),
           label: "Ether",
           icon: "Ξ",
-          url: `https://basescan.org/address/${BASE_TREASURY_ADDRESS}`,
+          url: `https://basescan.org/address/${BASE_TREASURY_ADDRESS}`
         },
         {
           value: treasuryTokens[1].value,
           formatted: formatSuffixedBalance(treasuryTokens[1].value, treasuryTokens[1].decimals),
           label: "USDC",
           icon: "$",
-          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
+          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`
         },
         {
           value: treasuryTokens[2].value,
           formatted: formatSuffixedBalance(treasuryTokens[2].value, treasuryTokens[2].decimals),
           label: "Sendit",
           icon: "↗",
-          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
-        },
+          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`
+        }
       ])
 
       const multisigTokens = await getTokensValues(
@@ -83,22 +83,22 @@ export const TreasuryBalance = () => {
           formatted: formatSuffixedBalance(multisigTokens[0].value, multisigTokens[0].decimals),
           label: "Ether",
           icon: "Ξ",
-          url: `https://basescan.org/address/${BASE_MULTISIG_ADDRESS}`,
+          url: `https://basescan.org/address/${BASE_MULTISIG_ADDRESS}`
         },
         {
           value: multisigTokens[1].value,
           formatted: formatSuffixedBalance(multisigTokens[1].value, multisigTokens[1].decimals),
           label: "USDC",
           icon: "$",
-          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
+          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`
         },
         {
           value: multisigTokens[2].value,
           formatted: formatSuffixedBalance(multisigTokens[2].value, multisigTokens[2].decimals),
           label: "Sendit",
           icon: "↗",
-          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
-        },
+          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`
+        }
       ])
     }
     setMultisigBalance([])
@@ -108,7 +108,7 @@ export const TreasuryBalance = () => {
 
   const { data: multisigGnarsBalance } = useGnarsV2TokenBalanceOf({
     args: [BASE_MULTISIG_ADDRESS],
-    chainId: base.id,
+    chainId: base.id
   })
   useEffect(() => {
     if (multisigGnarsBalance)
@@ -119,14 +119,14 @@ export const TreasuryBalance = () => {
           formatted: multisigGnarsBalance.toString(),
           value: multisigGnarsBalance,
           label: "Gnars",
-          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
-        },
+          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`
+        }
       ])
   }, [multisigGnarsBalance])
 
   const { data: treasuryGnarsBalance } = useGnarsV2TokenBalanceOf({
     args: [BASE_TREASURY_ADDRESS],
-    chainId: base.id,
+    chainId: base.id
   })
   useEffect(() => {
     if (treasuryGnarsBalance)
@@ -137,8 +137,8 @@ export const TreasuryBalance = () => {
           formatted: treasuryGnarsBalance.toString(),
           value: treasuryGnarsBalance,
           label: "Gnars",
-          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
-        },
+          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`
+        }
       ])
   }, [treasuryGnarsBalance])
 
@@ -160,7 +160,7 @@ export const TreasuryBalance = () => {
 
     return {
       eth: formatSuffixedBalance(ethTotal, 18),
-      gnars: gnarsTotal.toString(),
+      gnars: gnarsTotal.toString()
     }
   }, [treasuryBalance, multisigBalance])
 

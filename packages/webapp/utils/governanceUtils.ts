@@ -1,5 +1,5 @@
 import { zip } from "lodash"
-import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../subgraph/layer-1"
+import { ProposalQuery, ProposalsQuery, ProposalStatus } from "subgraph/layer-1"
 
 export type ProposalData = ProposalsQuery["proposals"][0]
 
@@ -29,7 +29,7 @@ export const getTransactions = (proposal: DetailedProposalData): NounsTransactio
       target,
       signature,
       value,
-      calldata,
+      calldata
     })
   )
 }
@@ -90,14 +90,14 @@ export const getQuorumVotes = (prop: ProposalsQuery["proposals"][0]) => {
   return {
     min: Math.ceil((prop.minQuorumVotesBPS * prop.totalSupply) / 10_000),
     max: Math.ceil((prop.maxQuorumVotesBPS * prop.totalSupply) / 10_000),
-    current: Math.ceil((quorumBPS * prop.totalSupply) / 10_000),
+    current: Math.ceil((quorumBPS * prop.totalSupply) / 10_000)
   }
 }
 
 export enum Support {
   Against = 0,
   For = 1,
-  Abstain = 2,
+  Abstain = 2
 }
 
 // function bps2Uint(uint256 bps, uint256 number) internal pure returns (uint256) {

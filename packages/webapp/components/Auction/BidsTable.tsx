@@ -6,13 +6,13 @@ import {
   Text,
   VStack,
   useBreakpointValue,
-  useColorMode,
+  useColorMode
 } from "@chakra-ui/react"
 import { FC } from "react"
 import { HiExternalLink } from "react-icons/hi"
 import { formatEther } from "viem"
-import { Bid } from "../../hooks/useGnarData"
-import { AvatarWallet } from "../AvatarWallet"
+import { Bid } from "hooks/useGnarData"
+import { AvatarWallet } from "components/AvatarWallet"
 
 export interface BidsTableProps extends StackProps {
   bids: Bid[]
@@ -44,7 +44,7 @@ export const BidsTable: FC<BidsTableProps> = ({ bids, ...props }) => {
               <HiExternalLink
                 style={{
                   display: "inline",
-                  verticalAlign: "text-bottom",
+                  verticalAlign: "text-bottom"
                 }}
               />
             </Text>

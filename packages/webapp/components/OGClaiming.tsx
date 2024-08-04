@@ -11,14 +11,14 @@ import {
   useBreakpointValue,
   VStack,
   Wrap,
-  WrapItem,
+  WrapItem
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { useAccount, useContractWrite } from "wagmi"
 import { mainnet } from "wagmi/chains"
-import { useWalletOgGnars } from "../hooks/useWalletOgGnars"
-import { getGnartwork } from "../utils"
-import { usePrepareGnarsV2AuctionHouseClaimGnars } from "../utils/sdk"
+import { useWalletOgGnars } from "hooks/useWalletOgGnars"
+import { getGnartwork } from "utils"
+import { usePrepareGnarsV2AuctionHouseClaimGnars } from "utils/sdk"
 import { ContractActionButton } from "./ContractActionButton"
 import { GnarImage } from "./GnarImage"
 import { WalletButton } from "./WalletButton"
@@ -39,7 +39,7 @@ export const OGClaiming = () => {
   const { config } = usePrepareGnarsV2AuctionHouseClaimGnars({
     args: [selectedOgGnars.map((id) => BigInt(id))],
     enabled: selectedOgGnars.length > 0,
-    chainId: mainnet.id,
+    chainId: mainnet.id
   })
   const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config)
 
@@ -134,7 +134,7 @@ export const OGClaiming = () => {
               background,
               body,
               glasses,
-              head,
+              head
             })
             return (
               <Button

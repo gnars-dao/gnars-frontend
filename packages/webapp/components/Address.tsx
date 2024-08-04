@@ -1,8 +1,8 @@
 import { Avatar, AvatarProps, Box, HStack, Image, Link, PropsOf, Spinner, StackProps, Text } from "@chakra-ui/react"
 import { FC, useMemo } from "react"
 import { useEnsAvatar } from "wagmi"
-import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
-import { shortAddress } from "../utils"
+import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback"
+import { shortAddress } from "utils"
 import { HiExternalLink } from "react-icons/hi"
 
 export type AddressProps = {
@@ -26,7 +26,7 @@ export const Address: FC<AddressProps> = ({ address, withLink = false, truncate 
               marginBottom: "-2px",
               maxWidth: "18px",
               maxHeight: "18px",
-              verticalAlign: "baseline",
+              verticalAlign: "baseline"
             }}
           />
         )}

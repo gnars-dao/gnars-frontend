@@ -9,7 +9,7 @@ import {
   StackProps,
   Text,
   VStack,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Londrina_Solid } from "next/font/google"
@@ -17,12 +17,11 @@ import { FC, useEffect, useState } from "react"
 import { FiExternalLink, FiInfo } from "react-icons/fi"
 import { HiExternalLink } from "react-icons/hi"
 import { RiAuctionLine } from "react-icons/ri"
-import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/gnarsDao"
-import { GnarData } from "../../hooks/useGnarData"
-import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
-import { is10thGnar, shortAddress } from "../../utils"
-import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons"
-import { AuctionStatus } from "./AuctionStatus"
+import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "constants/gnarsDao"
+import { GnarData } from "hooks/useGnarData"
+import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback"
+import { is10thGnar, shortAddress } from "utils"
+import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "components/Icons"
 import { BidForGnar } from "./BidForGnar"
 import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"
 import { BidsTable } from "./BidsTable"
@@ -32,7 +31,7 @@ import { SettleAuctionButton } from "./SettleAuctionButton"
 
 const londrinaSolid = Londrina_Solid({
   weight: "400",
-  subsets: ["latin"],
+  subsets: ["latin"]
 })
 
 interface GnarInfoProps extends StackProps {
@@ -44,7 +43,7 @@ const baseLink = "https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9
 
 export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarInfoProps) => {
   const { endTimestamp, latestBidder, latestBid, settled, bids } = {
-    ...(gnarData.gnar.auction ?? {}),
+    ...(gnarData.gnar.auction ?? {})
   }
 
   const { isOpen: showBids, onToggle: toggleBids } = useDisclosure()
@@ -136,7 +135,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
               <FiInfo
                 style={{
                   verticalAlign: "text-bottom",
-                  display: "inline",
+                  display: "inline"
                 }}
               />{" "}
               {isTreasuryGnar && (
