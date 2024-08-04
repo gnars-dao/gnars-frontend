@@ -2266,6 +2266,17 @@ export type ProposalVoteFragment = { __typename?: 'ProposalVote', voter: any, su
 
 export type TokenFragment = { __typename?: 'Token', tokenId: any, tokenContract: any, name: string, image?: string | null, owner: any, mintedAt: any, dao: { __typename?: 'DAO', description: string } };
 
+export type AuctionHistoryQueryVariables = Exact<{
+  startTime: Scalars['BigInt'];
+  daoId: Scalars['ID'];
+  orderBy?: InputMaybe<Auction_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  first?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type AuctionHistoryQuery = { __typename?: 'Query', dao?: { __typename?: 'DAO', auctions: Array<{ __typename?: 'Auction', id: string, endTime: any, settled: boolean, winningBid?: { __typename?: 'AuctionBid', amount: any } | null }> } | null };
+
 export const AuctionFragmentDoc = gql`
     fragment Auction on Auction {
   dao {
@@ -2372,6 +2383,25 @@ export const TokenFragmentDoc = gql`
   mintedAt
 }
     `;
+export const AuctionHistoryDocument = gql`
+    query auctionHistory($startTime: BigInt!, $daoId: ID!, $orderBy: Auction_orderBy, $orderDirection: OrderDirection, $first: Int) {
+  dao(id: $daoId) {
+    auctions(
+      where: {endTime_gt: $startTime, settled: true}
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+      first: $first
+    ) {
+      id
+      endTime
+      winningBid {
+        amount
+      }
+      settled
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -2380,7 +2410,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-
+    auctionHistory(variables: AuctionHistoryQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AuctionHistoryQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AuctionHistoryQuery>(AuctionHistoryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'auctionHistory', 'query');
+    }
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;
