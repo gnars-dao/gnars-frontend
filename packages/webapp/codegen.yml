@@ -1,0 +1,18 @@
+overwrite: true
+schema: https://api.goldsky.com/api/public/project_clz4ukquribdy010b1fgua9nm/subgraphs/gnars-base/latest/gn
+documents: 'queries/base/**/*.graphql'
+generates:
+  subgraph-generated/base/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+  subgraph-generated/base/graphql.schema.json:
+    plugins:
+      - "introspection"
+config:
+  withHooks: true
+  withHOC: false
+  withComponent: false
+require:
+  - ts-node/register/transpile-only
