@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getBuiltGraphSDK } from "../.graphclient"
+import { getBuiltGraphSDK } from "../subgraph-generated/layer-1"
 
 export const walletHDGnarsQueryKey = "hdGnarsClaimStatus"
 

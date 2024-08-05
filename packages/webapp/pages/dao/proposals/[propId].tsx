@@ -37,7 +37,7 @@ import {
 import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "utils/sdk"
 import { useAccount } from "wagmi"
 import { waitForTransaction } from "wagmi/actions"
-import { execute, ProposalDocument } from "../../../.graphclient"
+import { execute, ProposalDocument } from "../../../subgraph-generated/layer-1"
 import { ProposalCard } from "../../../components/Governance/ProposalCard"
 import ProposalContent from "../../../components/Governance/ProposalContent"
 import Menu from "../../../components/Menu"

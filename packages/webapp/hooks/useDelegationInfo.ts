@@ -1,4 +1,4 @@
-import { DelegateDocument, execute } from ".graphclient"
+import { DelegateDocument, execute } from "subgraph-generated/layer-1"
 import { useQuery } from "@tanstack/react-query"
 
 export const delegationInfoQueryKey = (address?: `0x${string}`) => ["delegateProposals", address]

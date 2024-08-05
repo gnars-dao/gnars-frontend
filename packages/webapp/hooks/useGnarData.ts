@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from "@tanstack/react-query"
-import { getBuiltGraphSDK, GnarQuery } from "../.graphclient"
+import { getBuiltGraphSDK, GnarQuery } from "../subgraph-generated/layer-1"
 import { V2_START_ID } from "../constants/gnarsDao"
 
 export type Bid = {
@@ -124,7 +124,7 @@ export const fetchGnarData = async (desiredGnarId?: number): Promise<GnarData> =
         id: gnarId,
         owner: { id: owner },
         auction: auctionData,
-      },
+    },
     },
     gnarving,
   } = gnarQueryResponse
@@ -163,9 +163,10 @@ export const fetchGnarData = async (desiredGnarId?: number): Promise<GnarData> =
 
 export default function useGnarData(desiredGnarId?: number, initialData?: GnarData): UseQueryResult<GnarData> {
   // https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5#supports-a-single-signature-one-object
-  return useQuery<GnarData, Error>({ queryKey: ["gnar", desiredGnarId], queryFn: () => fetchGnarData(desiredGnarId),
+  return useQuery<GnarData, Error>({
+    queryKey: ["gnar", desiredGnarId],
+    queryFn: () => fetchGnarData(desiredGnarId),
     refetchInterval: 2000,
     initialData,
   })
 }
-

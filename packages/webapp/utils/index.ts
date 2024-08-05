@@ -1,4 +1,4 @@
-import { Seed } from ".graphclient"
+import { Seed } from "subgraph-generated/layer-1"
 import { QueryClient } from "@tanstack/react-query"
 import { random } from "lodash"
 import { formatEther } from "viem"

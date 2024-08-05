@@ -1,5 +1,4 @@
-overwrite: true
-schema: https://api.goldsky.com/api/public/project_clz4ukquribdy010b1fgua9nm/subgraphs/gnars-base/latest/gn
+schema: './subgraph-generated/base/graphql.schema.json'
 documents: 'queries/base/**/*.graphql'
 generates:
   subgraph-generated/base/index.ts:
@@ -9,7 +8,7 @@ generates:
       - typescript-graphql-request
   subgraph-generated/base/graphql.schema.json:
     plugins:
-      - "introspection"
+      - introspection
 config:
   withHooks: true
   withHOC: false
