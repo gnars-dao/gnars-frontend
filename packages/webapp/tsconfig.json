@@ -27,6 +27,7 @@
     "inlineSources": false,
     "preserveWatchOutput": true,
     "allowImportingTsExtensions": true,
+    "noImplicitAny": false,
     "plugins": [
       {
         "name": "next"
