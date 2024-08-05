@@ -74,12 +74,12 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
   const isBurned = !!gnarData.gnar.auction && auctionEnded && !winner
   const isClaimedGnar = !isTreasuryGnar && !gnarData.gnar.auction
   return (
-    <VStack w={"full"} alignItems={"start"} spacing={6} maxW={{ base: "full", lg: "500px", xl: "xl" }} {...props}>
-      <Heading>Under Construction</Heading>
+    <VStack w="full" alignItems="center" justifyContent="center" spacing={6} maxW={{ base: "xl", lg: "500px", xl: "xl" }}  {...props}>
+      <Heading alignItems="center" justifyContent="center" marginTop={{ md: "2em" }}>Under Construction</Heading>
 
       <Heading as="h3" size={"lg"}>
         Use{" "}
-        <Link href="https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17" color={"#1f1d29"}>
+        <Link href="https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17" color={"#fce464"} isExternal>
           Nouns Builder
         </Link>{" "}
         in the mean time
@@ -129,9 +129,9 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
         />{" "}
       </SimpleGrid>
         */}
-      <VStack alignItems={"start"} spacing={10} w={"full"}>
+      <VStack alignItems={"center"} textAlign={"center"} spacing={10} w={"full"}>
         {(isTreasuryGnar || isOg || isClaimedGnar) && (
-          <VStack alignItems={"start"} spacing={1}>
+          <VStack alignItems={"center"} spacing={1}>
             <Text fontSize={"md"} lineHeight={1.1}>
               <FiInfo
                 style={{
