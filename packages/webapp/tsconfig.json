@@ -37,7 +37,7 @@
       "@pages/*": ["pages/*"],
       "@queries/*": ["queries/*"],
       "@subgraph-generated/*": ["subgraph-generated/*"],
-      "@utils": ["utils/*"]
+      "@utils/*": ["utils/*"]
     },
     "plugins": [
       {
