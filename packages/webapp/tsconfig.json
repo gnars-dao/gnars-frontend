@@ -28,6 +28,17 @@
     "preserveWatchOutput": true,
     "allowImportingTsExtensions": true,
     "noImplicitAny": false,
+    "paths": {
+      "@abis/*": ["abis/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@constants/*": ["constants/*"],
+      "@data/*": ["data/*"],
+      "@pages/*": ["pages/*"],
+      "@queries/*": ["queries/*"],
+      "@subgraph-generated/*": ["subgraph-generated/*"],
+      "@utils": ["utils/*"]
+    },
     "plugins": [
       {
         "name": "next"
