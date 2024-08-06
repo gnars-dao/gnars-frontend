@@ -13,8 +13,7 @@ export const enum CHAIN_IDS {
 
 export const ALCHEMY_RPC_URLS: Map<number, string> = new Map([
   [CHAIN_IDS.ETHEREUM, "https://eth-mainnet.g.alchemy.com/v2/"],
-  [CHAIN_IDS.BASE, "https://base-mainnet.g.alchemy.com/v2/"],
-  [CHAIN_IDS.BASE_SEPOLIA, "https://base-sepolia.g.alchemy.com/v2/"]
+  [CHAIN_IDS.BASE, "https://base-mainnet.g.alchemy.com/v2/"]
 ])
 
 export type AddressType = `0x${string}`

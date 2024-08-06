@@ -4,7 +4,7 @@ import { DelegateButton } from "components/Governance/Delegation/DelegateButton"
 import { UserVotes } from "components/Governance/Delegation/UserVotes"
 import { isArray, partition } from "lodash"
 import Link from "next/link"
-import { execute, ProposalsDocument } from "../subgraph-generated/layer-1"
+import { execute, ProposalsDocument } from "@subgraph-generated/layer-1"
 import { ProposalCard } from "../components/Governance/ProposalCard"
 import Menu from "../components/Menu"
 import { useBlock } from "../hooks/useBlock"
@@ -15,9 +15,34 @@ import {
   isFinalized,
   ProposalData,
 } from "../utils/governanceUtils"
+import { contracts } from "@constants/baseAddresses"
+import { getProposals } from "@queries/base/requests/proposalsQuery.ts"
+import SWR_KEYS from "@constants/swrKeys.ts"
+import { CHAIN_IDS } from "@constants/types.ts"
+import { useRouter } from "next/router"
 
 export default function Proposals() {
+  const tokenAddress = contracts.Token.Proxy
   const block = useBlock()
+  const { query: baseQuery, isReady: baseQueryReady, push } = useRouter()
+  const LIMIT = 20
+  const page = baseQuery?.page ? Number(baseQuery.page) : undefined
+
+  const { data: baseProposals, error: baseError } = useQuery(
+    [SWR_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
+    () => getProposals(CHAIN_IDS.BASE, tokenAddress, LIMIT, 1),
+    {
+      enabled: baseQueryReady,
+    }
+  )
+  // TODO: implement in next ticket, this console log is just proof for the AC that the resolver works
+  if (!!baseProposals || baseError) {
+    baseProposals ? console.info('Proposals Dataa: ', baseProposals) : console.error('Proposals Error: ', baseError)
+  } else {
+    console.log("Proposals Data: ", baseProposals)
+    console.log("Proposals Error: ", baseError)
+  }
+
   const { data: proposals } = useQuery(
     ["proposals", block?.number?.toString()],
     () =>

@@ -2,6 +2,7 @@ import { Resolvers } from "subgraph-generated/layer-1"
 import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "@constants/types.ts"
 import { getSdk } from "subgraph-generated/base"
 import { GraphQLClient } from "graphql-request"
+import { PUBLIC_SUBGRAPH_URL } from "@constants/env.ts"
 
 export const resolvers: Resolvers = {
   Query: {
@@ -18,25 +19,29 @@ export const resolvers: Resolvers = {
 
 // Base client singleton
 const globalBaseClient = global as unknown as {
-  subgraphClient: Map<CHAIN_IDS, GraphQLClient  >
+  subgraphClient: Map<CHAIN_IDS, GraphQLClient>
 }
 
 // import this class and instantiate it to connect to the subgraph and query
 export class BaseSDK {
   static connect() {
-    if (!globalBaseClient.subgraphClient) {
+    if (!globalBaseClient?.subgraphClient) {
       globalBaseClient.subgraphClient = new Map()
     }
 
-    const chainId = process.env.NEXT_PUBLIC_NETWORK_TYPE === "mainnet" ? CHAIN_IDS.BASE : CHAIN_IDS.BASE_SEPOLIA
+    const chainId = CHAIN_IDS.BASE;
 
-    const client = globalBaseClient.subgraphClient.has(chainId)
-      ? globalBaseClient.subgraphClient.get(chainId)!
-      : new GraphQLClient(ALCHEMY_RPC_URLS.get(chainId) as string, {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
+    let client: GraphQLClient;
+
+    if (globalBaseClient.subgraphClient.has(chainId)) {
+      client = globalBaseClient.subgraphClient.get(chainId) as GraphQLClient;
+    } else {
+      client = new GraphQLClient(PUBLIC_SUBGRAPH_URL[chainId] as string, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+    }
 
     globalBaseClient.subgraphClient.set(chainId, client)
 
