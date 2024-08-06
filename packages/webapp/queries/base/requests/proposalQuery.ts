@@ -49,7 +49,7 @@ export const getProposal = async (
   proposalId: string
 ): Promise<Proposal | undefined> => {
   try {
-    const data = await SDK.connect(chainId).proposal({
+    const data = await BaseSDK.connect().proposal({
       proposalId,
     })
 
