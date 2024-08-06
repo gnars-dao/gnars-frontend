@@ -8,8 +8,8 @@ import { BaseSDK } from '@queries/resolvers.ts'
 import {
   ProposalFragment,
   ProposalVoteFragment as ProposalVote,
-} from '@data/subgraph-generated/base/index.ts'
-import { CHAIN_IDS } from '@constants/types.ts"
+} from '@subgraph-generated/base/index.ts'
+import { CHAIN_IDS } from '@constants/types';
 
 export interface Proposal
   extends Omit<ProposalFragment, 'executableFrom' | 'expiresAt' | 'calldatas'> {
