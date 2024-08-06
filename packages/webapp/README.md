@@ -1,18 +1,35 @@
 # Gnars webapp
 
 ## Getting started
+Install dependencies
 
-install dependencies
 ```
 pnpm i
 ```
 
-copy `.env.example` to `.env` and fill in `NEXT_PUBLIC_ALCHEMY_API_KEY`
+Copy `.env.example` to `.env` and fill in `NEXT_PUBLIC_ALCHEMY_API_KEY`
 
 
-run dev server
+Run dev server
 ```
 pnpm dev
+```
+
+## Docker
+Running with `docker compose` will spin up a local EVM node that forks from the Base mainnet so contract functionality can be tested.
+
+Add the local network to your wallet using the URL `http://localhost:8545` and chain ID `1337`.
+
+**Never test with your real wallet!**
+
+Build the docker image:
+```
+docker build -t gnarswtf .
+```
+
+Run docker compose:
+```
+docker compose up
 ```
 
 ## Subgraph Queries

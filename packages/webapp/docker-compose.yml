@@ -1,0 +1,12 @@
+services:
+  gnarswtf:
+    image: gnarswtf
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+  ganache:
+    image: trufflesuite/ganache
+    command: --fork https://mainnet.base.org --port 8545
+    ports:
+      - "8545:8545"
+    restart: unless-stopped
