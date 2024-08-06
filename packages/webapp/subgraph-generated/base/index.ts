@@ -2277,6 +2277,30 @@ export type AuctionHistoryQueryVariables = Exact<{
 
 export type AuctionHistoryQuery = { __typename?: 'Query', dao?: { __typename?: 'DAO', auctions: Array<{ __typename?: 'Auction', id: string, endTime: any, settled: boolean, winningBid?: { __typename?: 'AuctionBid', amount: any } | null }> } | null };
 
+export type ProposalQueryVariables = Exact<{
+  proposalId: Scalars['ID'];
+}>;
+
+
+export type ProposalQuery = { __typename?: 'Query', proposal?: { __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', governorAddress: any, tokenAddress: any } } | null };
+
+export type ProposalOgMetadataQueryVariables = Exact<{
+  where: Proposal_Filter;
+  first: Scalars['Int'];
+}>;
+
+
+export type ProposalOgMetadataQuery = { __typename?: 'Query', proposals: Array<{ __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', name: string, contractImage: string, tokenAddress: any, metadataAddress: any, auctionAddress: any, treasuryAddress: any, governorAddress: any } }> };
+
+export type ProposalsQueryVariables = Exact<{
+  where?: InputMaybe<Proposal_Filter>;
+  first: Scalars['Int'];
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type ProposalsQuery = { __typename?: 'Query', proposals: Array<{ __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', governorAddress: any, tokenAddress: any } }> };
+
 export const AuctionFragmentDoc = gql`
     fragment Auction on Auction {
   dao {
@@ -2402,6 +2426,54 @@ export const AuctionHistoryDocument = gql`
   }
 }
     `;
+export const ProposalDocument = gql`
+    query proposal($proposalId: ID!) {
+  proposal(id: $proposalId) {
+    ...Proposal
+    votes {
+      ...ProposalVote
+    }
+  }
+}
+    ${ProposalFragmentDoc}
+${ProposalVoteFragmentDoc}`;
+export const ProposalOgMetadataDocument = gql`
+    query proposalOGMetadata($where: Proposal_filter!, $first: Int!) {
+  proposals(where: $where, first: $first) {
+    ...Proposal
+    votes {
+      ...ProposalVote
+    }
+    dao {
+      name
+      contractImage
+      tokenAddress
+      metadataAddress
+      auctionAddress
+      treasuryAddress
+      governorAddress
+    }
+  }
+}
+    ${ProposalFragmentDoc}
+${ProposalVoteFragmentDoc}`;
+export const ProposalsDocument = gql`
+    query proposals($where: Proposal_filter, $first: Int!, $skip: Int) {
+  proposals(
+    where: $where
+    first: $first
+    skip: $skip
+    orderBy: timeCreated
+    orderDirection: desc
+  ) {
+    ...Proposal
+    votes {
+      ...ProposalVote
+    }
+  }
+}
+    ${ProposalFragmentDoc}
+${ProposalVoteFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -2412,6 +2484,15 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     auctionHistory(variables: AuctionHistoryQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AuctionHistoryQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AuctionHistoryQuery>(AuctionHistoryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'auctionHistory', 'query');
+    },
+    proposal(variables: ProposalQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProposalQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProposalQuery>(ProposalDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'proposal', 'query');
+    },
+    proposalOGMetadata(variables: ProposalOgMetadataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProposalOgMetadataQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProposalOgMetadataQuery>(ProposalOgMetadataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'proposalOGMetadata', 'query');
+    },
+    proposals(variables: ProposalsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProposalsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ProposalsQuery>(ProposalsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'proposals', 'query');
     }
   };
 }

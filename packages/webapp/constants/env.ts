@@ -1,4 +1,4 @@
-import { CHAIN_IDS } from "constants/types"
+import { CHAIN_IDS } from "./types"
 
 export const alchemyApiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
 export const etherscanApiKey = process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY

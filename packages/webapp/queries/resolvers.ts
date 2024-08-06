@@ -1,5 +1,5 @@
 import { Resolvers } from "subgraph-generated/layer-1"
-import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "constants/types"
+import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "@constants/types.ts"
 import { getSdk } from "subgraph-generated/base"
 import { GraphQLClient } from "graphql-request"
 
