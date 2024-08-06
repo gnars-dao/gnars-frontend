@@ -18,7 +18,7 @@ pnpm dev
 ## Docker
 Running with `docker compose` will spin up a local EVM node that forks from the Base mainnet so contract functionality can be tested.
 
-Add the local network to your wallet using the URL `http://localhost:8545` and chain ID `1337`.
+Add the local network to your wallet using the URL `http://localhost:8545` and chain ID `31337`.
 
 **Never test with your real wallet!**
 
