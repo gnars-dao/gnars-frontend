@@ -9,9 +9,8 @@ export const getMetadataAttributes = async (
   finalTokenId: bigint,
   chainId: CHAIN_IDS
 ) => {
-  let lengthRequests = []
+  let lengthRequests: any[] = []
   for (let currentTokenId = 0n; currentTokenId <= finalTokenId; currentTokenId++) {
-    // @ts-ignore
     lengthRequests.push({
       chainId,
       address: metadata,
@@ -26,14 +25,13 @@ export const getMetadataAttributes = async (
     allowFailure: false,
   })) as number[]
 
-  let attributeRequests = []
+  let attributeRequests: any[] = []
   for (let currentTokenId = 0; currentTokenId <= finalTokenId; currentTokenId++) {
     for (
       let attributeId = 0;
       attributeId <= lengthResult[currentTokenId];
       attributeId++
     ) {
-      // @ts-ignore
       attributeRequests.push({
         chainId,
         address: metadata,

@@ -17,7 +17,7 @@ import {
 } from "../utils/governanceUtils"
 import { contracts } from "@constants/baseAddresses"
 import { getProposals } from "@queries/base/requests/proposalsQuery.ts"
-import SWR_KEYS from "@constants/swrKeys.ts"
+import USE_QUERY_KEYS from "@constants/swrKeys.ts"
 import { CHAIN_IDS } from "@constants/types.ts"
 import { useRouter } from "next/router"
 
@@ -29,7 +29,7 @@ export default function Proposals() {
   const page = baseQuery?.page ? Number(baseQuery.page) : undefined
 
   const { data: baseProposals, error: baseError } = useQuery(
-    [SWR_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
+    [USE_QUERY_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
     () => getProposals(CHAIN_IDS.BASE, tokenAddress, LIMIT, 1),
     {
       enabled: baseQueryReady,

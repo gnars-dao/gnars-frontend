@@ -28,15 +28,13 @@ pnpm dev
 ```
 ## Subgraph Queries
 
-This project
-uses [The Goldsky Client](https://api.goldsky.com/api/public/project_clz4ukquribdy010b1fgua9nm/subgraphs/gnars-base/latest/gn)
-to interact with the Gnars subgraph in a type-safe way
+This project uses [The Goldsky Client](https://api.goldsky.com/api/public/project_clz4ukquribdy010b1fgua9nm/subgraphs/gnars-base/latest/gn) to interact with the Gnars subgraph in a type-safe way.
 
 4. Add all new BASE queries/fragments/and requests to `packages/webapp/queries/base/**/*`.
 
 5. I modeled the new resolver for Gnars BASE after the Builder team's approach. You can look in their codebase for unlimited examples.  
-- After you have created a new Graphql , and you have tested it out on the Goldsky UI explorer, add it to the the queries directory and run `pnpm codegen` to update the new schema changes locally`.
-- Assuming `graphql-codegen` ran successfully, you should now be able to access it programmatically by `import`ing the `BaseSDK` client from `packages/webapp/queries/resolvers.ts`. It will create a singleton if connection to GoldSky if it doesn't already exist,  
+- After you have created a new query, and you have tested it out on the Goldsky UI explorer, add it to the queries directory and run `pnpm codegen` to update the new schema changes locally.
+- Assuming `graphql-codegen` ran successfully, you should now be able to access it programmatically by `import`ing the `BaseSDK` client from `packages/webapp/queries/resolvers.ts`. It will create a singleton connection to GoldSky if one doesn't already exist,  
     but regardless you still need to call `connect()` on the class every time you want to use it. As an example step 1) `import { BaseSDK } from "queries/resolvers"` in a new request file like: `packages/webapp/queries/base/requests/auctionHistory.ts`  
     Step 3) If your new query was for `auctionHistory`, for example, you would now be able to query it in the request file like this:  
 

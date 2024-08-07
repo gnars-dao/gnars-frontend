@@ -1,5 +1,5 @@
 schema: './subgraph-generated/base/graphql.schema.json'
-documents: 'queries/base/**/*.graphql'
+documents: './queries/base/**/*.graphql'
 generates:
   subgraph-generated/base/index.ts:
     plugins:

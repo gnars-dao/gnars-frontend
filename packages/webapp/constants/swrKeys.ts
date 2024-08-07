@@ -1,4 +1,4 @@
-const SWR_KEYS = {
+const USE_QUERY_KEYS = {
   AUCTION_BIDS: 'auction-bids',
   ARTWORK_PROPERTY_ITEMS_COUNT: 'artwork-property-items-count',
   AUCTION_SETTLED: 'auction-settled',
@@ -36,4 +36,4 @@ const SWR_KEYS = {
   },
 }
 
-export default SWR_KEYS
+export default USE_QUERY_KEYS
