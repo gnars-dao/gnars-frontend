@@ -1,6 +1,7 @@
 # Gnars webapp
 
 ## Getting started
+Install dependencies
 
 1. Install dependencies
 ```
@@ -25,6 +26,18 @@ NEXT_PUBLIC_NETWORK_TYPE=mainnet
 3. Run the dev server (automatically runs the predev as well to generate the latest schema so you are always up to date with any changes)
 ```
 pnpm dev
+```
+
+## Docker
+Running with `docker compose` will spin up a local EVM node that forks from the Base mainnet so contract functionality can be tested.
+
+Add the local network to your wallet using the URL `http://localhost:8545` and chain ID `31337`.
+
+**Never test with your real wallet!**
+
+Run docker compose:
+```
+docker compose up
 ```
 ## Subgraph Queries
 
@@ -51,8 +64,9 @@ const data = await BaseSDK.connect().auctionHistory({
 
 this project uses [Wagmi CLI](https://wagmi.sh/cli/getting-started) to interact with contracts
 
-to add new contracts, set them up on `wagmi.config.ts` and run `yarn wagmi generate` to update the sdk
+to add new contracts, set them up on `wagmi.config.ts` and run `pnpm wagmi generate` to update the sdk
 You might need to add a ETHERSCAN_API_KEY for it to work, like so:
-```
+
+```bash
 ETHERSCAN_API_KEY=<key-here> pnpm wagmi generate
 ```
