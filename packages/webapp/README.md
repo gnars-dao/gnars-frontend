@@ -51,7 +51,7 @@ This project uses [The Goldsky Client](https://api.goldsky.com/api/public/projec
     but regardless you still need to call `connect()` on the class every time you want to use it. As an example step 1) `import { BaseSDK } from "queries/resolvers"` in a new request file like: `packages/webapp/queries/base/requests/auctionHistory.ts`  
     Step 3) If your new query was for `auctionHistory`, for example, you would now be able to query it in the request file like this:  
 
-```
+```ts
 const data = await BaseSDK.connect().auctionHistory({
       startTime,
       daoId: collectionAddress,
@@ -62,9 +62,9 @@ const data = await BaseSDK.connect().auctionHistory({
 ```    
 ## Wagmi cli
 
-this project uses [Wagmi CLI](https://wagmi.sh/cli/getting-started) to interact with contracts
+This project uses [Wagmi CLI](https://wagmi.sh/cli/getting-started) to interact with contracts
 
-to add new contracts, set them up on `wagmi.config.ts` and run `pnpm wagmi generate` to update the sdk
+To add new contracts, set them up on `wagmi.config.ts` and run `pnpm wagmi generate` to update the sdk
 You might need to add a ETHERSCAN_API_KEY for it to work, like so:
 
 ```bash
