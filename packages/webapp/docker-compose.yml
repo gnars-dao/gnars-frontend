@@ -1,12 +1,14 @@
 services:
-  gnarswtf:
-    image: gnarswtf
+  webapp:
+    build:
+      context: .
+    volumes:
+      - .:/app
     ports:
-      - "3000:3000"
-    restart: unless-stopped
+      - 3000:3000
+    command: pnpm dev
   hardhat:
     image: ethereumoptimism/hardhat-node
     command: npx hardhat node --fork https://mainnet.base.org
     ports:
-      - "8545:8545"
-    restart: unless-stopped
+      - 8545:8545

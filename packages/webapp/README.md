@@ -22,11 +22,6 @@ Add the local network to your wallet using the URL `http://localhost:8545` and c
 
 **Never test with your real wallet!**
 
-Build the docker image:
-```
-docker build -t gnarswtf .
-```
-
 Run docker compose:
 ```
 docker compose up
