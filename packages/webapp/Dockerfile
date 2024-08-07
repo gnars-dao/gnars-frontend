@@ -5,8 +5,8 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 FROM base AS build
-COPY . /app
 WORKDIR /app
+COPY . /app
 
 RUN pnpm i
 
