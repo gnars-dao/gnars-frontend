@@ -1,43 +1,40 @@
 # Gnars webapp
 
 ## Setup
-### 1. Update environment variables
+### 1. Install dependencies
+Install dependencies by running:
+```
+pnpm i
+```
 
+### 2. Update environment variables
 Run the following and fill in **ALL** missing values with your personal keys so we don't rate limit each other:
-
 ```
 cp .env.example .env
-```  
+```
 
-### 2. Run the server in dev mode
+### 3. Run local EVM node
 Assuming you have [Docker Compose](https://docs.docker.com/compose/install/) installed, run:
 ```
 docker compose up
 ```
 
+This will spin up a local EVM node that forks from the Base mainnet so contract functionality can be tested.
+
+### 4. Run dev server
+Run the dev server:
+```
+pnpm dev
+```
+
 This automatically runs the "predev" step to generate the latest schema so you are always up to date with any changes.
 
-This also will spin up a local EVM node that forks from the Base mainnet so contract functionality can be tested.
-
-### 3. Connect to the local EVM network
+### 5. Connect to the local EVM network
 Add the local network to your wallet using the URL `http://localhost:8545` and chain ID `31337`.
 
 If you're using Metamask, follow [these instructions](https://support.metamask.io/networks-and-sidechains/managing-networks/how-to-add-a-custom-network-rpc/). For other wallets, do a quick Google search.
 
 **⚠️⚠️ Never test with your real wallet! ⚠️⚠️**
-
-### 4. Install new packages
-If you want to install a new package, first should stop the containers using `Ctrl+C` or by running:
-```
-docker compose down
-```
-
-Install the new packages:
-```
-pnpm i {package1} {package2}
-```
-
-Restart the containers (see [Step 2](#2-run-the-server-in-dev-mode)).
 
 ## Subgraph Queries
 

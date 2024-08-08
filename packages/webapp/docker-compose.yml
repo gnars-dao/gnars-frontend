@@ -1,13 +1,4 @@
 services:
-  webapp:
-    build:
-      context: .
-    volumes:
-      - .:/app
-      - /app/node_modules # prevents "node_modules" from getting overwritten
-    ports:
-      - 3000:3000
-    command: pnpm dev
   hardhat:
     image: ethereumoptimism/hardhat-node
     command: npx hardhat node --fork https://mainnet.base.org
