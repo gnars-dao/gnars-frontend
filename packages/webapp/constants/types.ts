@@ -8,7 +8,8 @@ export interface Duration {
 export const enum CHAIN_IDS {
   ETHEREUM = 1,
   BASE = 8453,
-  BASE_SEPOLIA = 84532
+  BASE_SEPOLIA = 84532,
+  HARDHAT = 31337
 }
 
 export const ALCHEMY_RPC_URLS: Map<number, string> = new Map([

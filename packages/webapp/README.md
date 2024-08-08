@@ -28,6 +28,9 @@ pnpm dev
 ```
 
 This automatically runs the "predev" step to generate the latest schema so you are always up to date with any changes.
+## Docker
+
+Running with `docker compose` will spin up a local EVM node that forks from the Base mainnet so contract functionality can be tested.
 
 ### 5. Connect to the local EVM network
 Add the local network to your wallet using the URL `http://localhost:8545` and chain ID `31337`.
@@ -35,6 +38,12 @@ Add the local network to your wallet using the URL `http://localhost:8545` and c
 If you're using Metamask, follow [these instructions](https://support.metamask.io/networks-and-sidechains/managing-networks/how-to-add-a-custom-network-rpc/). For other wallets, do a quick Google search.
 
 **⚠️⚠️ Never test with your real wallet! ⚠️⚠️**
+
+Run docker compose:
+
+```bash
+docker compose up
+```
 
 ## Subgraph Queries
 
@@ -56,13 +65,17 @@ const data = await BaseSDK.connect().auctionHistory({
       orderBy: Auction_OrderBy.EndTime,
       first: 1000
     })
+```
+
+## Wagmi CLI
+
+This project uses [Wagmi CLI](https://wagmi.sh/cli/getting-started) to interact with contracts.
 ```  
 
 ## Wagmi cli
 
-This project uses [Wagmi CLI](https://wagmi.sh/cli/getting-started) to interact with contracts
+To add new contracts, set them up on `wagmi.config.ts` and run `pnpm wagmi generate` to update the sdk.
 
-To add new contracts, set them up on `wagmi.config.ts` and run `pnpm wagmi generate` to update the sdk
 You might need to add a ETHERSCAN_API_KEY for it to work, like so:
 
 ```bash
