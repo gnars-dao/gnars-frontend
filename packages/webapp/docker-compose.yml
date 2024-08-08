@@ -4,6 +4,7 @@ services:
       context: .
     volumes:
       - .:/app
+      - /app/node_modules # prevents "node_modules" from getting overwritten
     ports:
       - 3000:3000
     command: pnpm dev

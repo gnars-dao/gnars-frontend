@@ -4,9 +4,9 @@ import { useProposalCreationState } from "components/Governance/ProposalCreation
 import dynamic from "next/dynamic"
 import { zeroAddress } from "viem"
 import { useAccount } from "wagmi"
-import { ProposalCard } from "../../../components/Governance/ProposalCard"
-import ProposalContent from "../../../components/Governance/ProposalContent"
-import Menu from "../../../components/Menu"
+import { ProposalCard } from "@components/Governance/ProposalCard.tsx"
+import ProposalContent from "@components/Governance/ProposalContent"
+import Menu from "@components/Menu"
 
 function NewProposal() {
   const { address } = useAccount()
