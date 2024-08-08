@@ -19,7 +19,7 @@
     ]
   },
   "include": [
-    "typings",
+    "constants/types",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",

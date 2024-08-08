@@ -1,11 +1,11 @@
-import { Seed } from ".graphclient"
+import { Seed } from "@subgraph-generated/layer-1"
 import { QueryClient } from "@tanstack/react-query"
 import { random } from "lodash"
 import { formatEther } from "viem"
 import { V2_START_ID } from "../constants/gnarsDao"
-import gnarDataV2 from "../data/image-data-V2.json"
-import ogGnarData from "../data/image-data.json"
-import { GnarData } from "../hooks/useGnarData"
+import gnarDataV2 from "@data/image-data-V2.json"
+import ogGnarData from "@data/image-data.json"
+import type { GnarData }  from "../hooks/useGnarData.ts"
 
 export const queryClient = new QueryClient()
 

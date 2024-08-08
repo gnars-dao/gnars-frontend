@@ -1,0 +1,6 @@
+fragment DAO on DAO {
+  name
+  tokenAddress
+  auctionAddress
+  governorAddress
+}

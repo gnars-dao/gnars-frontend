@@ -1,0 +1,17 @@
+schema: './subgraph-generated/base/graphql.schema.json'
+documents: './queries/base/**/*.graphql'
+generates:
+  subgraph-generated/base/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+  subgraph-generated/base/graphql.schema.json:
+    plugins:
+      - introspection
+config:
+  withHooks: true
+  withHOC: false
+  withComponent: false
+require:
+  - ts-node/register/transpile-only
