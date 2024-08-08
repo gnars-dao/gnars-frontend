@@ -34,6 +34,7 @@
       "@components/*": ["components/*"],
       "@constants/*": ["constants/*"],
       "@data/*": ["data/*"],
+      "@hooks/*": ["hooks/*"],
       "@pages/*": ["pages/*"],
       "@queries/*": ["queries/*"],
       "@subgraph-generated/*": ["subgraph-generated/*"],
