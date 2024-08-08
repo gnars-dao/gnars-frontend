@@ -7,8 +7,9 @@
 pnpm i
 ```
 
-2. Copy `.env.example` to a new personal `.env` file and fill in ALL the missing values with your personal keys so we don't rate limit each other:
-```
+2. Copy `.env.example` to a new personal `.env` file and fill in ALL the missing values with your personal keys so we don't rate limit each other:  
+
+```bash
 # RPC API KEYS
 NEXT_PUBLIC_ALCHEMY_API_KEY=YsaXbtaz1XXXXXXXXW2mADNtnHGLqwT
 
@@ -38,7 +39,7 @@ This project uses [The Goldsky Client](https://api.goldsky.com/api/public/projec
     but regardless you still need to call `connect()` on the class every time you want to use it. As an example step 1) `import { BaseSDK } from "queries/resolvers"` in a new request file like: `packages/webapp/queries/base/requests/auctionHistory.ts`  
     Step 3) If your new query was for `auctionHistory`, for example, you would now be able to query it in the request file like this:  
 
-```
+```js
 const data = await BaseSDK.connect().auctionHistory({
       startTime,
       daoId: collectionAddress,
@@ -46,7 +47,8 @@ const data = await BaseSDK.connect().auctionHistory({
       orderBy: Auction_OrderBy.EndTime,
       first: 1000
     })
-```    
+```  
+
 ## Wagmi cli
 
 this project uses [Wagmi CLI](https://wagmi.sh/cli/getting-started) to interact with contracts
