@@ -1,44 +1,41 @@
 # Gnars webapp
 
-## Getting started
-Install dependencies
-
-1. Install dependencies
+## Setup
+### 1. Install dependencies
+Install dependencies by running:
 ```
 pnpm i
 ```
 
-2. Copy `.env.example` to a new personal `.env` file and fill in ALL the missing values with your personal keys so we don't rate limit each other:
+### 2. Update environment variables
+Run the following and fill in **ALL** missing values with your personal keys so we don't rate limit each other:
 ```
-# RPC API KEYS
-NEXT_PUBLIC_ALCHEMY_API_KEY=YsaXbtaz1XXXXXXXXW2mADNtnHGLqwT
-
-# Block Explorer API KEYS
-NEXT_PUBLIC_ETHERSCAN_API_KEY=544JSDXXXXXXXXXXXXXXXXXXXXC7EUYMS
-NEXT_PUBLIC_BASESCAN_API_KEY=NMJ4FUEV3XXXXXXXXXXXXXXXXVBWWY28Z6
-
-NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=36fa892eXXXXX24c6dbf3bd572c9f
-
-# values are 'mainnet' or 'testnet'
-NEXT_PUBLIC_NETWORK_TYPE=mainnet
+cp .env.example .env
 ```
 
-3. Run the dev server (automatically runs the predev as well to generate the latest schema so you are always up to date with any changes)
+### 3. Run local EVM node
+Assuming you have [Docker Compose](https://docs.docker.com/compose/install/) installed, run:
+```
+docker compose up
+```
+
+This will spin up a local EVM node that forks from the Base mainnet so contract functionality can be tested.
+
+### 4. Run dev server
+Run the dev server:
 ```
 pnpm dev
 ```
 
-## Docker
-Running with `docker compose` will spin up a local EVM node that forks from the Base mainnet so contract functionality can be tested.
+This automatically runs the "predev" step to generate the latest schema so you are always up to date with any changes.
 
+### 5. Connect to the local EVM network
 Add the local network to your wallet using the URL `http://localhost:8545` and chain ID `31337`.
 
-**Never test with your real wallet!**
+If you're using Metamask, follow [these instructions](https://support.metamask.io/networks-and-sidechains/managing-networks/how-to-add-a-custom-network-rpc/). For other wallets, do a quick Google search.
 
-Run docker compose:
-```
-docker compose up
-```
+**⚠️⚠️ Never test with your real wallet! ⚠️⚠️**
+
 ## Subgraph Queries
 
 This project uses [The Goldsky Client](https://api.goldsky.com/api/public/project_clz4ukquribdy010b1fgua9nm/subgraphs/gnars-base/latest/gn) to interact with the Gnars subgraph in a type-safe way.
@@ -51,7 +48,7 @@ This project uses [The Goldsky Client](https://api.goldsky.com/api/public/projec
     but regardless you still need to call `connect()` on the class every time you want to use it. As an example step 1) `import { BaseSDK } from "queries/resolvers"` in a new request file like: `packages/webapp/queries/base/requests/auctionHistory.ts`  
     Step 3) If your new query was for `auctionHistory`, for example, you would now be able to query it in the request file like this:  
 
-```ts
+```js
 const data = await BaseSDK.connect().auctionHistory({
       startTime,
       daoId: collectionAddress,
@@ -59,7 +56,8 @@ const data = await BaseSDK.connect().auctionHistory({
       orderBy: Auction_OrderBy.EndTime,
       first: 1000
     })
-```    
+```  
+
 ## Wagmi cli
 
 This project uses [Wagmi CLI](https://wagmi.sh/cli/getting-started) to interact with contracts
