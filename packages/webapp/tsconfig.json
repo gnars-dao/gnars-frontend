@@ -9,28 +9,11 @@
       "es2019"
     ],
     "jsx": "preserve",
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "lib": [
-      "dom",
-      "es2017",
-      "es2019"
-    ],
-    "jsx": "preserve",
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "incremental": true,
-    "allowSyntheticDefaultImports": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "incremental": true,
     "allowSyntheticDefaultImports": true,
     "removeComments": false,
@@ -46,32 +29,33 @@
     "allowImportingTsExtensions": true,
     "noImplicitAny": false,
     "paths": {
-      "@abis/*": ["abis/*"],
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@constants/*": ["constants/*"],
-      "@data/*": ["data/*"],
-      "@hooks/*": ["hooks/*"],
-      "@pages/*": ["pages/*"],
-      "@queries/*": ["queries/*"],
-      "@subgraph-generated/*": ["subgraph-generated/*"],
-      "@utils/*": ["utils/*"]
-    },
-    "composite": false,
-    "inlineSources": false,
-    "preserveWatchOutput": true,
-    "allowImportingTsExtensions": true,
-    "noImplicitAny": false,
-    "paths": {
-      "@abis/*": ["abis/*"],
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@constants/*": ["constants/*"],
-      "@data/*": ["data/*"],
-      "@pages/*": ["pages/*"],
-      "@queries/*": ["queries/*"],
-      "@subgraph-generated/*": ["subgraph-generated/*"],
-      "@utils/*": ["utils/*"]
+      "@abis/*": [
+        "abis/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@constants/*": [
+        "constants/*"
+      ],
+      "@data/*": [
+        "data/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@queries/*": [
+        "queries/*"
+      ],
+      "@subgraph-generated/*": [
+        "subgraph-generated/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
     },
     "plugins": [
       {
@@ -79,20 +63,6 @@
       }
     ]
   },
-  "types": [
-    "jest"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "packages/*/node_modules",
-    "packages/*/*/node_modules"
-  ]
   "types": [
     "jest"
   ],
