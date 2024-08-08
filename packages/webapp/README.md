@@ -1,32 +1,41 @@
 # Gnars webapp
 
-## Getting started
-
-1. Install dependencies
+## Setup
+### 1. Install dependencies
+Install dependencies by running:
 ```
 pnpm i
 ```
 
-2. Copy `.env.example` to a new personal `.env` file and fill in ALL the missing values with your personal keys so we don't rate limit each other:  
-
-```bash
-# RPC API KEYS
-NEXT_PUBLIC_ALCHEMY_API_KEY=YsaXbtaz1XXXXXXXXW2mADNtnHGLqwT
-
-# Block Explorer API KEYS
-NEXT_PUBLIC_ETHERSCAN_API_KEY=544JSDXXXXXXXXXXXXXXXXXXXXC7EUYMS
-NEXT_PUBLIC_BASESCAN_API_KEY=NMJ4FUEV3XXXXXXXXXXXXXXXXVBWWY28Z6
-
-NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=36fa892eXXXXX24c6dbf3bd572c9f
-
-# values are 'mainnet' or 'testnet'
-NEXT_PUBLIC_NETWORK_TYPE=mainnet
+### 2. Update environment variables
+Run the following and fill in **ALL** missing values with your personal keys so we don't rate limit each other:
+```
+cp .env.example .env
 ```
 
-3. Run the dev server (automatically runs the predev as well to generate the latest schema so you are always up to date with any changes)
+### 3. Run local EVM node
+Assuming you have [Docker Compose](https://docs.docker.com/compose/install/) installed, run:
+```
+docker compose up
+```
+
+This will spin up a local EVM node that forks from the Base mainnet so contract functionality can be tested.
+
+### 4. Run dev server
+Run the dev server:
 ```
 pnpm dev
 ```
+
+This automatically runs the "predev" step to generate the latest schema so you are always up to date with any changes.
+
+### 5. Connect to the local EVM network
+Add the local network to your wallet using the URL `http://localhost:8545` and chain ID `31337`.
+
+If you're using Metamask, follow [these instructions](https://support.metamask.io/networks-and-sidechains/managing-networks/how-to-add-a-custom-network-rpc/). For other wallets, do a quick Google search.
+
+**⚠️⚠️ Never test with your real wallet! ⚠️⚠️**
+
 ## Subgraph Queries
 
 This project uses [The Goldsky Client](https://api.goldsky.com/api/public/project_clz4ukquribdy010b1fgua9nm/subgraphs/gnars-base/latest/gn) to interact with the Gnars subgraph in a type-safe way.
