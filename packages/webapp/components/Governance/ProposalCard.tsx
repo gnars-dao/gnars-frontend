@@ -1,14 +1,18 @@
 import { Badge, Box, HStack, StackProps, Text, TextProps, Tooltip, VStack } from "@chakra-ui/react"
 import { FC } from "react"
-import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "../../utils/governanceUtils"
+import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils.ts"
 import { ProposalCountdown } from "./ProposalCountdown"
 import { ProposalStatusBadge } from "./ProposalStatusBadge"
+import {
+  ProposalState
+} from "@data/contract/requests/getProposalState.ts"
 
 export interface ProposalCardProps extends StackProps {
   id: string
   title: string
   titleProps?: Partial<TextProps>
-  status: EffectiveProposalStatus
+  status?: EffectiveProposalStatus
+  baseState?: string
   quorumVotes?: QuorumVotes
   votes?: Votes
   executionETA?: number
@@ -21,6 +25,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   title,
   titleProps,
   status,
+  baseState,
   quorumVotes,
   votes,
   startBlock,
@@ -29,7 +34,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   children,
   ...props
 }) => {
-  const proposalFinalized = isFinalized(status)
+  const proposalFinalized = isFinalized(status ?? baseState)
   return (
     <VStack
       w={"full"}

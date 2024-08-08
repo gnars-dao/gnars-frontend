@@ -5,7 +5,7 @@ const nextConfig = {
   webpack: (config) => {
     config.module = {
       ...config.module,
-      exprContextCritical: false,
+      exprContextCritical: false
     }
 
     return config
@@ -14,9 +14,14 @@ const nextConfig = {
     {
       source: "/dao/proposals",
       destination: "/dao",
-      permanent: false,
+      permanent: false
     },
-  ],
+    // {
+    //   source: "/dao/proposals/:id", // redirect any 3rd party legacy proposal links to layer 1
+    //   destination: "/dao/proposals/eth/:id",
+    //   permanent: true
+    // }
+  ]
 }
 
 export default nextConfig

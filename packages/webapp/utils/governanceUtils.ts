@@ -1,5 +1,6 @@
 import { zip } from "lodash"
 import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../subgraph-generated/layer-1"
+import { ProposalState } from "@data/contract/requests/getProposalState.ts"
 
 export type ProposalData = ProposalsQuery["proposals"][0]
 
@@ -32,6 +33,31 @@ export const getTransactions = (proposal: DetailedProposalData): NounsTransactio
       calldata,
     })
   )
+}
+
+export function parseState(state: ProposalState) {
+  switch (state) {
+    case ProposalState.Pending:
+      return 'Pending'
+    case ProposalState.Active:
+      return 'Active'
+    case ProposalState.Canceled:
+      return 'Cancelled'
+    case ProposalState.Defeated:
+      return 'Defeated'
+    case ProposalState.Succeeded:
+      return 'Succeeded'
+    case ProposalState.Queued:
+      return 'Queued'
+    case ProposalState.Expired:
+      return 'Expired'
+    case ProposalState.Executed:
+      return 'Executed'
+    case ProposalState.Vetoed:
+      return 'Vetoed'
+    default:
+      return 'Loading'
+  }
 }
 
 export const getProposalEffectiveStatus = (
@@ -68,8 +94,8 @@ export const getProposalEffectiveStatus = (
   }
 }
 
-export const isFinalized = (effectiveStatus: EffectiveProposalStatus) =>
-  ["DEFEATED", "EXECUTED", "EXPIRED", "CANCELLED", "VETOED"].includes(effectiveStatus)
+export const isFinalized = (effectiveStatus: EffectiveProposalStatus | string) =>
+  ["DEFEATED", "EXECUTED", "EXPIRED", "CANCELLED", "VETOED"].includes(effectiveStatus?.toUpperCase())
 
 export type QuorumVotes = ReturnType<typeof getQuorumVotes>
 
