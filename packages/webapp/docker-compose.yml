@@ -1,0 +1,6 @@
+services:
+  hardhat:
+    image: ethereumoptimism/hardhat-node
+    command: npx hardhat node --fork https://mainnet.base.org
+    ports:
+      - 8545:8545

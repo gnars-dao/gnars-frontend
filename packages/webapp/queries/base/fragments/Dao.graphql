@@ -3,4 +3,5 @@ fragment DAO on DAO {
   tokenAddress
   auctionAddress
   governorAddress
+  totalSupply
 }
