@@ -12,15 +12,20 @@ import { isArray } from "lodash"
 import {
   ProposalState
 } from "@data/contract/requests/getProposalState.ts"
-import { ProposalsResponse } from "@queries/base/requests/proposalsQuery.ts"
+import { Proposal } from "@queries/base/requests/proposalQuery.ts"
 
-const BaseProposals: FC<ProposalsResponse> = ({ proposals }) => {
+interface BaseProposalsProps {
+  proposals: Proposal[] | undefined
+}
+
+const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
   if (!isArray(proposals)) return null
 
-  const activeProposals = proposals?.filter(({ state }) => state === ProposalState.Active) || []
-  const inactiveProposals = proposals?.filter(({ state }) => state !== ProposalState.Active) || []
+  const isFinalized = (state: ProposalState) => state !== ProposalState.Active && state !== ProposalState.Queued
+  const activeProposals = proposals?.filter(({ state }) => !isFinalized(state)) || []
+  const inactiveProposals = proposals?.filter(({ state }) => isFinalized(state)) || []
   return (
-    <VStack w={"full"} spacing={4} alignItems={"center"} py={{ base: 4, lg: 20 }} px={{ base: 4, lg: 20 }}>
+    <VStack w={"full"} spacing={4} alignItems={"center"} py={{ base: 4, lg: 10 }} px={{ base: 4, lg: 20 }}>
       <Stack
         direction={{ base: "column", sm: "row" }}
         w="full"
@@ -39,27 +44,33 @@ const BaseProposals: FC<ProposalsResponse> = ({ proposals }) => {
         </Stack>
       </Stack>
       <VStack w={"full"} spacing={4} alignItems={"center"} py={{ base: 4, lg: 20 }} px={{ base: 4, lg: 20 }}>
+        <HStack w="full" pb={10}>
+          <Divider />
+          <Heading as={"h3"} fontSize="4xl">
+            ACTIVE
+          </Heading>
+          <Divider />
+        </HStack>
         {activeProposals.map(prop => (
           <Link
             key={"active-base-prop-" + prop.proposalNumber}
-            href={`/dao/proposals/${prop.proposalNumber}`}
+            href={`https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17/vote/${prop.proposalNumber}`}
             style={{ width: "100%" }}
           >
             <ProposalCard
               id={String(prop.proposalNumber)}
               title={prop.title as string}
               titleProps={{ noOfLines: 2 }}
-              baseState={parseState(prop.state)}
-              // quorumVotes={getQuorumVotes(prop)}
+              status={parseState(prop.state).toUpperCase()}
+              // quorumVotes={getQuorumVotes(prop)} TODO: Do on the /:id page
               votes={{
                 abstainVotes: prop.abstainVotes,
                 forVotes: prop.forVotes,
                 againstVotes: prop.againstVotes,
-                totalSupply: prop.totalSupply
+                totalSupply: prop.dao?.totalSupply
               }}
-              startBlock={prop.startBlock}
-              endBlock={prop.endBlock}
-              executionETA={prop.executionETA}
+              // startBlock={prop.voteStart} TODO: Do on the /:id page
+              // endBlock={prop.voteEnd} TODO: Do on the /:id page
               _hover={{
                 borderColor: "whiteAlpha.500",
                 cursor: "pointer"
@@ -82,20 +93,19 @@ const BaseProposals: FC<ProposalsResponse> = ({ proposals }) => {
                 style={{ width: "100%" }}
               >
                 <ProposalCard
-                  id={prop.proposalNumber}
-                  title={prop.title}
+                  id={prop.proposalNumber.toString()}
+                  title={prop.title as string}
                   titleProps={{ noOfLines: 2 }}
-                  baseState={prop.baseState}
-                  // quorumVotes={getQuorumVotes(prop)}
+                  status={parseState(prop.state).toUpperCase()}
+                  // quorumVotes={getQuorumVotes(prop)} TODO: Do on the /:id page
                   votes={{
                     abstainVotes: prop.abstainVotes,
                     forVotes: prop.forVotes,
                     againstVotes: prop.againstVotes,
-                    totalSupply: prop.totalSupply
+                    totalSupply: prop.dao?.totalSupply
                   }}
-                  startBlock={prop.startBlock}
-                  endBlock={prop.endBlock}
-                  executionETA={prop.executionETA}
+                  // startBlock={prop.startTime} TODO: how to get? Do on the /:id page
+                  // endBlock={prop.endTime} TODO: how to get? Do on the /:id page
                   _hover={{
                     borderColor: "whiteAlpha.500",
                     cursor: "pointer"

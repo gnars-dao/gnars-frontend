@@ -70,17 +70,17 @@ export default function Proposals() {
         <Container centerContent maxW={"container.lg"} flexGrow={1}>
           <VStack w="full" spacing={20}>
             <Heading>Governance</Heading>
-            <BaseProposals baseData={baseData} />
-            <VStack w={"full"} spacing={4} alignItems={"center"} py={{ base: 4, lg: 20 }} px={{ base: 4, lg: 20 }}>
+            <BaseProposals proposals={baseData?.proposals} />
+            <VStack w={"full"} spacing={4} alignItems={"center"} py={{ base: 4, lg: 10 }} px={{ base: 4, lg: 20 }}>
+              <Heading as={"h2"} fontSize="5xl">
+                Ethereum Proposals
+              </Heading>
               <Stack
                 direction={{ base: "column", sm: "row" }}
                 w="full"
                 justifyContent={{ base: "center", sm: "space-between" }}
                 alignContent={{ base: "center", sm: "end" }}
               >
-                <Heading as={"h2"} fontSize="5xl">
-                  Ethereum Proposals
-                </Heading>
                 <Stack direction={{ base: "column", sm: "row" }} alignItems={{ sm: "center" }}>
                   <UserVotes mr={{ sm: 4 }} fontSize={"xl"} fontWeight={"bold"} />
                 </Stack>

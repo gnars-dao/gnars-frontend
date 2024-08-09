@@ -16,11 +16,11 @@ const nextConfig = {
       destination: "/dao",
       permanent: false
     },
-    // {
-    //   source: "/dao/proposals/:id", // redirect any 3rd party legacy proposal links to layer 1
-    //   destination: "/dao/proposals/eth/:id",
-    //   permanent: true
-    // }
+    {
+      source: "/dao/proposals/:id", // redirect any 3rd party legacy proposal links to layer 1
+      destination: "/dao/proposals/eth/:id",
+      permanent: false
+    }
   ]
 }
 

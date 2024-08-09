@@ -3,16 +3,12 @@ import { FC } from "react"
 import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils.ts"
 import { ProposalCountdown } from "./ProposalCountdown"
 import { ProposalStatusBadge } from "./ProposalStatusBadge"
-import {
-  ProposalState
-} from "@data/contract/requests/getProposalState.ts"
 
 export interface ProposalCardProps extends StackProps {
   id: string
   title: string
   titleProps?: Partial<TextProps>
-  status?: EffectiveProposalStatus
-  baseState?: string
+  status: EffectiveProposalStatus | string
   quorumVotes?: QuorumVotes
   votes?: Votes
   executionETA?: number
@@ -25,7 +21,6 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   title,
   titleProps,
   status,
-  baseState,
   quorumVotes,
   votes,
   startBlock,
@@ -34,7 +29,8 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   children,
   ...props
 }) => {
-  const proposalFinalized = isFinalized(status ?? baseState)
+  const proposalFinalized = isFinalized(status)
+  // @ts-ignore
   return (
     <VStack
       w={"full"}
@@ -72,7 +68,6 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             pl={"16px"}
             wordBreak={"break-word"}
             {...titleProps}
-            // textIndent={"-16px"}
           >
             {title}
           </Text>
@@ -90,6 +85,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
           />
           {startBlock && endBlock && (
             <ProposalCountdown
+              // @ts-nocheck
               effectiveStatus={status}
               startBlock={startBlock}
               endBlock={endBlock}
