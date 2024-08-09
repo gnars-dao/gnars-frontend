@@ -36,11 +36,11 @@ const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
           Base Proposals
         </Heading>
         <Stack direction={{ base: "column", sm: "row" }} alignItems={{ sm: "center" }}>
-          <UserVotes mr={{ sm: 4 }} fontSize={"xl"} fontWeight={"bold"} />
-          <Link href={"/dao/proposals/new"}>
-            <Button w="full">Submit Proposal</Button>
+          {/*<UserVotes mr={{ sm: 4 }} fontSize={"xl"} fontWeight={"bold"} /> TODO: Delegation Ticket needed */}
+          <Link href={"https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17?tab=activity"}>
+            <Button w="full">New Proposal</Button>
           </Link>
-          <DelegateButton />
+          {/*<DelegateButton /> TODO: Delegation Ticket needed */}
         </Stack>
       </Stack>
       <VStack w={"full"} spacing={4} alignItems={"center"} py={{ base: 4, lg: 20 }} px={{ base: 4, lg: 20 }}>

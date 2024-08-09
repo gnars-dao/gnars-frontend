@@ -81,9 +81,9 @@ export default function Proposals() {
                 justifyContent={{ base: "center", sm: "space-between" }}
                 alignContent={{ base: "center", sm: "end" }}
               >
-                <Stack direction={{ base: "column", sm: "row" }} alignItems={{ sm: "center" }}>
-                  <UserVotes mr={{ sm: 4 }} fontSize={"xl"} fontWeight={"bold"} />
-                </Stack>
+                {/*<Stack direction={{ base: "column", sm: "row" }} alignItems={{ sm: "center" }}> TODO: Delegation Ticket needed*/}
+                {/*  <UserVotes mr={{ sm: 4 }} fontSize={"xl"} fontWeight={"bold"} />*/}
+                {/*</Stack>*/}
               </Stack>
               {isArray(ethProposals) && (
                 <>
