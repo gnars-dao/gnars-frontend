@@ -5,7 +5,7 @@ import { useBlock } from "../../hooks/useBlock"
 import { EffectiveProposalStatus } from "../../utils/governanceUtils"
 
 export interface ProposalCountdownProps {
-  effectiveStatus: EffectiveProposalStatus
+  effectiveStatus?: EffectiveProposalStatus | string
   executionETA?: number
   startBlock: number
   endBlock: number
