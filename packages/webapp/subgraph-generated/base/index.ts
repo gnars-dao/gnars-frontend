@@ -2266,6 +2266,21 @@ export type ProposalVoteFragment = { __typename?: 'ProposalVote', voter: any, su
 
 export type TokenFragment = { __typename?: 'Token', tokenId: any, tokenContract: any, name: string, image?: string | null, owner: any, mintedAt: any, dao: { __typename?: 'DAO', description: string } };
 
+export type ActiveAuctionsQueryVariables = Exact<{
+  first: Scalars['Int'];
+  where: Auction_Filter;
+}>;
+
+
+export type ActiveAuctionsQuery = { __typename?: 'Query', auctions: Array<{ __typename?: 'Auction', dao: { __typename?: 'DAO', name: string, auctionAddress: any, tokenAddress: any } }> };
+
+export type AuctionBidsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type AuctionBidsQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', bids?: Array<{ __typename?: 'AuctionBid', id: string, amount: any, bidder: any }> | null } | null };
+
 export type AuctionHistoryQueryVariables = Exact<{
   startTime: Scalars['BigInt'];
   daoId: Scalars['ID'];
@@ -2276,6 +2291,40 @@ export type AuctionHistoryQueryVariables = Exact<{
 
 
 export type AuctionHistoryQuery = { __typename?: 'Query', dao?: { __typename?: 'DAO', auctions: Array<{ __typename?: 'Auction', id: string, endTime: any, settled: boolean, winningBid?: { __typename?: 'AuctionBid', amount: any } | null }> } | null };
+
+export type DaoInfoQueryVariables = Exact<{
+  tokenAddress: Scalars['ID'];
+}>;
+
+
+export type DaoInfoQuery = { __typename?: 'Query', dao?: { __typename?: 'DAO', totalSupply: number, ownerCount: number } | null };
+
+export type DaoMembersListQueryVariables = Exact<{
+  where?: InputMaybe<DaoTokenOwner_Filter>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<DaoTokenOwner_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+}>;
+
+
+export type DaoMembersListQuery = { __typename?: 'Query', daotokenOwners: Array<{ __typename?: 'DAOTokenOwner', id: string, owner: any, daoTokenCount: number, daoTokens: Array<{ __typename?: 'Token', tokenId: any, mintedAt: any }> }> };
+
+export type DaoMetadataQueryVariables = Exact<{
+  tokenAddress: Scalars['ID'];
+  first: Scalars['Int'];
+}>;
+
+
+export type DaoMetadataQuery = { __typename?: 'Query', dao?: { __typename?: 'DAO', metadataProperties?: Array<{ __typename?: 'MetadataProperty', ipfsBaseUri: string, ipfsExtension: string, names: Array<string>, items: Array<{ __typename?: 'MetadataItem', name: string, propertyId: any, isNewProperty: boolean }> }> | null } | null };
+
+export type DaoNextAndPreviousTokensQueryVariables = Exact<{
+  tokenAddress: Scalars['String'];
+  tokenId: Scalars['BigInt'];
+}>;
+
+
+export type DaoNextAndPreviousTokensQuery = { __typename?: 'Query', prev: Array<{ __typename?: 'Token', tokenId: any }>, next: Array<{ __typename?: 'Token', tokenId: any }>, latest: Array<{ __typename?: 'Token', tokenId: any }> };
 
 export type ProposalQueryVariables = Exact<{
   proposalId: Scalars['ID'];
@@ -2300,6 +2349,31 @@ export type ProposalsQueryVariables = Exact<{
 
 
 export type ProposalsQuery = { __typename?: 'Query', proposals: Array<{ __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', governorAddress: any, tokenAddress: any, totalSupply: number } }> };
+
+export type TokenWithDaoQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type TokenWithDaoQuery = { __typename?: 'Query', token?: { __typename?: 'Token', tokenId: any, tokenContract: any, name: string, image?: string | null, owner: any, mintedAt: any, auction?: { __typename?: 'Auction', winningBid?: { __typename?: 'AuctionBid', amount: any, bidder: any } | null } | null, dao: { __typename?: 'DAO', name: string, description: string, contractImage: string, totalSupply: number, ownerCount: number, proposalCount: number, tokenAddress: any, metadataAddress: any, auctionAddress: any, treasuryAddress: any, governorAddress: any } } | null };
+
+export type TokensQueryVariables = Exact<{
+  where?: InputMaybe<Token_Filter>;
+  orderBy?: InputMaybe<Token_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type TokensQuery = { __typename?: 'Query', tokens: Array<{ __typename?: 'Token', tokenId: any, tokenContract: any, name: string, image?: string | null, owner: any, mintedAt: any, dao: { __typename?: 'DAO', description: string } }> };
+
+export type TotalAuctionSalesQueryVariables = Exact<{
+  tokenAddress: Scalars['ID'];
+}>;
+
+
+export type TotalAuctionSalesQuery = { __typename?: 'Query', dao?: { __typename?: 'DAO', totalAuctionSales: any } | null };
 
 export const AuctionFragmentDoc = gql`
     fragment Auction on Auction {
@@ -2409,6 +2483,22 @@ export const TokenFragmentDoc = gql`
   mintedAt
 }
     `;
+export const ActiveAuctionsDocument = gql`
+    query activeAuctions($first: Int!, $where: Auction_filter!) {
+  auctions(orderBy: endTime, orderDirection: desc, first: $first, where: $where) {
+    ...Auction
+  }
+}
+    ${AuctionFragmentDoc}`;
+export const AuctionBidsDocument = gql`
+    query auctionBids($id: ID!) {
+  auction(id: $id) {
+    bids(orderBy: bidTime, orderDirection: desc) {
+      ...AuctionBid
+    }
+  }
+}
+    ${AuctionBidFragmentDoc}`;
 export const AuctionHistoryDocument = gql`
     query auctionHistory($startTime: BigInt!, $daoId: ID!, $orderBy: Auction_orderBy, $orderDirection: OrderDirection, $first: Int) {
   dao(id: $daoId) {
@@ -2425,6 +2515,77 @@ export const AuctionHistoryDocument = gql`
       }
       settled
     }
+  }
+}
+    `;
+export const DaoInfoDocument = gql`
+    query daoInfo($tokenAddress: ID!) {
+  dao(id: $tokenAddress) {
+    totalSupply
+    ownerCount
+  }
+}
+    `;
+export const DaoMembersListDocument = gql`
+    query daoMembersList($where: DAOTokenOwner_filter, $first: Int, $skip: Int, $orderBy: DAOTokenOwner_orderBy, $orderDirection: OrderDirection) {
+  daotokenOwners(
+    where: $where
+    first: $first
+    skip: $skip
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    id
+    owner
+    daoTokenCount
+    daoTokens(first: $first) {
+      tokenId
+      mintedAt
+    }
+  }
+}
+    `;
+export const DaoMetadataDocument = gql`
+    query daoMetadata($tokenAddress: ID!, $first: Int!) {
+  dao(id: $tokenAddress) {
+    metadataProperties(orderBy: createdAt) {
+      ipfsBaseUri
+      ipfsExtension
+      names
+      items(orderBy: index, first: $first) {
+        name
+        propertyId
+        isNewProperty
+      }
+    }
+  }
+}
+    `;
+export const DaoNextAndPreviousTokensDocument = gql`
+    query daoNextAndPreviousTokens($tokenAddress: String!, $tokenId: BigInt!) {
+  prev: tokens(
+    where: {dao: $tokenAddress, tokenId_lt: $tokenId}
+    orderBy: tokenId
+    orderDirection: desc
+    first: 1
+  ) {
+    tokenId
+  }
+  next: tokens(
+    where: {dao: $tokenAddress, tokenId_gt: $tokenId}
+    orderBy: tokenId
+    orderDirection: asc
+    first: 1
+  ) {
+    tokenId
+  }
+  latest: tokens(
+    where: {dao: $tokenAddress}
+    orderBy: tokenId
+    orderDirection: desc
+    first: 1
+  ) {
+    tokenId
   }
 }
     `;
@@ -2476,6 +2637,52 @@ export const ProposalsDocument = gql`
 }
     ${ProposalFragmentDoc}
 ${ProposalVoteFragmentDoc}`;
+export const TokenWithDaoDocument = gql`
+    query tokenWithDao($id: ID!) {
+  token(id: $id) {
+    ...Token
+    auction {
+      winningBid {
+        amount
+        bidder
+      }
+    }
+    dao {
+      name
+      description
+      contractImage
+      totalSupply
+      ownerCount
+      proposalCount
+      tokenAddress
+      metadataAddress
+      auctionAddress
+      treasuryAddress
+      governorAddress
+    }
+  }
+}
+    ${TokenFragmentDoc}`;
+export const TokensDocument = gql`
+    query tokens($where: Token_filter, $orderBy: Token_orderBy, $orderDirection: OrderDirection, $first: Int, $skip: Int) {
+  tokens(
+    where: $where
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+    first: $first
+    skip: $skip
+  ) {
+    ...Token
+  }
+}
+    ${TokenFragmentDoc}`;
+export const TotalAuctionSalesDocument = gql`
+    query totalAuctionSales($tokenAddress: ID!) {
+  dao(id: $tokenAddress) {
+    totalAuctionSales
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -2484,8 +2691,26 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    activeAuctions(variables: ActiveAuctionsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ActiveAuctionsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<ActiveAuctionsQuery>(ActiveAuctionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'activeAuctions', 'query');
+    },
+    auctionBids(variables: AuctionBidsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AuctionBidsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AuctionBidsQuery>(AuctionBidsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'auctionBids', 'query');
+    },
     auctionHistory(variables: AuctionHistoryQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AuctionHistoryQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AuctionHistoryQuery>(AuctionHistoryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'auctionHistory', 'query');
+    },
+    daoInfo(variables: DaoInfoQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DaoInfoQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DaoInfoQuery>(DaoInfoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'daoInfo', 'query');
+    },
+    daoMembersList(variables?: DaoMembersListQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DaoMembersListQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DaoMembersListQuery>(DaoMembersListDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'daoMembersList', 'query');
+    },
+    daoMetadata(variables: DaoMetadataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DaoMetadataQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DaoMetadataQuery>(DaoMetadataDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'daoMetadata', 'query');
+    },
+    daoNextAndPreviousTokens(variables: DaoNextAndPreviousTokensQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DaoNextAndPreviousTokensQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DaoNextAndPreviousTokensQuery>(DaoNextAndPreviousTokensDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'daoNextAndPreviousTokens', 'query');
     },
     proposal(variables: ProposalQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProposalQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProposalQuery>(ProposalDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'proposal', 'query');
@@ -2495,6 +2720,15 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     proposals(variables: ProposalsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProposalsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProposalsQuery>(ProposalsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'proposals', 'query');
+    },
+    tokenWithDao(variables: TokenWithDaoQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TokenWithDaoQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TokenWithDaoQuery>(TokenWithDaoDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'tokenWithDao', 'query');
+    },
+    tokens(variables?: TokensQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TokensQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TokensQuery>(TokensDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'tokens', 'query');
+    },
+    totalAuctionSales(variables: TotalAuctionSalesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TotalAuctionSalesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TotalAuctionSalesQuery>(TotalAuctionSalesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'totalAuctionSales', 'query');
     }
   };
 }

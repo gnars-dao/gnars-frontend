@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { auctionHistoryRequest } from './data/subgraph/requests/auctionHistory'
-import { type CHAIN_ID } from "@constants/types"
+import { auctionHistoryRequest } from '@queries/base/requests/auctionHistory'
+import { CHAIN_ID } from '@constants/types'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { token, chainId, startTime } = req.query
