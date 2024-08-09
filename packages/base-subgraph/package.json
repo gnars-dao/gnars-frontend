@@ -3,7 +3,7 @@
   "version": "1.1.1",
   "license": "UNLICENSED",
   "scripts": {
-    "clean": "rm -rf ./generated ./build subgraph.yaml",
+    "clean": "rm -rf ./node_modules ./generated ./build subgraph.yaml",
     "codegen": "graph codegen",
     "build": "graph build",
     "prepare": "mustache config/base.json subgraph.yaml.mustache > subgraph.yaml"

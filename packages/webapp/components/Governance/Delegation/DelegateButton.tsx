@@ -12,10 +12,7 @@ const InnerDelegateButton: FC<DelegateButtonProps> = ({ ...props }) => {
   const { data: delegation } = useDelegationInfo(address)
   const { isOpen, onOpen, onClose } = useDisclosure()
   if (!address || !delegation || !delegation?.delegate || !delegation?.account)
-    return <></>
-  const hasDelegatedToAnother =
-    delegation?.account &&
-    delegation.account?.delegate.id.toLowerCase() !== address?.toLowerCase()
+    return <></>;
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { Badge, Box, HStack, StackProps, Text, TextProps, Tooltip, VStack } from "@chakra-ui/react"
 import { FC } from "react"
-import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "../../utils/governanceUtils"
+import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils"
 import { ProposalCountdown } from "./ProposalCountdown"
 import { ProposalStatusBadge } from "./ProposalStatusBadge"
 
@@ -8,7 +8,7 @@ export interface ProposalCardProps extends StackProps {
   id: string
   title: string
   titleProps?: Partial<TextProps>
-  status: EffectiveProposalStatus
+  status: EffectiveProposalStatus | string
   quorumVotes?: QuorumVotes
   votes?: Votes
   executionETA?: number
@@ -67,7 +67,6 @@ export const ProposalCard: FC<ProposalCardProps> = ({
             pl={"16px"}
             wordBreak={"break-word"}
             {...titleProps}
-            // textIndent={"-16px"}
           >
             {title}
           </Text>
