@@ -89,7 +89,7 @@ const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
             {inactiveProposals.map(prop => (
               <Link
                 key={"finalized-base-prop-" + prop.proposalNumber}
-                href={`/dao/proposals/base/${prop.proposalNumber}`}
+                href={`https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17/vote/${prop.proposalNumber}`}
                 style={{ width: "100%" }}
               >
                 <ProposalCard
