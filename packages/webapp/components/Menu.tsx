@@ -53,7 +53,7 @@ export default function Menu(props: MenuProps) {
               Claim
             </Button>
           </Link>
-          <Link href="https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17/?tab=activity">
+          <Link href="/dao">
             <Button w={"full"} variant={"outline"} verticalAlign={"center"} leftIcon={<FaUsers size={"1em"} />}>
               DAO
             </Button>

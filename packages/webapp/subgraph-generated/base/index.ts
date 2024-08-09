@@ -2256,11 +2256,11 @@ export type AuctionBidFragment = { __typename?: 'AuctionBid', id: string, amount
 
 export type CurrentAuctionFragment = { __typename?: 'Auction', endTime: any, highestBid?: { __typename?: 'AuctionBid', amount: any, bidder: any } | null, token: { __typename?: 'Token', name: string, image?: string | null, tokenId: any } };
 
-export type DaoFragment = { __typename?: 'DAO', name: string, tokenAddress: any, auctionAddress: any, governorAddress: any };
+export type DaoFragment = { __typename?: 'DAO', name: string, tokenAddress: any, auctionAddress: any, governorAddress: any, totalSupply: number };
 
 export type ExploreDaoFragment = { __typename?: 'Auction', endTime: any, dao: { __typename?: 'DAO', name: string, tokenAddress: any }, highestBid?: { __typename?: 'AuctionBid', amount: any, bidder: any } | null, token: { __typename?: 'Token', name: string, image?: string | null, tokenId: any } };
 
-export type ProposalFragment = { __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, dao: { __typename?: 'DAO', governorAddress: any, tokenAddress: any } };
+export type ProposalFragment = { __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, dao: { __typename?: 'DAO', governorAddress: any, tokenAddress: any, totalSupply: number } };
 
 export type ProposalVoteFragment = { __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null };
 
@@ -2282,7 +2282,7 @@ export type ProposalQueryVariables = Exact<{
 }>;
 
 
-export type ProposalQuery = { __typename?: 'Query', proposal?: { __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', governorAddress: any, tokenAddress: any } } | null };
+export type ProposalQuery = { __typename?: 'Query', proposal?: { __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', governorAddress: any, tokenAddress: any, totalSupply: number } } | null };
 
 export type ProposalOgMetadataQueryVariables = Exact<{
   where: Proposal_Filter;
@@ -2290,7 +2290,7 @@ export type ProposalOgMetadataQueryVariables = Exact<{
 }>;
 
 
-export type ProposalOgMetadataQuery = { __typename?: 'Query', proposals: Array<{ __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', name: string, contractImage: string, tokenAddress: any, metadataAddress: any, auctionAddress: any, treasuryAddress: any, governorAddress: any } }> };
+export type ProposalOgMetadataQuery = { __typename?: 'Query', proposals: Array<{ __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', name: string, contractImage: string, tokenAddress: any, metadataAddress: any, auctionAddress: any, treasuryAddress: any, governorAddress: any, totalSupply: number } }> };
 
 export type ProposalsQueryVariables = Exact<{
   where?: InputMaybe<Proposal_Filter>;
@@ -2299,7 +2299,7 @@ export type ProposalsQueryVariables = Exact<{
 }>;
 
 
-export type ProposalsQuery = { __typename?: 'Query', proposals: Array<{ __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', governorAddress: any, tokenAddress: any } }> };
+export type ProposalsQuery = { __typename?: 'Query', proposals: Array<{ __typename?: 'Proposal', abstainVotes: number, againstVotes: number, calldatas?: string | null, description?: string | null, descriptionHash: any, executableFrom?: any | null, expiresAt?: any | null, forVotes: number, proposalId: any, proposalNumber: number, proposalThreshold: any, proposer: any, quorumVotes: any, targets: Array<any>, timeCreated: any, title?: string | null, values: Array<any>, voteEnd: any, voteStart: any, snapshotBlockNumber: any, transactionHash: any, votes: Array<{ __typename?: 'ProposalVote', voter: any, support: ProposalVoteSupport, weight: number, reason?: string | null }>, dao: { __typename?: 'DAO', governorAddress: any, tokenAddress: any, totalSupply: number } }> };
 
 export const AuctionFragmentDoc = gql`
     fragment Auction on Auction {
@@ -2337,6 +2337,7 @@ export const DaoFragmentDoc = gql`
   tokenAddress
   auctionAddress
   governorAddress
+  totalSupply
 }
     `;
 export const ExploreDaoFragmentDoc = gql`
@@ -2383,6 +2384,7 @@ export const ProposalFragmentDoc = gql`
   dao {
     governorAddress
     tokenAddress
+    totalSupply
   }
 }
     `;

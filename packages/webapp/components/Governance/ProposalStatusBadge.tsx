@@ -3,11 +3,11 @@ import { FC } from "react"
 import {
   EffectiveProposalStatus,
   isFinalized,
-} from "../../utils/governanceUtils"
+} from "@utils/governanceUtils"
 import { ShredIcon } from "../Icons"
 
 export interface ProposalStatusBadgeProps extends BadgeProps {
-  status: EffectiveProposalStatus
+  status: EffectiveProposalStatus | string
 }
 
 export const ProposalStatusBadge: FC<ProposalStatusBadgeProps> = ({
@@ -33,7 +33,7 @@ export const ProposalStatusBadge: FC<ProposalStatusBadgeProps> = ({
 }
 
 const getProposalStyle = (
-  status: EffectiveProposalStatus
+  status: EffectiveProposalStatus | string
 ): Partial<BadgeProps> => {
   switch (status) {
     case "PENDING":
