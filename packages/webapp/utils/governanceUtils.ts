@@ -1,6 +1,6 @@
 import { zip } from "lodash"
-import { ProposalQuery, ProposalsQuery, ProposalStatus } from "../subgraph-generated/layer-1"
-import { ProposalState } from "@data/contract/requests/getProposalState.ts"
+import { ProposalQuery, ProposalsQuery, ProposalStatus } from "@subgraph-generated/layer-1"
+import { ProposalState } from "@data/contract/requests/getProposalState"
 
 export type ProposalData = ProposalsQuery["proposals"][0]
 

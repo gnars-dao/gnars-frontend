@@ -1,18 +1,18 @@
+import isArray from "lodash/isArray"
 import {
   Heading,
   VStack, Divider, Text, HStack, Stack, Button
 } from "@chakra-ui/react"
 import { FC } from "react"
 import Link from "next/link"
-import { getQuorumVotes, parseState } from "@utils/governanceUtils.ts"
+import { getQuorumVotes, parseState } from "@utils/governanceUtils"
 import { ProposalCard } from "@components/Governance/ProposalCard.tsx"
 import { UserVotes } from "@components/Governance/Delegation/UserVotes.tsx"
 import { DelegateButton } from "@components/Governance/Delegation/DelegateButton.tsx"
-import { isArray } from "lodash"
 import {
   ProposalState
-} from "@data/contract/requests/getProposalState.ts"
-import { Proposal } from "@queries/base/requests/proposalQuery.ts"
+} from "@data/contract/requests/getProposalState"
+import { Proposal } from "@queries/base/requests/proposalQuery"
 
 interface BaseProposalsProps {
   proposals: Proposal[] | undefined

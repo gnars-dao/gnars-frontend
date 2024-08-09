@@ -1,6 +1,6 @@
 import { Badge, Box, HStack, StackProps, Text, TextProps, Tooltip, VStack } from "@chakra-ui/react"
 import { FC } from "react"
-import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils.ts"
+import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils"
 import { ProposalCountdown } from "./ProposalCountdown"
 import { ProposalStatusBadge } from "./ProposalStatusBadge"
 
@@ -30,7 +30,6 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   ...props
 }) => {
   const proposalFinalized = isFinalized(status)
-  // @ts-ignore
   return (
     <VStack
       w={"full"}
@@ -85,7 +84,6 @@ export const ProposalCard: FC<ProposalCardProps> = ({
           />
           {startBlock && endBlock && (
             <ProposalCountdown
-              // @ts-nocheck
               effectiveStatus={status}
               startBlock={startBlock}
               endBlock={endBlock}

@@ -16,8 +16,6 @@ export enum ProposalState {
   Vetoed = 8,
 }
 
-
-
 export const getProposalState = async (
   chainId: CHAIN_IDS,
   governorAddress: AddressType,

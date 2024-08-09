@@ -8,7 +8,7 @@ import { execute, ProposalsDocument } from "@subgraph-generated/layer-1"
 import { ProposalCard } from "@components/Governance/ProposalCard"
 import Menu from "@components/Menu"
 import BaseProposals from "@components/Proposal/BaseProposals"
-import { useBlock } from "@hooks/useBlock.ts"
+import { useBlock } from "@hooks/useBlock"
 import {
   EffectiveProposalStatus,
   getProposalEffectiveStatus,
@@ -17,9 +17,9 @@ import {
   ProposalData
 } from "@utils/governanceUtils"
 import { contracts } from "@constants/baseAddresses"
-import { getProposals, ProposalsResponse } from "@queries/base/requests/proposalsQuery.ts"
-import USE_QUERY_KEYS from "@constants/swrKeys.ts"
-import { CHAIN_IDS } from "@constants/types.ts"
+import { getProposals, ProposalsResponse } from "@queries/base/requests/proposalsQuery"
+import USE_QUERY_KEYS from "@constants/swrKeys"
+import { CHAIN_IDS } from "@constants/types"
 import { useRouter } from "next/router"
 
 export default function Proposals() {
@@ -29,13 +29,12 @@ export default function Proposals() {
   const LIMIT = 200
   const page = baseQuery?.page ? Number(baseQuery.page) : undefined
 
-  const {data: baseData, error: baseError } = useQuery(
+  const { data: baseData, error: baseError } = useQuery(
     [USE_QUERY_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
     () => getProposals(CHAIN_IDS.BASE, tokenAddress, LIMIT),
     {
       enabled: baseQueryReady
     }
-
   )
   if (baseError) {
     console.error("Error getting BASE proposals data: ", baseError)
@@ -57,8 +56,8 @@ export default function Proposals() {
               p,
               (p) => !isFinalized(p.effectiveStatus)
             ) as [
-                ProposalData & { effectiveStatus: EffectiveProposalStatus }[],
-                ProposalData & { effectiveStatus: EffectiveProposalStatus }[]
+              ProposalData & { effectiveStatus: EffectiveProposalStatus }[],
+              ProposalData & { effectiveStatus: EffectiveProposalStatus }[]
             ]
         ),
     { keepPreviousData: true }
