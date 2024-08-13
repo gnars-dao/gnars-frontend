@@ -1,8 +1,8 @@
-import { Box } from '@zoralabs/zord'
+import { Box } from '@chakra-ui/react'
 import Image from 'next/legacy/image'
 import React from 'react'
 
-import { auctionImg, tokenImage } from './Auction.css'
+// import { auctionImg, tokenImage } from './Auction.css'
 
 interface AucitonImageProps {
   image?: string
@@ -20,7 +20,7 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
       height={'auto'}
       aspectRatio={1 / 1}
       position="relative"
-      className={tokenImage}
+      className={"token-image"}
     >
       <Image
         priority
@@ -30,7 +30,7 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
         onError={() => setImgErr(true)}
         sizes="100vw"
         alt={name || ''}
-        className={auctionImg}
+        className={"auction-image"}
       />
     </Box>
   )

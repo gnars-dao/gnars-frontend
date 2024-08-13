@@ -1,5 +1,5 @@
 
-import { omit } from 'lodash'
+/*import { omit } from 'lodash'
 import { useRouter } from 'next/router'
 import { useAccount } from 'wagmi'
 
@@ -42,3 +42,4 @@ export const useBridgeModal = () => {
     closeBridgeModal,
   }
 }
+*/

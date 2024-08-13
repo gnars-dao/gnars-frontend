@@ -1,13 +1,13 @@
 import { Flex, Grid } from '@chakra-ui/react'
 // TODO: Replace axios
-import axios from 'axios'
+// import axios from 'axios'
 import React, { Fragment, ReactNode } from 'react'
 // TODO: Replace useSWR
 import useSWR from 'swr'
 import { formatEther } from 'viem'
 import { readContract } from 'wagmi/actions'
 
-import SWR_KEYS from '@constants/swrKeys'
+import USE_QUERY_KEYS from '@constants/swrKeys'
 import { auctionAbi } from 'data/contract/abis/Auction'
 // TODO: Pull in L1_CHAINS
 // import { L1_CHAINS } from 'src/data/contract/chains'
@@ -15,9 +15,9 @@ import { getBids } from "@queries/base/requests/getBids"
 import { useDaoStore } from 'components/modules/dao'
 
 // TODO: Pull in L2MigratedResponse
-import { L2MigratedResponse } from 'src/pages/api/migrated'
+// import { L2MigratedResponse } from 'src/pages/api/migrated'
 // TODO: Fix the page URLs (queries, params, etc.) 
-import { TokenWithDao } from 'src/pages/dao/[network]/[token]/[tokenId]'
+import { TokenWithDao } from 'pages/dao/[network]/[token]/[tokenId]'
 import { AddressType, Chain } from '@constants/types'
 import { unpackOptionalArray } from '@utils/helpers'
 
@@ -30,7 +30,7 @@ import { AuctionTokenPicker } from './AuctionTokenPicker'
 import { BidAmount } from './BidAmount'
 import { ActionsWrapper, BidHistory } from './BidHistory'
 import { CurrentAuction } from './CurrentAuction'
-import { DaoMigrated } from './DaoMigrated'
+// import { DaoMigrated } from './DaoMigrated'
 import { WinningBidder } from './WinningBidder'
 
 interface AuctionControllerProps {
@@ -54,18 +54,19 @@ export const Auction: React.FC<AuctionControllerProps> = ({
 
   const { treasury } = useDaoStore((x) => x.addresses)
 
-  const { data: migratedRes } = useSWR(
+  // TODO: Likely don't need migrated base, just customize for gnars
+  /*const { data: migratedRes } = useSWR(
     L1_CHAINS.find((x) => x === chain.id) && treasury
-      ? [SWR_KEYS.DAO_MIGRATED, treasury]
+      ? [USE_QUERY_KEYS.DAO_MIGRATED, treasury]
       : null,
     (_, treasury) =>
       axios
         .get<L2MigratedResponse>(`/api/migrated?l1Treasury=${treasury}`)
         .then((x) => x.data)
-  )
+  )*/
 
   const { data: auction } = useSWR(
-    [SWR_KEYS.AUCTION, chain.id, auctionAddress],
+    [USE_QUERY_KEYS.AUCTION, chain.id, auctionAddress],
     (_, chainId, auctionAddress) =>
       readContract({
         abi: auctionAbi,
@@ -92,7 +93,7 @@ export const Auction: React.FC<AuctionControllerProps> = ({
   })
 
   const { data: bids } = useSWR(
-    [SWR_KEYS.AUCTION_BIDS, chain.id, collection, queriedTokenId],
+    [USE_QUERY_KEYS.AUCTION_BIDS, chain.id, collection, queriedTokenId],
     () => getBids(chain.id, collection, queriedTokenId)
   )
 
@@ -138,14 +139,15 @@ export const Auction: React.FC<AuctionControllerProps> = ({
             <ActionsWrapper>
               <BidHistory bids={bids || []} />
             </ActionsWrapper>
-            {migratedRes?.migrated ? (
+            {/** TODO: Determine if DaoMigrated is necessary */}
+            {/*migratedRes?.migrated ? (
               <DaoMigrated
                 l2ChainId={migratedRes.migrated.chainId}
                 l2TokenAddress={migratedRes.migrated.l2TokenAddress}
               />
             ) : (
               <AuctionPaused />
-            )}
+            )*/}
           </Fragment>
         )}
       </Flex>

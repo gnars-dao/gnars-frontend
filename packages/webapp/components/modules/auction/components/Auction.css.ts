@@ -1,11 +1,11 @@
 import { style, styleVariants } from '@vanilla-extract/css'
 import { atoms, media, theme, vars } from '@zoralabs/zord'
 
-import { skeletonAnimation } from 'src/styles/animations.css'
+//  import { skeletonAnimation } from 'src/styles/animations.css'
 
-export const auctionSkeleton = style({
-  animation: skeletonAnimation,
-})
+// export const auctionSkeleton = style({
+//   animation: skeletonAnimation,
+// })
 
 export const auctionWrap = atoms({
   flexDirection: 'column',

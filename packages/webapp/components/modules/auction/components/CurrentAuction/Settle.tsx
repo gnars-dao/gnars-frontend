@@ -14,7 +14,7 @@ import { useDaoStore } from '@components/modules/dao'
 import { useChainStore } from 'stores/useChainStore'
 import { AddressType } from '@constants/types'
 
-import { auctionActionButtonVariants } from '../Auction.css'
+// import { auctionActionButtonVariants } from '../Auction.css'
 
 interface SettleProps {
   isEnding: boolean
@@ -73,7 +73,7 @@ export const Settle = ({
   if (isEnding && !settling) {
     return (
       <Stack direction="column" align="center" width={'100%'}>
-        <Button disabled className={auctionActionButtonVariants['settling']}>
+        <Button disabled className={'settling'}>
           Auction ending
         </Button>
       </Stack>
