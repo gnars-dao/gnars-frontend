@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Heading, Spinner, Stack, Text } from '@zoralabs/zord'
+import { Box, Button, Flex, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 
-import { formatCryptoVal } from 'src/utils/numbers'
+import { formatCryptoVal } from 'utils/numbers'
 
 export interface WarningModalProps {
   daoName: string

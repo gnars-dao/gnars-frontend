@@ -1,26 +1,39 @@
-import { Box, Button, Flex, PopUp, Text } from '@zoralabs/zord'
+import {
+  Box, Button, Flex, Text, Popover, Modal,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
+} from '@chakra-ui/react'
+import { Icon } from '@chakra-ui/react'
 import React, { Fragment, memo, useEffect, useState } from 'react'
-import useSWR, { useSWRConfig } from 'swr'
+// import useSWR, { useSWRConfig } from 'swr'
 import { formatEther, parseEther } from 'viem'
 import { Address, useAccount, useBalance, useContractReads, useNetwork } from 'wagmi'
 import { prepareWriteContract, waitForTransaction, writeContract } from 'wagmi/actions'
 
-import { ContractButton } from 'src/components/ContractButton'
-import { Icon } from 'src/components/Icon/Icon'
-import AnimatedModal from 'src/components/Modal/AnimatedModal'
-import { PUBLIC_IS_TESTNET } from 'src/constants/defaultChains'
-import SWR_KEYS from 'src/constants/swrKeys'
-import { auctionAbi } from 'src/data/contract/abis'
-import { averageWinningBid } from 'src/data/subgraph/requests/averageWinningBid'
-import { getBids } from 'src/data/subgraph/requests/getBids'
-import { useDaoStore } from 'src/modules/dao'
-import { AddressType, Chain } from 'src/typings'
-import { unpackOptionalArray } from 'src/utils/helpers'
-import { formatCryptoVal } from 'src/utils/numbers'
+// TODO: Pull in contract btn from nouns-base
+import { ContractButton } from 'components/ContractButton'
+
+// import { Icon } from 'src/components/Icon/Icon'
+// import AnimatedModal from 'src/components/Modal/AnimatedModal'
+
+import { PUBLIC_IS_TESTNET } from '@constants/defaultChains'
+import USE_QUERY_KEYS from 'constants/swrKeys'
+import { auctionAbi } from 'data/contract/abis/Auction'
+import { averageWinningBid } from '@queries/base/requests/averageWinningBid'
+import { getBids } from '@queries/base/requests/getBids'
+import { useDaoStore } from 'components/modules/dao'
+import { AddressType, Chain } from '@constants/types'
+import { unpackOptionalArray } from 'utils/helpers'
+import { formatCryptoVal } from 'utils/numbers'
 
 import { useMinBidIncrement } from '../../hooks'
 import { auctionActionButtonVariants, bidForm, bidInput } from '../Auction.css'
 import { WarningModal } from './WarningModal'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 interface PlaceBidProps {
   chain: Chain
@@ -37,10 +50,13 @@ export const PlaceBid = ({
   tokenId,
   daoName,
 }: PlaceBidProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { address } = useAccount()
   const { chain: wagmiChain } = useNetwork()
   const { data: balance } = useBalance({ address: address, chainId: chain.id })
-  const { mutate } = useSWRConfig()
+
+  // TODO: Use @tanstack/react-query equivalent of useSWRConfig()
+  // const { mutate } = useSWRConfig()
   const { addresses } = useDaoStore()
 
   const [creatingBid, setCreatingBid] = useState(false)
@@ -67,12 +83,12 @@ export const PlaceBid = ({
     minBidIncrement,
   })
 
-  const { data: averageBid } = useSWR(
-    addresses.token
-      ? [SWR_KEYS.AVERAGE_WINNING_BID, chain.id, addresses.token]
-      : undefined,
-    () => averageWinningBid(chain.id, addresses.token as Address)
-  )
+  const { data: averageBid } = useQuery({
+    queryKey: (addresses.token
+      ? [USE_QUERY_KEYS.AVERAGE_WINNING_BID, chain.id, addresses.token]
+      : undefined),
+    queryFn: () => averageWinningBid(chain.id, addresses.token as Address)
+  })
 
   const isMinBid = Number(bidAmount) >= minBidAmount
   const formattedMinBid = formatCryptoVal(minBidAmount)
@@ -123,13 +139,15 @@ export const PlaceBid = ({
       const tx = await writeContract(config)
       if (tx?.hash) await waitForTransaction({ hash: tx.hash })
 
-      await mutate([SWR_KEYS.AUCTION_BIDS, chain.id, addresses.token, tokenId], () =>
-        getBids(chain.id, addresses.token!, tokenId)
-      )
+      // TODO: replace with @tanstack/react-query mutate
+      // await mutate([USE_QUERY_KEYS.AUCTION_BIDS, chain.id, addresses.token, tokenId], () =>
+      //   getBids(chain.id, addresses.token!, tokenId)
+      // )
 
-      await mutate([SWR_KEYS.AVERAGE_WINNING_BID, chain.id, addresses.token], () =>
-        averageWinningBid(chain.id, addresses.token as Address)
-      )
+      // TODO: replace with @tanstack/react-query mutate
+      // await mutate([USE_QUERY_KEYS.AVERAGE_WINNING_BID, chain.id, addresses.token], () =>
+      //   averageWinningBid(chain.id, addresses.token as Address)
+      // )
     } catch (error) {
       console.error(error)
     } finally {
@@ -154,17 +172,31 @@ export const PlaceBid = ({
       justify={'flex-start'}
     >
       {bidAmount && valueToCalculateWarning ? (
-        <AnimatedModal size={'small'} open={showWarning}>
-          <WarningModal
-            daoName={daoName}
-            currentBid={bidAmount}
-            isCreatingBid={creatingBid}
-            isAverage={!!averageBid}
-            maxReccomendedBid={formatEther(valueToCalculateWarning)}
-            onCancel={() => setShowWarning(false)}
-            onConfirm={() => createBidTransaction()}
-          />
-        </AnimatedModal>
+        <Modal size={'small'} isOpen={showWarning} onClose={onClose}>
+          <ModalContent>
+            <ModalHeader>Modal Title</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              {/** TODO: Test Warning Modal, convert to @chakra/react modal if needed */}
+              <WarningModal
+                daoName={daoName}
+                currentBid={bidAmount}
+                isCreatingBid={creatingBid}
+                isAverage={!!averageBid}
+                maxReccomendedBid={formatEther(valueToCalculateWarning)}
+                onCancel={() => setShowWarning(false)}
+                onConfirm={() => createBidTransaction()}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme='blue' mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button variant="warning">Secondary Action</Button>
+            </ModalFooter>
+          </ModalContent>
+
+        </Modal>
       ) : null}
 
       {!creatingBid ? (
@@ -216,9 +248,8 @@ export const PlaceBid = ({
                       const network = PUBLIC_IS_TESTNET
                         ? 'https://testnet.nouns.build'
                         : 'https://nouns.build'
-                      const baseUrl = `${network}/dao/${chain.name.toLowerCase()}/${
-                        addresses.token
-                      }`
+                      const baseUrl = `${network}/dao/${chain.name.toLowerCase()}/${addresses.token
+                        }`
                       if (address === undefined) {
                         await navigator.clipboard.writeText(baseUrl)
                         return
@@ -232,12 +263,13 @@ export const PlaceBid = ({
                       setCopied(true)
                     }}
                   >
-                    <Icon size="md" id="share" />
+                    {/** TODO: Make into share Icon */}
+                    <Icon id="share" />
                   </ContractButton>
                 </Box>
-                <PopUp open={showTooltip} trigger={<></>} placement="top">
+                <Popover trigger='hover' placement="top">
                   <Text align="center">{copied ? 'Copied' : 'Copy Referral Link'}</Text>
-                </PopUp>
+                </Popover>
               </Fragment>
             ) : null}
           </Flex>

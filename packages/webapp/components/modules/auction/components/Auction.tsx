@@ -1,19 +1,25 @@
-import { Flex, Grid } from '@zoralabs/zord'
+import { Flex, Grid } from '@chakra-ui/react'
+// TODO: Replace axios
 import axios from 'axios'
 import React, { Fragment, ReactNode } from 'react'
+// TODO: Replace useSWR
 import useSWR from 'swr'
 import { formatEther } from 'viem'
 import { readContract } from 'wagmi/actions'
 
-import SWR_KEYS from 'src/constants/swrKeys'
-import { auctionAbi } from 'src/data/contract/abis'
-import { L1_CHAINS } from 'src/data/contract/chains'
-import { getBids } from 'src/data/subgraph/requests/getBids'
-import { useDaoStore } from 'src/modules/dao'
+import SWR_KEYS from '@constants/swrKeys'
+import { auctionAbi } from 'data/contract/abis/Auction'
+// TODO: Pull in L1_CHAINS
+// import { L1_CHAINS } from 'src/data/contract/chains'
+import { getBids } from "@queries/base/requests/getBids"
+import { useDaoStore } from 'components/modules/dao'
+
+// TODO: Pull in L2MigratedResponse
 import { L2MigratedResponse } from 'src/pages/api/migrated'
+// TODO: Fix the page URLs (queries, params, etc.) 
 import { TokenWithDao } from 'src/pages/dao/[network]/[token]/[tokenId]'
-import { AddressType, Chain } from 'src/typings'
-import { unpackOptionalArray } from 'src/utils/helpers'
+import { AddressType, Chain } from '@constants/types'
+import { unpackOptionalArray } from '@utils/helpers'
 
 import { useAuctionEvents } from '../hooks'
 import { auctionGrid, auctionWrapper } from './Auction.css'

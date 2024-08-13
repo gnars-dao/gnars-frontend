@@ -1,29 +1,29 @@
-import { Box, Flex, Text } from '@zoralabs/zord'
+import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react"
 import React from 'react'
 
-import { Avatar } from 'src/components/Avatar'
-import { Icon } from 'src/components/Icon'
-import { ETHERSCAN_BASE_URL } from 'src/constants/etherscan'
-import { AuctionBidFragment } from 'src/data/subgraph/sdk.generated'
-import { useEnsData } from 'src/hooks/useEnsData'
-import { useChainStore } from 'src/stores/useChainStore'
-import { formatCryptoVal } from 'src/utils/numbers'
+import { AccountAvatar } from 'components/AccountAvatar'
+import { Icon } from '@chakra-ui/icons'
+import { ETHERSCAN_BASE_URL } from "constants/etherscan"
+import { AuctionBidFragment } from 'subgraph-generated/base'
+import { useEnsData } from 'hooks/useEnsData'
+import { useChainStore } from 'stores/useChainStore'
+import { formatCryptoVal } from 'utils/numbers'
 
 export const BidCard = ({ bid }: { bid: AuctionBidFragment }) => {
   const { displayName, ensAvatar } = useEnsData(bid?.bidder)
   const chain = useChainStore((x) => x.chain)
 
   return (
-    <Flex direction={'column'} my="x4" align="center" style={{ height: 35 }}>
-      <Flex direction="row" width={'100%'} align="center" justify="space-between">
-        <Flex direction="row" align="center">
-          <Avatar address={bid.bidder} src={ensAvatar} size="28" />
+    <Stack direction={'column'} my="x4" align="center" style={{ height: 35 }}>
+      <Stack direction="row" width={'100%'} align="center" justify="space-between">
+        <Stack direction="row" align="center">
+          <AccountAvatar address={bid.bidder} avatarImg={ensAvatar ?? ''} />
           <Text mx="x2" variant="paragraph-md">
             {displayName}
           </Text>
-        </Flex>
-        <Flex direction="row" align="center">
-          <Flex
+        </Stack>
+        <Stack direction="row" align="center">
+          <Stack
             as="a"
             href={`${ETHERSCAN_BASE_URL[chain.id]}/address/${bid.bidder}`}
             target="_blank"
@@ -32,10 +32,10 @@ export const BidCard = ({ bid }: { bid: AuctionBidFragment }) => {
             <Text mr="x2" variant="paragraph-md">
               {formatCryptoVal(bid.amount)} ETH
             </Text>
-            <Icon id="external-16" fill="text4" size="sm" align={'center'} />
-          </Flex>
-        </Flex>
-      </Flex>
+            <Icon id="external-16" fill="text4" />
+          </Stack>
+        </Stack>
+      </Stack>
       <Box
         mt="x2"
         style={{
@@ -44,6 +44,6 @@ export const BidCard = ({ bid }: { bid: AuctionBidFragment }) => {
           opacity: 0.5,
         }}
       />
-    </Flex>
+    </Stack>
   )
 }

@@ -11,10 +11,14 @@
   "dependencies": {
     "@graphprotocol/graph-cli": "0.50.1",
     "@graphprotocol/graph-ts": "0.30.0",
-    "as-base64": "^0.2.0"
+    "as-base64": "^0.2.0",
+    "node": "^22.6.0"
   },
   "devDependencies": {
+    "@types/node": "^18.11.18",
+    "hardhat": "^2.13.0",
     "matchstick-as": "0.5.0",
-    "mustache": "^4.2.0"
+    "mustache": "^4.2.0",
+    "typescript": "^5.5.4"
   }
 }

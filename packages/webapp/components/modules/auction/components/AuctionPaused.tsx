@@ -1,21 +1,22 @@
-import { Box, Stack, atoms } from '@zoralabs/zord'
+import { Box, Stack, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import useSWR from 'swr'
+import { useQuery } from '@tanstack/react-query'
 import { encodeFunctionData } from 'viem'
 import { useContractRead } from 'wagmi'
 
-import { Icon } from 'src/components/Icon'
-import SWR_KEYS from 'src/constants/swrKeys'
-import { auctionAbi } from 'src/data/contract/abis'
-import { ProposalState } from 'src/data/contract/requests/getProposalState'
+// import { Icon } from 'src/components/Icon'
+
+import { auctionAbi } from 'data/contract/abis/Auction'
+import { ProposalState } from 'data/contract/requests/getProposalState'
 import {
   ProposalsResponse,
   getProposals,
-} from 'src/data/subgraph/requests/proposalsQuery'
-import { useDaoStore } from 'src/modules/dao'
-import { useChainStore } from 'src/stores/useChainStore'
+} from '@queries/base/requests/proposalsQuery'
+import { useDaoStore } from '@components/modules/dao/useDaoStore'
+import { useChainStore } from 'stores/useChainStore'
+import USE_QUERY_KEYS from '@constants/swrKeys'
 
 export const AuctionPaused = () => {
   const { query, isReady } = useRouter()
@@ -30,11 +31,11 @@ export const AuctionPaused = () => {
     functionName: 'paused',
     chainId: chain.id,
   })
-
-  const { data } = useSWR<ProposalsResponse>(
-    paused && isReady ? [SWR_KEYS.PROPOSALS, chain.id, query.token, query.page] : null,
-    (_, chainId, token, page) => getProposals(chainId, token, LIMIT, Number(page))
-  )
+  // TODO Fix queryKey, return type and Number errors
+  const { data } = useQuery<ProposalsResponse>({
+    queryKey: (paused && isReady ? [USE_QUERY_KEYS.PROPOSALS, chain.id, query.token, query.page] : null),
+    queryFn: (_, chainId, token, page) => getProposals(chainId, token, LIMIT, Number(page))
+  })
 
   const pausedProposal = useMemo(() => {
     if (!(paused && auction)) return undefined
@@ -89,9 +90,11 @@ export const AuctionPaused = () => {
           fontSize={18}
           className={atoms({ textDecoration: 'underline' })}
         >
+          {/* <Icon align="center" fill="text4" id="external-16" size="sm" /> */}
           {pausedProposal?.proposalId ? 'See proposal here' : 'See activity tab'}
           {pausedProposal?.proposalId ? (
-            <Icon align="center" fill="text4" id="external-16" size="sm" />
+
+            <Text>Paused proposal WIP</Text>
           ) : (
             <></>
           )}

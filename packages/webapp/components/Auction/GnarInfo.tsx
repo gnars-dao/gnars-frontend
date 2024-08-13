@@ -30,6 +30,11 @@ import { GnarNavigation } from "./GnarNavigation"
 import { GnarvingTracker } from "./GnarvingTracker"
 import { SettleAuctionButton } from "./SettleAuctionButton"
 
+// TODO: Pull in dao module from nouns-builder
+import { Auction } from "@components/modules/auction"
+import { PUBLIC_SUBGRAPH_URL } from "@constants/env"
+import { CHAIN_IDS } from "@constants/types"
+
 const londrinaSolid = Londrina_Solid({
   weight: "400",
   subsets: ["latin"],
@@ -75,7 +80,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
   const isClaimedGnar = !isTreasuryGnar && !gnarData.gnar.auction
   return (
     <VStack w="full" alignItems="center" justifyContent="center" spacing={6} maxW={{ base: "xl", lg: "500px", xl: "xl" }}  {...props}>
-      <Heading alignItems="center" justifyContent="center" marginTop={{ md: "2em" }}>Under Construction</Heading>
+      {/*<Heading alignItems="center" justifyContent="center" marginTop={{ md: "2em" }}>Under Construction</Heading>
 
       <Heading as="h3" size={"lg"}>
         Use{" "}
@@ -83,8 +88,8 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
           Nouns Builder
         </Link>{" "}
         in the mean time
-      </Heading>
-      {/*
+      </Heading>*/}
+
       <SimpleGrid
         w="full"
         rowGap={[4, 2]}
@@ -128,7 +133,23 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
           winner={winner}
         />{" "}
       </SimpleGrid>
-        */}
+      <SimpleGrid
+        w="full"
+        rowGap={[4, 2]}
+        columnGap={0}
+        templateAreas={{
+          base: `"gnarId" "navigation" "auction" "gnarvingTracker" `,
+          sm: `"gnarId navigation" "gnarvingTracker gnarvingTracker" "auction auction"`,
+        }}
+        color={"chakra-body-text"}
+        spacing={6}
+        overflow={"visible"}
+      >
+        <Auction chain={CHAIN_IDS.HARDHAT} auctionAddress="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
+          collection="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
+          token="6166"
+        />
+      </SimpleGrid>
       <VStack alignItems={"center"} textAlign={"center"} spacing={10} w={"full"}>
         {(isTreasuryGnar || isOg || isClaimedGnar) && (
           <VStack alignItems={"center"} spacing={1}>

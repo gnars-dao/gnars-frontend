@@ -9,9 +9,6 @@
     "noUnusedLocals": false,
     "skipLibCheck": true,
     "noUnusedParameters": false,
-    "types": [
-      "vitest/globals"
-    ],
     "plugins": [
       {
         "name": "next"

@@ -1,4 +1,4 @@
-import { Button, Flex } from '@zoralabs/zord'
+import { Button, Stack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import {
   useAccount,
@@ -8,11 +8,11 @@ import {
 } from 'wagmi'
 import { waitForTransaction } from 'wagmi/actions'
 
-import { ContractButton } from 'src/components/ContractButton'
-import { auctionAbi } from 'src/data/contract/abis'
-import { useDaoStore } from 'src/modules/dao'
-import { useChainStore } from 'src/stores/useChainStore'
-import { AddressType } from 'src/typings'
+import { ContractButton } from 'components/ContractButton'
+import { auctionAbi } from '@data/contract/abis/Auction'
+import { useDaoStore } from '@components/modules/dao'
+import { useChainStore } from 'stores/useChainStore'
+import { AddressType } from '@constants/types'
 
 import { auctionActionButtonVariants } from '../Auction.css'
 
@@ -72,17 +72,17 @@ export const Settle = ({
 
   if (isEnding && !settling) {
     return (
-      <Flex direction="column" align="center" width={'100%'}>
+      <Stack direction="column" align="center" width={'100%'}>
         <Button disabled className={auctionActionButtonVariants['settling']}>
           Auction ending
         </Button>
-      </Flex>
+      </Stack>
     )
   }
 
   if (settling) {
     return (
-      <Flex direction="column" align="center" width={'100%'}>
+      <Stack direction="column" align="center" width={'100%'}>
         <Button
           disabled
           className={
@@ -94,12 +94,12 @@ export const Settle = ({
         >
           Settling
         </Button>
-      </Flex>
+      </Stack>
     )
   }
 
   return (
-    <Flex direction="column" align="center" width={'100%'}>
+    <Stack direction="column" align="center" width={'100%'}>
       <ContractButton
         handleClick={handleSettle}
         className={
@@ -111,6 +111,6 @@ export const Settle = ({
       >
         {isWinner ? 'Claim NFT' : 'Start next auction'}
       </ContractButton>
-    </Flex>
+    </Stack>
   )
 }

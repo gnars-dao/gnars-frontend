@@ -1,19 +1,20 @@
-import { Box, Flex, Stack, Text } from '@zoralabs/zord'
+import { Box, Flex, Stack, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-import { Icon } from 'src/components/Icon'
-import { ETHERSCAN_BASE_URL } from 'src/constants/etherscan'
-import { AuctionBidFragment } from 'src/data/subgraph/sdk.generated'
-import { useChainStore } from 'src/stores/useChainStore'
+import { Icon } from '@chakra-ui/icons'
+import { ETHERSCAN_BASE_URL } from '@constants/etherscan'
+import { AuctionBidFragment } from '@subgraph-generated/base'
+import { useChainStore } from 'stores/useChainStore'
 
 import { AllBids } from '../AllBids'
 import { allRecentBidsButton, recentBid } from '../Auction.css'
 import { Bidder } from './Bidder'
 
-const AnimatedModal = dynamic(() => import('src/components/Modal/AnimatedModal'), {
-  ssr: false,
-})
+// TODO: Check if AnimatedModal needs to be pulled in from nouns-builder
+// const AnimatedModal = dynamic(() => import('src/components/Modal/AnimatedModal'), {
+//   ssr: false,
+// })
 
 interface RecentBidsProps {
   bids: AuctionBidFragment[]
@@ -45,11 +46,12 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids }) => {
               <Text mr="x2" variant="paragraph-md" color="tertiary">
                 {amount} ETH
               </Text>
-              <Icon id="external-16" fill="text4" size="sm" align={'center'} />
+              <Icon id="external-16" fill="text4" />
             </Flex>
           </Flex>
         ))}
         <Flex mt="x4" align="center" justify="center" className={recentBid}>
+          {/*
           <AnimatedModal
             trigger={
               <button type="button" className={allRecentBidsButton}>
@@ -59,6 +61,7 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids }) => {
           >
             <AllBids bids={bids} />
           </AnimatedModal>
+          */}
         </Flex>
       </Stack>
     </Box>
