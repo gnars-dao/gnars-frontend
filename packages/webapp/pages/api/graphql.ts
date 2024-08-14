@@ -5,12 +5,9 @@
 import { GraphQLClient } from 'graphql-request';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
-import { env } from '@env/server';
+import env from '@env/server'
 
-const L1_SUBGRAPH_QUERY_URI =
-  `https://gateway-arbitrum.network.thegraph.com/api/
-  ${env.PRIVATE_GRAPH_LAYER_1_API_KEY}
-  /subgraphs/id/8dJquN3wTvAGsf6qyFtqCWc6Wn1Zt9G1gt8GmsLhQDnC`;
+const L1_SUBGRAPH_QUERY_URI = `https://gateway-arbitrum.network.thegraph.com/api/${env.PRIVATE_GRAPH_LAYER_1_API_KEY}/subgraphs/id/8dJquN3wTvAGsf6qyFtqCWc6Wn1Zt9G1gt8GmsLhQDnC`;
 
  const ssrClient = new GraphQLClient(L1_SUBGRAPH_QUERY_URI);
 

@@ -24,17 +24,6 @@ import { getLatestBlock } from "@utils/web3"
 import { Block } from "viem"
 import { graphQLClient } from "@graphql/ssr.client"
 
-export async function getServerSideProps() {
-  const block: Block | undefined = await getLatestBlock()
-  const { activeProposals, finalizedProposals } = await fetchEthProposals(block)
-
-  return {
-    props: {
-      ethProposals: [activeProposals, finalizedProposals]
-    }
-  }
-}
-
 export default function Proposals({ ethProposals }) {
   const tokenAddress = contracts.Token.Proxy
   const { query: baseQuery, isReady: baseQueryReady, push } = useRouter()
@@ -163,6 +152,17 @@ export default function Proposals({ ethProposals }) {
       </VStack>
     </DarkMode>
   )
+}
+
+export async function getServerSideProps() {
+  const block: Block | undefined = await getLatestBlock()
+  const { activeProposals, finalizedProposals } = await fetchEthProposals(block)
+
+  return {
+    props: {
+      ethProposals: [activeProposals, finalizedProposals]
+    }
+  }
 }
 
 // Ethereum proposals only

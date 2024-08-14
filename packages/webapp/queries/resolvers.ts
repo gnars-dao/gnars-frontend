@@ -34,7 +34,6 @@ export class BaseSDK {
       client = globalBaseClient.subgraphClient.get(chainId) as GraphQLClient;
     } else {
       client = new GraphQLClient(process.env.NEXT_PUBLIC_GOLDSKY_BASE_API_URL as string, {
-
         headers: {
           "Content-Type": "application/json"
         }
