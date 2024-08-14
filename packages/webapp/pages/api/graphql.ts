@@ -7,9 +7,12 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 import { env } from '@env/server';
 
-const l1subgraphQueryUri =
-  `https://gateway-arbitrum.network.thegraph.com/api/${env.PRIVATE_GRAPH_LAYER_1_API_KEY}/subgraphs/id/8dJquN3wTvAGsf6qyFtqCWc6Wn1Zt9G1gt8GmsLhQDnC`;
- const ssrClient = new GraphQLClient(l1subgraphQueryUri);
+const L1_SUBGRAPH_QUERY_URI =
+  `https://gateway-arbitrum.network.thegraph.com/api/
+  ${env.PRIVATE_GRAPH_LAYER_1_API_KEY}
+  /subgraphs/id/8dJquN3wTvAGsf6qyFtqCWc6Wn1Zt9G1gt8GmsLhQDnC`;
+
+ const ssrClient = new GraphQLClient(L1_SUBGRAPH_QUERY_URI);
 
 const GraphqlReqSchema = z.object({
   query: z.string().min(1),
