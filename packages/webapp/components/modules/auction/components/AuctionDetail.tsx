@@ -1,7 +1,7 @@
-import { Box, Flex } from '@zoralabs/zord'
+import { Box, Flex } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
-import { auctionTextVariants } from './Auction.css'
+// import { auctionTextVariants } from './Auction.css'
 
 export const AuctionDetail = ({
   title,
@@ -11,9 +11,9 @@ export const AuctionDetail = ({
   children: ReactNode
 }) => (
   <Flex direction={'column'} style={{ flexBasis: '50%', flexGrow: 0 }}>
-    <Box className={auctionTextVariants['tertiary']}>{title}</Box>
+    <Box className={'tertiary'}>{title}</Box>
     <Box
-      className={auctionTextVariants['secondary']}
+      className={'secondary'}
       mt={{ '@initial': 'x1', '@768': 'x2' }}
     >
       {children}

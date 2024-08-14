@@ -28,7 +28,7 @@ import FeedTab from 'src/modules/dao/components/Feed/Feed'
 import { NextPageWithLayout } from 'src/pages/_app'
 import { DaoOgMetadata } from 'src/pages/api/og/dao'
 import { AddressType, CHAIN_ID, Chain } from 'src/typings'
-import { isPossibleMarkdown } from 'src/utils/helpers'
+// import { isPossibleMarkdown } from 'src/utils/helpers'
 
 export type TokenWithDao = NonNullable<TokenWithDaoQuery['token']>
 
@@ -37,7 +37,7 @@ interface TokenPageProps {
   collection: AddressType
   token: TokenWithDao
   name: string
-  description: string
+  // description: string
   tokenId: string
   addresses: DaoContractAddresses
   ogImageURL: string
@@ -46,9 +46,9 @@ interface TokenPageProps {
 
 const TokenPage: NextPageWithLayout<TokenPageProps> = ({
   url,
-  collection,
+  collection = "0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17",
   token,
-  description,
+  // description,
   name,
   addresses,
   ogImageURL,
@@ -59,12 +59,12 @@ const TokenPage: NextPageWithLayout<TokenPageProps> = ({
 
   const chain = PUBLIC_ALL_CHAINS.find((x) => x.id === chainId) as Chain
 
-  const { hasThreshold } = useVotes({
+  /*const { hasThreshold } = useVotes({
     chainId: chainId,
     signerAddress: address,
     collectionAddress: collection,
     governorAddress: addresses?.governor,
-  })
+  })*/
 
   const handleCloseSuccessModal = () => {
     replace(
@@ -79,7 +79,7 @@ const TokenPage: NextPageWithLayout<TokenPageProps> = ({
     )
   }
 
-  const sections = React.useMemo(() => {
+  /*const sections = React.useMemo(() => {
     const aboutSection = {
       title: 'About',
       component: [<About key={'about'} />],
@@ -101,18 +101,18 @@ const TokenPage: NextPageWithLayout<TokenPageProps> = ({
       component: [<FeedTab key="feed" collectionAddress={collection} />],
     }
 
-    const publicSections = [aboutSection, proposalsSection, smartContractsSection]
+  // const publicSections = [aboutSection, proposalsSection, smartContractsSection]
 
-    const baseSections = hasThreshold ? [...publicSections, adminSection] : publicSections
-    return CAST_ENABLED.includes(collection)
-      ? [...baseSections.slice(0, 1), daoFeed, ...baseSections.slice(1)]
-      : baseSections
-  }, [hasThreshold, collection])
-
-  const ogDescription = useMemo(() => {
+  // const baseSections = hasThreshold ? [...publicSections, adminSection] : publicSections
+  return CAST_ENABLED.includes(collection)
+    ? [...baseSections.slice(0, 1), daoFeed, ...baseSections.slice(1)]
+    : baseSections
+}, [hasThreshold, collection])
+*/
+  /*const ogDescription = useMemo(() => {
     if (!description) return ''
     const isMarkdown = isPossibleMarkdown(description)
-
+  
     // DAO descriptions are full of MD syntax and do not provide a pleasant
     // reading experience for social embeds. For this, we'll check if the
     // description is markdown and if so, we'll provide a generic description
@@ -123,25 +123,25 @@ const TokenPage: NextPageWithLayout<TokenPageProps> = ({
     // remove line breaks and formatting from og description
     const cleanDesc = description.replace(/(\r\n|\n|\r|\t|\v|\f|\\n)/gm, '')
     return cleanDesc.length > 111 ? `${cleanDesc.slice(0, 111)}...` : cleanDesc
-  }, [description, name])
+  }, [description, name])*/
 
-  const activeTab = query?.tab ? (query.tab as string) : 'About'
+  // const activeTab = query?.tab ? (query.tab as string) : 'About'
 
   return (
     <Flex direction="column" pb="x30">
-      <Meta
-        title={name || ''}
-        type={`${name}:nft`}
-        image={ogImageURL}
-        slug={url}
-        description={ogDescription}
-        farcaster={{
-          name,
-          contractAddress: collection,
-          chain,
-          image: token.image || undefined,
-        }}
-      />
+      {/*<Meta
+      title={name || ''}
+      type={`${name}:nft`}
+      image={ogImageURL}
+      slug={url}
+      description={ogDescription}
+      farcaster={{
+        name,
+        contractAddress: collection,
+        chain,
+        image: token.image || undefined,
+      }}
+    />*/}
 
       <DaoTopSection
         chain={chain}
@@ -149,22 +149,22 @@ const TokenPage: NextPageWithLayout<TokenPageProps> = ({
         auctionAddress={addresses.auction!}
         token={token}
       />
-      <SectionHandler
-        sections={sections}
-        activeTab={activeTab}
-        basePath={`/dao/${query.network}/${collection}/${token.tokenId}`}
-      />
+      {/*<SectionHandler
+      sections={sections}
+      activeTab={activeTab}
+      basePath={`/dao/${query.network}/${collection}/${token.tokenId}`}
+    />
 
-      <AnimatedModal
-        open={query?.message === SUCCESS_MESSAGES.PROPOSAL_SUBMISSION_SUCCESS}
-        close={handleCloseSuccessModal}
-      >
-        <SuccessModalContent
-          title={`Proposal submitted`}
-          subtitle={`Your Proposal has been successfully submitted. It might take a few minutes for it to appear.`}
-          success
-        />
-      </AnimatedModal>
+    <AnimatedModal
+      open={query?.message === SUCCESS_MESSAGES.PROPOSAL_SUBMISSION_SUCCESS}
+      close={handleCloseSuccessModal}
+    >
+      <SuccessModalContent
+        title={`Proposal submitted`}
+        subtitle={`Your Proposal has been successfully submitted. It might take a few minutes for it to appear.`}
+        success
+      />
+    </AnimatedModal>*/}
     </Flex>
   )
 }

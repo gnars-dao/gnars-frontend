@@ -1,17 +1,17 @@
-import { Box, Flex, Text } from '@zoralabs/zord'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import React from 'react'
 import useSWR from 'swr'
 
-import { Icon } from 'src/components/Icon'
-import { OptionalLink } from 'src/components/OptionalLink'
-import SWR_KEYS from 'src/constants/swrKeys'
-import { SDK } from 'src/data/subgraph/client'
-import { useLayoutStore } from 'src/stores'
-import { useChainStore } from 'src/stores/useChainStore'
+import { Icon } from "@chakra-ui/icons"
+import { OptionalLink } from '@components/OptionalLink'
+import USE_QUERY_KEYS from '@constants/swrKeys'
+import { BaseSDK } from '@queries/resolvers'
+// import { useLayoutStore } from 'src/stores'
+import { useChainStore } from 'stores/useChainStore'
 
-import { auctionDateNavButton, auctionTextVariants } from './Auction.css'
+// import { auctionDateNavButton, auctionTextVariants } from './Auction.css'
 
 interface AuctionTokenPickerProps {
   collection: string
@@ -28,15 +28,15 @@ export const AuctionTokenPicker: React.FC<AuctionTokenPickerProps> = ({
 }: AuctionTokenPickerProps) => {
   const { id: chainId } = useChainStore((x) => x.chain)
   const { query, isReady } = useRouter()
-  const { isMobile } = useLayoutStore()
+  // const { isMobile } = useLayoutStore()
   const disabledStyle = { opacity: 0.2 }
 
   const { data } = useSWR(
     isReady
-      ? [SWR_KEYS.DAO_NEXT_AND_PREVIOUS_TOKENS, chainId, collection, tokenId]
+      ? [USE_QUERY_KEYS.DAO_NEXT_AND_PREVIOUS_TOKENS, chainId, collection, tokenId]
       : undefined,
     () =>
-      SDK.connect(chainId)
+      BaseSDK.connect()
         .daoNextAndPreviousTokens({ tokenId, tokenAddress: collection.toLowerCase() })
         .then((x) => ({
           next: x.next.length > 0 ? parseInt(x.next[0].tokenId) : undefined,
@@ -61,7 +61,8 @@ export const AuctionTokenPicker: React.FC<AuctionTokenPickerProps> = ({
             as={hasPreviousToken ? 'a' : undefined}
             align={'center'}
             justify={'center'}
-            className={auctionDateNavButton}
+            // className={auctionDateNavButton}
+            className={'auctionDateNavButton'}
           >
             <Icon id="arrowLeft" style={hasPreviousToken ? {} : disabledStyle} />
           </Flex>

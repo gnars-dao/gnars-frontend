@@ -1,4 +1,4 @@
-import { Flex } from '@zoralabs/zord'
+import { Flex } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
 export const AuctionDetails = ({ children }: { children: ReactNode }) => {
