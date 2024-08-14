@@ -1,4 +1,4 @@
-import { Button, Container, DarkMode, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react"
+import { Button, Container, DarkMode, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
 import { QueryClient, useQuery } from "@tanstack/react-query"
 import { DelegateButton } from "components/Governance/Delegation/DelegateButton"
 import { UserVotes } from "components/Governance/Delegation/UserVotes"
@@ -156,11 +156,19 @@ export default function Proposals({ ethProposals }) {
 
 export async function getServerSideProps() {
   const block: Block | undefined = await getLatestBlock()
-  const { activeProposals, finalizedProposals } = await fetchEthProposals(block)
-
-  return {
-    props: {
-      ethProposals: [activeProposals, finalizedProposals]
+  try {
+    let { activeProposals, finalizedProposals } = await fetchEthProposals(block)
+    return {
+      props: {
+        ethProposals: [activeProposals, finalizedProposals]
+      }
+    }
+  } catch (err) {
+    console.error('Error getting Eth Proposals from subgraph', err)
+    return {
+      props: {
+        ethProposals: [[], []]
+      }
     }
   }
 }

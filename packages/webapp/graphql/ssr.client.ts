@@ -1,5 +1,4 @@
 import { GraphQLClient } from 'graphql-request';
-import env from '@env/server'
-
+console.log('process.env.ROOT_URI', process.env.ROOT_URI)
 // this hits the graphql api exposed in the pages/api/graphql.ts file
-export const graphQLClient = new GraphQLClient(env.ROOT_URI);
+export const graphQLClient = new GraphQLClient(process.env.ROOT_URI as string);
