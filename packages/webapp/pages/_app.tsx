@@ -6,12 +6,12 @@ import { ConnectKitProvider, getDefaultConfig } from "connectkit"
 import type { AppProps } from "next/app"
 import { createConfig, WagmiConfig } from "wagmi"
 import { BaseAlertHeader } from "components/BaseJumpAnnouncement"
-import { alchemyApiKey, walletConnectProjectId } from "constants/env"
+import { alchemyApiKey, walletConnectProjectId } from "@env/client.ts"
 import Head from "next/head"
 import { base, mainnet } from "wagmi/chains"
 import theme from "theme"
-
-const queryClient = new QueryClient()
+import { useState } from "react"
+import { CHAIN_IDS } from "@constants/types.ts"
 
 const config = createConfig({
   ...getDefaultConfig({
@@ -24,10 +24,23 @@ const config = createConfig({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            // With SSR, we usually want to set some default staleTime
+            // above 0 to avoid refetching immediately on the client side
+            staleTime: 30 * 1000, // 30 seconds
+          },
+        },
+      }),
+  );
+
   return (
     <ChakraProvider theme={theme}>
       <WagmiConfig config={config}>
-        <ConnectKitProvider theme={"midnight"} options={{ enforceSupportedChains: false, initialChainId: 1 }}>
+        <ConnectKitProvider theme={"midnight"} options={{ enforceSupportedChains: false, initialChainId: CHAIN_IDS.BASE }}>
           <QueryClientProvider client={queryClient}>
             <DarkMode>
               <VStack minH={"full"} spacing={10}>

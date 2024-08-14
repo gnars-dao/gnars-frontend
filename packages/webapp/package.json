@@ -10,7 +10,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean:generated": "rm -rf subgraph-generated",
     "test": "jest",
     "build:wagmi": "wagmi generate",
     "storybook": "storybook dev -p 6006",
@@ -27,6 +26,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@sentry/nextjs": "^8.22.0",
+    "@t3-oss/env-nextjs": "^0.11.0",
     "@tanstack/react-query": "^4.28.0",
     "@vercel/analytics": "^1.2.2",
     "abitype": "^1.0.2",
@@ -37,6 +37,7 @@
     "graphql-request": "^4.3.0",
     "graphql-tag": "^2.12.6",
     "immer": "^10.0.4",
+    "jiti": "^1.21.6",
     "lodash": "^4.17.21",
     "next": "^14.2.2",
     "react": "^18.2.0",
@@ -52,6 +53,7 @@
     "usehooks-ts": "^3.1.0",
     "viem": "^1.20.0",
     "wagmi": "^1.4.13",
+    "zod": "^3.23.8",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

@@ -67,10 +67,5 @@ A good practice to deploy in mainnet is to have a duplicate/backup subgraph so t
 traffic can be redirected to the duplicate subgraph instead of having to wait for the subgraph to re-deploy/rollback to
 a previous version.
 
-## Current Deployments:
-
-### Mainnet
-
-API Endpoint: https://api.goldsky.com/api/public/project_clwh32mvalyh201vi1ck71seq/subgraphs/gnars-mainnet/latest/gn
-
-Explorer: https://api.goldsky.com/api/public/project_clwh32mvalyh201vi1ck71seq/subgraphs/gnars-mainnet/latest/gn
+## Current Deployments:  
+Goldsky, Alchemy, and The Graph decentralized network

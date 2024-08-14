@@ -1,4 +1,15 @@
 import { FetchBalanceResult, fetchBalance } from "wagmi/actions"
+import { alchemyApiKey } from "@env/client.ts"
+import { Block, createPublicClient, http } from "viem"
+import { mainnet } from 'viem/chains';
+
+const viemClient = createPublicClient({
+  chain: mainnet,
+  transport: http(ALCHEMY_RPC_URLS[CHAIN_IDS.ETHEREUM] + alchemyApiKey as string),
+});
+
+import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "@constants/types.ts"
+
 
 /**
  * Fetch tokens for a wallet
@@ -15,4 +26,12 @@ export function getTokensValues(
   const ethBalancePromise = fetchBalance({ address: holder, chainId })
   const balancePromises = tokens.map((token) => fetchBalance({ address: holder, token, chainId }))
   return Promise.all([ethBalancePromise, ...balancePromises])
+}
+
+export async function getLatestBlock(): Promise<Block | undefined>  {
+  try {
+    return viemClient.getBlock({ blockTag: 'latest' });
+  } catch (error) {
+    console.error("Error fetching latest block:", error);
+  }
 }

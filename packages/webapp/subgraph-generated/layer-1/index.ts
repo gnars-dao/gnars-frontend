@@ -3974,7 +3974,7 @@ const gnarsTransforms = [];
 const additionalTypeDefs = [] as any[];
 const gnarsHandler = new GraphqlHandler({
               name: "gnars",
-              config: {"endpoint":"https://api.goldsky.com/api/public/project_clwh32mvalyh201vi1ck71seq/subgraphs/gnars-mainnet/latest/gn"},
+              config: {"endpoint":"https://gateway-arbitrum.network.thegraph.com/api/f4ba6d38ccdea1168d4f35d24b35cee9/subgraphs/id/8dJquN3wTvAGsf6qyFtqCWc6Wn1Zt9G1gt8GmsLhQDnC"},
               baseDir,
               cache,
               pubsub,

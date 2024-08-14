@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { Abi } from "abitype"
-import { etherscanApiKey } from "constants/env"
+import { etherscanApiKey } from "@env/client.ts"
 import { isAddress } from "viem"
 import { PublicClient, usePublicClient } from "wagmi"
 
