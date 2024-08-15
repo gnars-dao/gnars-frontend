@@ -52,7 +52,7 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
     } catch {
       setIsValidName.off()
     }
-  }, [accountQuery])
+  }, [accountQuery, setIsValidName])
   return (
     <Modal isCentered onClose={onClose} {...props}>
       <ModalOverlay />

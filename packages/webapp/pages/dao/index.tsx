@@ -4,7 +4,7 @@ import { DelegateButton } from "components/Governance/Delegation/DelegateButton"
 import { UserVotes } from "components/Governance/Delegation/UserVotes"
 import { isArray, partition } from "lodash"
 import Link from "next/link"
-import { execute, ProposalsDocument } from "@subgraph-generated/layer-1"
+import { ProposalsDocument } from "@subgraph-generated/layer-1"
 import { ProposalCard } from "@components/Governance/ProposalCard"
 import Menu from "@components/Menu"
 import BaseProposals from "@components/Proposal/BaseProposals"
@@ -157,10 +157,10 @@ export default function Proposals({ ethProposals }) {
 export async function getServerSideProps() {
   const block: Block | undefined = await getLatestBlock()
   try {
-    let { activeProposals, finalizedProposals } = await fetchEthProposals(block)
+    const ethProposals  = await fetchEthProposals(block)
     return {
       props: {
-        ethProposals: [activeProposals, finalizedProposals]
+        ethProposals,
       }
     }
   } catch (err) {
@@ -194,17 +194,11 @@ function mapProposals(data: any, block?: Block) {
   )
 }
 
-async function fetchEthProposals(block?: Block): Promise<{
-  activeProposals: ProposalData & { effectiveStatus: EffectiveProposalStatus }[]
-  finalizedProposals: ProposalData & { effectiveStatus: EffectiveProposalStatus }[]
-}> {
+async function fetchEthProposals(block?: Block): Promise<any[]> {
   const queryClient = new QueryClient()
   const proposalsData = await fetchProposalsData(queryClient, block)
   const proposals = mapProposals(proposalsData, block)
-  const [activeProposals, finalizedProposals] = partition(proposals, (p) => !isFinalized(p.effectiveStatus)) as [
-    ProposalData & { effectiveStatus: EffectiveProposalStatus }[],
-    ProposalData & { effectiveStatus: EffectiveProposalStatus }[]
-  ]
+  const [activeProposals, finalizedProposals] = partition(proposals, (p) => !isFinalized(p.effectiveStatus))
 
-  return { activeProposals, finalizedProposals }
+  return [ activeProposals, finalizedProposals]
 }

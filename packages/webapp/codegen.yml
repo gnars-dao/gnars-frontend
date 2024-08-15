@@ -1,4 +1,4 @@
-schema: './subgraph-generated/base/graphql.schema.json'
+schema: https://api.goldsky.com/api/public/project_clz4ukquribdy010b1fgua9nm/subgraphs/gnars-base/latest/gn
 documents: './queries/base/**/*.graphql'
 generates:
   subgraph-generated/base/index.ts:

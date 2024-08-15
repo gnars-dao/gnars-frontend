@@ -5,9 +5,8 @@
 import { GraphQLClient } from 'graphql-request';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
-import env from '@env/server'
 
-const ssrClient = new GraphQLClient(env.PRIVATE_GOLDSKY_L1_SUBGRAPH);
+const ssrClient = new GraphQLClient(process.env.PRIVATE_GOLDSKY_L1_SUBGRAPH as string);
 
 const GraphqlReqSchema = z.object({
   query: z.string().min(1),
