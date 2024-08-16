@@ -4,7 +4,7 @@ import React from 'react'
 import { AccountAvatar } from 'components/AccountAvatar'
 import { useEnsData } from 'hooks/useEnsData'
 
-import { recentBidder } from '../Auction.css'
+// import { recentBidder } from '../Auction.css'
 
 interface BidderProps {
   address: string
@@ -18,7 +18,10 @@ export const Bidder: React.FC<BidderProps> = ({ address }) => {
       <Box mr="x2">
         <AccountAvatar address={address} avatarImg={ensAvatar ?? ''} isLoading={ensNameLoading} />
       </Box>
-      <Text className={recentBidder} variant="paragraph-md">
+      <Text
+        // className={recentBidder}
+        className={'recent-bidder'}
+        variant="paragraph-md">
         {displayName}
       </Text>
     </Flex>

@@ -1,10 +1,10 @@
-import { Button, Flex } from '@zoralabs/zord'
+/*import { Button, Flex } from '@chakra-ui/react'
 import React, { ReactNode } from 'react'
 
-import { buttonTab } from 'src/modules/dao/components/AuctionChart/AuctionChart.css'
-import { TopSectionView } from 'src/modules/dao/components/DaoTopSection'
+// import { buttonTab } from 'src/modules/dao/components/AuctionChart/AuctionChart.css'
+// import { TopSectionView } from 'src/modules/dao/components/DaoTopSection'
 
-import { auctionWrapVariants, switcherBox } from './Auction.css'
+// import { auctionWrapVariants, switcherBox } from './Auction.css'
 
 export const ViewSwitcher = ({
   topSectionView,
@@ -39,3 +39,4 @@ export const ViewSwitcher = ({
     <Flex justify={'center'}>{children}</Flex>
   </Flex>
 )
+*/

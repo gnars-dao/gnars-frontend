@@ -8,7 +8,7 @@ import { AuctionBidFragment } from '@subgraph-generated/base'
 import { useChainStore } from 'stores/useChainStore'
 
 import { AllBids } from '../AllBids'
-import { allRecentBidsButton, recentBid } from '../Auction.css'
+// import { allRecentBidsButton, recentBid } from '../Auction.css'
 import { Bidder } from './Bidder'
 
 // TODO: Check if AnimatedModal needs to be pulled in from nouns-builder
@@ -32,7 +32,8 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids }) => {
             py="x2"
             justify="space-between"
             key={`${bidder}_${amount}`}
-            className={recentBid}
+            // className={recentBid}
+            className={'recent-bid'}
           >
             <Bidder address={bidder} />
 
@@ -50,7 +51,13 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids }) => {
             </Flex>
           </Flex>
         ))}
-        <Flex mt="x4" align="center" justify="center" className={recentBid}>
+        <Flex
+          mt="x4"
+          align="center"
+          justify="center"
+          //className={recentBid}
+          className={'recent-bid'}
+        >
           {/*
           <AnimatedModal
             trigger={

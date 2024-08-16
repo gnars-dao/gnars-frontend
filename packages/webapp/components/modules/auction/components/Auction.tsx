@@ -22,7 +22,9 @@ import { AddressType, Chain } from '@constants/types'
 import { unpackOptionalArray } from '@utils/helpers'
 
 import { useAuctionEvents } from '../hooks'
-import { auctionGrid, auctionWrapper } from './Auction.css'
+
+// TODO: Fix styles for auctionGrid and auctionWrapper
+// import { auctionGrid, auctionWrapper } from './Auction.css'
 import { AuctionDetails } from './AuctionDetails'
 import { AuctionImage } from './AuctionImage'
 import { AuctionPaused } from './AuctionPaused'
@@ -38,7 +40,7 @@ interface AuctionControllerProps {
   auctionAddress: string
   collection: string
   token: TokenWithDao
-  viewSwitcher?: ReactNode
+  // viewSwitcher?: ReactNode
 }
 
 export const Auction: React.FC<AuctionControllerProps> = ({
@@ -98,7 +100,10 @@ export const Auction: React.FC<AuctionControllerProps> = ({
   )
 
   return (
-    <Grid className={auctionGrid}>
+    <Grid
+      // className={auctionGrid}
+      className="auction-grid"
+    >
       <AuctionImage
         key={`auction-${collection}-image-${queriedTokenId}`}
         image={image || ''}
@@ -108,7 +113,8 @@ export const Auction: React.FC<AuctionControllerProps> = ({
         direction={'column'}
         height={{ '@initial': 'auto', '@768': '100%' }}
         mt={{ '@initial': 'x4', '@768': 'x0' }}
-        className={auctionWrapper}
+        // className={auctionWrapper}
+        className='auction-wrapper'
       >
         <AuctionTokenPicker
           mintDate={mintDate}

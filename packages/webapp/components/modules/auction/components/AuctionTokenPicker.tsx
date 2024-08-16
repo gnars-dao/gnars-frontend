@@ -78,7 +78,8 @@ export const AuctionTokenPicker: React.FC<AuctionTokenPickerProps> = ({
             as={hasNextToken ? 'a' : undefined}
             align={'center'}
             justify={'center'}
-            className={auctionDateNavButton}
+            // className={auctionDateNavButton}
+            className='auction-date-nav-button'
           >
             <Icon id="arrowRight" style={hasNextToken ? {} : disabledStyle} />
           </Flex>
@@ -94,19 +95,20 @@ export const AuctionTokenPicker: React.FC<AuctionTokenPickerProps> = ({
             as={hasNextToken ? 'a' : undefined}
             align={'center'}
             justify={'center'}
-            className={auctionDateNavButton}
+            // className={auctionDateNavButton}
+            className='auction-date-nav-button'
           >
             <Text
               mx={'x3'}
               style={hasNextToken ? {} : disabledStyle}
               fontWeight={'display'}
             >
-              {isMobile ? 'Latest' : 'Latest Auction'}
+              {'Latest Auction'}
             </Text>
           </Flex>
         </OptionalLink>
 
-        <Box className={auctionTextVariants['tertiary']} ml={'x2'}>
+        <Box className={'tertiary'} ml={'x2'}>
           {!!mintDate && dayjs(mintDate).format('MMMM DD, YYYY')}
         </Box>
       </Flex>
@@ -114,7 +116,7 @@ export const AuctionTokenPicker: React.FC<AuctionTokenPickerProps> = ({
         <Flex
           align={'center'}
           justify={'flex-start'}
-          className={auctionTextVariants['primary']}
+          className={'primary'}
           mt={{ '@initial': 'x4', '@768': 'x2' }}
           mb={{ '@initial': 'x4', '@768': 'x6' }}
         >

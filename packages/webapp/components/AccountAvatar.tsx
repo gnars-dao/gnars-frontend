@@ -7,7 +7,7 @@ import { MdQuestionMark } from "react-icons/md"
 export interface AccountAvatarProps {
   address?: string
   isLoading?: boolean
-  avatarImg?: string
+  avatarImg?: string | null
 }
 
 export const AccountAvatar: FC<AccountAvatarProps> = ({
@@ -20,10 +20,10 @@ export const AccountAvatar: FC<AccountAvatarProps> = ({
   ) : (
     <Avatar
       variant={"delimited"}
-      src={avatarImg}
-      icon={
-        address ? <BlockiesSvgSync address={address} /> : <MdQuestionMark />
-      }
+      src={avatarImg ? avatarImg : ''}
+      //icon={
+      //address ? <BlockiesSvgSync address={address} /> : <MdQuestionMark />
+      //}
       bg={"gray.700"}
       ignoreFallback
       loading={"eager"}

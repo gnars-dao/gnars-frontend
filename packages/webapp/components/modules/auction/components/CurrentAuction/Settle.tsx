@@ -87,8 +87,8 @@ export const Settle = ({
           disabled
           className={
             compact
-              ? auctionActionButtonVariants['dashSettle']
-              : auctionActionButtonVariants['settling']
+              ? 'auction-action-button-variante-dash-settle' // auctionActionButtonVariants['dashSettle']
+              : 'auction-action-button-variante-dash-settling' // auctionActionButtonVariants['settling']
           }
           variant={compact ? 'outline' : 'primary'}
         >

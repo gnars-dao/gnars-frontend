@@ -1,0 +1,7 @@
+/packages/subgraph/build
+/packages/subgraph/data
+/packages/subgraph/generated
+
+/packages/base-subgraph/build
+/packages/base-subgraph/data
+/packages/base-subgraph/generated

@@ -1,16 +1,16 @@
-import { Box, Flex } from '@zoralabs/zord'
+import { Box, Flex } from '@chakra-ui/react'
 
-import { Avatar } from 'src/components/Avatar'
-import { Icon } from 'src/components/Icon'
-import { NULL_ADDRESS } from 'src/constants/addresses'
-import { ETHERSCAN_BASE_URL } from 'src/constants/etherscan'
-import { useEnsData } from 'src/hooks/useEnsData'
-import { useChainStore } from 'src/stores/useChainStore'
+import { AccountAvatar } from 'components/AccountAvatar'
+import { Icon } from '@chakra-ui/icons'
+import { NULL_ADDRESS } from '@constants/baseAddresses'
+import { ETHERSCAN_BASE_URL } from '@constants/etherscan'
+import { useEnsData } from 'hooks/useEnsData'
+import { useChainStore } from 'stores/useChainStore'
 
 import { AuctionDetail } from './AuctionDetail'
 
 export const WinningBidder = ({ owner }: { owner?: string }) => {
-  const { displayName, ensAvatar } = useEnsData(owner)
+  const { displayName, ensAvatar, ensNameLoading } = useEnsData(owner)
   const chain = useChainStore((x) => x.chain)
 
   return (
@@ -19,7 +19,7 @@ export const WinningBidder = ({ owner }: { owner?: string }) => {
         'n/a'
       ) : (
         <Flex direction={'row'} align={'center'}>
-          <Avatar address={owner} src={ensAvatar} size={'24'} />
+          <AccountAvatar address={owner} avatarImg={ensAvatar} isLoading={ensNameLoading} />
           <Box
             as="a"
             href={`${ETHERSCAN_BASE_URL[chain.id]}/address/${owner}`}

@@ -1,16 +1,16 @@
-import { Flex } from '@zoralabs/zord'
+import { Flex } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import { useAccount } from 'wagmi'
 
-import { Meta } from 'src/components/Meta'
-import AnimatedModal from 'src/components/Modal/AnimatedModal'
-import { SuccessModalContent } from 'src/components/Modal/SuccessModalContent'
-import { CACHE_TIMES } from 'src/constants/cacheTimes'
+// import { Meta } from 'src/components/Meta'
+// import AnimatedModal from 'src/components/Modal/AnimatedModal'
+// import { SuccessModalContent } from 'src/components/Modal/SuccessModalContent'
+import { CACHE_TIMES } from '@constants/cacheTimes'
 import { PUBLIC_ALL_CHAINS, PUBLIC_DEFAULT_CHAINS } from '@constants/defaultChains'
 // import { CAST_ENABLED } from 'src/constants/farcasterEnabled'
-import { SUCCESS_MESSAGES } from '@constants/messages'
+// import { SUCCESS_MESSAGES } from '@constants/messages'
 import { BaseSDK } from '@queries/resolvers'
 import { TokenWithDaoQuery } from '@subgraph-generated/base'
 // import { useVotes } from 'src/hooks'
@@ -23,11 +23,11 @@ import { TokenWithDaoQuery } from '@subgraph-generated/base'
   SectionHandler,
   SmartContracts,
 } from 'src/modules/dao'*/
-import { DaoTopSection } from 'src/modules/dao/components/DaoTopSection'
-import FeedTab from 'src/modules/dao/components/Feed/Feed'
-import { NextPageWithLayout } from 'src/pages/_app'
-import { DaoOgMetadata } from 'src/pages/api/og/dao'
-import { AddressType, CHAIN_ID, Chain } from 'src/typings'
+// import { DaoTopSection } from 'components/modules/dao/components/DaoTopSection'
+// import FeedTab from 'src/modules/dao/components/Feed/Feed'
+// import { NextPageWithLayout } from 'src/pages/_app'
+// import { DaoOgMetadata } from 'src/pages/api/og/dao'
+import { AddressType, CHAIN_ID, Chain } from '@constants/types'
 // import { isPossibleMarkdown } from 'src/utils/helpers'
 
 export type TokenWithDao = NonNullable<TokenWithDaoQuery['token']>
@@ -39,12 +39,12 @@ interface TokenPageProps {
   name: string
   // description: string
   tokenId: string
-  addresses: DaoContractAddresses
+  addresses: unknown // DaoContractAddresses
   ogImageURL: string
   chainId: CHAIN_ID
 }
 
-const TokenPage: NextPageWithLayout<TokenPageProps> = ({
+const TokenPage = ({
   url,
   collection = "0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17",
   token,
@@ -143,12 +143,18 @@ const TokenPage: NextPageWithLayout<TokenPageProps> = ({
       }}
     />*/}
 
-      <DaoTopSection
+      {/*<DaoTopSection
         chain={chain}
         collection={collection}
         auctionAddress={addresses.auction!}
         token={token}
-      />
+      />*/}
+      <div>
+        <p>Chain: {chain.toString()}</p>
+        <p>collection: {collection.toString()}</p>
+        <p>auctionAddress: {addresses.auction.toString()}</p>
+        <p>token: {token.toString()}</p>
+      </div>
       {/*<SectionHandler
       sections={sections}
       activeTab={activeTab}
@@ -169,7 +175,7 @@ const TokenPage: NextPageWithLayout<TokenPageProps> = ({
   )
 }
 
-TokenPage.getLayout = getDaoLayout
+// TokenPage.getLayout = getDaoLayout
 
 export default TokenPage
 
@@ -190,7 +196,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     const env = process.env.VERCEL_ENV || 'development'
     const protocol = env === 'development' ? 'http' : 'https'
 
-    const token = await SDK.connect(chain.id)
+    const token = await BaseSDK.connect()
       .tokenWithDao({
         id: `${collection.toLowerCase()}:${tokenId}`,
       })
@@ -200,7 +206,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     const {
       name,
-      description,
+      // description,
       contractImage,
       totalSupply,
       ownerCount,
@@ -211,15 +217,15 @@ export const getServerSideProps: GetServerSideProps = async ({
       auctionAddress,
     } = token.dao
 
-    const addresses: DaoContractAddresses = {
+    const addresses = {
       token: collection,
       metadata: metadataAddress,
       treasury: treasuryAddress,
       governor: governorAddress,
       auction: auctionAddress,
-    }
+    } as const
 
-    const daoOgMetadata: DaoOgMetadata = {
+    const daoOgMetadata = { // : DaoOgMetadata = {
       name,
       contractImage,
       totalSupply,
@@ -243,7 +249,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       collection,
       name,
       token,
-      description: description || '',
+      // description: description || '',
       tokenId,
       addresses,
       ogImageURL,

@@ -22,7 +22,7 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
       position="relative"
       className={"token-image"}
     >
-      <Image
+      {/*<Image
         priority
         unoptimized
         layout="fill"
@@ -31,7 +31,7 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
         sizes="100vw"
         alt={name || ''}
         className={"auction-image"}
-      />
+      />*/}
     </Box>
   )
 }

@@ -31,7 +31,7 @@ import { unpackOptionalArray } from 'utils/helpers'
 import { formatCryptoVal } from 'utils/numbers'
 
 import { useMinBidIncrement } from '../../hooks'
-import { auctionActionButtonVariants, bidForm, bidInput } from '../Auction.css'
+// import { auctionActionButtonVariants, bidForm, bidInput } from '../Auction.css'
 import { WarningModal } from './WarningModal'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -201,12 +201,16 @@ export const PlaceBid = ({
 
       {!creatingBid ? (
         <Flex wrap="wrap">
-          <form className={bidForm}>
+          <form
+            // className={bidForm}
+            className={'bid-form'}
+          >
             <Box position="relative" mr={{ '@initial': 'x0', '@768': 'x2' }}>
               <input
                 placeholder={`${formattedMinBid} ETH or more`}
                 type={'number'}
-                className={bidInput}
+                // className={bidInput}
+                className={'bid-input'}
                 min={formattedMinBid}
                 max={balance?.formatted}
                 onChange={(event) => setBidAmount(event.target.value)}
@@ -220,7 +224,8 @@ export const PlaceBid = ({
           </form>
           <Flex w="100%" wrap="wrap" mt="x2">
             <ContractButton
-              className={auctionActionButtonVariants['bid']}
+              // className={auctionActionButtonVariants['bid']}
+              className={"auction-action-button-variants-bid"}
               handleClick={handleCreateBid}
               disabled={address && isValidChain ? !isValidBid : false}
               mt={{ '@initial': 'x2', '@768': 'x0' }}
@@ -241,7 +246,8 @@ export const PlaceBid = ({
                   }}
                 >
                   <ContractButton
-                    className={auctionActionButtonVariants['bid']}
+                    // className={auctionActionButtonVariants['bid']}
+                    className={'auction-action-button-variants-bid'}
                     ml="x2"
                     mt={{ '@initial': 'x2', '@768': 'x0' }}
                     handleClick={async () => {
@@ -275,7 +281,11 @@ export const PlaceBid = ({
           </Flex>
         </Flex>
       ) : (
-        <Button className={auctionActionButtonVariants['bidding']} disabled>
+        <Button
+          // className={auctionActionButtonVariants['bidding']}
+          className={'auction-action-button-variants-bidding'}
+          disabled
+        >
           placing {bidAmount} ETH bid
         </Button>
       )}

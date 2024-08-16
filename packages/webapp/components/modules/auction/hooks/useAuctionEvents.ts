@@ -3,11 +3,11 @@ import { useSWRConfig } from 'swr'
 import { useContractEvent } from 'wagmi'
 import { readContract } from 'wagmi/actions'
 
-import SWR_KEYS from 'src/constants/swrKeys'
-import { auctionAbi } from 'src/data/contract/abis'
-import { getBids } from 'src/data/subgraph/requests/getBids'
-import { useDaoStore } from 'src/modules/dao'
-import { AddressType, CHAIN_ID } from 'src/typings'
+import USE_QUERY_KEYS from 'constants/swrKeys'
+import { auctionAbi } from '@data/contract/abis/Auction'
+import { getBids } from '@queries/base/requests/getBids'
+import { useDaoStore } from 'components/modules/dao'
+import { AddressType, CHAIN_ID } from '@constants/types'
 
 export const useAuctionEvents = ({
   chainId,
@@ -30,7 +30,7 @@ export const useAuctionEvents = ({
     eventName: 'AuctionCreated',
     chainId,
     listener: async (logs) => {
-      await mutate([SWR_KEYS.AUCTION, chainId, auction], () =>
+      await mutate([USE_QUERY_KEYS.AUCTION, chainId, auction], () =>
         readContract({
           abi: auctionAbi,
           address: auction as AddressType,
@@ -41,7 +41,7 @@ export const useAuctionEvents = ({
 
       const tokenId = logs[0].args.tokenId as bigint
 
-      await mutate([SWR_KEYS.AUCTION_BIDS, chainId, auction, tokenId], () =>
+      await mutate([USE_QUERY_KEYS.AUCTION_BIDS, chainId, auction, tokenId], () =>
         getBids(chainId, collection, tokenId.toString())
       )
 
@@ -54,7 +54,7 @@ export const useAuctionEvents = ({
     abi: auctionAbi,
     eventName: 'AuctionBid',
     listener: async () => {
-      await mutate([SWR_KEYS.AUCTION, chainId, auction], () =>
+      await mutate([USE_QUERY_KEYS.AUCTION, chainId, auction], () =>
         readContract({
           abi: auctionAbi,
           address: auction as AddressType,
@@ -63,7 +63,7 @@ export const useAuctionEvents = ({
         })
       )
 
-      await mutate([SWR_KEYS.AUCTION_BIDS, chainId, auction, tokenId], () =>
+      await mutate([USE_QUERY_KEYS.AUCTION_BIDS, chainId, auction, tokenId], () =>
         getBids(chainId, auction as string, tokenId)
       )
     },
