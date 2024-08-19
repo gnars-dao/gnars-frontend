@@ -1,4 +1,4 @@
-import { Button, Container, DarkMode, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
+import { Button, Container, DarkMode, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react"
 import { QueryClient, useQuery } from "@tanstack/react-query"
 import { DelegateButton } from "components/Governance/Delegation/DelegateButton"
 import { UserVotes } from "components/Governance/Delegation/UserVotes"
@@ -157,14 +157,14 @@ export default function Proposals({ ethProposals }) {
 export async function getServerSideProps() {
   const block: Block | undefined = await getLatestBlock()
   try {
-    const ethProposals  = await fetchEthProposals(block)
+    const ethProposals = await fetchEthProposals(block)
     return {
       props: {
-        ethProposals,
+        ethProposals
       }
     }
   } catch (err) {
-    console.error('Error getting Ethereum Proposals from subgraph', err)
+    console.error("Error getting Ethereum Proposals from subgraph", err)
     return {
       props: {
         ethProposals: [[], []]
@@ -200,5 +200,5 @@ async function fetchEthProposals(block?: Block): Promise<any[]> {
   const proposals = mapProposals(proposalsData, block)
   const [activeProposals, finalizedProposals] = partition(proposals, (p) => !isFinalized(p.effectiveStatus))
 
-  return [ activeProposals, finalizedProposals]
+  return [activeProposals, finalizedProposals]
 }
