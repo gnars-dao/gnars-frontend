@@ -2,7 +2,7 @@ import { FetchBalanceResult, fetchBalance } from "wagmi/actions"
 import { alchemyApiKey } from "@env/client.ts"
 import { Block, createPublicClient, http } from "viem"
 import { mainnet } from 'viem/chains';
-import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "@constants/stuff"
+import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "@constants"
 
 const viemClient = createPublicClient({
   chain: mainnet,

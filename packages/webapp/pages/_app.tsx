@@ -11,7 +11,7 @@ import Head from "next/head"
 import { base, mainnet } from "wagmi/chains"
 import theme from "theme"
 import { useState } from "react"
-import { CHAIN_IDS } from "@constants/stuff"
+import { CHAIN_IDS } from "@constants"
 
 const config = createConfig({
   ...getDefaultConfig({

@@ -15,10 +15,10 @@ import {
   isFinalized,
   ProposalData
 } from "@utils/governanceUtils"
-import { contracts } from "@constants/baseAddresses"
+import { contracts } from "@constants"
 import { getProposals, ProposalsResponse } from "@queries/base/requests/proposalsQuery"
-import USE_QUERY_KEYS from "@constants/swrKeys"
-import { CHAIN_IDS } from "@constants/stuff"
+import { USE_QUERY_KEYS } from "@constants"
+import { CHAIN_IDS } from "@constants"
 import { useRouter } from "next/router"
 import { getLatestBlock } from "@utils/web3"
 import { Block } from "viem"

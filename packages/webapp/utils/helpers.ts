@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual'
 import { isAddress } from 'viem'
 
-import { Duration } from '@constants/types'
+import { Duration } from '@constants'
 
 /**
  *

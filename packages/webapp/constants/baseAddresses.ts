@@ -1,5 +1,5 @@
 import { AddressType } from "./types"
-import { CHAIN_IDS } from "@constants/stuff"
+import { CHAIN_IDS } from "./networkConfig"
 
 export type ContractInfo = {
   Proxy: string,

@@ -32,7 +32,7 @@
       "@abis/*": ["abis/*"],
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
-      "@constants/*": ["constants/*"],
+      "@constants": ["constants"],
       "@data/*": ["data/*"],
       "@env/*": ["env/*"],
       "@hooks/*": ["hooks/*"],

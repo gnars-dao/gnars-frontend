@@ -2,7 +2,7 @@ import { Address } from 'viem'
 import { readContracts } from 'wagmi/actions'
 
 import { metadataAbi } from '../../contract/abis'
-import { CHAIN_IDS } from '@constants/stuff'
+import { CHAIN_IDS } from '@constants'
 
 export const getMetadataAttributes = async (
   metadata: Address,

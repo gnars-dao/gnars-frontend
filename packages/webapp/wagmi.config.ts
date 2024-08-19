@@ -1,6 +1,6 @@
 import { ContractConfig, defineConfig } from "@wagmi/cli"
 import { etherscan, react } from "@wagmi/cli/plugins"
-import { CHAIN_IDS } from "@constants/stuff"
+import { CHAIN_IDS } from "@constants"
 
 import gnarsDaoAbi from "./abis/GnarsDAOLogicV2.json"
 import gnarsV2TokenABI from "./abis/GnarsV2Token.json"

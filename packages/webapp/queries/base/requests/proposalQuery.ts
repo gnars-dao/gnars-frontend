@@ -9,7 +9,7 @@ import {
   ProposalFragment,
   ProposalVoteFragment as ProposalVote,
 } from '@subgraph-generated/base/index.ts'
-import { CHAIN_IDS } from "@constants/stuff"
+import { CHAIN_IDS } from "@constants"
 
 export interface Proposal
   extends Omit<ProposalFragment, 'executableFrom' | 'expiresAt' | 'calldatas'> {

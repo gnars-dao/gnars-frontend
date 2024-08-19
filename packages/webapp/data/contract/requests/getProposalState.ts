@@ -1,7 +1,7 @@
 import { readContract } from 'wagmi/actions'
 
-import { AddressType, BytesType } from '@constants/types'
-import { CHAIN_IDS } from '@constants/stuff'
+import { AddressType, BytesType } from '@constants'
+import { CHAIN_IDS } from '@constants'
 
 import { governorAbi } from '../abis'
 

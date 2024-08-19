@@ -1,5 +1,5 @@
 import { Resolvers } from "@subgraph-generated/layer-1"
-import { CHAIN_IDS } from "@constants/stuff"
+import { CHAIN_IDS } from "@constants"
 import { getSdk } from "subgraph-generated/base"
 import { GraphQLClient } from "graphql-request"
 
