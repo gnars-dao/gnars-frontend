@@ -11,11 +11,6 @@ export const enum CHAIN_IDS {
   BASE_SEPOLIA = 84532
 }
 
-export const ALCHEMY_RPC_URLS= {
-  [CHAIN_IDS.ETHEREUM]: "https://eth-mainnet.g.alchemy.com/v2/",
-  [CHAIN_IDS.BASE]: "https://base-mainnet.g.alchemy.com/v2/"
-}
-
 export type AddressType = `0x${string}`
 
 export type BytesType = `0x${string}`

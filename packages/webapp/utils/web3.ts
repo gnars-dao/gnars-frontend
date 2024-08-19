@@ -2,14 +2,13 @@ import { FetchBalanceResult, fetchBalance } from "wagmi/actions"
 import { alchemyApiKey } from "@env/client.ts"
 import { Block, createPublicClient, http } from "viem"
 import { mainnet } from 'viem/chains';
+import { CHAIN_IDS } from "@constants/types.ts"
+import ALCHEMY_RPC_URLS from "@constants/alchemyRpcUrls.ts"
 
 const viemClient = createPublicClient({
   chain: mainnet,
   transport: http(ALCHEMY_RPC_URLS[CHAIN_IDS.ETHEREUM] + alchemyApiKey as string),
 });
-
-import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "@constants/types.ts"
-
 
 /**
  * Fetch tokens for a wallet
