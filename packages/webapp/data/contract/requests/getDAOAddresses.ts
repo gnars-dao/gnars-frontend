@@ -1,7 +1,8 @@
 import { readContract } from 'wagmi/actions'
 
 import { NULL_ADDRESS, PUBLIC_MANAGER_ADDRESS } from '@constants/baseAddresses.ts'
-import { AddressType, CHAIN_IDS } from '@constants/types'
+import { AddressType} from '@constants/types'
+import { CHAIN_IDS } from '@constants/stuff'
 import { unpackOptionalArray } from '@utils/helpers'
 
 import { managerAbi } from '../abis'

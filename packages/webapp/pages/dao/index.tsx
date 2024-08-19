@@ -18,7 +18,7 @@ import {
 import { contracts } from "@constants/baseAddresses"
 import { getProposals, ProposalsResponse } from "@queries/base/requests/proposalsQuery"
 import USE_QUERY_KEYS from "@constants/swrKeys"
-import { CHAIN_IDS } from "@constants/types"
+import { CHAIN_IDS } from "@constants/stuff"
 import { useRouter } from "next/router"
 import { getLatestBlock } from "@utils/web3"
 import { Block } from "viem"

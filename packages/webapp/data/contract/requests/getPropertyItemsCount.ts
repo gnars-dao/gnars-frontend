@@ -1,6 +1,7 @@
 import { readContract, readContracts } from 'wagmi/actions'
-import { AddressType, CHAIN_IDS } from '@constants/types'
+import { AddressType } from '@constants/types'
 import { metadataAbi } from '@data/contract/abis'
+import { CHAIN_IDS } from '@constants/stuff'
 
 export const getPropertyItemsCount = async (
   chainId: CHAIN_IDS,

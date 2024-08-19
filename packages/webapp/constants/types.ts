@@ -5,12 +5,6 @@ export interface Duration {
   minutes?: number
 }
 
-export const enum CHAIN_IDS {
-  ETHEREUM = 1,
-  BASE = 8453,
-  BASE_SEPOLIA = 84532
-}
-
 export type AddressType = `0x${string}`
 
 export type BytesType = `0x${string}`

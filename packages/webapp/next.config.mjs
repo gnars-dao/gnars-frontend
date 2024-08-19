@@ -3,17 +3,17 @@ const {
   VERCEL_URL = 'localhost'
 } = process.env
 
-let ROOT_URI
+let GRAPHQL_API
 
 switch (VERCEL_ENV) {
   case "preview":
-    ROOT_URI = `https://${VERCEL_URL}/api/graphql`;
+    GRAPHQL_API = `https://${VERCEL_URL}/api/graphql`;
     break;
   case "production":
-    ROOT_URI = `https://gnars.wtf/api/graphql`;
+    GRAPHQL_API = `https://gnars.wtf/api/graphql`;
     break;
   default:
-    ROOT_URI = `http://localhost:3000/api/graphql`;
+    GRAPHQL_API = `http://localhost:3000/api/graphql`;
     break;
 }
 /**
@@ -21,7 +21,7 @@ switch (VERCEL_ENV) {
  */
 const nextConfig = {
   env: {
-    ROOT_URI,
+    GRAPHQL_API,
   },
   webpack: (config) => {
     config.module = {
