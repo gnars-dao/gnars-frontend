@@ -22,7 +22,7 @@ This frontend repository powers the web interface that allows users to interact 
 Before you begin, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (v18 or higher)
-- [PNPM](https://pnpm.io/)
+- [PNpm](https://pnpm.io/)
 
 ### Installation and Running Locally
 
