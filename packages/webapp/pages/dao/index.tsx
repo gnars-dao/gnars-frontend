@@ -20,7 +20,7 @@ import { getProposals, ProposalsResponse } from "@queries/base/requests/proposal
 import { USE_QUERY_KEYS } from "@constants"
 import { CHAIN_IDS } from "@constants"
 import { useRouter } from "next/router"
-import { getLatestBlock } from "@utils/web3"
+import { getLatestEthereumBlock } from "@utils/web3"
 import { Block } from "viem"
 import { graphQLClient } from "@graphql/ssr.client"
 
@@ -155,7 +155,7 @@ export default function Proposals({ ethProposals }) {
 }
 
 export async function getServerSideProps() {
-  const block: Block | undefined = await getLatestBlock()
+  const block: Block | undefined = await getLatestEthereumBlock()
   try {
     const ethProposals = await fetchEthProposals(block)
     return {

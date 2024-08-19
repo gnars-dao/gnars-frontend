@@ -26,7 +26,7 @@ export function getTokensValues(
   return Promise.all([ethBalancePromise, ...balancePromises])
 }
 
-export async function getLatestBlock(): Promise<Block | undefined>  {
+export async function getLatestEthereumBlock(): Promise<Block | undefined>  {
   try {
     return viemClient.getBlock({ blockTag: 'latest' });
   } catch (error) {
