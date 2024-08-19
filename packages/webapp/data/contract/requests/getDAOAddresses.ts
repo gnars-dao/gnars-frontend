@@ -1,19 +1,18 @@
-import { readContract } from 'wagmi/actions'
+import { readContract } from "wagmi/actions"
 
-import { NULL_ADDRESS, PUBLIC_MANAGER_ADDRESS } from '@constants'
-import { AddressType} from '@constants'
+import { NULL_ADDRESS, PUBLIC_MANAGER_ADDRESS } from "@constants"
+import { AddressType } from "@constants"
 import { CHAIN_IDS } from "@constants"
-import { unpackOptionalArray } from '@utils/helpers'
-
-import { managerAbi } from '../abis'
+import { unpackOptionalArray } from "@utils/helpers"
+import { managerAbi } from "../abis"
 
 const getDAOAddresses = async (chainId: CHAIN_IDS, tokenAddress: AddressType) => {
   const addresses = await readContract({
     abi: managerAbi,
     address: PUBLIC_MANAGER_ADDRESS[chainId],
-    functionName: 'getAddresses',
+    functionName: "getAddresses",
     args: [tokenAddress],
-    chainId,
+    chainId
   })
 
   const [metadata, auction, treasury, governor] = unpackOptionalArray(addresses, 4)
@@ -26,7 +25,7 @@ const getDAOAddresses = async (chainId: CHAIN_IDS, tokenAddress: AddressType) =>
     auction,
     governor,
     metadata,
-    treasury,
+    treasury
   }
 }
 
