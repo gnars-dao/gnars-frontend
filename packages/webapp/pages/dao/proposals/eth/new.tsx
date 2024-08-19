@@ -1,17 +1,17 @@
-import { Container, DarkMode, Stack, VStack } from "@chakra-ui/react"
-import { ProposalCreationForm } from "components/Governance/ProposalCreationForm"
-import { useProposalCreationState } from "components/Governance/ProposalCreationForm.state"
-import dynamic from "next/dynamic"
-import { zeroAddress } from "viem"
-import { useAccount } from "wagmi"
-import { ProposalCard } from "@components/Governance/ProposalCard.tsx"
-import ProposalContent from "@components/Governance/ProposalContent"
-import Menu from "@components/Menu"
+import { Container, DarkMode, Stack, VStack } from "@chakra-ui/react";
+import { ProposalCard } from "@components/Governance/ProposalCard.tsx";
+import ProposalContent from "@components/Governance/ProposalContent";
+import Menu from "@components/Menu";
+import { ProposalCreationForm } from "components/Governance/ProposalCreationForm";
+import { useProposalCreationState } from "components/Governance/ProposalCreationForm.state";
+import dynamic from "next/dynamic";
+import { zeroAddress } from "viem";
+import { useAccount } from "wagmi";
 
 function NewProposal() {
-  const { address } = useAccount()
+  const { address } = useAccount();
 
-  const { title, description, transactions } = useProposalCreationState()
+  const { title, description, transactions } = useProposalCreationState();
 
   return (
     <DarkMode>
@@ -46,7 +46,7 @@ function NewProposal() {
         </Container>
       </VStack>
     </DarkMode>
-  )
+  );
 }
 
-export default dynamic(() => Promise.resolve(NewProposal), { ssr: false })
+export default dynamic(() => Promise.resolve(NewProposal), { ssr: false });

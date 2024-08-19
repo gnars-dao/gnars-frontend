@@ -1,5 +1,5 @@
-import { GNARS_HD_ADDRESS, GNARS_HD_IPFS_FOLDER, ZORA_IMAGE_STACKER_URI } from "constants/gnarsHD"
-import { GnarV2 } from "hooks/useGnarData"
+import { GNARS_HD_ADDRESS, GNARS_HD_IPFS_FOLDER, ZORA_IMAGE_STACKER_URI } from "constants/gnarsHD";
+import { GnarV2 } from "hooks/useGnarData";
 
 export const getGnarsHdHiImageUrl = ({ gnarId, seed: { accessory, background, body, glasses, head } }: GnarV2) =>
   `${ZORA_IMAGE_STACKER_URI}?contractAddress=${GNARS_HD_ADDRESS}&tokenId=${gnarId}${getPartMapping({
@@ -7,35 +7,35 @@ export const getGnarsHdHiImageUrl = ({ gnarId, seed: { accessory, background, bo
     background,
     body,
     glasses,
-    head,
+    head
   })
     .map(getPartQuery)
-    .join("")}`
+    .join("")}`;
 
 export const getGnarsHdLoImageUrl = (seed: GnarV2["seed"]) =>
   `/api/gnarHd?${Object.entries(seed)
     .map(([part, seed]) => `${part}=${seed}`)
-    .join("&")}`
+    .join("&")}`;
 
 const getPartMapping = ({
   accessory,
   background,
   body,
   glasses,
-  head,
+  head
 }: {
-  accessory: number
-  background: number
-  body: number
-  glasses: number
-  head: number
+  accessory: number;
+  background: number;
+  body: number;
+  glasses: number;
+  head: number;
 }): [string, number][] => [
   ["BACKGROUND", background],
   ["BODY", body],
   ["ACESSORY", accessory],
   ["HEADS", head],
-  ["NOGGLES", glasses],
-]
+  ["NOGGLES", glasses]
+];
 
 const getPartQuery = ([partFolder, seed]: [string, number]) =>
-  `&images=${encodeURI(`${GNARS_HD_IPFS_FOLDER}/${partFolder}/${seed}.PNG`)}`
+  `&images=${encodeURI(`${GNARS_HD_IPFS_FOLDER}/${partFolder}/${seed}.PNG`)}`;

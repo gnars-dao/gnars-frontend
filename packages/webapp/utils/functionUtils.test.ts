@@ -1,5 +1,5 @@
-import { AbiFunction } from "abitype"
-import { getSignature } from "./functionUtils"
+import { getSignature } from "./functionUtils";
+import { AbiFunction } from "abitype";
 
 describe("getSignature", () => {
   test.each([
@@ -11,13 +11,13 @@ describe("getSignature", () => {
           { name: "uintInput", type: "uint256" },
           { name: "boolInput", type: "bool" },
           { name: "addressInput", type: "address" },
-          { name: "bytesInput", type: "bytes" },
+          { name: "bytesInput", type: "bytes" }
         ],
         outputs: [],
         stateMutability: "nonpayable",
-        type: "function",
+        type: "function"
       },
-      signature: "test(string,uint256,bool,address,bytes)",
+      signature: "test(string,uint256,bool,address,bytes)"
     },
     {
       func: {
@@ -29,7 +29,7 @@ describe("getSignature", () => {
           {
             internalType: "address payable",
             name: "fundsRecipient",
-            type: "address",
+            type: "address"
           },
           { internalType: "address", name: "defaultAdmin", type: "address" },
           {
@@ -38,7 +38,7 @@ describe("getSignature", () => {
               {
                 internalType: "uint32",
                 name: "maxSalePurchasePerAddress",
-                type: "uint32",
+                type: "uint32"
               },
               { internalType: "uint64", name: "publicSaleStart", type: "uint64" },
               { internalType: "uint64", name: "publicSaleEnd", type: "uint64" },
@@ -47,24 +47,24 @@ describe("getSignature", () => {
               {
                 internalType: "bytes32",
                 name: "presaleMerkleRoot",
-                type: "bytes32",
-              },
+                type: "bytes32"
+              }
             ],
             internalType: "struct IERC721Drop.SalesConfiguration",
             name: "saleConfig",
-            type: "tuple",
+            type: "tuple"
           },
           { internalType: "string", name: "description", type: "string" },
           { internalType: "string", name: "animationURI", type: "string" },
-          { internalType: "string", name: "imageURI", type: "string" },
+          { internalType: "string", name: "imageURI", type: "string" }
         ],
         name: "createEdition",
         outputs: [{ internalType: "address", name: "", type: "address" }],
         stateMutability: "nonpayable",
-        type: "function",
+        type: "function"
       },
       signature:
-        "createEdition(string,string,uint64,uint16,address,address,(uint104,uint32,uint64,uint64,uint64,uint64,bytes32),string,string,string)",
+        "createEdition(string,string,uint64,uint16,address,address,(uint104,uint32,uint64,uint64,uint64,uint64,bytes32),string,string,string)"
     },
     {
       func: {
@@ -72,63 +72,63 @@ describe("getSignature", () => {
           {
             internalType: "address",
             name: "t",
-            type: "address",
+            type: "address"
           },
           {
             internalType: "address",
             name: "ah",
-            type: "address",
+            type: "address"
           },
           {
             internalType: "address",
             name: "_owner",
-            type: "address",
+            type: "address"
           },
           {
             components: [
               {
                 internalType: "uint256",
                 name: "maxBid",
-                type: "uint256",
+                type: "uint256"
               },
               {
                 internalType: "uint256",
                 name: "minBid",
-                type: "uint256",
+                type: "uint256"
               },
               {
                 internalType: "uint256",
                 name: "bidWindow",
-                type: "uint256",
+                type: "uint256"
               },
               {
                 internalType: "uint256",
                 name: "tip",
-                type: "uint256",
+                type: "uint256"
               },
               {
                 internalType: "address",
                 name: "receiver",
-                type: "address",
-              },
+                type: "address"
+              }
             ],
             internalType: "struct IBidder.Config",
             name: "cfg",
-            type: "tuple",
-          },
+            type: "tuple"
+          }
         ],
         name: "clone",
         outputs: [
           {
             internalType: "address",
             name: "",
-            type: "address",
-          },
+            type: "address"
+          }
         ],
         stateMutability: "payable",
-        type: "function",
+        type: "function"
       },
-      signature: "clone(address,address,address,(uint256,uint256,uint256,uint256,address))",
+      signature: "clone(address,address,address,(uint256,uint256,uint256,uint256,address))"
     },
     {
       func: {
@@ -139,19 +139,19 @@ describe("getSignature", () => {
           { internalType: "address", name: "tokenAddress", type: "address" },
           { internalType: "uint256", name: "startTime", type: "uint256" },
           { internalType: "uint256", name: "stopTime", type: "uint256" },
-          { internalType: "uint8", name: "nonce", type: "uint8" },
+          { internalType: "uint8", name: "nonce", type: "uint8" }
         ],
         name: "createStream",
         outputs: [{ internalType: "address", name: "stream", type: "address" }],
         stateMutability: "nonpayable",
-        type: "function",
+        type: "function"
       },
-      signature: "createStream(address,address,uint256,address,uint256,uint256,uint8)",
-    },
+      signature: "createStream(address,address,uint256,address,uint256,uint256,uint8)"
+    }
   ] as { func: AbiFunction; signature: string }[])(
     "generates the correct signature for function $signature",
     ({ func, signature }) => {
-      expect(getSignature(func)).toBe(signature)
+      expect(getSignature(func)).toBe(signature);
     }
-  )
-})
+  );
+});

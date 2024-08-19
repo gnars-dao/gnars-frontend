@@ -1,3 +1,6 @@
+import { FC, useState } from "react";
+import { useGnarsV2AuctionHouseCreateBid } from "../../utils/sdk";
+import { ContractActionButton } from "../ContractActionButton";
 import {
   ButtonGroup,
   HStack,
@@ -12,52 +15,49 @@ import {
   Stack,
   StackProps,
   Text,
-  useNumberInput,
-} from "@chakra-ui/react"
-import { FC, useState } from "react"
-import { FaCaretDown, FaCaretUp } from "react-icons/fa"
-import { formatEther, parseEther } from "viem"
-import { useGnarsV2AuctionHouseCreateBid } from "../../utils/sdk"
-import { ContractActionButton } from "../ContractActionButton"
+  useNumberInput
+} from "@chakra-ui/react";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { formatEther, parseEther } from "viem";
 
-const minBidIncrementPercentage = 5n
+const minBidIncrementPercentage = 5n;
 
 export type BidForGnarProps = {
-  gnarId: string
-  latestBid?: string | null
-} & StackProps
+  gnarId: string;
+  latestBid?: string | null;
+} & StackProps;
 export const BidForGnar: FC<BidForGnarProps> = ({ gnarId, latestBid, ...props }) => {
-  const RESERVE_PRICE = parseEther("0.01") // @TODO add this info to the subgraph so it's always up-to-date
-  const currentBid = latestBid ?? "0"
-  const incrementedBid = (BigInt(currentBid) * minBidIncrementPercentage) / 100n + BigInt(currentBid)
-  const minBid = incrementedBid > RESERVE_PRICE ? incrementedBid : RESERVE_PRICE
+  const RESERVE_PRICE = parseEther("0.01"); // @TODO add this info to the subgraph so it's always up-to-date
+  const currentBid = latestBid ?? "0";
+  const incrementedBid = (BigInt(currentBid) * minBidIncrementPercentage) / 100n + BigInt(currentBid);
+  const minBid = incrementedBid > RESERVE_PRICE ? incrementedBid : RESERVE_PRICE;
 
-  const minBidEth = parseFloat(formatEther(minBid))
-  const [treasuryAllocation, setTreasuryAllocation] = useState<number>(90)
-  const founderAllocation = 100 - treasuryAllocation
+  const minBidEth = parseFloat(formatEther(minBid));
+  const [treasuryAllocation, setTreasuryAllocation] = useState<number>(90);
+  const founderAllocation = 100 - treasuryAllocation;
   const {
     getInputProps,
     getIncrementButtonProps,
     getDecrementButtonProps,
-    value: bidAmount,
+    value: bidAmount
   } = useNumberInput({
     defaultValue: minBidEth,
     min: minBidEth,
     step: minBidEth * 0.05,
     precision: 7,
-    id: "bid-input",
-  })
+    id: "bid-input"
+  });
 
-  const inc = getIncrementButtonProps()
-  const dec = getDecrementButtonProps()
-  const input = getInputProps()
-  const isValidBid = parseEther(bidAmount) > minBid
+  const inc = getIncrementButtonProps();
+  const dec = getDecrementButtonProps();
+  const input = getInputProps();
+  const isValidBid = parseEther(bidAmount) > minBid;
 
   const { isLoading, write: placeBid } = useGnarsV2AuctionHouseCreateBid({
     args: [BigInt(gnarId), founderAllocation, treasuryAllocation],
     value: parseEther(bidAmount),
-    gas: 100_000n, // to prevent out of gas errors with auction extensions
-  })
+    gas: 100_000n // to prevent out of gas errors with auction extensions
+  });
 
   return (
     <Stack direction={{ base: "column", md: "row" }} spacing={4} {...props}>
@@ -163,5 +163,5 @@ export const BidForGnar: FC<BidForGnarProps> = ({ gnarId, latestBid, ...props })
         {!isValidBid ? "Bid too low" : "Place Bid"}
       </ContractActionButton>
     </Stack>
-  )
-}
+  );
+};

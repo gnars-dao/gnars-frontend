@@ -1,27 +1,23 @@
-import { Heading, Stack, Text, VStack } from "@chakra-ui/react"
-import { AvatarWallet } from "components/AvatarWallet"
-import { Inter } from "next/font/google"
-import { FC, ReactNode } from "react"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
-import { NounsTransactionData } from "utils/governanceUtils"
-import styles from "./ProposalContent.module.css"
-import { TransactionCard } from "./TransactionCard"
-const inter = Inter({ subsets: ["latin"] })
+import { FC, ReactNode } from "react";
+import styles from "./ProposalContent.module.css";
+import { TransactionCard } from "./TransactionCard";
+import { Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { AvatarWallet } from "components/AvatarWallet";
+import { Inter } from "next/font/google";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { NounsTransactionData } from "utils/governanceUtils";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export interface ProposalContentProps {
-  actions?: ReactNode
-  transactions: NounsTransactionData[]
-  proposer: `0x${string}`
-  description: string
+  actions?: ReactNode;
+  transactions: NounsTransactionData[];
+  proposer: `0x${string}`;
+  description: string;
 }
 
-export const ProposalContent: FC<ProposalContentProps> = ({
-  actions,
-  transactions,
-  proposer,
-  description,
-}) => {
+export const ProposalContent: FC<ProposalContentProps> = ({ actions, transactions, proposer, description }) => {
   return (
     <>
       <Stack
@@ -37,17 +33,8 @@ export const ProposalContent: FC<ProposalContentProps> = ({
         </VStack>
         {actions}
       </Stack>
-      <VStack
-        w={"full"}
-        p={[4, 8]}
-        alignItems={"start"}
-        spacing={8}
-        fontSize={["sm", "md", "lg"]}
-      >
-        <ReactMarkdown
-          className={`${styles.markdown} ${inter.className}`}
-          remarkPlugins={[remarkGfm]}
-        >
+      <VStack w={"full"} p={[4, 8]} alignItems={"start"} spacing={8} fontSize={["sm", "md", "lg"]}>
+        <ReactMarkdown className={`${styles.markdown} ${inter.className}`} remarkPlugins={[remarkGfm]}>
           {description}
         </ReactMarkdown>
         <Heading
@@ -61,16 +48,11 @@ export const ProposalContent: FC<ProposalContentProps> = ({
           Proposed Transactions
         </Heading>
         {transactions.map((transaction, i) => (
-          <TransactionCard
-            w={"full"}
-            key={`proposal-tx-${i + 1}`}
-            data={transaction}
-            index={i + 1}
-          />
+          <TransactionCard w={"full"} key={`proposal-tx-${i + 1}`} data={transaction} index={i + 1} />
         ))}
       </VStack>
     </>
-  )
-}
+  );
+};
 
-export default ProposalContent
+export default ProposalContent;

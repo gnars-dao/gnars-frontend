@@ -1,10 +1,10 @@
-import { zip } from "lodash"
-import { ProposalQuery, ProposalsQuery, ProposalStatus } from "@subgraph-generated/layer-1"
-import { ProposalState } from "@data/contract/requests/getProposalState"
+import { ProposalState } from "@data/contract/requests/getProposalState";
+import { ProposalQuery, ProposalStatus, ProposalsQuery } from "@subgraph-generated/layer-1";
+import { zip } from "lodash";
 
-export type ProposalData = ProposalsQuery["proposals"][0]
+export type ProposalData = ProposalsQuery["proposals"][0];
 
-export type NewProposalData = {}
+export type NewProposalData = {};
 
 export type EffectiveProposalStatus =
   | ProposalStatus
@@ -13,16 +13,16 @@ export type EffectiveProposalStatus =
   | "EXPIRED"
   | "UNDETERMINED"
   | "EXECUTABLE"
-  | "PREVIEW"
+  | "PREVIEW";
 
-export type DetailedProposalData = NonNullable<ProposalQuery["proposal"]>
+export type DetailedProposalData = NonNullable<ProposalQuery["proposal"]>;
 
 export type NounsTransactionData = {
-  target: `0x${string}`
-  signature: string
-  value: bigint
-  calldata: `0x${string}`
-}
+  target: `0x${string}`;
+  signature: string;
+  value: bigint;
+  calldata: `0x${string}`;
+};
 
 export const getTransactions = (proposal: DetailedProposalData): NounsTransactionData[] => {
   return zip(proposal.targets, proposal.signatures, proposal.values, proposal.calldatas).map(
@@ -30,33 +30,33 @@ export const getTransactions = (proposal: DetailedProposalData): NounsTransactio
       target,
       signature,
       value,
-      calldata,
+      calldata
     })
-  )
-}
+  );
+};
 
 export function parseState(state: ProposalState) {
   switch (state) {
     case ProposalState.Pending:
-      return 'Pending'
+      return "Pending";
     case ProposalState.Active:
-      return 'Active'
+      return "Active";
     case ProposalState.Canceled:
-      return 'Cancelled'
+      return "Cancelled";
     case ProposalState.Defeated:
-      return 'Defeated'
+      return "Defeated";
     case ProposalState.Succeeded:
-      return 'Succeeded'
+      return "Succeeded";
     case ProposalState.Queued:
-      return 'Queued'
+      return "Queued";
     case ProposalState.Expired:
-      return 'Expired'
+      return "Expired";
     case ProposalState.Executed:
-      return 'Executed'
+      return "Executed";
     case ProposalState.Vetoed:
-      return 'Vetoed'
+      return "Vetoed";
     default:
-      return 'Loading'
+      return "Loading";
   }
 }
 
@@ -69,61 +69,61 @@ export const getProposalEffectiveStatus = (
     case proposal.status === "CANCELLED":
     case proposal.status === "EXECUTED":
     case proposal.status === "VETOED":
-      return proposal.status
+      return proposal.status;
     case !blockNumber:
-      return "UNDETERMINED"
+      return "UNDETERMINED";
     case proposal.status === "PENDING":
-      return blockNumber! <= BigInt(proposal.startBlock) ? "PENDING" : "ACTIVE"
+      return blockNumber! <= BigInt(proposal.startBlock) ? "PENDING" : "ACTIVE";
     case proposal.status === "ACTIVE":
-      if (blockNumber! < BigInt(proposal.endBlock)) return "ACTIVE"
-      const forVotes = BigInt(proposal.forVotes)
+      if (blockNumber! < BigInt(proposal.endBlock)) return "ACTIVE";
+      const forVotes = BigInt(proposal.forVotes);
       return forVotes <= BigInt(proposal.againstVotes) || forVotes < BigInt(proposal.quorumVotes)
         ? "DEFEATED"
-        : "SUCCEEDED"
+        : "SUCCEEDED";
     case !blockTimestamp || !proposal.executionETA:
-      return "UNDETERMINED"
+      return "UNDETERMINED";
     case proposal.status === "QUEUED":
-      const GRACE_PERIOD = 1209600n
+      const GRACE_PERIOD = 1209600n;
       return blockTimestamp! >= BigInt(proposal.executionETA) + GRACE_PERIOD
         ? "EXPIRED"
         : blockTimestamp! >= BigInt(proposal.executionETA)
-        ? "EXECUTABLE"
-        : "QUEUED"
+          ? "EXECUTABLE"
+          : "QUEUED";
     default:
-      return "UNDETERMINED"
+      return "UNDETERMINED";
   }
-}
+};
 
 export const isFinalized = (effectiveStatus: EffectiveProposalStatus | string) =>
-  ["DEFEATED", "EXECUTED", "EXPIRED", "CANCELLED", "VETOED"].includes(effectiveStatus?.toUpperCase())
+  ["DEFEATED", "EXECUTED", "EXPIRED", "CANCELLED", "VETOED"].includes(effectiveStatus?.toUpperCase());
 
-export type QuorumVotes = ReturnType<typeof getQuorumVotes>
+export type QuorumVotes = ReturnType<typeof getQuorumVotes>;
 
 export interface Votes {
-  forVotes: number
-  againstVotes: number
-  abstainVotes: number
-  totalSupply: number
+  forVotes: number;
+  againstVotes: number;
+  abstainVotes: number;
+  totalSupply: number;
 }
 
 export interface Dates {}
 
 export const getQuorumVotes = (prop: ProposalsQuery["proposals"][0]) => {
-  const againstVotesBPS = (10_000 * parseInt(prop.againstVotes)) / parseInt(prop.totalSupply)
-  const quorumAdjustmentBPS = (parseInt(prop.quorumCoefficient) * againstVotesBPS) / 1_000_000
-  const adjustedQuorumBPS = prop.minQuorumVotesBPS + quorumAdjustmentBPS
-  const quorumBPS = Math.min(prop.maxQuorumVotesBPS, adjustedQuorumBPS)
+  const againstVotesBPS = (10_000 * parseInt(prop.againstVotes)) / parseInt(prop.totalSupply);
+  const quorumAdjustmentBPS = (parseInt(prop.quorumCoefficient) * againstVotesBPS) / 1_000_000;
+  const adjustedQuorumBPS = prop.minQuorumVotesBPS + quorumAdjustmentBPS;
+  const quorumBPS = Math.min(prop.maxQuorumVotesBPS, adjustedQuorumBPS);
   return {
     min: Math.ceil((prop.minQuorumVotesBPS * prop.totalSupply) / 10_000),
     max: Math.ceil((prop.maxQuorumVotesBPS * prop.totalSupply) / 10_000),
-    current: Math.ceil((quorumBPS * prop.totalSupply) / 10_000),
-  }
-}
+    current: Math.ceil((quorumBPS * prop.totalSupply) / 10_000)
+  };
+};
 
 export enum Support {
   Against = 0,
   For = 1,
-  Abstain = 2,
+  Abstain = 2
 }
 
 // function bps2Uint(uint256 bps, uint256 number) internal pure returns (uint256) {
