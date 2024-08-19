@@ -1,23 +1,23 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import TextLink from "./TextLink";
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Box,
+  Button,
+  Link as ExternalLink,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
-  Box,
-  useDisclosure,
-  Link as ExternalLink,
-  VStack,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
-  Alert,
-  AlertTitle,
-  AlertDescription
+  VStack,
+  useDisclosure
 } from "@chakra-ui/react";
-import TextLink from "./TextLink";
 import { FiExternalLink } from "react-icons/fi";
 
 const baseLink = "https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17";

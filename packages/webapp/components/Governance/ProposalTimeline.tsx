@@ -1,9 +1,9 @@
+import { FC } from "react";
+import { EventTime } from "./EventTime";
 import { Box, Button, HStack, Square, StackDivider, StackProps, Text, VStack } from "@chakra-ui/react";
 import { AvatarWallet } from "components/AvatarWallet";
-import { FC } from "react";
 import { HiExternalLink } from "react-icons/hi";
 import { DetailedProposalData, Support } from "utils/governanceUtils";
-import { EventTime } from "./EventTime";
 
 export interface ProposalTimelineProps extends StackProps {
   proposal: DetailedProposalData;

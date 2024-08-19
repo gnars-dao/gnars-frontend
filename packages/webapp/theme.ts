@@ -1,13 +1,13 @@
 import { avatarAnatomy, inputAnatomy, sliderAnatomy } from "@chakra-ui/anatomy";
 import {
+  theme as chakraTheme,
   createMultiStyleConfigHelpers,
   defineStyle,
   defineStyleConfig,
-  extendTheme,
-  theme as chakraTheme
+  extendTheme
 } from "@chakra-ui/react";
-
 import { Londrina_Solid } from "next/font/google";
+
 const londrinaSolid = Londrina_Solid({
   weight: "400",
   subsets: ["latin"]

@@ -1,3 +1,4 @@
+import { FC, useEffect, useState } from "react";
 import {
   Button,
   FormControl,
@@ -13,9 +14,9 @@ import {
   ModalOverlay,
   ModalProps,
   Text,
+  VStack,
   useBoolean,
-  useToast,
-  VStack
+  useToast
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { AccountAddress } from "components/AccountAddress";
@@ -23,7 +24,6 @@ import { AccountWithAvatar } from "components/AccountWithAvatar";
 import { AvatarWallet } from "components/AvatarWallet";
 import { useAccountQuery } from "hooks/useAccountQuery";
 import { delegationInfoQueryKey, useDelegationInfo } from "hooks/useDelegationInfo";
-import { FC, useEffect, useState } from "react";
 import { useDebounceValue } from "usehooks-ts";
 import { useGnarsV2TokenDelegate } from "utils/sdk";
 import { normalize } from "viem/ens";

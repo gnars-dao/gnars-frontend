@@ -1,28 +1,28 @@
-import { Button, Container, DarkMode, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
+import { Button, Container, DarkMode, Divider, HStack, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { ProposalCard } from "@components/Governance/ProposalCard";
+import Menu from "@components/Menu";
+import BaseProposals from "@components/Proposal/BaseProposals";
+import { contracts } from "@constants";
+import { USE_QUERY_KEYS } from "@constants";
+import { CHAIN_IDS } from "@constants";
+import { graphQLClient } from "@graphql/ssr.client";
+import { ProposalsResponse, getProposals } from "@queries/base/requests/proposalsQuery";
+import { ProposalsDocument } from "@subgraph-generated/layer-1";
 import { QueryClient, useQuery } from "@tanstack/react-query";
+import {
+  EffectiveProposalStatus,
+  ProposalData,
+  getProposalEffectiveStatus,
+  getQuorumVotes,
+  isFinalized
+} from "@utils/governanceUtils";
+import { getLatestEthereumBlock } from "@utils/web3";
 import { DelegateButton } from "components/Governance/Delegation/DelegateButton";
 import { UserVotes } from "components/Governance/Delegation/UserVotes";
 import { isArray, partition } from "lodash";
 import Link from "next/link";
-import { ProposalsDocument } from "@subgraph-generated/layer-1";
-import { ProposalCard } from "@components/Governance/ProposalCard";
-import Menu from "@components/Menu";
-import BaseProposals from "@components/Proposal/BaseProposals";
-import {
-  EffectiveProposalStatus,
-  getProposalEffectiveStatus,
-  getQuorumVotes,
-  isFinalized,
-  ProposalData
-} from "@utils/governanceUtils";
-import { contracts } from "@constants";
-import { getProposals, ProposalsResponse } from "@queries/base/requests/proposalsQuery";
-import { USE_QUERY_KEYS } from "@constants";
-import { CHAIN_IDS } from "@constants";
 import { useRouter } from "next/router";
-import { getLatestEthereumBlock } from "@utils/web3";
 import { Block } from "viem";
-import { graphQLClient } from "@graphql/ssr.client";
 
 export default function Proposals({ ethProposals }) {
   const tokenAddress = contracts.Token.Proxy;

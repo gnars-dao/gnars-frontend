@@ -1,8 +1,8 @@
+import { useNnsNameWithEnsFallback } from "./useNnsNameWithEnsFallback";
 import { Address } from "abitype";
 import { isValidName } from "utils/ensUtils";
 import { isAddress } from "viem";
 import { useEnsAddress, useEnsAvatar } from "wagmi";
-import { useNnsNameWithEnsFallback } from "./useNnsNameWithEnsFallback";
 
 export interface Account {
   address?: Address;

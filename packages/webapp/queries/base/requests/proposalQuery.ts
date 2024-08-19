@@ -1,9 +1,8 @@
-import * as Sentry from "@sentry/nextjs";
-
+import { CHAIN_IDS } from "@constants";
 import { ProposalState, getProposalState } from "@data/contract/requests/getProposalState.ts";
 import { BaseSDK } from "@queries/resolvers.ts";
+import * as Sentry from "@sentry/nextjs";
 import { ProposalFragment, ProposalVoteFragment as ProposalVote } from "@subgraph-generated/base/index.ts";
-import { CHAIN_IDS } from "@constants";
 
 export interface Proposal extends Omit<ProposalFragment, "executableFrom" | "expiresAt" | "calldatas"> {
   calldatas: string[];

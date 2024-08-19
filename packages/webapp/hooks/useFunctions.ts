@@ -1,5 +1,5 @@
-import { Abi, AbiFunction } from "abitype";
 import { useMemo } from "react";
+import { Abi, AbiFunction } from "abitype";
 
 export const useFunctions = (abi: string) => {
   return useMemo(() => {

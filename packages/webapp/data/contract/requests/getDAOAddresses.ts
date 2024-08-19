@@ -1,10 +1,9 @@
-import { readContract } from "wagmi/actions";
-
+import { managerAbi } from "../abis";
 import { NULL_ADDRESS, PUBLIC_MANAGER_ADDRESS } from "@constants";
 import { AddressType } from "@constants";
 import { CHAIN_IDS } from "@constants";
 import { unpackOptionalArray } from "@utils/helpers";
-import { managerAbi } from "../abis";
+import { readContract } from "wagmi/actions";
 
 const getDAOAddresses = async (chainId: CHAIN_IDS, tokenAddress: AddressType) => {
   const addresses = await readContract({

@@ -1,7 +1,7 @@
-import { HStack, StackProps, VStack } from "@chakra-ui/react";
 import { FC } from "react";
 // @ts-ignore
 import { AccountAvatar } from "./AccountAvatar";
+import { HStack, StackProps, VStack } from "@chakra-ui/react";
 
 export interface AccountWithAvatarProps extends StackProps {
   address?: string;

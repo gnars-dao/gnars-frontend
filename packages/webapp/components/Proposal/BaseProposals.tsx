@@ -1,11 +1,11 @@
-import isArray from "lodash/isArray";
-import { Button, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
 import { FC } from "react";
-import Link from "next/link";
-import { parseState } from "@utils/governanceUtils";
+import { Button, Divider, HStack, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import { ProposalCard } from "@components/Governance/ProposalCard.tsx";
 import { ProposalState } from "@data/contract/requests/getProposalState";
 import { Proposal } from "@queries/base/requests/proposalQuery";
+import { parseState } from "@utils/governanceUtils";
+import isArray from "lodash/isArray";
+import Link from "next/link";
 
 interface BaseProposalsProps {
   proposals: Proposal[] | undefined;

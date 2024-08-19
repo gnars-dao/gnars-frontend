@@ -1,8 +1,8 @@
-import { Alert, AlertIcon, Badge, Card, CardBody, CardProps, HStack } from "@chakra-ui/react";
 import { FC } from "react";
+import { Transaction } from "./Transaction";
+import { Alert, AlertIcon, Badge, Card, CardBody, CardProps, HStack } from "@chakra-ui/react";
 import { ErrorBoundary } from "react-error-boundary";
 import { NounsTransactionData } from "utils/governanceUtils";
-import { Transaction } from "./Transaction";
 
 export interface TransactionCardProps extends CardProps {
   data: NounsTransactionData;

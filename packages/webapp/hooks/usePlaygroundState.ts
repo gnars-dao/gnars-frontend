@@ -1,7 +1,7 @@
-import { GnarPart, Gnartwork, PartKind } from "../utils";
-import { create } from "zustand";
 import gnarDataV2 from "../data/image-data-V2.json";
+import { GnarPart, Gnartwork, PartKind } from "../utils";
 import { parseInt, sample } from "lodash";
+import { create } from "zustand";
 
 export type PlaygroundGnarData = {
   gnartwork: Gnartwork;

@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import {
   Button,
   Center,
@@ -12,10 +13,14 @@ import {
   TabPanels,
   Tabs,
   Text,
+  VStack,
   useBreakpointValue,
-  useDisclosure,
-  VStack
+  useDisclosure
 } from "@chakra-ui/react";
+import { ProposalCard } from "@components/Governance/ProposalCard";
+import ProposalContent from "@components/Governance/ProposalContent";
+import Menu from "@components/Menu";
+import { ProposalDocument, execute } from "@subgraph-generated/layer-1";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { VoteAction } from "components/Governance/Actions/VoteAction";
 import { ProposalTimeline } from "components/Governance/ProposalTimeline";
@@ -24,7 +29,6 @@ import { useBlock } from "hooks/useBlock";
 import { useDelegationInfo } from "hooks/useDelegationInfo";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
 import { BiCaretLeft } from "react-icons/bi";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import {
@@ -37,10 +41,6 @@ import {
 import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "utils/sdk";
 import { useAccount } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
-import { execute, ProposalDocument } from "@subgraph-generated/layer-1";
-import { ProposalCard } from "@components/Governance/ProposalCard";
-import ProposalContent from "@components/Governance/ProposalContent";
-import Menu from "@components/Menu";
 
 export default function Proposal() {
   const { invalidateQueries } = useQueryClient();

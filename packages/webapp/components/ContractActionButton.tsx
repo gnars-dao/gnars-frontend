@@ -1,6 +1,6 @@
+import { FC } from "react";
 import { Button, ButtonProps } from "@chakra-ui/react";
 import { ConnectKitButton, useModal } from "connectkit";
-import { FC } from "react";
 
 export interface ContractActionButtonProps extends ButtonProps {}
 

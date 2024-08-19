@@ -1,3 +1,8 @@
+import { FC, useMemo } from "react";
+import gnarDataV2 from "../../data/image-data-V2.json";
+import { usePlaygroundState } from "../../hooks/usePlaygroundState";
+import { GnarPart, PartKind } from "../../utils";
+import buildSvg from "../../utils/buildSvg";
 import {
   Button,
   Center,
@@ -12,16 +17,11 @@ import {
   SimpleGrid,
   StackProps,
   Text,
-  useDisclosure,
-  VStack
+  VStack,
+  useDisclosure
 } from "@chakra-ui/react";
 import { memoize, some } from "lodash";
-import { FC, useMemo } from "react";
 import { FaRandom } from "react-icons/fa";
-import gnarDataV2 from "../../data/image-data-V2.json";
-import { usePlaygroundState } from "../../hooks/usePlaygroundState";
-import { GnarPart, PartKind } from "../../utils";
-import buildSvg from "../../utils/buildSvg";
 
 export type PartPickerProps = {
   part: string;

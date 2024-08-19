@@ -1,3 +1,6 @@
+import { ReactNode, useEffect, useMemo, useState } from "react";
+import { formatSuffixedBalance } from "../utils/formatBalance";
+import { ShredIcon } from "./Icons";
 import { Link } from "@chakra-ui/next-js";
 import {
   Button,
@@ -20,12 +23,9 @@ import {
   BASE_USDC_TOKEN_ADDRESS,
   BASE_V2_GNAR_ADDRESS
 } from "constants/gnarsDao";
-import { ReactNode, useEffect, useMemo, useState } from "react";
 import { useGnarsV2TokenBalanceOf } from "utils/sdk";
 import { getTokensValues } from "utils/web3";
 import { base } from "wagmi/chains";
-import { formatSuffixedBalance } from "../utils/formatBalance";
-import { ShredIcon } from "./Icons";
 
 interface TokenData {
   value: bigint;

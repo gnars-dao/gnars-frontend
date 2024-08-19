@@ -1,8 +1,8 @@
-import { Badge, Box, HStack, StackProps, Text, TextProps, Tooltip, VStack } from "@chakra-ui/react";
 import { FC } from "react";
-import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils";
 import { ProposalCountdown } from "./ProposalCountdown";
 import { ProposalStatusBadge } from "./ProposalStatusBadge";
+import { Badge, Box, HStack, StackProps, Text, TextProps, Tooltip, VStack } from "@chakra-ui/react";
+import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils";
 
 export interface ProposalCardProps extends StackProps {
   id: string;

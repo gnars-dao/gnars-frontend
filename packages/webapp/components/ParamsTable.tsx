@@ -1,6 +1,6 @@
+import { FC, ReactNode } from "react";
 import { Box, SimpleGrid, SimpleGridProps, Text } from "@chakra-ui/react";
 import { isArray } from "lodash";
-import { FC, ReactNode } from "react";
 
 export interface ParamSpec {
   description: string;

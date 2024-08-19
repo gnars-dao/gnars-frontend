@@ -1,8 +1,7 @@
-import * as Sentry from "@sentry/nextjs";
-
+import { Proposal } from "./proposalQuery";
 import { getProposalState } from "@data/contract/requests/getProposalState";
 import { BaseSDK } from "@queries/resolvers.ts";
-import { Proposal } from "./proposalQuery";
+import * as Sentry from "@sentry/nextjs";
 
 export interface ProposalsResponse {
   proposals: Proposal[];

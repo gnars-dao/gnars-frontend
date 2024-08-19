@@ -1,3 +1,4 @@
+import { GnarsLogo } from "./GnarsLogo";
 import { Link } from "@chakra-ui/next-js";
 import { ButtonGroup, Container, HStack, IconButton, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react";
 import {
@@ -10,7 +11,6 @@ import {
 } from "constants/gnarsDao";
 import { GNARS_HD_ADDRESS } from "constants/gnarsHD";
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";
-import { GnarsLogo } from "./GnarsLogo";
 
 const links = [
   {

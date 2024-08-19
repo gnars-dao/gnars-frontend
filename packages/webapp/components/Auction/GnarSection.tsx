@@ -1,5 +1,8 @@
-import { getGnarBgColor, isBgDark } from "utils";
-
+import { FC } from "react";
+import useGnarData, { GnarData } from "../../hooks/useGnarData";
+import Gnar from "../Gnar";
+import Menu from "../Menu";
+import { GnarInfo } from "./GnarInfo";
 import {
   AspectRatio,
   Box,
@@ -9,15 +12,11 @@ import {
   HStack,
   Spinner,
   Stack,
-  useBreakpointValue,
-  VStack
+  VStack,
+  useBreakpointValue
 } from "@chakra-ui/react";
-import { FC } from "react";
-import { V2_START_ID } from "../../constants/gnarsDao";
-import useGnarData, { GnarData } from "../../hooks/useGnarData";
-import Gnar from "../Gnar";
-import Menu from "../Menu";
-import { GnarInfo } from "./GnarInfo";
+import { V2_START_ID } from "@constants";
+import { getGnarBgColor, isBgDark } from "utils";
 
 interface AuctionProps {
   desiredGnarId?: number;

@@ -1,8 +1,8 @@
-import { HStack, Spinner, Text, Tooltip } from "@chakra-ui/react";
 import { FC } from "react";
-import { RiTimeFill } from "react-icons/ri";
 import { useBlock } from "../../hooks/useBlock";
 import { EffectiveProposalStatus } from "../../utils/governanceUtils";
+import { HStack, Spinner, Text, Tooltip } from "@chakra-ui/react";
+import { RiTimeFill } from "react-icons/ri";
 
 export interface ProposalCountdownProps {
   effectiveStatus?: EffectiveProposalStatus | string;

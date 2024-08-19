@@ -1,5 +1,5 @@
-import { Avatar, Spinner } from "@chakra-ui/react";
 import { FC } from "react";
+import { Avatar, Spinner } from "@chakra-ui/react";
 // @ts-ignore
 import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync";
 import { MdQuestionMark } from "react-icons/md";

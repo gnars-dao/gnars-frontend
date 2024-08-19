@@ -1,7 +1,7 @@
+import { FC } from "react";
 import { Text, TextProps } from "@chakra-ui/react";
 import { useDelegationInfo } from "hooks/useDelegationInfo";
 import dynamic from "next/dynamic";
-import { FC } from "react";
 import { useAccount } from "wagmi";
 
 export interface UserVotesProps extends TextProps {}

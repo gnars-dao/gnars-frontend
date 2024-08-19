@@ -1,3 +1,10 @@
+import { useEffect, useState } from "react";
+import { useWalletOgGnars } from "../hooks/useWalletOgGnars";
+import { getGnartwork } from "../utils";
+import { usePrepareGnarsV2AuctionHouseClaimGnars } from "../utils/sdk";
+import { ContractActionButton } from "./ContractActionButton";
+import { GnarImage } from "./GnarImage";
+import { WalletButton } from "./WalletButton";
 import {
   Alert,
   AlertIcon,
@@ -8,20 +15,13 @@ import {
   Spinner,
   Tag,
   Text,
-  useBreakpointValue,
   VStack,
   Wrap,
-  WrapItem
+  WrapItem,
+  useBreakpointValue
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import { useAccount, useContractWrite } from "wagmi";
 import { mainnet } from "wagmi/chains";
-import { useWalletOgGnars } from "../hooks/useWalletOgGnars";
-import { getGnartwork } from "../utils";
-import { usePrepareGnarsV2AuctionHouseClaimGnars } from "../utils/sdk";
-import { ContractActionButton } from "./ContractActionButton";
-import { GnarImage } from "./GnarImage";
-import { WalletButton } from "./WalletButton";
 
 export const OGClaiming = () => {
   const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" });

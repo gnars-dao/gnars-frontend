@@ -1,3 +1,8 @@
+import { useEffect, useState } from "react";
+import { useGnarsHdAssertOwnership } from "../utils/sdk";
+import { ContractActionButton } from "./ContractActionButton";
+import { GnarHDImage } from "./GnarHDImage";
+import { WalletButton } from "./WalletButton";
 import {
   Alert,
   AlertIcon,
@@ -8,20 +13,15 @@ import {
   Spinner,
   Tag,
   Text,
-  useBreakpointValue,
   VStack,
   Wrap,
-  WrapItem
+  WrapItem,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useWalletHDGnars, walletHDGnarsQueryKey } from "hooks/useWalletHDGnars";
-import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
-import { useGnarsHdAssertOwnership } from "../utils/sdk";
-import { ContractActionButton } from "./ContractActionButton";
-import { GnarHDImage } from "./GnarHDImage";
-import { WalletButton } from "./WalletButton";
 
 export const HDClaiming = () => {
   const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" });

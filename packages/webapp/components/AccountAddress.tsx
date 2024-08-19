@@ -1,9 +1,9 @@
-import { HStack, IconButton, StackProps, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
 import { FC } from "react";
+import { shortAddress } from "../utils";
+import { HStack, IconButton, StackProps, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
 // @ts-ignore
 import { FiCopy, FiExternalLink } from "react-icons/fi";
 import { getAddress } from "viem";
-import { shortAddress } from "../utils";
 
 export type AccountAddress = {
   address: `0x${string}`;

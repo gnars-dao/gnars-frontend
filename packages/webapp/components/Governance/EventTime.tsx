@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Button,
   HStack,
@@ -8,7 +9,6 @@ import {
   PopoverTrigger,
   Text
 } from "@chakra-ui/react";
-import { FC } from "react";
 import { RiTimeFill } from "react-icons/ri";
 
 export interface EventTimeProps {

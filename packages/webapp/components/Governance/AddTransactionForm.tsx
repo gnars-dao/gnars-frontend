@@ -1,3 +1,6 @@
+import { FC, useEffect, useMemo } from "react";
+import { ParameterValue, getFuncParam, useAddTransactionFormState } from "./AddTransactionForm.state";
+import { useProposalCreationState } from "./ProposalCreationForm.state";
 import {
   Button,
   Card,
@@ -10,7 +13,6 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
-  forwardRef,
   HStack,
   Input,
   InputGroup,
@@ -20,7 +22,8 @@ import {
   Text,
   Textarea,
   TextareaProps,
-  VStack
+  VStack,
+  forwardRef
 } from "@chakra-ui/react";
 import { AbiParameter } from "abitype";
 import { AccountAddress } from "components/AccountAddress";
@@ -31,15 +34,12 @@ import { useAccountQuery } from "hooks/useAccountQuery";
 import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo";
 import { useFunctions } from "hooks/useFunctions";
 import { useParameterValidation } from "hooks/useParameterValidation";
-import { FC, useEffect, useMemo } from "react";
 import { useDebounceValue } from "usehooks-ts";
 import { isValidName } from "utils/ensUtils";
 import { getSignature } from "utils/functionUtils";
 import { NounsTransactionData } from "utils/governanceUtils";
 import { parseArrayParameter } from "utils/parseArrayParameter";
 import { encodeFunctionData, getAbiItem, parseEther } from "viem";
-import { getFuncParam, ParameterValue, useAddTransactionFormState } from "./AddTransactionForm.state";
-import { useProposalCreationState } from "./ProposalCreationForm.state";
 
 export interface AddTransactionFormProps extends CardProps {
   onAddTransaction: (transaction: NounsTransactionData) => void;

@@ -1,8 +1,7 @@
-import { Address } from "viem";
-import { readContracts } from "wagmi/actions";
-
 import { metadataAbi } from "../../contract/abis";
 import { CHAIN_IDS } from "@constants";
+import { Address } from "viem";
+import { readContracts } from "wagmi/actions";
 
 export const getMetadataAttributes = async (metadata: Address, finalTokenId: bigint, chainId: CHAIN_IDS) => {
   let lengthRequests: any[] = [];

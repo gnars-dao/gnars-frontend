@@ -1,10 +1,10 @@
-import { Text } from "@chakra-ui/react";
 import { FC } from "react";
-import { useEnsAvatar } from "wagmi";
 import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback";
 // @ts-ignore
 import { AccountAddress } from "./AccountAddress";
 import { AccountWithAvatar, AccountWithAvatarProps } from "./AccountWithAvatar";
+import { Text } from "@chakra-ui/react";
+import { useEnsAvatar } from "wagmi";
 
 export type AvatarWalletProps = {
   address: string;

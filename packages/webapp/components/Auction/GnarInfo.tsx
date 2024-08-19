@@ -1,3 +1,16 @@
+import { FC, useEffect, useState } from "react";
+import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/gnarsDao";
+import { GnarData } from "../../hooks/useGnarData";
+import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback";
+import { is10thGnar, shortAddress } from "../../utils";
+import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons";
+import { AuctionStatus } from "./AuctionStatus";
+import { BidForGnar } from "./BidForGnar";
+import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo";
+import { BidsTable } from "./BidsTable";
+import { GnarNavigation } from "./GnarNavigation";
+import { GnarvingTracker } from "./GnarvingTracker";
+import { SettleAuctionButton } from "./SettleAuctionButton";
 import {
   Button,
   HStack,
@@ -13,22 +26,9 @@ import {
 } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Londrina_Solid } from "next/font/google";
-import { FC, useEffect, useState } from "react";
 import { FiExternalLink, FiInfo } from "react-icons/fi";
 import { HiExternalLink } from "react-icons/hi";
 import { RiAuctionLine } from "react-icons/ri";
-import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/gnarsDao";
-import { GnarData } from "../../hooks/useGnarData";
-import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback";
-import { is10thGnar, shortAddress } from "../../utils";
-import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons";
-import { AuctionStatus } from "./AuctionStatus";
-import { BidForGnar } from "./BidForGnar";
-import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo";
-import { BidsTable } from "./BidsTable";
-import { GnarNavigation } from "./GnarNavigation";
-import { GnarvingTracker } from "./GnarvingTracker";
-import { SettleAuctionButton } from "./SettleAuctionButton";
 
 const londrinaSolid = Londrina_Solid({
   weight: "400",

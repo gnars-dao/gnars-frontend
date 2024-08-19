@@ -1,3 +1,4 @@
+import { FC, useCallback, useMemo, useState } from "react";
 import {
   Button,
   ButtonProps,
@@ -22,14 +23,13 @@ import {
   Stack,
   Text,
   Textarea,
+  VStack,
   useBreakpointValue,
   useDisclosure,
-  useToast,
-  VStack
+  useToast
 } from "@chakra-ui/react";
 import { AvatarWallet } from "components/AvatarWallet";
 import { find } from "lodash";
-import { FC, useCallback, useMemo, useState } from "react";
 import { BiCommentDetail } from "react-icons/bi";
 import { DetailedProposalData, Support } from "utils/governanceUtils";
 import { useGnarsDaoCastVote, useGnarsDaoCastVoteWithReason, useGnarsV2TokenGetPriorVotes } from "utils/sdk";

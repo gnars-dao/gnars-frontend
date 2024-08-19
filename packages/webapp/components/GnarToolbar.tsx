@@ -1,3 +1,5 @@
+import { FC, RefObject, useEffect } from "react";
+import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "./Icons";
 import {
   Button,
   ButtonProps,
@@ -14,12 +16,10 @@ import {
   Text,
   useDisclosure
 } from "@chakra-ui/react";
-import { FC, RefObject, useEffect } from "react";
 import { FaInfo, FaSquareFull } from "react-icons/fa";
 import { MdFileDownload } from "react-icons/md";
 import { useHover } from "usehooks-ts";
 import { Gnartwork } from "utils";
-import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "./Icons";
 
 export interface GnarToolbarProps extends StackProps {
   isOg: boolean;

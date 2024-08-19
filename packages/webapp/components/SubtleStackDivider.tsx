@@ -1,5 +1,5 @@
-import { StackDivider, StackDividerProps, useBreakpointValue, useColorMode } from "@chakra-ui/react";
 import { FC } from "react";
+import { StackDivider, StackDividerProps, useBreakpointValue, useColorMode } from "@chakra-ui/react";
 
 export const SubtleStackDivider: FC<StackDividerProps> = (props) => {
   const { colorMode } = useColorMode();

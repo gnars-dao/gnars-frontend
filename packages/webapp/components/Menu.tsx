@@ -1,12 +1,11 @@
-import Link from "next/link";
 import { useState } from "react";
-
-import { Button, Center, CenterProps, Link as ExternalLink, HStack, IconButton, Stack } from "@chakra-ui/react";
-import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa";
 import { GnarsLogo } from "./GnarsLogo";
 import { ShredIcon } from "./Icons";
 import { TreasuryBalance } from "./TreasuryBalance";
 import { WalletButton } from "./WalletButton";
+import { Button, Center, CenterProps, Link as ExternalLink, HStack, IconButton, Stack } from "@chakra-ui/react";
+import Link from "next/link";
+import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa";
 
 export type MenuProps = CenterProps;
 

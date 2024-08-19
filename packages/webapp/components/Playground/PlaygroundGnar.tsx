@@ -1,3 +1,4 @@
+import { FC, useRef } from "react";
 import {
   Box,
   BoxProps,
@@ -16,16 +17,15 @@ import {
   SimpleGridProps,
   StackProps,
   Text,
-  useDisclosure,
-  VStack
+  VStack,
+  useDisclosure
 } from "@chakra-ui/react";
-import { FaInfo } from "react-icons/fa";
-import { MdFileDownload } from "react-icons/md";
-import { FC, useRef } from "react";
-import { FaSquareFull } from "react-icons/fa";
-import { Gnartwork } from "utils";
 import { GnarImage } from "components/GnarImage";
 import { GnarToolbar } from "components/GnarToolbar";
+import { FaInfo } from "react-icons/fa";
+import { FaSquareFull } from "react-icons/fa";
+import { MdFileDownload } from "react-icons/md";
+import { Gnartwork } from "utils";
 
 interface PlaygroundGnarProps extends StackProps {
   playgroundGnarId: number;

@@ -1,12 +1,13 @@
+import { FC, ReactNode } from "react";
+import styles from "./ProposalContent.module.css";
+import { TransactionCard } from "./TransactionCard";
 import { Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import { AvatarWallet } from "components/AvatarWallet";
 import { Inter } from "next/font/google";
-import { FC, ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { NounsTransactionData } from "utils/governanceUtils";
-import styles from "./ProposalContent.module.css";
-import { TransactionCard } from "./TransactionCard";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export interface ProposalContentProps {

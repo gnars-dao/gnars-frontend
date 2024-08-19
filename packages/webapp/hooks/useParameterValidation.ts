@@ -1,5 +1,5 @@
-import { AbiParameter } from "abitype";
 import { useEffect, useState } from "react";
+import { AbiParameter } from "abitype";
 import { parseArrayParameter } from "utils/parseArrayParameter";
 import { BaseError, encodeAbiParameters } from "viem";
 

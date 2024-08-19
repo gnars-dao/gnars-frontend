@@ -1,3 +1,8 @@
+import { FC, useMemo } from "react";
+import { AddTransactionForm } from "./AddTransactionForm";
+import { useAddTransactionFormState } from "./AddTransactionForm.state";
+import { useProposalCreationState } from "./ProposalCreationForm.state";
+import { TransactionCard } from "./TransactionCard";
 import {
   Button,
   FormControl,
@@ -13,19 +18,14 @@ import {
   StackProps,
   Text,
   Textarea,
-  useToast,
-  VStack
+  VStack,
+  useToast
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { FC, useMemo } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { usePrepareGnarsDaoPropose } from "utils/sdk";
 import { useContractWrite } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
-import { AddTransactionForm } from "./AddTransactionForm";
-import { useAddTransactionFormState } from "./AddTransactionForm.state";
-import { useProposalCreationState } from "./ProposalCreationForm.state";
-import { TransactionCard } from "./TransactionCard";
 
 export interface ProposalCreationFormProps extends StackProps {}
 

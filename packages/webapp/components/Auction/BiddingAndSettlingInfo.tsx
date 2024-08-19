@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   Button,
   DarkMode,
@@ -11,11 +12,10 @@ import {
   Stack,
   StackProps,
   Text,
-  useDisclosure,
-  VStack
+  VStack,
+  useDisclosure
 } from "@chakra-ui/react";
 import { ShredIcon } from "components/Icons";
-import { FC } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 
 interface BiddingAndSettlingInfoProps extends StackProps {}

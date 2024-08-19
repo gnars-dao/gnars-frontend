@@ -1,9 +1,9 @@
-import { HStack, StackProps } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { FC } from "react";
-import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
-import { GnarData } from "../../hooks/useGnarData";
 import { RoundButton } from "../RoundButton";
+import { HStack, StackProps } from "@chakra-ui/react";
+import { GnarData } from "@hooks/useGnarData";
+import { useRouter } from "next/router";
+import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
 
 export type AuctionNavigationParams = {
   gnarData?: GnarData;

@@ -1,8 +1,8 @@
-import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
 import { FC } from "react";
 import { truncatedAmount } from "../../utils";
 import { AvatarWallet } from "../AvatarWallet";
 import { Countdown } from "./Countdown";
+import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
 
 interface AuctionStatusProps extends StackProps {
   endTimestamp?: number;

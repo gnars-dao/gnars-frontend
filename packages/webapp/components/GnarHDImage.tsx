@@ -1,5 +1,5 @@
-import { Image, ImageProps, forwardRef } from "@chakra-ui/react";
 import { useMemo } from "react";
+import { Image, ImageProps, forwardRef } from "@chakra-ui/react";
 import { getGnarsHdLoImageUrl } from "utils/gnarsHD";
 
 export interface GnarHDImageProps extends ImageProps {

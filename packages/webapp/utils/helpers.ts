@@ -1,7 +1,6 @@
+import { Duration } from "@constants";
 import isEqual from "lodash/isEqual";
 import { isAddress } from "viem";
-
-import { Duration } from "@constants";
 
 /**
  *

@@ -1,7 +1,7 @@
-import { Badge, BadgeProps } from "@chakra-ui/react";
 import { FC } from "react";
-import { EffectiveProposalStatus, isFinalized } from "@utils/governanceUtils";
 import { ShredIcon } from "../Icons";
+import { Badge, BadgeProps } from "@chakra-ui/react";
+import { EffectiveProposalStatus, isFinalized } from "@utils/governanceUtils";
 
 export interface ProposalStatusBadgeProps extends BadgeProps {
   status: EffectiveProposalStatus | string;

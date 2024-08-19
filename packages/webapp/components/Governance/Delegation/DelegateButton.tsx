@@ -1,9 +1,9 @@
+import { FC } from "react";
+import { UpdateDelegateModal } from "./UpdateDelegateModal";
 import { Button, ButtonProps, useDisclosure } from "@chakra-ui/react";
 import { useDelegationInfo } from "hooks/useDelegationInfo";
 import dynamic from "next/dynamic";
-import { FC } from "react";
 import { useAccount } from "wagmi";
-import { UpdateDelegateModal } from "./UpdateDelegateModal";
 
 export interface DelegateButtonProps extends ButtonProps {}
 

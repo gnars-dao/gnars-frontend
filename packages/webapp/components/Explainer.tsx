@@ -1,11 +1,12 @@
+import { FC } from "react";
+import TextLink from "./TextLink";
 import {
   AspectRatio,
   Box,
-  chakra,
   Code,
   Divider,
-  Heading,
   HStack,
+  Heading,
   Image,
   ListItem,
   SimpleGrid,
@@ -13,11 +14,11 @@ import {
   StackProps,
   Text,
   UnorderedList,
-  VStack
+  VStack,
+  chakra
 } from "@chakra-ui/react";
 import { Londrina_Solid } from "next/font/google";
-import { FC } from "react";
-import TextLink from "./TextLink";
+
 const londrinaSolid = Londrina_Solid({
   weight: "400",
   subsets: ["latin"]

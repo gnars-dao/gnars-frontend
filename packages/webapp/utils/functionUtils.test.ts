@@ -1,5 +1,5 @@
-import { AbiFunction } from "abitype";
 import { getSignature } from "./functionUtils";
+import { AbiFunction } from "abitype";
 
 describe("getSignature", () => {
   test.each([

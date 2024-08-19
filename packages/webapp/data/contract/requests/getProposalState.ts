@@ -1,9 +1,7 @@
-import { readContract } from "wagmi/actions";
-
+import { governorAbi } from "../abis";
 import { AddressType, BytesType } from "@constants";
 import { CHAIN_IDS } from "@constants";
-
-import { governorAbi } from "../abis";
+import { readContract } from "wagmi/actions";
 
 export enum ProposalState {
   Pending = 0,

@@ -1,6 +1,6 @@
+import { PropsWithChildren } from "react";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import Link, { LinkProps } from "next/link";
-import { PropsWithChildren } from "react";
 
 export default function TextLink(props: PropsWithChildren<LinkProps>) {
   const { href, children } = props;

@@ -1,6 +1,6 @@
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { getBuiltGraphSDK, GnarQuery } from "@subgraph-generated/layer-1";
 import { V2_START_ID } from "../constants/gnarsDao";
+import { GnarQuery, getBuiltGraphSDK } from "@subgraph-generated/layer-1";
+import { UseQueryResult, useQuery } from "@tanstack/react-query";
 
 export type Bid = {
   bidder: string;

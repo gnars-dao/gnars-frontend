@@ -1,4 +1,4 @@
-import { createIcon, chakra } from "@chakra-ui/react";
+import { chakra, createIcon } from "@chakra-ui/react";
 
 export const ShredIcon = createIcon({
   displayName: "ShredIcon",

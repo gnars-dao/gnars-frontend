@@ -1,9 +1,9 @@
+import { AccountAvatar } from "./AccountAvatar";
 import { Button, ButtonProps, HStack, Text } from "@chakra-ui/react";
 import { ConnectKitButton, useModal } from "connectkit";
 import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback";
 import { shortAddress } from "utils";
 import { useAccount, useEnsAvatar } from "wagmi";
-import { AccountAvatar } from "./AccountAvatar";
 
 export const WalletButton = (props: ButtonProps) => {
   const { address } = useAccount();

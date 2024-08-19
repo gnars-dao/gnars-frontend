@@ -1,7 +1,7 @@
-import { readContract, readContracts } from "wagmi/actions";
 import { AddressType } from "@constants";
-import { metadataAbi } from "@data/contract/abis";
 import { CHAIN_IDS } from "@constants";
+import { metadataAbi } from "@data/contract/abis";
+import { readContract, readContracts } from "wagmi/actions";
 
 export const getPropertyItemsCount = async (chainId: CHAIN_IDS, metadataAddress: AddressType) => {
   const baseParams = { address: metadataAddress, abi: metadataAbi, chainId: chainId };
