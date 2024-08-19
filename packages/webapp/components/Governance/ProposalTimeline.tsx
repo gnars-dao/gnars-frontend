@@ -1,27 +1,15 @@
-import {
-  Box,
-  Button,
-  HStack,
-  Square,
-  StackDivider,
-  StackProps,
-  Text,
-  VStack,
-} from "@chakra-ui/react"
-import { AvatarWallet } from "components/AvatarWallet"
-import { FC } from "react"
-import { HiExternalLink } from "react-icons/hi"
-import { DetailedProposalData, Support } from "utils/governanceUtils"
-import { EventTime } from "./EventTime"
+import { FC } from "react";
+import { EventTime } from "./EventTime";
+import { Box, Button, HStack, Square, StackDivider, StackProps, Text, VStack } from "@chakra-ui/react";
+import { AvatarWallet } from "components/AvatarWallet";
+import { HiExternalLink } from "react-icons/hi";
+import { DetailedProposalData, Support } from "utils/governanceUtils";
 
 export interface ProposalTimelineProps extends StackProps {
-  proposal: DetailedProposalData
+  proposal: DetailedProposalData;
 }
 
-export const ProposalTimeline: FC<ProposalTimelineProps> = ({
-  proposal,
-  ...props
-}) => {
+export const ProposalTimeline: FC<ProposalTimelineProps> = ({ proposal, ...props }) => {
   return (
     <VStack
       // bgColor={"black"}
@@ -36,11 +24,7 @@ export const ProposalTimeline: FC<ProposalTimelineProps> = ({
       {proposal?.events?.map((event) => (
         <VStack w="full" align={"start"} key={event.id}>
           <HStack w={"full"} align={"start"} justify={"space-between"}>
-            <AvatarWallet
-              address={event.from}
-              fontSize={"sm"}
-              fontWeight={"semibold"}
-            />
+            <AvatarWallet address={event.from} fontSize={"sm"} fontWeight={"semibold"} />
             <VStack spacing={0} align={"end"}>
               <Button
                 as={"a"}
@@ -56,20 +40,13 @@ export const ProposalTimeline: FC<ProposalTimelineProps> = ({
                       <Text>VOTED</Text>
                       <Text
                         whiteSpace={"nowrap"}
-                        color={`governance.vote.${Support[
-                          Number(event.vote.supportDetailed)
-                        ].toLowerCase()}`}
+                        color={`governance.vote.${Support[Number(event.vote.supportDetailed)].toLowerCase()}`}
                       >
-                        {` ${event.vote.votes} ${Support[
-                          Number(event.vote.supportDetailed)
-                        ].toUpperCase()}`}
+                        {` ${event.vote.votes} ${Support[Number(event.vote.supportDetailed)].toUpperCase()}`}
                       </Text>
                     </HStack>
                   ) : (
-                    <Text
-                      textAlign={"end"}
-                      color={`governance.proposal.event.${String(event?.kind).toLowerCase()}`}
-                    >
+                    <Text textAlign={"end"} color={`governance.proposal.event.${String(event?.kind).toLowerCase()}`}>
                       {event.kind} PROP
                     </Text>
                   )}
@@ -105,5 +82,5 @@ export const ProposalTimeline: FC<ProposalTimelineProps> = ({
         </VStack>
       ))}
     </VStack>
-  )
-}
+  );
+};

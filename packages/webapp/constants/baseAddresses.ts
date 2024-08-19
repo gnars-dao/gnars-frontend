@@ -1,18 +1,19 @@
-import { AddressType, CHAIN_IDS } from "./types"
+import { CHAIN_IDS } from "./networkConfig";
+import { AddressType } from "./types";
 
 export type ContractInfo = {
-  Proxy: string,
-  Implementation: string,
-  Block: number
-}
+  Proxy: string;
+  Implementation: string;
+  Block: number;
+};
 
 export type Contracts = {
-  Token: ContractInfo,
-  AuctionHouse: ContractInfo,
-  Governor: ContractInfo,
-  Treasury: ContractInfo,
-  Metadata: ContractInfo
-}
+  Token: ContractInfo;
+  AuctionHouse: ContractInfo;
+  Governor: ContractInfo;
+  Treasury: ContractInfo;
+  Metadata: ContractInfo;
+};
 
 export const contracts: Contracts = {
   Token: {
@@ -40,16 +41,13 @@ export const contracts: Contracts = {
     Implementation: "0xB4Ca85D61f7fcCe0d176Fdb743860daBF3FC03f9",
     Block: 1991576
   }
-}
+};
 
-export type L2ChainType =
-  | CHAIN_IDS.BASE
-  | CHAIN_IDS.BASE_SEPOLIA
+export type L2ChainType = CHAIN_IDS.BASE | CHAIN_IDS.BASE_SEPOLIA;
 
 export const PUBLIC_MANAGER_ADDRESS = {
   [CHAIN_IDS.ETHEREUM]: "0xd310a3041dfcf14def5ccbc508668974b5da7174" as AddressType,
   [CHAIN_IDS.BASE]: "0x3ac0e64fe2931f8e082c6bb29283540de9b5371c" as AddressType
-}
+};
 
-export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000" as AddressType
-
+export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000" as AddressType;

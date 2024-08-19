@@ -1,46 +1,46 @@
-import { StackProps, Text, useBreakpointValue, VStack } from "@chakra-ui/react"
-import { AbiFunction, AbiParameter } from "abitype"
-import { AccountAddress } from "components/AccountAddress"
-import { AccountWithAvatar } from "components/AccountWithAvatar"
-import { ContractBreadcrumbs } from "components/ContractBreadcrumbs"
-import { ParamSpec, ParamsTable } from "components/ParamsTable"
-import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo"
-import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback"
-import { FC, useMemo } from "react"
-import { NounsTransactionData } from "utils/governanceUtils"
-import { decodeFunctionData, formatEther, getAbiItem, getFunctionSelector, parseAbiItem } from "viem"
-import { useEnsAvatar } from "wagmi"
+import { FC, useMemo } from "react";
+import { StackProps, Text, VStack, useBreakpointValue } from "@chakra-ui/react";
+import { AbiFunction, AbiParameter } from "abitype";
+import { AccountAddress } from "components/AccountAddress";
+import { AccountWithAvatar } from "components/AccountWithAvatar";
+import { ContractBreadcrumbs } from "components/ContractBreadcrumbs";
+import { ParamSpec, ParamsTable } from "components/ParamsTable";
+import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo";
+import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback";
+import { NounsTransactionData } from "utils/governanceUtils";
+import { decodeFunctionData, formatEther, getAbiItem, getFunctionSelector, parseAbiItem } from "viem";
+import { useEnsAvatar } from "wagmi";
 
 export interface TransactionProps extends StackProps {
-  data: NounsTransactionData
+  data: NounsTransactionData;
 }
 
 export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature, target, value }, ...props }) => {
-  const { data: contractInfo, isLoading: isLoadingContractInfo } = useEtherscanContractInfo(target)
-  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(target)
+  const { data: contractInfo, isLoading: isLoadingContractInfo } = useEtherscanContractInfo(target);
+  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(target);
   const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
-    name: nnsOrEnsName,
-  })
+    name: nnsOrEnsName
+  });
 
-  const truncateAddress = useBreakpointValue({ base: true, md: false })
+  const truncateAddress = useBreakpointValue({ base: true, md: false });
 
-  const effectiveAbi = contractInfo ? getEffectiveAbi(contractInfo) : undefined
+  const effectiveAbi = contractInfo ? getEffectiveAbi(contractInfo) : undefined;
 
   const partialFunc = useMemo(
     () => (signature ? (parseAbiItem(`function ${signature}`) as AbiFunction) : undefined),
     [signature]
-  )
+  );
 
   const decodedCall = useMemo(
     () =>
       partialFunc
         ? decodeFunctionData({
             abi: [partialFunc],
-            data: (getFunctionSelector(signature) + calldata.substring(2)) as `0x${string}`,
+            data: (getFunctionSelector(signature) + calldata.substring(2)) as `0x${string}`
           })
         : undefined,
     [partialFunc, calldata, signature]
-  )
+  );
 
   if (!partialFunc || !decodedCall) {
     return (
@@ -58,12 +58,12 @@ export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature,
         </AccountWithAvatar>
         {contractInfo && <ContractBreadcrumbs contractInfo={contractInfo} />}
       </VStack>
-    )
+    );
   }
 
   const fullFunc = effectiveAbi
     ? (getAbiItem({ abi: effectiveAbi, name: decodedCall.functionName }) as AbiFunction)
-    : undefined
+    : undefined;
 
   return (
     <VStack alignItems={"start"} spacing={4} {...props}>
@@ -82,13 +82,13 @@ export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature,
 
       <ParamsTable params={(fullFunc ?? partialFunc).inputs.map((p, i) => toParamSpec(p, i, decodedCall.args!))} />
     </VStack>
-  )
-}
+  );
+};
 
 const toParamSpec = (param: AbiParameter, i: number, decodedData: readonly unknown[]): ParamSpec => ({
   description: `${param.name ?? i} (${param.type})`,
   value:
     "components" in param && param.components !== null
       ? param.components.map((c, j) => toParamSpec(c, j, decodedData[i] as unknown[]))
-      : decodedData[i]!.toString(),
-})
+      : decodedData[i]!.toString()
+});

@@ -1,3 +1,10 @@
+import { useEffect, useState } from "react";
+import { useWalletOgGnars } from "../hooks/useWalletOgGnars";
+import { getGnartwork } from "../utils";
+import { usePrepareGnarsV2AuctionHouseClaimGnars } from "../utils/sdk";
+import { ContractActionButton } from "./ContractActionButton";
+import { GnarImage } from "./GnarImage";
+import { WalletButton } from "./WalletButton";
 import {
   Alert,
   AlertIcon,
@@ -8,43 +15,36 @@ import {
   Spinner,
   Tag,
   Text,
-  useBreakpointValue,
   VStack,
   Wrap,
   WrapItem,
-} from "@chakra-ui/react"
-import { useEffect, useState } from "react"
-import { useAccount, useContractWrite } from "wagmi"
-import { mainnet } from "wagmi/chains"
-import { useWalletOgGnars } from "../hooks/useWalletOgGnars"
-import { getGnartwork } from "../utils"
-import { usePrepareGnarsV2AuctionHouseClaimGnars } from "../utils/sdk"
-import { ContractActionButton } from "./ContractActionButton"
-import { GnarImage } from "./GnarImage"
-import { WalletButton } from "./WalletButton"
+  useBreakpointValue
+} from "@chakra-ui/react";
+import { useAccount, useContractWrite } from "wagmi";
+import { mainnet } from "wagmi/chains";
 
 export const OGClaiming = () => {
-  const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" })
-  const { isDisconnected, address } = useAccount()
-  const [selectedOgGnars, setSelectedOgGnars] = useState<string[]>([])
+  const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" });
+  const { isDisconnected, address } = useAccount();
+  const [selectedOgGnars, setSelectedOgGnars] = useState<string[]>([]);
   useEffect(() => {
-    setSelectedOgGnars([])
-  }, [address])
+    setSelectedOgGnars([]);
+  }, [address]);
 
-  const selectOg = (id: string) => setSelectedOgGnars([...selectedOgGnars, id])
-  const deselectOg = (id: string) => setSelectedOgGnars(selectedOgGnars.filter((s) => s !== id))
+  const selectOg = (id: string) => setSelectedOgGnars([...selectedOgGnars, id]);
+  const deselectOg = (id: string) => setSelectedOgGnars(selectedOgGnars.filter((s) => s !== id));
 
-  const { isLoading, data: ogGnars } = useWalletOgGnars(address)
+  const { isLoading, data: ogGnars } = useWalletOgGnars(address);
 
   const { config } = usePrepareGnarsV2AuctionHouseClaimGnars({
     args: [selectedOgGnars.map((id) => BigInt(id))],
     enabled: selectedOgGnars.length > 0,
-    chainId: mainnet.id,
-  })
-  const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config)
+    chainId: mainnet.id
+  });
+  const { write: claimGnars, isLoading: isClaiming } = useContractWrite(config);
 
   if (isDisconnected) {
-    return <WalletButton alignSelf={"center"} />
+    return <WalletButton alignSelf={"center"} />;
   }
 
   if (isLoading || !ogGnars) {
@@ -52,7 +52,7 @@ export const OGClaiming = () => {
       <Center flexGrow={1}>
         <Spinner size={"xl"} />
       </Center>
-    )
+    );
   }
 
   if (ogGnars.length === 0) {
@@ -61,10 +61,10 @@ export const OGClaiming = () => {
         <AlertIcon />
         You hold no OG Gnars 🥲
       </Alert>
-    )
+    );
   }
 
-  const amountClaimableOgGnars = ogGnars.filter((og) => !og.wasClaimed).length
+  const amountClaimableOgGnars = ogGnars.filter((og) => !og.wasClaimed).length;
 
   return (
     <VStack
@@ -127,15 +127,15 @@ export const OGClaiming = () => {
           overflow={"visible"}
         >
           {ogGnars.map((ogGnar) => {
-            const isSelected = selectedOgGnars.includes(ogGnar.id)
-            const { accessory, background, body, glasses, head } = ogGnar
+            const isSelected = selectedOgGnars.includes(ogGnar.id);
+            const { accessory, background, body, glasses, head } = ogGnar;
             const gnartWork = getGnartwork(true, {
               accessory,
               background,
               body,
               glasses,
-              head,
-            })
+              head
+            });
             return (
               <Button
                 key={`select-og-gnar-${ogGnar.id}`}
@@ -165,10 +165,10 @@ export const OGClaiming = () => {
                   </SimpleGrid>
                 </VStack>
               </Button>
-            )
+            );
           })}
         </SimpleGrid>
       </Box>
     </VStack>
-  )
-}
+  );
+};

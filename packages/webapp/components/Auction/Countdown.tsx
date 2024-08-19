@@ -1,18 +1,18 @@
-import { Text } from "@chakra-ui/react"
-import { useSecondsUntil } from "hooks/useSecondsUntil"
-import { FC } from "react"
-import { formatConciseDurationInDays } from "utils/dateTimeFormat"
+import { FC } from "react";
+import { Text } from "@chakra-ui/react";
+import { useSecondsUntil } from "hooks/useSecondsUntil";
+import { formatConciseDurationInDays } from "utils/dateTimeFormat";
 
 export type CountdownProps = {
-  timestamp: number
-}
+  timestamp: number;
+};
 
 export const Countdown: FC<CountdownProps> = ({ timestamp }) => {
-  const secondsUntil = useSecondsUntil(timestamp)
+  const secondsUntil = useSecondsUntil(timestamp);
 
   if (secondsUntil === null) {
-    return <Text>ended</Text>
+    return <Text>ended</Text>;
   }
 
-  return <Text>{formatConciseDurationInDays(secondsUntil)}</Text>
-}
+  return <Text>{formatConciseDurationInDays(secondsUntil)}</Text>;
+};
