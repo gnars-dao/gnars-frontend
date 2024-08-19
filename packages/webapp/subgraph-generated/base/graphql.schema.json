@@ -9429,17 +9429,6 @@
       },
       {
         "kind": "SCALAR",
-        "name": "Float",
-        "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).",
-        "isOneOf": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
         "name": "ID",
         "description": "The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `\"4\"`) or integer (such as `4`) input value will be accepted as an ID.",
         "isOneOf": null,
@@ -9463,7 +9452,7 @@
       {
         "kind": "SCALAR",
         "name": "Int8",
-        "description": "8 bytes signed integer\n",
+        "description": "8 bytes signed integer",
         "isOneOf": null,
         "fields": null,
         "inputFields": null,
@@ -18186,7 +18175,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -18243,7 +18232,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -18300,7 +18289,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -18413,7 +18402,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -18470,7 +18459,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -18583,7 +18572,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -18696,7 +18685,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -18753,7 +18742,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -18866,7 +18855,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -18923,7 +18912,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19036,7 +19025,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19093,7 +19082,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19206,7 +19195,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19319,7 +19308,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19376,7 +19365,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19433,7 +19422,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19490,7 +19479,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19603,7 +19592,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19716,7 +19705,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19773,7 +19762,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19934,7 +19923,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -19991,7 +19980,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20048,7 +20037,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20161,7 +20150,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20218,7 +20207,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20331,7 +20320,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20444,7 +20433,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20501,7 +20490,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20614,7 +20603,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20671,7 +20660,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20784,7 +20773,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20841,7 +20830,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -20954,7 +20943,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -21067,7 +21056,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -21124,7 +21113,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -21181,7 +21170,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -21238,7 +21227,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -21351,7 +21340,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -21464,7 +21453,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -21521,7 +21510,7 @@
             "args": [
               {
                 "name": "block",
-                "description": "The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.",
+                "description": "The block at which the query should be executed. Can either be a `{ hash:\nBytes }` value containing a block hash, a `{ number: Int }` containing the\nblock number, or a `{ number_gte: Int }` containing the minimum block\nnumber. In the case of `number_gte`, the query will be executed on the\nlatest block only if the subgraph has progressed to or past the minimum\nblock number. Defaults to the latest block when omitted.",
                 "type": {
                   "kind": "INPUT_OBJECT",
                   "name": "Block_height",
@@ -21637,7 +21626,7 @@
       {
         "kind": "SCALAR",
         "name": "Timestamp",
-        "description": "A string representation of microseconds UNIX timestamp (16 digits)\n",
+        "description": "A string representation of microseconds UNIX timestamp (16 digits)",
         "isOneOf": null,
         "fields": null,
         "inputFields": null,
@@ -24101,7 +24090,7 @@
         "fields": [
           {
             "name": "block",
-            "description": "Information about a specific subgraph block. The hash of the block\nwill be null if the _meta field has a block constraint that asks for\na block number. It will be filled if the _meta field has no block constraint\nand therefore asks for the latest  block\n",
+            "description": "Information about a specific subgraph block. The hash of the block\nwill be null if the _meta field has a block constraint that asks for\na block number. It will be filled if the _meta field has no block constraint\nand therefore asks for the latest  block",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -25107,6 +25096,31 @@
     ],
     "directives": [
       {
+        "name": "deprecated",
+        "description": "Marks an element of a GraphQL schema as no longer supported.",
+        "isRepeatable": false,
+        "locations": [
+          "ARGUMENT_DEFINITION",
+          "ENUM_VALUE",
+          "FIELD_DEFINITION",
+          "INPUT_FIELD_DEFINITION"
+        ],
+        "args": [
+          {
+            "name": "reason",
+            "description": "Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted using the Markdown syntax, as specified by [CommonMark](https://commonmark.org/).",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": "\"No longer supported\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ]
+      },
+      {
         "name": "derivedFrom",
         "description": "creates a virtual field on the entity that may be queried but cannot be set manually through the mappings API.",
         "isRepeatable": false,
@@ -25134,7 +25148,7 @@
       },
       {
         "name": "entity",
-        "description": "Marks the GraphQL type as indexable entity.  Each type that should be an entity is required to be annotated with this directive.",
+        "description": "Marks the GraphQL type as indexable entity.  Each type that should be an entity\nis required to be annotated with this directive.",
         "isRepeatable": false,
         "locations": [
           "OBJECT"
@@ -25143,7 +25157,7 @@
       },
       {
         "name": "include",
-        "description": null,
+        "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
         "isRepeatable": false,
         "locations": [
           "FIELD",
@@ -25153,7 +25167,7 @@
         "args": [
           {
             "name": "if",
-            "description": null,
+            "description": "Included when true.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -25170,8 +25184,17 @@
         ]
       },
       {
+        "name": "oneOf",
+        "description": "Indicates exactly one field must be supplied and this field must not be `null`.",
+        "isRepeatable": false,
+        "locations": [
+          "INPUT_OBJECT"
+        ],
+        "args": []
+      },
+      {
         "name": "skip",
-        "description": null,
+        "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
         "isRepeatable": false,
         "locations": [
           "FIELD",
@@ -25181,13 +25204,39 @@
         "args": [
           {
             "name": "if",
-            "description": null,
+            "description": "Skipped when true.",
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
                 "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ]
+      },
+      {
+        "name": "specifiedBy",
+        "description": "Exposes a URL that specifies the behavior of this scalar.",
+        "isRepeatable": false,
+        "locations": [
+          "SCALAR"
+        ],
+        "args": [
+          {
+            "name": "url",
+            "description": "The URL that specifies the behavior of this scalar.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },

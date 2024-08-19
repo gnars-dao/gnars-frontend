@@ -1,7 +1,7 @@
 import { Avatar, Spinner } from "@chakra-ui/react"
 import { FC } from "react"
 // @ts-ignore
-import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync.mjs"
+import BlockiesSvgSync from "blockies-react-svg/dist/es/BlockiesSvgSync"
 import { MdQuestionMark } from "react-icons/md"
 
 export interface AccountAvatarProps {
