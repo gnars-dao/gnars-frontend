@@ -164,7 +164,7 @@ export async function getServerSideProps() {
       }
     }
   } catch (err) {
-    console.error('Error getting Eth Proposals from subgraph', err)
+    console.error('Error getting Ethereum Proposals from subgraph', err)
     return {
       props: {
         ethProposals: [[], []]
@@ -175,7 +175,7 @@ export async function getServerSideProps() {
 
 // Ethereum proposals only
 async function fetchProposalsData(queryClient: QueryClient, block?: Block): Promise<any> {
-  return await queryClient.fetchQuery([USE_QUERY_KEYS.PROPOSALS, block?.number?.toString()], fetchProposals)
+  return queryClient.fetchQuery([USE_QUERY_KEYS.PROPOSALS, block?.number?.toString()], fetchProposals)
 }
 
 // Ethereum proposals only
