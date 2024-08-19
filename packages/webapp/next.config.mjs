@@ -1,6 +1,7 @@
 const {
   VERCEL_ENV = 'development',
-  VERCEL_URL = 'localhost'
+  VERCEL_URL = 'localhost',
+  PORT = process.env.PORT || 3000
 } = process.env
 
 let GRAPHQL_API
@@ -13,7 +14,7 @@ switch (VERCEL_ENV) {
     GRAPHQL_API = `https://gnars.wtf/api/graphql`;
     break;
   default:
-    GRAPHQL_API = `http://localhost:3000/api/graphql`;
+    GRAPHQL_API = `http://localhost:${PORT}/api/graphql`;
     break;
 }
 /**
