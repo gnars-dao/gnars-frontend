@@ -25,92 +25,92 @@ import {
   useBreakpointValue,
   useDisclosure,
   useToast,
-  VStack,
-} from "@chakra-ui/react"
-import { AvatarWallet } from "components/AvatarWallet"
-import { find } from "lodash"
-import { FC, useCallback, useMemo, useState } from "react"
-import { BiCommentDetail } from "react-icons/bi"
-import { DetailedProposalData, Support } from "utils/governanceUtils"
-import { useGnarsDaoCastVote, useGnarsDaoCastVoteWithReason, useGnarsV2TokenGetPriorVotes } from "utils/sdk"
-import { useAccount } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
+  VStack
+} from "@chakra-ui/react";
+import { AvatarWallet } from "components/AvatarWallet";
+import { find } from "lodash";
+import { FC, useCallback, useMemo, useState } from "react";
+import { BiCommentDetail } from "react-icons/bi";
+import { DetailedProposalData, Support } from "utils/governanceUtils";
+import { useGnarsDaoCastVote, useGnarsDaoCastVoteWithReason, useGnarsV2TokenGetPriorVotes } from "utils/sdk";
+import { useAccount } from "wagmi";
+import { waitForTransaction } from "wagmi/actions";
 
 export interface VoteActionProps extends ButtonProps {
-  proposal?: DetailedProposalData
+  proposal?: DetailedProposalData;
 }
 
 export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
-  const toast = useToast()
-  const { address } = useAccount()
+  const toast = useToast();
+  const { address } = useAccount();
   const { data: accountVotesOnProp } = useGnarsV2TokenGetPriorVotes({
     args: [address!, proposal?.createdBlock],
     enabled: !!address && proposal?.createdBlock,
     cacheTime: Infinity,
-    staleTime: Infinity,
-  })
-  const [reason, setReason] = useState<string>("")
-  const [isVotingSupport, setIsVotingSupport] = useState<Support | undefined>()
+    staleTime: Infinity
+  });
+  const [reason, setReason] = useState<string>("");
+  const [isVotingSupport, setIsVotingSupport] = useState<Support | undefined>();
   const accountVote = useMemo(() => {
     const voteEvent = find(
       proposal?.events,
       (e) => e.kind === "VOTED" && e.from.toLowerCase() === address?.toLowerCase()
-    )
-    return voteEvent?.vote
-  }, [proposal?.events, address])
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { writeAsync: voteWithoutReason } = useGnarsDaoCastVote()
+    );
+    return voteEvent?.vote;
+  }, [proposal?.events, address]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { writeAsync: voteWithoutReason } = useGnarsDaoCastVote();
 
-  const { writeAsync: voteWithReason } = useGnarsDaoCastVoteWithReason()
+  const { writeAsync: voteWithReason } = useGnarsDaoCastVoteWithReason();
 
-  const isVoting = isVotingSupport !== undefined
-  const propId = BigInt(proposal?.id ?? 0)
+  const isVoting = isVotingSupport !== undefined;
+  const propId = BigInt(proposal?.id ?? 0);
   const vote = useCallback(
     (support: Support) => {
-      if (propId === 0n) return
-      setIsVotingSupport(support)
+      if (propId === 0n) return;
+      setIsVotingSupport(support);
 
       return (
         reason.length > 0
           ? voteWithReason({
-              args: [propId, support, reason],
+              args: [propId, support, reason]
             })
           : voteWithoutReason({
-              args: [propId, support],
+              args: [propId, support]
             })
       )
         .then((tx) => waitForTransaction({ hash: tx.hash }))
         .then(() => {
-          toast({ status: "success", title: "Vote submitted" })
-          onClose()
+          toast({ status: "success", title: "Vote submitted" });
+          onClose();
         })
         .catch((e) => {
           toast({
             status: "error",
             title: "Vote failed",
-            description: "Check your wallet for details",
-          })
-          console.error(e)
+            description: "Check your wallet for details"
+          });
+          console.error(e);
         })
         .finally(() => {
-          setIsVotingSupport(undefined)
-        })
+          setIsVotingSupport(undefined);
+        });
     },
     [reason, setIsVotingSupport, voteWithReason, voteWithoutReason, propId, onClose, toast]
-  )
+  );
 
-  const canVote = accountVotesOnProp && accountVotesOnProp > 0
+  const canVote = accountVotesOnProp && accountVotesOnProp > 0;
   const reasonPlacement = useBreakpointValue<PlacementWithLogical>({
     base: "bottom-end",
     sm: "right-end",
-    md: "bottom-end",
-  })
+    md: "bottom-end"
+  });
 
-  if (!address || !proposal || !canVote) return <></>
+  if (!address || !proposal || !canVote) return <></>;
 
-  const hasVoted = !!accountVote
+  const hasVoted = !!accountVote;
 
-  const color = getColor(accountVote?.supportDetailed)
+  const color = getColor(accountVote?.supportDetailed);
 
   if (hasVoted) {
     return (
@@ -150,7 +150,7 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
           </Popover>
         )}
       </HStack>
-    )
+    );
   }
 
   return (
@@ -225,18 +225,18 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
         </Modal>
       )}
     </>
-  )
-}
+  );
+};
 
 const getColor = (support?: Support) => {
   switch (support) {
     case Support.For:
-      return "governance.vote.for"
+      return "governance.vote.for";
     case Support.Against:
-      return "governance.vote.against"
+      return "governance.vote.against";
     case Support.Abstain:
-      return "governance.vote.abstain"
+      return "governance.vote.abstain";
     default:
-      return "gray.500"
+      return "gray.500";
   }
-}
+};

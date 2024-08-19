@@ -1,4 +1,4 @@
-import { Link } from "@chakra-ui/next-js"
+import { Link } from "@chakra-ui/next-js";
 import {
   Button,
   Divider,
@@ -11,33 +11,33 @@ import {
   Spinner,
   Text,
   Tooltip,
-  VStack,
-} from "@chakra-ui/react"
+  VStack
+} from "@chakra-ui/react";
 import {
   BASE_MULTISIG_ADDRESS,
   BASE_SENDIT_TOKEN_ADDRESS,
   BASE_TREASURY_ADDRESS,
   BASE_USDC_TOKEN_ADDRESS,
-  BASE_V2_GNAR_ADDRESS,
-} from "constants/gnarsDao"
-import { ReactNode, useEffect, useMemo, useState } from "react"
-import { useGnarsV2TokenBalanceOf } from "utils/sdk"
-import { getTokensValues } from "utils/web3"
-import { base } from "wagmi/chains"
-import { formatSuffixedBalance } from "../utils/formatBalance"
-import { ShredIcon } from "./Icons"
+  BASE_V2_GNAR_ADDRESS
+} from "constants/gnarsDao";
+import { ReactNode, useEffect, useMemo, useState } from "react";
+import { useGnarsV2TokenBalanceOf } from "utils/sdk";
+import { getTokensValues } from "utils/web3";
+import { base } from "wagmi/chains";
+import { formatSuffixedBalance } from "../utils/formatBalance";
+import { ShredIcon } from "./Icons";
 
 interface TokenData {
-  value: bigint
-  formatted: string
-  label: string
-  url: string
-  icon: string | ReactNode
+  value: bigint;
+  formatted: string;
+  label: string;
+  url: string;
+  icon: string | ReactNode;
 }
 
 export const TreasuryBalance = () => {
-  const [treasuryBalance, setTreasuryBalance] = useState<TokenData[]>([])
-  const [multisigBalance, setMultisigBalance] = useState<TokenData[]>([])
+  const [treasuryBalance, setTreasuryBalance] = useState<TokenData[]>([]);
+  const [multisigBalance, setMultisigBalance] = useState<TokenData[]>([]);
 
   useEffect(() => {
     const getTokens = async () => {
@@ -45,7 +45,7 @@ export const TreasuryBalance = () => {
         BASE_TREASURY_ADDRESS,
         [BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS],
         base.id
-      )
+      );
       setTreasuryBalance((treasuryBalance) => [
         ...treasuryBalance,
         {
@@ -53,29 +53,29 @@ export const TreasuryBalance = () => {
           formatted: formatSuffixedBalance(treasuryTokens[0].value, treasuryTokens[0].decimals),
           label: "Ether",
           icon: "Ξ",
-          url: `https://basescan.org/address/${BASE_TREASURY_ADDRESS}`,
+          url: `https://basescan.org/address/${BASE_TREASURY_ADDRESS}`
         },
         {
           value: treasuryTokens[1].value,
           formatted: formatSuffixedBalance(treasuryTokens[1].value, treasuryTokens[1].decimals),
           label: "USDC",
           icon: "$",
-          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
+          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`
         },
         {
           value: treasuryTokens[2].value,
           formatted: formatSuffixedBalance(treasuryTokens[2].value, treasuryTokens[2].decimals),
           label: "Sendit",
           icon: "↗",
-          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
-        },
-      ])
+          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`
+        }
+      ]);
 
       const multisigTokens = await getTokensValues(
         BASE_MULTISIG_ADDRESS,
         [BASE_USDC_TOKEN_ADDRESS, BASE_SENDIT_TOKEN_ADDRESS],
         base.id
-      )
+      );
       setMultisigBalance((multisigBalance) => [
         ...multisigBalance,
         {
@@ -83,33 +83,33 @@ export const TreasuryBalance = () => {
           formatted: formatSuffixedBalance(multisigTokens[0].value, multisigTokens[0].decimals),
           label: "Ether",
           icon: "Ξ",
-          url: `https://basescan.org/address/${BASE_MULTISIG_ADDRESS}`,
+          url: `https://basescan.org/address/${BASE_MULTISIG_ADDRESS}`
         },
         {
           value: multisigTokens[1].value,
           formatted: formatSuffixedBalance(multisigTokens[1].value, multisigTokens[1].decimals),
           label: "USDC",
           icon: "$",
-          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
+          url: `https://basescan.org/token/${BASE_USDC_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`
         },
         {
           value: multisigTokens[2].value,
           formatted: formatSuffixedBalance(multisigTokens[2].value, multisigTokens[2].decimals),
           label: "Sendit",
           icon: "↗",
-          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
-        },
-      ])
-    }
-    setMultisigBalance([])
-    setTreasuryBalance([])
-    getTokens()
-  }, [])
+          url: `https://basescan.org/token/${BASE_SENDIT_TOKEN_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`
+        }
+      ]);
+    };
+    setMultisigBalance([]);
+    setTreasuryBalance([]);
+    getTokens();
+  }, []);
 
   const { data: multisigGnarsBalance } = useGnarsV2TokenBalanceOf({
     args: [BASE_MULTISIG_ADDRESS],
-    chainId: base.id,
-  })
+    chainId: base.id
+  });
   useEffect(() => {
     if (multisigGnarsBalance)
       setMultisigBalance((multisigBalance) => [
@@ -119,15 +119,15 @@ export const TreasuryBalance = () => {
           formatted: multisigGnarsBalance.toString(),
           value: multisigGnarsBalance,
           label: "Gnars",
-          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`,
-        },
-      ])
-  }, [multisigGnarsBalance])
+          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_MULTISIG_ADDRESS}`
+        }
+      ]);
+  }, [multisigGnarsBalance]);
 
   const { data: treasuryGnarsBalance } = useGnarsV2TokenBalanceOf({
     args: [BASE_TREASURY_ADDRESS],
-    chainId: base.id,
-  })
+    chainId: base.id
+  });
   useEffect(() => {
     if (treasuryGnarsBalance)
       setTreasuryBalance((treasuryBalance) => [
@@ -137,32 +137,32 @@ export const TreasuryBalance = () => {
           formatted: treasuryGnarsBalance.toString(),
           value: treasuryGnarsBalance,
           label: "Gnars",
-          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`,
-        },
-      ])
-  }, [treasuryGnarsBalance])
+          url: `https://basescan.org/token/${BASE_V2_GNAR_ADDRESS}?a=${BASE_TREASURY_ADDRESS}`
+        }
+      ]);
+  }, [treasuryGnarsBalance]);
 
   const totalValues = useMemo(() => {
-    let ethTotal = 0n
-    let gnarsTotal = 0n
+    let ethTotal = 0n;
+    let gnarsTotal = 0n;
 
-    const ethTreasury = treasuryBalance.find((token) => token.label === "Ether")
-    if (ethTreasury) ethTotal += ethTreasury.value
+    const ethTreasury = treasuryBalance.find((token) => token.label === "Ether");
+    if (ethTreasury) ethTotal += ethTreasury.value;
 
-    const ethMultisig = multisigBalance.find((token) => token.label === "Ether")
-    if (ethMultisig) ethTotal += ethMultisig.value
+    const ethMultisig = multisigBalance.find((token) => token.label === "Ether");
+    if (ethMultisig) ethTotal += ethMultisig.value;
 
-    const gnarsTreasury = treasuryBalance.find((token) => token.label === "Gnars")
-    if (gnarsTreasury) gnarsTotal += gnarsTreasury.value
+    const gnarsTreasury = treasuryBalance.find((token) => token.label === "Gnars");
+    if (gnarsTreasury) gnarsTotal += gnarsTreasury.value;
 
-    const gnarsMultisig = multisigBalance.find((token) => token.label === "Gnars")
-    if (gnarsMultisig) gnarsTotal += gnarsMultisig.value
+    const gnarsMultisig = multisigBalance.find((token) => token.label === "Gnars");
+    if (gnarsMultisig) gnarsTotal += gnarsMultisig.value;
 
     return {
       eth: formatSuffixedBalance(ethTotal, 18),
-      gnars: gnarsTotal.toString(),
-    }
-  }, [treasuryBalance, multisigBalance])
+      gnars: gnarsTotal.toString()
+    };
+  }, [treasuryBalance, multisigBalance]);
 
   return (
     <Popover>
@@ -224,5 +224,5 @@ export const TreasuryBalance = () => {
         </PopoverBody>
       </PopoverContent>
     </Popover>
-  )
-}
+  );
+};

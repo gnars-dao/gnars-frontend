@@ -1,16 +1,16 @@
-import { Button, CenterProps, VStack, Wrap, WrapItem } from "@chakra-ui/react"
-import { FC } from "react"
-import { FaSquareFull } from "react-icons/fa"
-import { usePlaygroundState } from "../../hooks/usePlaygroundState"
-import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "../Icons"
-import { PartPicker } from "./PartPicker"
+import { Button, CenterProps, VStack, Wrap, WrapItem } from "@chakra-ui/react";
+import { FC } from "react";
+import { FaSquareFull } from "react-icons/fa";
+import { usePlaygroundState } from "../../hooks/usePlaygroundState";
+import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "../Icons";
+import { PartPicker } from "./PartPicker";
 
 export type GeneratorProps = {
-  buttonSize: CenterProps["width"]
-}
+  buttonSize: CenterProps["width"];
+};
 
 export const Generator: FC<GeneratorProps> = ({ buttonSize }) => {
-  const { generate } = usePlaygroundState()
+  const { generate } = usePlaygroundState();
 
   return (
     <VStack alignItems={"center"} alignContent={"center"}>
@@ -42,7 +42,7 @@ export const Generator: FC<GeneratorProps> = ({ buttonSize }) => {
                   display: "inline-block",
                   padding: "4px",
                   width: "24px",
-                  height: "24px",
+                  height: "24px"
                 }}
               />
             }
@@ -54,5 +54,5 @@ export const Generator: FC<GeneratorProps> = ({ buttonSize }) => {
         Generate Gnars
       </Button>
     </VStack>
-  )
-}
+  );
+};

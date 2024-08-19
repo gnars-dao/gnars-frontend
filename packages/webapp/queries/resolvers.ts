@@ -1,7 +1,7 @@
-import { Resolvers } from "@subgraph-generated/layer-1"
-import { CHAIN_IDS } from "@constants"
-import { getSdk } from "subgraph-generated/base"
-import { GraphQLClient } from "graphql-request"
+import { Resolvers } from "@subgraph-generated/layer-1";
+import { CHAIN_IDS } from "@constants";
+import { getSdk } from "subgraph-generated/base";
+import { GraphQLClient } from "graphql-request";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -12,18 +12,18 @@ export const resolvers: Resolvers = {
     delegate: async (root, args, context, info) => await context.gnars.Query.delegate({ root, args, context, info }),
     account: async (root, args, context, info) => await context.gnars.Query.account({ root, args, context, info })
   }
-}
+};
 
 // Base client singleton
 const globalBaseClient = global as unknown as {
-  subgraphClient: Map<CHAIN_IDS, GraphQLClient>
-}
+  subgraphClient: Map<CHAIN_IDS, GraphQLClient>;
+};
 
 // import this class and instantiate it to connect to the subgraph and query
 export class BaseSDK {
   static connect() {
     if (!globalBaseClient?.subgraphClient) {
-      globalBaseClient.subgraphClient = new Map()
+      globalBaseClient.subgraphClient = new Map();
     }
 
     const chainId = CHAIN_IDS.BASE;
@@ -37,11 +37,11 @@ export class BaseSDK {
         headers: {
           "Content-Type": "application/json"
         }
-      })
+      });
     }
 
-    globalBaseClient.subgraphClient.set(chainId, client)
+    globalBaseClient.subgraphClient.set(chainId, client);
 
-    return getSdk(client)
+    return getSdk(client);
   }
 }

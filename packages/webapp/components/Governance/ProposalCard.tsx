@@ -1,19 +1,19 @@
-import { Badge, Box, HStack, StackProps, Text, TextProps, Tooltip, VStack } from "@chakra-ui/react"
-import { FC } from "react"
-import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils"
-import { ProposalCountdown } from "./ProposalCountdown"
-import { ProposalStatusBadge } from "./ProposalStatusBadge"
+import { Badge, Box, HStack, StackProps, Text, TextProps, Tooltip, VStack } from "@chakra-ui/react";
+import { FC } from "react";
+import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils";
+import { ProposalCountdown } from "./ProposalCountdown";
+import { ProposalStatusBadge } from "./ProposalStatusBadge";
 
 export interface ProposalCardProps extends StackProps {
-  id: string
-  title: string
-  titleProps?: Partial<TextProps>
-  status: EffectiveProposalStatus | string
-  quorumVotes?: QuorumVotes
-  votes?: Votes
-  executionETA?: number
-  startBlock?: number
-  endBlock?: number
+  id: string;
+  title: string;
+  titleProps?: Partial<TextProps>;
+  status: EffectiveProposalStatus | string;
+  quorumVotes?: QuorumVotes;
+  votes?: Votes;
+  executionETA?: number;
+  startBlock?: number;
+  endBlock?: number;
 }
 
 export const ProposalCard: FC<ProposalCardProps> = ({
@@ -29,7 +29,7 @@ export const ProposalCard: FC<ProposalCardProps> = ({
   children,
   ...props
 }) => {
-  const proposalFinalized = isFinalized(status)
+  const proposalFinalized = isFinalized(status);
   return (
     <VStack
       w={"full"}
@@ -138,5 +138,5 @@ export const ProposalCard: FC<ProposalCardProps> = ({
       )}
       {children}
     </VStack>
-  )
-}
+  );
+};

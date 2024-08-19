@@ -2,16 +2,16 @@
  * This api route exposes a graphql api that routes requests to the Graph Network.
  * The route is `/api/graphql`.
  */
-import { GraphQLClient } from 'graphql-request';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { z } from 'zod';
+import { GraphQLClient } from "graphql-request";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { z } from "zod";
 
 const ssrClient = new GraphQLClient(process.env.PRIVATE_GOLDSKY_L1_SUBGRAPH as string);
 
 const GraphqlReqSchema = z.object({
   query: z.string().min(1),
   operationName: z.string().optional().nullable(),
-  variables: z.record(z.unknown()).optional().nullable(),
+  variables: z.record(z.unknown()).optional().nullable()
 });
 
 const ResponseSchema = z.union([z.object({ data: z.unknown() }), z.object({ error: z.unknown() })] as const);

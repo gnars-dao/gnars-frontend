@@ -15,44 +15,44 @@ import {
   Text,
   useBoolean,
   useToast,
-  VStack,
-} from "@chakra-ui/react"
-import { useQueryClient } from "@tanstack/react-query"
-import { AccountAddress } from "components/AccountAddress"
-import { AccountWithAvatar } from "components/AccountWithAvatar"
-import { AvatarWallet } from "components/AvatarWallet"
-import { useAccountQuery } from "hooks/useAccountQuery"
-import { delegationInfoQueryKey, useDelegationInfo } from "hooks/useDelegationInfo"
-import { FC, useEffect, useState } from "react"
-import { useDebounceValue } from "usehooks-ts"
-import { useGnarsV2TokenDelegate } from "utils/sdk"
-import { normalize } from "viem/ens"
-import { useAccount } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
+  VStack
+} from "@chakra-ui/react";
+import { useQueryClient } from "@tanstack/react-query";
+import { AccountAddress } from "components/AccountAddress";
+import { AccountWithAvatar } from "components/AccountWithAvatar";
+import { AvatarWallet } from "components/AvatarWallet";
+import { useAccountQuery } from "hooks/useAccountQuery";
+import { delegationInfoQueryKey, useDelegationInfo } from "hooks/useDelegationInfo";
+import { FC, useEffect, useState } from "react";
+import { useDebounceValue } from "usehooks-ts";
+import { useGnarsV2TokenDelegate } from "utils/sdk";
+import { normalize } from "viem/ens";
+import { useAccount } from "wagmi";
+import { waitForTransaction } from "wagmi/actions";
 
 export interface UpdateDelegateModalProps extends Omit<ModalProps, "children"> {}
 
 export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...props }) => {
-  const { address: userAddress } = useAccount()
-  const { data: delegation } = useDelegationInfo(userAddress)
-  const currentDelegate = delegation?.account?.delegate?.id
-  const { invalidateQueries } = useQueryClient()
-  const [accountQuery, setAccountQuery] = useState<string>("")
-  const [isValidName, setIsValidName] = useBoolean(false)
-  const [debouncedAccountValue] = useDebounceValue(accountQuery, 600)
-  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountValue)
-  const toast = useToast()
+  const { address: userAddress } = useAccount();
+  const { data: delegation } = useDelegationInfo(userAddress);
+  const currentDelegate = delegation?.account?.delegate?.id;
+  const { invalidateQueries } = useQueryClient();
+  const [accountQuery, setAccountQuery] = useState<string>("");
+  const [isValidName, setIsValidName] = useBoolean(false);
+  const [debouncedAccountValue] = useDebounceValue(accountQuery, 600);
+  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountValue);
+  const toast = useToast();
   const { writeAsync: delegate, isLoading: isDelegating } = useGnarsV2TokenDelegate({
-    args: [address!],
-  })
+    args: [address!]
+  });
   useEffect(() => {
     try {
-      normalize(accountQuery)
-      setIsValidName.on()
+      normalize(accountQuery);
+      setIsValidName.on();
     } catch {
-      setIsValidName.off()
+      setIsValidName.off();
     }
-  }, [accountQuery, setIsValidName])
+  }, [accountQuery, setIsValidName]);
   return (
     <Modal isCentered onClose={onClose} {...props}>
       <ModalOverlay />
@@ -90,8 +90,8 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
           <HStack>
             <Button
               onClick={() => {
-                setAccountQuery("")
-                onClose()
+                setAccountQuery("");
+                onClose();
               }}
             >
               Cancel
@@ -104,15 +104,15 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
                 delegate?.()
                   .then((tx) => waitForTransaction({ hash: tx.hash }))
                   .then(() => {
-                    invalidateQueries(delegationInfoQueryKey(userAddress))
-                    setAccountQuery("")
-                    onClose()
+                    invalidateQueries(delegationInfoQueryKey(userAddress));
+                    setAccountQuery("");
+                    onClose();
                   })
                   .catch(() =>
                     toast({
                       status: "error",
                       title: "Error",
-                      description: "Something went wrong. Check your wallet for details",
+                      description: "Something went wrong. Check your wallet for details"
                     })
                   )
               }
@@ -123,5 +123,5 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
         </ModalFooter>
       </ModalContent>
     </Modal>
-  )
-}
+  );
+};

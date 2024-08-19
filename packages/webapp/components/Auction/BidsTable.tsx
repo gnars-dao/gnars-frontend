@@ -6,21 +6,21 @@ import {
   Text,
   VStack,
   useBreakpointValue,
-  useColorMode,
-} from "@chakra-ui/react"
-import { FC } from "react"
-import { HiExternalLink } from "react-icons/hi"
-import { formatEther } from "viem"
-import { Bid } from "../../hooks/useGnarData"
-import { AvatarWallet } from "../AvatarWallet"
+  useColorMode
+} from "@chakra-ui/react";
+import { FC } from "react";
+import { HiExternalLink } from "react-icons/hi";
+import { formatEther } from "viem";
+import { Bid } from "../../hooks/useGnarData";
+import { AvatarWallet } from "../AvatarWallet";
 
 export interface BidsTableProps extends StackProps {
-  bids: Bid[]
+  bids: Bid[];
 }
 export const BidsTable: FC<BidsTableProps> = ({ bids, ...props }) => {
-  const { colorMode } = useColorMode()
-  const borderColor = colorMode === "dark" ? "whiteAlpha.300" : "blackAlpha.300"
-  const columns = useBreakpointValue([1, 2])
+  const { colorMode } = useColorMode();
+  const borderColor = colorMode === "dark" ? "whiteAlpha.300" : "blackAlpha.300";
+  const columns = useBreakpointValue([1, 2]);
 
   return (
     <VStack
@@ -44,7 +44,7 @@ export const BidsTable: FC<BidsTableProps> = ({ bids, ...props }) => {
               <HiExternalLink
                 style={{
                   display: "inline",
-                  verticalAlign: "text-bottom",
+                  verticalAlign: "text-bottom"
                 }}
               />
             </Text>
@@ -52,5 +52,5 @@ export const BidsTable: FC<BidsTableProps> = ({ bids, ...props }) => {
         </SimpleGrid>
       ))}
     </VStack>
-  )
-}
+  );
+};

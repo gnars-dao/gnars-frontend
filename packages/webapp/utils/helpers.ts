@@ -1,7 +1,7 @@
-import isEqual from 'lodash/isEqual'
-import { isAddress } from 'viem'
+import isEqual from "lodash/isEqual";
+import { isAddress } from "viem";
 
-import { Duration } from '@constants'
+import { Duration } from "@constants";
 
 /**
  *
@@ -11,11 +11,11 @@ import { Duration } from '@constants'
  */
 
 export const camelToTitle = (camel: string) => {
-  if (!camel) return ''
+  if (!camel) return "";
 
-  const result = camel.replace(/([A-Z])/g, ' $1')
-  return result.charAt(0).toUpperCase() + result.slice(1)
-}
+  const result = camel.replace(/([A-Z])/g, " $1");
+  return result.charAt(0).toUpperCase() + result.slice(1);
+};
 
 /*
 
@@ -23,26 +23,26 @@ export const camelToTitle = (camel: string) => {
 
 */
 export const toSeconds = ({ days, hours, minutes, seconds }: Duration): number => {
-  let secs = 0
+  let secs = 0;
 
   if (!!days) {
-    secs = secs + Number(days) * 24 * 60 * 60
+    secs = secs + Number(days) * 24 * 60 * 60;
   }
 
   if (!!hours) {
-    secs = secs + Number(hours) * 60 * 60
+    secs = secs + Number(hours) * 60 * 60;
   }
 
   if (!!minutes) {
-    secs = secs + Number(minutes) * 60
+    secs = secs + Number(minutes) * 60;
   }
 
   if (!!seconds) {
-    secs = secs + Number(seconds)
+    secs = secs + Number(seconds);
   }
 
-  return secs
-}
+  return secs;
+};
 
 /*
 
@@ -51,49 +51,49 @@ export const toSeconds = ({ days, hours, minutes, seconds }: Duration): number =
 */
 export const fromSeconds = (value: bigint | number | undefined): Duration => {
   if (!value) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
-  const _seconds = Number(value)
-  let minutes = _seconds / 60
-  let hours = minutes / 60
-  let days = hours / 24
-  let seconds = 0
+  const _seconds = Number(value);
+  let minutes = _seconds / 60;
+  let hours = minutes / 60;
+  let days = hours / 24;
+  let seconds = 0;
 
   if (days >= 1) {
-    const daysMod = days % 1
-    days = days - daysMod
+    const daysMod = days % 1;
+    days = days - daysMod;
 
     if (daysMod > 0) {
-      hours = daysMod * 24
-      const hoursMod = hours % 1
+      hours = daysMod * 24;
+      const hoursMod = hours % 1;
       if (hoursMod > 0) {
-        hours = hours - hoursMod
-        minutes = Math.round(hoursMod * 60)
+        hours = hours - hoursMod;
+        minutes = Math.round(hoursMod * 60);
       } else if (hoursMod === 0) {
-        return { days, hours, minutes: 0, seconds: 0 }
+        return { days, hours, minutes: 0, seconds: 0 };
       }
     } else if (daysMod === 0) {
-      return { days, hours: 0, minutes: 0, seconds: 0 }
+      return { days, hours: 0, minutes: 0, seconds: 0 };
     }
   } else if (hours >= 1) {
-    const hoursMod = hours % 1
+    const hoursMod = hours % 1;
     if (hoursMod > 0) {
-      days = 0
-      hours = hours - hoursMod
-      minutes = Math.round(hoursMod * 60)
+      days = 0;
+      hours = hours - hoursMod;
+      minutes = Math.round(hoursMod * 60);
     } else if (hoursMod === 0) {
-      return { days: 0, hours, minutes: 0, seconds: 0 }
+      return { days: 0, hours, minutes: 0, seconds: 0 };
     }
   } else {
-    const minutesMod = minutes % 1
-    seconds = Math.round(minutesMod * 60)
-    minutes = minutes - minutesMod
+    const minutesMod = minutes % 1;
+    seconds = Math.round(minutesMod * 60);
+    minutes = minutes - minutesMod;
 
-    hours = hours >= 1 ? hours : 0
-    days = days >= 1 ? days : 0
+    hours = hours >= 1 ? hours : 0;
+    days = days >= 1 ? days : 0;
   }
-  return { days, hours, minutes, seconds }
-}
+  return { days, hours, minutes, seconds };
+};
 
 /**
  * Determines whether an object is empty or not.
@@ -103,10 +103,10 @@ export const fromSeconds = (value: bigint | number | undefined): Duration => {
  */
 export const isEmpty = (object: {}) => {
   for (let key in object) {
-    if (object.hasOwnProperty(key)) return false
+    if (object.hasOwnProperty(key)) return false;
   }
-  return true
-}
+  return true;
+};
 
 /**
  * Flattens Nested Object
@@ -116,21 +116,17 @@ export const isEmpty = (object: {}) => {
  */
 
 export const flatten = (object: object) => {
-  if (typeof object !== 'object') return
+  if (typeof object !== "object") return;
 
   return Object.assign(
     {},
     ...(function _flatten(o: any = {}): any {
       if (!isEmpty(o)) {
-        return [].concat(
-          ...Object?.keys(o).map((k) =>
-            typeof o[k] === 'object' ? _flatten(o[k]) : { [k]: o[k] }
-          )
-        )
+        return [].concat(...Object?.keys(o).map((k) => (typeof o[k] === "object" ? _flatten(o[k]) : { [k]: o[k] })));
       }
     })(object)
-  )
-}
+  );
+};
 
 /**
  * Create snippet of wallet address or
@@ -144,16 +140,14 @@ export const flatten = (object: object) => {
 
 export const walletSnippet = (addr: string | number | undefined, chars: number = 5) => {
   if (!addr) {
-    return ''
+    return "";
   }
-  let _addr = addr.toString()
+  let _addr = addr.toString();
 
   return isAddress(_addr)
-    ? _addr.substring(0, chars) +
-        '...' +
-        _addr.substring(_addr.length - chars, _addr.length)
-    : _addr
-}
+    ? _addr.substring(0, chars) + "..." + _addr.substring(_addr.length - chars, _addr.length)
+    : _addr;
+};
 
 /**
  * Pass a normal function in to have it return a promise with its valud
@@ -162,7 +156,7 @@ export const walletSnippet = (addr: string | number | undefined, chars: number =
  * @returns any
  */
 
-export const resolvedPromise = (fn: () => void) => new Promise((resolve) => resolve(fn))
+export const resolvedPromise = (fn: () => void) => new Promise((resolve) => resolve(fn));
 
 /**
  * compare two nearly identical objects and return an array of changes values
@@ -175,45 +169,44 @@ export const resolvedPromise = (fn: () => void) => new Promise((resolve) => reso
 
 export const compareAndReturn = (initialValues: {}, values: {}) => {
   const updates = Object.entries(initialValues).reduce((acc: {}[] = [], cv: any) => {
-    const _field = cv[0]
-    const _value = cv[1]
-    let _values: any[] = Object.entries(values)
-    const value = _values.filter((item) => item[0] === _field)[0][1]
+    const _field = cv[0];
+    const _value = cv[1];
+    let _values: any[] = Object.entries(values);
+    const value = _values.filter((item) => item[0] === _field)[0][1];
 
     if (!isEqual(_value, value)) {
-      if (typeof value !== 'object') {
+      if (typeof value !== "object") {
         if (_value.toString() !== value.toString()) {
           acc.push({
             field: _field,
-            value: value,
-          })
+            value: value
+          });
         }
       } else {
-        const initValueObject: any[] = Object.entries(_value)
-        const valueObject: any[] = Object.entries(value)
+        const initValueObject: any[] = Object.entries(_value);
+        const valueObject: any[] = Object.entries(value);
         initValueObject.reduce((_acc: any[] = [], _cv: any[]) => {
-          const _f = _cv[0]
-          const _v = _cv[1].toString()
-          const v = valueObject.filter((item) => item[0] === _f)[0]?.[1].toString()
+          const _f = _cv[0];
+          const _v = _cv[1].toString();
+          const v = valueObject.filter((item) => item[0] === _f)[0]?.[1].toString();
 
           if (!isEqual(_v, v)) {
             acc.push({
               field: _field,
-              value: value,
-            })
+              value: value
+            });
           }
-        }, [])
+        }, []);
       }
     }
 
-    return acc
-  }, [])
+    return acc;
+  }, []);
 
   return updates.filter(
-    (object, index) =>
-      index === updates.findIndex((obj) => JSON.stringify(obj) === JSON.stringify(object))
-  )
-}
+    (object, index) => index === updates.findIndex((obj) => JSON.stringify(obj) === JSON.stringify(object))
+  );
+};
 
 /*
 
@@ -221,36 +214,36 @@ export const compareAndReturn = (initialValues: {}, values: {}) => {
 
 */
 export const formatDate = (date: Date | string, readable: boolean = false) => {
-  if (typeof date === 'string') {
-    const [year, month, day] = date.split('-')
-    return readable ? `${month}/${day}/${year}` : `${year}-${month}-${day}`
+  if (typeof date === "string") {
+    const [year, month, day] = date.split("-");
+    return readable ? `${month}/${day}/${year}` : `${year}-${month}-${day}`;
   } else {
-    let month = String(date.getMonth() + 1)
-    let day = String(date.getDate())
-    let year = String(date.getFullYear())
+    let month = String(date.getMonth() + 1);
+    let day = String(date.getDate());
+    let year = String(date.getFullYear());
 
-    if (month.length < 2) month = '0' + month
-    if (day.length < 2) day = '0' + day
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
 
-    return readable ? `${month}/${day}/${year}` : `${year}-${month}-${day}`
+    return readable ? `${month}/${day}/${year}` : `${year}-${month}-${day}`;
   }
-}
+};
 
 export const yearsAhead = (years: number) => {
-  let d = new Date()
-  let year = d.getFullYear()
-  let month = d.getMonth()
-  let day = d.getDate()
-  return formatDate(new Date(year + years, month, day), false)
-}
+  let d = new Date();
+  let year = d.getFullYear();
+  let month = d.getMonth();
+  let day = d.getDate();
+  return formatDate(new Date(year + years, month, day), false);
+};
 
 export const handleGMTOffset = () => {
-  const now = new Date()
-  const timezoneOffset = now.getTimezoneOffset()
-  const offsetHours = -timezoneOffset / 60
+  const now = new Date();
+  const timezoneOffset = now.getTimezoneOffset();
+  const offsetHours = -timezoneOffset / 60;
 
-  return `GMT ${offsetHours >= 0 ? '+' : ''}${offsetHours}:00`
-}
+  return `GMT ${offsetHours >= 0 ? "+" : ""}${offsetHours}:00`;
+};
 
 /**
  * Takes a possibly undefined array and returns either the array, or an array of undefined of
@@ -260,25 +253,22 @@ export const handleGMTOffset = () => {
  * @param expectedLength the expected length of the array if it were not undefined
  * @returns {T | undefined[]}
  */
-export function unpackOptionalArray<T = []>(
-  array: T | undefined,
-  expectedLength: number
-): T | undefined[] {
+export function unpackOptionalArray<T = []>(array: T | undefined, expectedLength: number): T | undefined[] {
   if (!array) {
-    return Array(expectedLength).fill(undefined)
+    return Array(expectedLength).fill(undefined);
   }
-  return array
+  return array;
 }
 
 // Markdown is impossible to detect in all cases, but this should cover most of the cases we'll run into
 export const isPossibleMarkdown = (text: string) => {
   const markdownRegex =
-    /(?:\*\*[^\*]+\*\*)|(?:__[^\_]+__)|(?:\*[^\*]+\*)|(?:_[^\_]+_)|(?:\#[^\#]+\#)|(?:\!\[[^\]]*\]\([^\)]+\))|(?:\[[^\]]+\]\([^\)]+\))/g
-  return markdownRegex.test(text)
-}
+    /(?:\*\*[^\*]+\*\*)|(?:__[^\_]+__)|(?:\*[^\*]+\*)|(?:_[^\_]+_)|(?:\#[^\#]+\#)|(?:\!\[[^\]]*\]\([^\)]+\))|(?:\[[^\]]+\]\([^\)]+\))/g;
+  return markdownRegex.test(text);
+};
 export function maxChar(str: string, maxLength: number) {
   if (str.length <= maxLength) {
-    return str
+    return str;
   }
-  return str.slice(0, maxLength) + '...'
+  return str.slice(0, maxLength) + "...";
 }

@@ -1,42 +1,42 @@
-import { avatarAnatomy, inputAnatomy, sliderAnatomy } from "@chakra-ui/anatomy"
+import { avatarAnatomy, inputAnatomy, sliderAnatomy } from "@chakra-ui/anatomy";
 import {
   createMultiStyleConfigHelpers,
   defineStyle,
   defineStyleConfig,
   extendTheme,
-  theme as chakraTheme,
-} from "@chakra-ui/react"
+  theme as chakraTheme
+} from "@chakra-ui/react";
 
-import { Londrina_Solid } from "next/font/google"
+import { Londrina_Solid } from "next/font/google";
 const londrinaSolid = Londrina_Solid({
   weight: "400",
-  subsets: ["latin"],
-})
+  subsets: ["latin"]
+});
 
 const config = {
   initialColorMode: "dark",
-  useSystemColorMode: false,
-}
+  useSystemColorMode: false
+};
 
 const outline = defineStyle({
   borderColor: "blackAlpha.300",
   _dark: {
-    borderColor: "whiteAlpha.300",
-  },
-})
+    borderColor: "whiteAlpha.300"
+  }
+});
 
 const colors = defineStyle({
   gnars: {
     logo: {
       yellow: "#fee761",
-      orange: "#fb912b",
-    },
+      orange: "#fb912b"
+    }
   },
   governance: {
     vote: {
       for: chakraTheme.colors.green[500],
       against: chakraTheme.colors.red[400],
-      abstain: chakraTheme.colors.gray[500],
+      abstain: chakraTheme.colors.gray[500]
     },
     quorum: chakraTheme.colors.green[900],
     proposal: {
@@ -49,18 +49,18 @@ const colors = defineStyle({
         succeeded: chakraTheme.colors.green[500],
         vetoed: chakraTheme.colors.red[500],
         defeated: chakraTheme.colors.red[500],
-        preview: chakraTheme.colors.pink[500],
+        preview: chakraTheme.colors.pink[500]
       },
       event: {
         created: chakraTheme.colors.purple[500],
         cancelled: chakraTheme.colors.gray[500],
         executed: chakraTheme.colors.green[500],
         queued: chakraTheme.colors.green[500],
-        vetoed: chakraTheme.colors.red[500],
-      },
-    },
-  },
-})
+        vetoed: chakraTheme.colors.red[500]
+      }
+    }
+  }
+});
 
 // case "PENDING":
 //   return {
@@ -88,109 +88,103 @@ const colors = defineStyle({
 const subtle = defineStyle((s) => ({
   bg: "whiteAlpha.800",
   _hover: {
-    bg: "whiteAlpha.900",
+    bg: "whiteAlpha.900"
   },
   _active: {
     bg: "white",
     _hover: {
       bg: "white",
-      _disabled: { bg: "whiteAlpha.800" },
-    },
+      _disabled: { bg: "whiteAlpha.800" }
+    }
   },
   _dark: {
     _active: {
       bg: "whiteAlpha.600",
-      _hover: { bg: "whiteAlpha.600" },
+      _hover: { bg: "whiteAlpha.600" }
     },
     _hover: {
       bg: "whiteAlpha.400",
-      _disabled: { bg: "whiteAlpha.300" },
+      _disabled: { bg: "whiteAlpha.300" }
     },
-    bg: "whiteAlpha.300",
-  },
-}))
+    bg: "whiteAlpha.300"
+  }
+}));
 
-const {
-  definePartsStyle: defineAvatarPartsStyle,
-  defineMultiStyleConfig: defineAvatarMultiStyleConfig,
-} = createMultiStyleConfigHelpers(avatarAnatomy.keys)
+const { definePartsStyle: defineAvatarPartsStyle, defineMultiStyleConfig: defineAvatarMultiStyleConfig } =
+  createMultiStyleConfigHelpers(avatarAnatomy.keys);
 
 const avatarDelimitedVariant = defineAvatarPartsStyle({
   container: {
     borderWidth: "2px",
     borderColor: "blackAlpha.800",
     _dark: {
-      borderColor: "whiteAlpha.800",
-    },
-  },
-})
+      borderColor: "whiteAlpha.800"
+    }
+  }
+});
 
 const Avatar = defineAvatarMultiStyleConfig({
-  variants: { delimited: avatarDelimitedVariant },
-})
+  variants: { delimited: avatarDelimitedVariant }
+});
 
 const Button = defineStyleConfig({
   variants: { outline, subtle },
   baseStyle: {
-    boxSizing: "border-box",
-  },
-})
+    boxSizing: "border-box"
+  }
+});
 
 const Heading = defineStyleConfig({
   baseStyle: {
     fontFamily: londrinaSolid.style.fontFamily,
-    fontWeight: "normal",
+    fontWeight: "normal"
   },
   defaultProps: {
-    size: "3xl",
-  },
-})
+    size: "3xl"
+  }
+});
 
 const StackDivider = defineStyleConfig({
   variants: {
     subtle: ({ colorMode }) => ({
-      borderColor: colorMode === "dark" ? "whiteAlpha.300" : "blackAlpha.300",
-    }),
-  },
-})
+      borderColor: colorMode === "dark" ? "whiteAlpha.300" : "blackAlpha.300"
+    })
+  }
+});
 
-const {
-  definePartsStyle: defineInputPartsStyle,
-  defineMultiStyleConfig: defineInputMultiStyleConfig,
-} = createMultiStyleConfigHelpers(inputAnatomy.keys)
+const { definePartsStyle: defineInputPartsStyle, defineMultiStyleConfig: defineInputMultiStyleConfig } =
+  createMultiStyleConfigHelpers(inputAnatomy.keys);
 
 const inputVariantOutline = defineInputPartsStyle({
   field: {
     borderColor: "blackAlpha.300",
     _dark: {
-      borderColor: "whiteAlpha.300",
-    },
-  },
-})
+      borderColor: "whiteAlpha.300"
+    }
+  }
+});
 
 const Input = defineInputMultiStyleConfig({
   variants: {
-    outline: inputVariantOutline,
-  },
-})
+    outline: inputVariantOutline
+  }
+});
 
-const {
-  definePartsStyle: defineSliderPartsStyle,
-  defineMultiStyleConfig: defineSliderMultiStyleConfig,
-} = createMultiStyleConfigHelpers(sliderAnatomy.keys)
+const { definePartsStyle: defineSliderPartsStyle, defineMultiStyleConfig: defineSliderMultiStyleConfig } =
+  createMultiStyleConfigHelpers(sliderAnatomy.keys);
 
 const sliderBaseTheme = defineSliderPartsStyle({
   track: {
     bgColor: "blackAlpha.300",
     _dark: {
-      bgColor: "whiteAlpha.300",
-    },
-  },
-})
+      bgColor: "whiteAlpha.300"
+    }
+  }
+});
 
 const Slider = defineSliderMultiStyleConfig({
-  baseStyle: sliderBaseTheme,
-})
+  baseStyle: sliderBaseTheme
+});
 
 const theme = extendTheme({
   ...config,
@@ -200,28 +194,28 @@ const theme = extendTheme({
     h1: {
       fontFamily: londrinaSolid.style.fontFamily,
       fontSize: { base: "5xl", sm: "8xl" },
-      lineHeight: "120%",
+      lineHeight: "120%"
     },
     h2: {
       fontFamily: londrinaSolid.style.fontFamily,
       fontSize: "3xl",
-      lineHeight: "100%",
+      lineHeight: "100%"
     },
     h3: {
       fontFamily: londrinaSolid.style.fontFamily,
       fontSize: "2xl",
-      lineHeight: "100%",
-    },
+      lineHeight: "100%"
+    }
   },
   styles: {
     global: {
       body: { bg: "gray.800" },
       html: { scrollBehavior: "smooth" },
       "html, body, #__next": {
-        height: "100%",
-      },
-    },
-  },
-})
+        height: "100%"
+      }
+    }
+  }
+});
 
-export default theme
+export default theme;

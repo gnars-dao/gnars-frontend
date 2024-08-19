@@ -1,31 +1,34 @@
-import { useQuery } from "@tanstack/react-query"
-import { Abi } from "abitype"
-import { etherscanApiKey } from "@env/client.ts"
-import { isAddress } from "viem"
-import { PublicClient, usePublicClient } from "wagmi"
+import { useQuery } from "@tanstack/react-query";
+import { Abi } from "abitype";
+import { etherscanApiKey } from "@env/client.ts";
+import { isAddress } from "viem";
+import { PublicClient, usePublicClient } from "wagmi";
 
 export interface RegularContractInfo {
-  name: string
-  abi: Abi
-  address: `0x${string}`
-  isProxy?: boolean
+  name: string;
+  abi: Abi;
+  address: `0x${string}`;
+  isProxy?: boolean;
 }
 export interface ProxyContractInfo extends RegularContractInfo {
-  implementation: ContractInfo | null
-  implementationAddress: `0x${string}`
-  isProxy: true
+  implementation: ContractInfo | null;
+  implementationAddress: `0x${string}`;
+  isProxy: true;
 }
 
-export type ContractInfo = RegularContractInfo | ProxyContractInfo
+export type ContractInfo = RegularContractInfo | ProxyContractInfo;
 
 export const useEtherscanContractInfo = (address?: string) => {
-  const client = usePublicClient()
-  return useQuery<ContractInfo | null>({queryKey: ["etherscanAbi", address], queryFn: async ({ signal }) => {
-    if (!address || !isAddress(address)) return null
+  const client = usePublicClient();
+  return useQuery<ContractInfo | null>({
+    queryKey: ["etherscanAbi", address],
+    queryFn: async ({ signal }) => {
+      if (!address || !isAddress(address)) return null;
 
-    return fetchContractInfo(address, client, signal)
-  }})
-}
+      return fetchContractInfo(address, client, signal);
+    }
+  });
+};
 
 const fetchContractInfo = async (
   address: string,
@@ -36,47 +39,47 @@ const fetchContractInfo = async (
     const contractInfo = await fetch(
       `https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${etherscanApiKey}`,
       { signal }
-    ).then((res) => res.json())
+    ).then((res) => res.json());
 
-    if (contractInfo.status !== "1") return null
+    if (contractInfo.status !== "1") return null;
 
-    const isProxy = contractInfo.result[0].Proxy === "1"
+    const isProxy = contractInfo.result[0].Proxy === "1";
 
     if (isProxy) {
-      const implementationAddress = contractInfo.result[0].Implementation as `0x${string}`
+      const implementationAddress = contractInfo.result[0].Implementation as `0x${string}`;
       return {
         name: contractInfo.result[0].ContractName,
         abi: JSON.parse(contractInfo.result[0].ABI),
         address: address as `0x${string}`,
         isProxy,
         implementationAddress,
-        implementation: await fetchContractInfo(implementationAddress, client, signal),
-      }
+        implementation: await fetchContractInfo(implementationAddress, client, signal)
+      };
     }
 
     return {
       name: contractInfo.result[0].ContractName,
       abi: JSON.parse(contractInfo.result[0].ABI),
       address: address as `0x${string}`,
-      isProxy,
-    }
+      isProxy
+    };
   } catch {
-    return null
+    return null;
   }
-}
+};
 
-export const isProxy = (contractInfo: ContractInfo): contractInfo is ProxyContractInfo => contractInfo.isProxy === true
+export const isProxy = (contractInfo: ContractInfo): contractInfo is ProxyContractInfo => contractInfo.isProxy === true;
 
 export const getProxyAndImplementations = (contractInfo: ContractInfo): ContractInfo[] => {
   if (isProxy(contractInfo) && contractInfo.implementation) {
-    return [contractInfo, ...getProxyAndImplementations(contractInfo.implementation)]
+    return [contractInfo, ...getProxyAndImplementations(contractInfo.implementation)];
   }
 
-  return [contractInfo]
-}
+  return [contractInfo];
+};
 
 export const getEffectiveAbi = (contractInfo: ContractInfo): Abi =>
   getProxyAndImplementations(contractInfo).reduce(
     (effectiveAbi, currentContract) => [...currentContract.abi, ...effectiveAbi],
     [] as Abi
-  )
+  );

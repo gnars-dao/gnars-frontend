@@ -1,14 +1,14 @@
-import { Box, SimpleGrid, SimpleGridProps, Text } from "@chakra-ui/react"
-import { isArray } from "lodash"
-import { FC, ReactNode } from "react"
+import { Box, SimpleGrid, SimpleGridProps, Text } from "@chakra-ui/react";
+import { isArray } from "lodash";
+import { FC, ReactNode } from "react";
 
 export interface ParamSpec {
-  description: string
-  value: ReactNode | ParamSpec[]
+  description: string;
+  value: ReactNode | ParamSpec[];
 }
 
 export interface ParamsTableProps extends SimpleGridProps {
-  params: ParamSpec[]
+  params: ParamSpec[];
 }
 
 export const ParamsTable: FC<ParamsTableProps> = ({ params, ...props }) => {
@@ -28,19 +28,19 @@ export const ParamsTable: FC<ParamsTableProps> = ({ params, ...props }) => {
           pb: 2,
           "&:not(:last-child)": {
             borderBottomWidth: 1,
-            pb: 2,
+            pb: 2
           },
           "&:last-child": {
-            pb: 1,
-          },
-        },
+            pb: 1
+          }
+        }
       }}
       {...props}
     >
       {params.flatMap(toGridItem)}
     </SimpleGrid>
-  )
-}
+  );
+};
 
 const toGridItem = ({ description, value }: ParamSpec, i: number) => [
   <Text
@@ -71,16 +71,16 @@ const toGridItem = ({ description, value }: ParamSpec, i: number) => [
             pb: 2,
             "&:not(:last-child)": {
               borderBottomWidth: 1,
-              pb: 2,
+              pb: 2
             },
             "&:last-child": {
-              pb: 1,
-            },
-          },
+              pb: 1
+            }
+          }
         }}
       >
         {value.flatMap(toGridItem)}
       </SimpleGrid>
     </Box>
-  ),
-]
+  )
+];

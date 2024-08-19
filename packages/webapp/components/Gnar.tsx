@@ -1,24 +1,24 @@
-import { Box, BoxProps, DarkMode, HStack, Icon, Switch, keyframes } from "@chakra-ui/react"
-import { FC, useMemo, useRef } from "react"
-import { BsBadgeHd } from "react-icons/bs"
-import { GnarData } from "../hooks/useGnarData"
-import { getGnartwork } from "../utils"
-import { useGnarState } from "./Gnar.state"
-import { GnarHDImage } from "./GnarHDImage"
-import { GnarImage } from "./GnarImage"
-import { GnarToolbar } from "./GnarToolbar"
+import { Box, BoxProps, DarkMode, HStack, Icon, Switch, keyframes } from "@chakra-ui/react";
+import { FC, useMemo, useRef } from "react";
+import { BsBadgeHd } from "react-icons/bs";
+import { GnarData } from "../hooks/useGnarData";
+import { getGnartwork } from "../utils";
+import { useGnarState } from "./Gnar.state";
+import { GnarHDImage } from "./GnarHDImage";
+import { GnarImage } from "./GnarImage";
+import { GnarToolbar } from "./GnarToolbar";
 
 interface GnarProps extends BoxProps {
-  isOg: boolean
-  isHD?: boolean
-  gnarData?: GnarData
+  isOg: boolean;
+  isHD?: boolean;
+  gnarData?: GnarData;
 }
 
 const Gnar: FC<GnarProps> = ({ isOg, gnarData, ...props }) => {
-  const gnarImageRef = useRef<HTMLImageElement>(null)
-  const { hdOn, toggleHd } = useGnarState()
-  const showHd = !isOg && hdOn
-  const gnartwork = useMemo(() => (gnarData ? getGnartwork(isOg, gnarData.gnar.seed) : undefined), [gnarData, isOg])
+  const gnarImageRef = useRef<HTMLImageElement>(null);
+  const { hdOn, toggleHd } = useGnarState();
+  const showHd = !isOg && hdOn;
+  const gnartwork = useMemo(() => (gnarData ? getGnartwork(isOg, gnarData.gnar.seed) : undefined), [gnarData, isOg]);
 
   return (
     <Box overflow={"visible!important"} position={"relative"} {...props}>
@@ -52,9 +52,9 @@ const Gnar: FC<GnarProps> = ({ isOg, gnarData, ...props }) => {
         </DarkMode>
       )}
     </Box>
-  )
-}
-export default Gnar
+  );
+};
+export default Gnar;
 
 const shake = keyframes`
 
@@ -76,4 +76,4 @@ const shake = keyframes`
   transform: translate3d(0, 3px, 0);
 }
   
-`
+`;

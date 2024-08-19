@@ -20,33 +20,33 @@ import {
   Text,
   Textarea,
   TextareaProps,
-  VStack,
-} from "@chakra-ui/react"
-import { AbiParameter } from "abitype"
-import { AccountAddress } from "components/AccountAddress"
-import { AccountWithAvatar } from "components/AccountWithAvatar"
-import { ContractBreadcrumbs } from "components/ContractBreadcrumbs"
-import { ParamSpec, ParamsTable } from "components/ParamsTable"
-import { useAccountQuery } from "hooks/useAccountQuery"
-import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo"
-import { useFunctions } from "hooks/useFunctions"
-import { useParameterValidation } from "hooks/useParameterValidation"
-import { FC, useEffect, useMemo } from "react"
-import { useDebounceValue } from "usehooks-ts"
-import { isValidName } from "utils/ensUtils"
-import { getSignature } from "utils/functionUtils"
-import { NounsTransactionData } from "utils/governanceUtils"
-import { parseArrayParameter } from "utils/parseArrayParameter"
-import { encodeFunctionData, getAbiItem, parseEther } from "viem"
-import { getFuncParam, ParameterValue, useAddTransactionFormState } from "./AddTransactionForm.state"
-import { useProposalCreationState } from "./ProposalCreationForm.state"
+  VStack
+} from "@chakra-ui/react";
+import { AbiParameter } from "abitype";
+import { AccountAddress } from "components/AccountAddress";
+import { AccountWithAvatar } from "components/AccountWithAvatar";
+import { ContractBreadcrumbs } from "components/ContractBreadcrumbs";
+import { ParamSpec, ParamsTable } from "components/ParamsTable";
+import { useAccountQuery } from "hooks/useAccountQuery";
+import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo";
+import { useFunctions } from "hooks/useFunctions";
+import { useParameterValidation } from "hooks/useParameterValidation";
+import { FC, useEffect, useMemo } from "react";
+import { useDebounceValue } from "usehooks-ts";
+import { isValidName } from "utils/ensUtils";
+import { getSignature } from "utils/functionUtils";
+import { NounsTransactionData } from "utils/governanceUtils";
+import { parseArrayParameter } from "utils/parseArrayParameter";
+import { encodeFunctionData, getAbiItem, parseEther } from "viem";
+import { getFuncParam, ParameterValue, useAddTransactionFormState } from "./AddTransactionForm.state";
+import { useProposalCreationState } from "./ProposalCreationForm.state";
 
 export interface AddTransactionFormProps extends CardProps {
-  onAddTransaction: (transaction: NounsTransactionData) => void
+  onAddTransaction: (transaction: NounsTransactionData) => void;
 }
 
 export const AddTransactionForm: FC<AddTransactionFormProps> = ({ onAddTransaction, ...props }) => {
-  const { txKind } = useAddTransactionFormState()
+  const { txKind } = useAddTransactionFormState();
 
   return (
     <Card variant={"outline"} {...props}>
@@ -55,11 +55,11 @@ export const AddTransactionForm: FC<AddTransactionFormProps> = ({ onAddTransacti
       </CardHeader>
       {txKind ? <TransactionDataForm /> : <PickTransactionKind />}
     </Card>
-  )
-}
+  );
+};
 
 const PickTransactionKind = ({}) => {
-  const { pickKind, txKind, close, clear } = useAddTransactionFormState()
+  const { pickKind, txKind, close, clear } = useAddTransactionFormState();
   return (
     <>
       <CardBody>
@@ -75,21 +75,21 @@ const PickTransactionKind = ({}) => {
       <CardFooter justifyContent={"space-between"}>
         <Button
           onClick={() => {
-            close()
-            clear()
+            close();
+            clear();
           }}
         >
           Cancel
         </Button>
       </CardFooter>
     </>
-  )
-}
+  );
+};
 
 interface TransactionDataFormProps {}
 
 const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
-  const { transactions, setTransactions } = useProposalCreationState()
+  const { transactions, setTransactions } = useProposalCreationState();
   const {
     txKind,
     pickKind,
@@ -103,45 +103,45 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
     setAbi,
     func,
     setFunc,
-    funcParams,
-  } = useAddTransactionFormState()
-  const functions = useFunctions(abi)
+    funcParams
+  } = useAddTransactionFormState();
+  const functions = useFunctions(abi);
   const calldata = useMemo(() => {
-    if (!func || !abi || !funcParams) return undefined
+    if (!func || !abi || !funcParams) return undefined;
 
     try {
-      const parsedFuncParams = parseFuncParams(func.inputs, funcParams)
+      const parsedFuncParams = parseFuncParams(func.inputs, funcParams);
       return encodeFunctionData({
         abi: JSON.parse(abi),
         functionName: func.name,
-        args: parsedFuncParams,
-      })
+        args: parsedFuncParams
+      });
     } catch (e) {
-      return undefined
+      return undefined;
     }
-  }, [abi, func, funcParams])
+  }, [abi, func, funcParams]);
 
-  const [debouncedAccountValue,] = useDebounceValue(accountQuery, 600)
-  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountValue)
-  const { data: contractInfo } = useEtherscanContractInfo(address)
+  const [debouncedAccountValue] = useDebounceValue(accountQuery, 600);
+  const { isLoading, address, ensAvatar, nnsOrEnsName } = useAccountQuery(debouncedAccountValue);
+  const { data: contractInfo } = useEtherscanContractInfo(address);
 
   useEffect(() => {
     if (!contractInfo) {
-      setAbi("")
-      return
+      setAbi("");
+      return;
     }
 
-    setAbi(JSON.stringify(getEffectiveAbi(contractInfo)))
-  }, [contractInfo, setAbi])
+    setAbi(JSON.stringify(getEffectiveAbi(contractInfo)));
+  }, [contractInfo, setAbi]);
 
-  const isValidEthValue = !!ethValue && parseFloat(ethValue) > 0
+  const isValidEthValue = !!ethValue && parseFloat(ethValue) > 0;
   const isValidTx =
     txKind === "Send ETH"
       ? isValidEthValue && address !== undefined
       : !!calldata &&
         address !== undefined &&
         func !== undefined &&
-        (func.stateMutability === "payable" ? ethValue !== "" : true)
+        (func.stateMutability === "payable" ? ethValue !== "" : true);
 
   return (
     <>
@@ -217,7 +217,7 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
                   placeholder="0.001"
                   value={ethValue}
                   onChange={(e) => {
-                    setEthValue(e.target.value)
+                    setEthValue(e.target.value);
                   }}
                   min={0}
                 />
@@ -241,15 +241,15 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
         <HStack>
           <Button
             onClick={() => {
-              close()
-              clear()
+              close();
+              clear();
             }}
           >
             Cancel
           </Button>
           <Button
             onClick={() => {
-              clear()
+              clear();
             }}
           >
             Back
@@ -259,12 +259,12 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
           <Button onClick={clear}>Clear</Button>
           <Button
             _dark={{
-              bg: "pink.700",
+              bg: "pink.700"
             }}
             isDisabled={!isValidTx}
             alignSelf={"end"}
             onClick={() => {
-              if (!isValidTx) return
+              if (!isValidTx) return;
 
               setTransactions([
                 ...transactions,
@@ -277,13 +277,13 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
                     txKind === "Send ETH"
                       ? parseEther(ethValue)
                       : func?.stateMutability === "payable"
-                      ? parseEther(ethValue)
-                      : 0n,
-                },
-              ])
-              close()
-              clear()
-              return
+                        ? parseEther(ethValue)
+                        : 0n
+                }
+              ]);
+              close();
+              clear();
+              return;
             }}
           >
             Add
@@ -291,8 +291,8 @@ const TransactionDataForm: FC<TransactionDataFormProps> = ({}) => {
         </HStack>
       </CardFooter>
     </>
-  )
-}
+  );
+};
 
 const getInputFields = (params: readonly AbiParameter[], indices: number[] = []): ParamSpec[] => {
   return params.map((input, i) => ({
@@ -302,18 +302,18 @@ const getInputFields = (params: readonly AbiParameter[], indices: number[] = [])
         getInputFields(input.components, [...indices, i])
       ) : (
         <ParamInput param={input} indices={[...indices, i]} key={`param-${[...indices, i].join("-")}`} />
-      ),
-  }))
-}
+      )
+  }));
+};
 
 interface ParamInputProps extends TextareaProps {
-  param: AbiParameter
-  indices: number[]
+  param: AbiParameter;
+  indices: number[];
 }
 const ParamInput = forwardRef<ParamInputProps, "div">(({ param, indices, ...props }, ref) => {
-  const { funcParams, setFuncParam } = useAddTransactionFormState()
-  const value = getFuncParam(funcParams, indices) as string
-  const { isValid, error } = useParameterValidation(param, value)
+  const { funcParams, setFuncParam } = useAddTransactionFormState();
+  const value = getFuncParam(funcParams, indices) as string;
+  const { isValid, error } = useParameterValidation(param, value);
 
   return (
     <FormControl ref={ref} isInvalid={!isValid}>
@@ -335,12 +335,12 @@ const ParamInput = forwardRef<ParamInputProps, "div">(({ param, indices, ...prop
       />
       <FormErrorMessage>{error}</FormErrorMessage>
     </FormControl>
-  )
-})
+  );
+});
 
 const parseFuncParams = (params: readonly AbiParameter[], values: ParameterValue[]): ParameterValue[] =>
   params.map((param, i) => {
-    if (param.type.endsWith("[]")) return parseArrayParameter(values[i] as string) as ParameterValue
-    if ("components" in param) return parseFuncParams(param.components, values[i] as ParameterValue[])
-    return values[i]
-  })
+    if (param.type.endsWith("[]")) return parseArrayParameter(values[i] as string) as ParameterValue;
+    if ("components" in param) return parseFuncParams(param.components, values[i] as ParameterValue[]);
+    return values[i];
+  });

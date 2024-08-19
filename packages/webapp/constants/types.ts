@@ -1,13 +1,13 @@
 export interface Duration {
-  seconds?: number
-  days?: number
-  hours?: number
-  minutes?: number
+  seconds?: number;
+  days?: number;
+  hours?: number;
+  minutes?: number;
 }
 
-export type AddressType = `0x${string}`
+export type AddressType = `0x${string}`;
 
-export type BytesType = `0x${string}`
+export type BytesType = `0x${string}`;
 
 export interface Dao {
   governorAddress: string;

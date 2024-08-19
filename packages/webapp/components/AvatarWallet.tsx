@@ -1,20 +1,20 @@
-import { Text } from "@chakra-ui/react"
-import { FC } from "react"
-import { useEnsAvatar } from "wagmi"
-import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback"
+import { Text } from "@chakra-ui/react";
+import { FC } from "react";
+import { useEnsAvatar } from "wagmi";
+import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback";
 // @ts-ignore
-import { AccountAddress } from "./AccountAddress"
-import { AccountWithAvatar, AccountWithAvatarProps } from "./AccountWithAvatar"
+import { AccountAddress } from "./AccountAddress";
+import { AccountWithAvatar, AccountWithAvatarProps } from "./AccountWithAvatar";
 
 export type AvatarWalletProps = {
-  address: string
-} & AccountWithAvatarProps
+  address: string;
+} & AccountWithAvatarProps;
 
 export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
-  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(address)
+  const { data: nnsOrEnsName, isLoading: isLoadingNnsOrEnsName } = useNnsNameWithEnsFallback(address);
   const { data: ensAvatar, isLoading: isLoadingEnsAvatar } = useEnsAvatar({
-    name: String(nnsOrEnsName),
-  })
+    name: String(nnsOrEnsName)
+  });
 
   return (
     <AccountWithAvatar
@@ -26,7 +26,7 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
       {String(nnsOrEnsName) && <Text whiteSpace={"nowrap"}>{String(nnsOrEnsName)}</Text>}
       <AccountAddress truncate address={address as `0x${string}`} />
     </AccountWithAvatar>
-  )
+  );
 
   // const content = (
   //   <HStack {...props}>
@@ -65,4 +65,4 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
   // ) : (
   //   content
   // )
-}
+};

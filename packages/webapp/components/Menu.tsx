@@ -1,17 +1,17 @@
-import Link from "next/link"
-import { useState } from "react"
+import Link from "next/link";
+import { useState } from "react";
 
-import { Button, Center, CenterProps, Link as ExternalLink, HStack, IconButton, Stack } from "@chakra-ui/react"
-import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa"
-import { GnarsLogo } from "./GnarsLogo"
-import { ShredIcon } from "./Icons"
-import { TreasuryBalance } from "./TreasuryBalance"
-import { WalletButton } from "./WalletButton"
+import { Button, Center, CenterProps, Link as ExternalLink, HStack, IconButton, Stack } from "@chakra-ui/react";
+import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa";
+import { GnarsLogo } from "./GnarsLogo";
+import { ShredIcon } from "./Icons";
+import { TreasuryBalance } from "./TreasuryBalance";
+import { WalletButton } from "./WalletButton";
 
-export type MenuProps = CenterProps
+export type MenuProps = CenterProps;
 
 export default function Menu(props: MenuProps) {
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenu, setShowMenu] = useState(false);
 
   return (
     <Center w={"full"} {...props}>
@@ -74,5 +74,5 @@ export default function Menu(props: MenuProps) {
         <WalletButton hideBelow={"lg"} />
       </Stack>
     </Center>
-  )
+  );
 }

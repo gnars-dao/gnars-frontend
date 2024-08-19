@@ -1,44 +1,44 @@
-import { Button, Container, DarkMode, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react"
-import { QueryClient, useQuery } from "@tanstack/react-query"
-import { DelegateButton } from "components/Governance/Delegation/DelegateButton"
-import { UserVotes } from "components/Governance/Delegation/UserVotes"
-import { isArray, partition } from "lodash"
-import Link from "next/link"
-import { ProposalsDocument } from "@subgraph-generated/layer-1"
-import { ProposalCard } from "@components/Governance/ProposalCard"
-import Menu from "@components/Menu"
-import BaseProposals from "@components/Proposal/BaseProposals"
+import { Button, Container, DarkMode, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
+import { QueryClient, useQuery } from "@tanstack/react-query";
+import { DelegateButton } from "components/Governance/Delegation/DelegateButton";
+import { UserVotes } from "components/Governance/Delegation/UserVotes";
+import { isArray, partition } from "lodash";
+import Link from "next/link";
+import { ProposalsDocument } from "@subgraph-generated/layer-1";
+import { ProposalCard } from "@components/Governance/ProposalCard";
+import Menu from "@components/Menu";
+import BaseProposals from "@components/Proposal/BaseProposals";
 import {
   EffectiveProposalStatus,
   getProposalEffectiveStatus,
   getQuorumVotes,
   isFinalized,
   ProposalData
-} from "@utils/governanceUtils"
-import { contracts } from "@constants"
-import { getProposals, ProposalsResponse } from "@queries/base/requests/proposalsQuery"
-import { USE_QUERY_KEYS } from "@constants"
-import { CHAIN_IDS } from "@constants"
-import { useRouter } from "next/router"
-import { getLatestEthereumBlock } from "@utils/web3"
-import { Block } from "viem"
-import { graphQLClient } from "@graphql/ssr.client"
+} from "@utils/governanceUtils";
+import { contracts } from "@constants";
+import { getProposals, ProposalsResponse } from "@queries/base/requests/proposalsQuery";
+import { USE_QUERY_KEYS } from "@constants";
+import { CHAIN_IDS } from "@constants";
+import { useRouter } from "next/router";
+import { getLatestEthereumBlock } from "@utils/web3";
+import { Block } from "viem";
+import { graphQLClient } from "@graphql/ssr.client";
 
 export default function Proposals({ ethProposals }) {
-  const tokenAddress = contracts.Token.Proxy
-  const { query: baseQuery, isReady: baseQueryReady, push } = useRouter()
-  const LIMIT = 200
-  const page = baseQuery?.page ? Number(baseQuery.page) : undefined
+  const tokenAddress = contracts.Token.Proxy;
+  const { query: baseQuery, isReady: baseQueryReady, push } = useRouter();
+  const LIMIT = 200;
+  const page = baseQuery?.page ? Number(baseQuery.page) : undefined;
   const { data: baseData, error: baseError } = useQuery(
     [USE_QUERY_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
     () => getProposals(CHAIN_IDS.BASE, tokenAddress, LIMIT),
     {
       enabled: baseQueryReady
     }
-  )
+  );
 
   if (baseError) {
-    console.error("Error getting BASE proposals data: ", baseError)
+    console.error("Error getting BASE proposals data: ", baseError);
   }
 
   return (
@@ -151,37 +151,37 @@ export default function Proposals({ ethProposals }) {
         </Container>
       </VStack>
     </DarkMode>
-  )
+  );
 }
 
 export async function getServerSideProps() {
-  const block: Block | undefined = await getLatestEthereumBlock()
+  const block: Block | undefined = await getLatestEthereumBlock();
   try {
-    const ethProposals = await fetchEthProposals(block)
+    const ethProposals = await fetchEthProposals(block);
     return {
       props: {
         ethProposals
       }
-    }
+    };
   } catch (err) {
-    console.error("Error getting Ethereum Proposals from subgraph", err)
+    console.error("Error getting Ethereum Proposals from subgraph", err);
     return {
       props: {
         ethProposals: [[], []]
       }
-    }
+    };
   }
 }
 
 // Ethereum proposals only
 async function fetchProposalsData(queryClient: QueryClient, block?: Block): Promise<any> {
-  return queryClient.fetchQuery([USE_QUERY_KEYS.PROPOSALS, block?.number?.toString()], fetchProposals)
+  return queryClient.fetchQuery([USE_QUERY_KEYS.PROPOSALS, block?.number?.toString()], fetchProposals);
 }
 
 // Ethereum proposals only
 async function fetchProposals({ queryKey }) {
-  const [_key] = queryKey
-  return graphQLClient.request(ProposalsDocument, {})
+  const [_key] = queryKey;
+  return graphQLClient.request(ProposalsDocument, {});
 }
 
 // Ethereum proposals only
@@ -191,14 +191,14 @@ function mapProposals(data: any, block?: Block) {
       ...p,
       effectiveStatus: getProposalEffectiveStatus(p, block?.number, block?.timestamp)
     })) || []
-  )
+  );
 }
 
 async function fetchEthProposals(block?: Block): Promise<any[]> {
-  const queryClient = new QueryClient()
-  const proposalsData = await fetchProposalsData(queryClient, block)
-  const proposals = mapProposals(proposalsData, block)
-  const [activeProposals, finalizedProposals] = partition(proposals, (p) => !isFinalized(p.effectiveStatus))
+  const queryClient = new QueryClient();
+  const proposalsData = await fetchProposalsData(queryClient, block);
+  const proposals = mapProposals(proposalsData, block);
+  const [activeProposals, finalizedProposals] = partition(proposals, (p) => !isFinalized(p.effectiveStatus));
 
-  return [activeProposals, finalizedProposals]
+  return [activeProposals, finalizedProposals];
 }

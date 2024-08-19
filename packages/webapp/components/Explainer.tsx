@@ -13,15 +13,15 @@ import {
   StackProps,
   Text,
   UnorderedList,
-  VStack,
-} from "@chakra-ui/react"
-import { Londrina_Solid } from "next/font/google"
-import { FC } from "react"
-import TextLink from "./TextLink"
+  VStack
+} from "@chakra-ui/react";
+import { Londrina_Solid } from "next/font/google";
+import { FC } from "react";
+import TextLink from "./TextLink";
 const londrinaSolid = Londrina_Solid({
   weight: "400",
-  subsets: ["latin"],
-})
+  subsets: ["latin"]
+});
 
 export default function Explainer() {
   return (
@@ -39,7 +39,7 @@ export default function Explainer() {
             textStyle={"h1"}
             fontSize={{
               base: "calc(60px + (128 - 60) * ((100vw - 375px) / (1280 - 375)))",
-              xl: "8xl",
+              xl: "8xl"
             }}
           >
             ONE GNAR,
@@ -295,7 +295,7 @@ export default function Explainer() {
         </VStack>
       </VStack>
     </Box>
-  )
+  );
 }
 
 export const Section: FC<StackProps> = ({ children, ...props }) => {
@@ -303,5 +303,5 @@ export const Section: FC<StackProps> = ({ children, ...props }) => {
     <VStack alignItems={"start"} w="full" spacing={6} {...props}>
       {children}
     </VStack>
-  )
-}
+  );
+};

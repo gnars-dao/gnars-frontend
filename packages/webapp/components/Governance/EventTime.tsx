@@ -6,18 +6,18 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
-  Text,
-} from "@chakra-ui/react"
-import { FC } from "react"
-import { RiTimeFill } from "react-icons/ri"
+  Text
+} from "@chakra-ui/react";
+import { FC } from "react";
+import { RiTimeFill } from "react-icons/ri";
 
 export interface EventTimeProps {
-  timestamp: number
+  timestamp: number;
 }
 
 export const EventTime: FC<EventTimeProps> = ({ timestamp }) => {
-  const date = new Date(timestamp * 1000)
-  const relativeTime = formatRelativeTime(timestamp)
+  const date = new Date(timestamp * 1000);
+  const relativeTime = formatRelativeTime(timestamp);
 
   return (
     <Popover
@@ -39,27 +39,27 @@ export const EventTime: FC<EventTimeProps> = ({ timestamp }) => {
         <PopoverBody>{date.toLocaleString()}</PopoverBody>
       </PopoverContent>
     </Popover>
-  )
-}
+  );
+};
 
 const formatRelativeTime = (timestamp: number) => {
-  const now = Math.floor(Date.now() / 1000)
-  const seconds = now - timestamp
+  const now = Math.floor(Date.now() / 1000);
+  const seconds = now - timestamp;
 
   if (seconds < 60) {
-    return `just now`
+    return `just now`;
   }
 
-  const minutes = Math.floor(seconds / 60)
+  const minutes = Math.floor(seconds / 60);
   if (minutes < 60) {
-    return `${minutes}m ago`
+    return `${minutes}m ago`;
   }
-  const hours = Math.floor(seconds / 3600)
+  const hours = Math.floor(seconds / 3600);
 
   if (hours < 24) {
-    return `${hours}h ago`
+    return `${hours}h ago`;
   }
-  const days = Math.floor(hours / 24)
+  const days = Math.floor(hours / 24);
 
-  return `${days}d ago`
-}
+  return `${days}d ago`;
+};
