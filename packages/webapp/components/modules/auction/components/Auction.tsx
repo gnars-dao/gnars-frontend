@@ -27,7 +27,7 @@ import { useAuctionEvents } from '../hooks'
 // import { auctionGrid, auctionWrapper } from './Auction.css'
 import { AuctionDetails } from './AuctionDetails'
 import { AuctionImage } from './AuctionImage'
-import { AuctionPaused } from './AuctionPaused'
+// import { AuctionPaused } from './AuctionPaused'
 import { AuctionTokenPicker } from './AuctionTokenPicker'
 import { BidAmount } from './BidAmount'
 import { ActionsWrapper, BidHistory } from './BidHistory'
@@ -153,7 +153,8 @@ export const Auction: React.FC<AuctionControllerProps> = ({
               />
             ) : (
               <AuctionPaused />
-            )*/}
+            )
+            */}
           </Fragment>
         )}
       </Flex>

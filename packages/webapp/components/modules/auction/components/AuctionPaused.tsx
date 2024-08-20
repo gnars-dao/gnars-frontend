@@ -32,10 +32,11 @@ export const AuctionPaused = () => {
     chainId: chain.id,
   })
   // TODO Fix queryKey, return type and Number errors
-  const { data } = useQuery<ProposalsResponse>({
-    queryKey: (paused && isReady ? [USE_QUERY_KEYS.PROPOSALS, chain.id, query.token, query.page] : null),
-    queryFn: (_, chainId, token, page) => getProposals(chainId, token, LIMIT, Number(page))
-  })
+  const { data } = // useQuery<ProposalsResponse>({
+    useQuery({
+      queryKey: (paused && isReady ? [USE_QUERY_KEYS.PROPOSALS, chain.id, query.token, query.page] : undefined),
+      queryFn: (_, chainId, token, page) => getProposals(chainId, token, LIMIT) // Number(page))
+    })
 
   const pausedProposal = useMemo(() => {
     if (!(paused && auction)) return undefined
