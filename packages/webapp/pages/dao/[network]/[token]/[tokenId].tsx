@@ -27,7 +27,7 @@ import { TokenWithDaoQuery } from '@subgraph-generated/base'
 // import FeedTab from 'src/modules/dao/components/Feed/Feed'
 // import { NextPageWithLayout } from 'src/pages/_app'
 // import { DaoOgMetadata } from 'src/pages/api/og/dao'
-import { AddressType, CHAIN_ID, Chain } from '@constants/types'
+import { AddressType, CHAIN_ID, CHAIN_IDS, Chain } from '@constants/types'
 // import { isPossibleMarkdown } from 'src/utils/helpers'
 
 export type TokenWithDao = NonNullable<TokenWithDaoQuery['token']>
@@ -56,9 +56,9 @@ const TokenPage = ({
 }) => {
   const { query, replace, pathname } = useRouter()
   const { address } = useAccount()
-
+  console.log(`query for [tokenId]`, query, chainId, address, pathname);
   const chain = PUBLIC_ALL_CHAINS.find((x) => x.id === chainId) as Chain
-
+  console.log(`[tokenId] chain `, url, collection, token, name, addresses, chainId);
   /*const { hasThreshold } = useVotes({
     chainId: chainId,
     signerAddress: address,
@@ -149,12 +149,12 @@ const TokenPage = ({
         auctionAddress={addresses.auction!}
         token={token}
       />*/}
-      <div>
+      {/*<div>
         <p>Chain: {chain.toString()}</p>
         <p>collection: {collection.toString()}</p>
         <p>auctionAddress: {addresses.auction.toString()}</p>
         <p>token: {token.toString()}</p>
-      </div>
+      </div>*/}
       {/*<SectionHandler
       sections={sections}
       activeTab={activeTab}
@@ -189,8 +189,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   const tokenId = params?.tokenId as string
   const network = params?.network
 
+  console.log(`/dao/[network]/[token]/[tokenId].tsx`, collection, network, tokenId);
   try {
-    const chain = PUBLIC_DEFAULT_CHAINS.find((x) => x.slug === network)
+    // const chain = PUBLIC_DEFAULT_CHAINS.find((x) => x.slug === network)
+    const chain = CHAIN_IDS.BASE
     if (!chain) throw new Error('Invalid network')
 
     const env = process.env.VERCEL_ENV || 'development'
@@ -202,6 +204,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       })
       .then((x) => x.token)
 
+    console.log(`dao/network/token.tsx token `, token);
     if (!token) throw new Error('Token not found')
 
     const {
@@ -231,7 +234,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       totalSupply,
       ownerCount,
       proposalCount,
-      chainId: chain.id,
+      chainId: chain,
       treasuryAddress,
     }
 
@@ -253,13 +256,14 @@ export const getServerSideProps: GetServerSideProps = async ({
       tokenId,
       addresses,
       ogImageURL,
-      chainId: chain.id,
+      chainId: chain,
     }
-
+    console.log(`props returned: /dao/[network]/[token]/[tokenId].tsx `, props);
     return {
       props,
     }
   } catch (e) {
+    console.log(`Error from /dao/[network]/[token]/[tokenId].tsx`, e);
     return {
       notFound: true,
     }

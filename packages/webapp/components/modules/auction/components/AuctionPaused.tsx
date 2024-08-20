@@ -1,4 +1,4 @@
-import { Box, Stack, Text } from '@chakra-ui/react'
+/*import { Box, Stack, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
@@ -89,18 +89,18 @@ export const AuctionPaused = () => {
           color="text3"
           mt="x1"
           fontSize={18}
-          className={atoms({ textDecoration: 'underline' })}
+          className={{textDecoration: 'underline' })}
         >
-          {/* <Icon align="center" fill="text4" id="external-16" size="sm" /> */}
-          {pausedProposal?.proposalId ? 'See proposal here' : 'See activity tab'}
-          {pausedProposal?.proposalId ? (
+           <Icon align="center" fill="text4" id="external-16" size="sm" /> 
+{pausedProposal?.proposalId ? 'See proposal here' : 'See activity tab'}
+{pausedProposal?.proposalId ? (
 
-            <Text>Paused proposal WIP</Text>
-          ) : (
-            <></>
-          )}
-        </Box>
-      </Link>
-    </Stack>
-  )
-}
+  <Text>Paused proposal WIP</Text>
+) : (
+  <></>
+)}
+</Box>
+</Link>
+</Stack>
+)
+}*/

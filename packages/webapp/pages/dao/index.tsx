@@ -8,7 +8,7 @@ import { execute, ProposalsDocument } from "@subgraph-generated/layer-1"
 import { ProposalCard } from "@components/Governance/ProposalCard"
 import Menu from "@components/Menu"
 import BaseProposals from "@components/Proposal/BaseProposals"
-import { useBlock } from "@hooks/useBlock"
+import { useBlock } from "hooks/useBlock"
 import {
   EffectiveProposalStatus,
   getProposalEffectiveStatus,

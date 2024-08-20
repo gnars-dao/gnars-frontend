@@ -7,7 +7,7 @@ import * as Sentry from '@sentry/nextjs'
 
 // import { SDK } from 'src/data/subgraph/client'
 
-//import { Auction_OrderBy, OrderDirection } from "@queries"
+import { Auction_OrderBy, OrderDirection } from "subgraph-generated/base"
 import { VStack } from "@chakra-ui/react";
 
 export const auctionHistoryRequest = async (
@@ -19,11 +19,11 @@ export const auctionHistoryRequest = async (
     const data = await BaseSDK.connect().auctionHistory({
       startTime,
       daoId: collectionAddress,
-      //orderDirection: OrderDirection.Asc,
-      //orderBy: Auction_OrderBy.EndTime,
+      orderDirection: OrderDirection.Asc,
+      orderBy: Auction_OrderBy.EndTime,
       first: 1000,
     })
-
+    console.log(`Auction history Data`, data);
     return data
   } catch (error) {
     console.error(error)
@@ -40,7 +40,7 @@ const AuctionHistory = () => {
   }, []);
   return (
     <VStack>
-
+      
     </VStack>
   )
 }
