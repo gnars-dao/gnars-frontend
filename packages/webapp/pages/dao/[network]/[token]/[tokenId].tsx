@@ -1,7 +1,7 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, VStack, Text } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useAccount } from 'wagmi'
 
 // import { Meta } from 'src/components/Meta'
@@ -53,10 +53,12 @@ const TokenPage = ({
   addresses,
   ogImageURL,
   chainId,
+  ...props
 }) => {
   const { query, replace, pathname } = useRouter()
   const { address } = useAccount()
   console.log(`query for [tokenId]`, query, chainId, address, pathname);
+  console.log(`tokenId page props`, props)
   const chain = PUBLIC_ALL_CHAINS.find((x) => x.id === chainId) as Chain
   console.log(`[tokenId] chain `, url, collection, token, name, addresses, chainId);
   /*const { hasThreshold } = useVotes({
@@ -149,12 +151,26 @@ const TokenPage = ({
         auctionAddress={addresses.auction!}
         token={token}
       />*/}
-      {/*<div>
-        <p>Chain: {chain.toString()}</p>
-        <p>collection: {collection.toString()}</p>
-        <p>auctionAddress: {addresses.auction.toString()}</p>
-        <p>token: {token.toString()}</p>
-      </div>*/}
+
+      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '1800px', overflowWrap: 'normal', margin: '20px' }}>
+        {`Chain:  \n\n`}
+        {JSON.stringify(chain, null, 2)}
+      </pre>
+
+      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '100px', overflowWrap: 'normal', margin: '20px' }}>
+        {`Collection:  \n\n`}
+        {collection.toString()}
+      </pre>
+
+      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '100px', overflowWrap: 'normal', margin: '20px' }}>
+        {`Auction address:  \n\n`}
+        {addresses.auction.toString()}
+      </pre>
+
+      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '650px', overflowWrap: 'normal', margin: '20px' }}>
+        {`Token:  \n\n`}
+        {JSON.stringify(token, null, 2)}
+      </pre>
       {/*<SectionHandler
       sections={sections}
       activeTab={activeTab}
@@ -269,3 +285,19 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
   }
 }
+
+/*
+const AuctionPage = (props) => {
+
+  useCallback(() => {
+    console.log(`auction page props: `, props);
+  }, [props]);
+
+  return (
+    <VStack>
+      <code>{JSON.stringify(props, null, 2)}</code>
+    </VStack>
+  )
+}
+
+export default AuctionPage*/
