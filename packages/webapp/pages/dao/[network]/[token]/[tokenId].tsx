@@ -166,6 +166,10 @@ const TokenPage = ({
         {`Auction address:  \n\n`}
         {addresses.auction.toString()}
       </pre>
+      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '300px', overflowWrap: 'normal', margin: '20px' }}>
+        {`Addresses:  \n\n`}
+        {JSON.stringify(addresses, null, 2)}
+      </pre>
 
       <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '650px', overflowWrap: 'normal', margin: '20px' }}>
         {`Token:  \n\n`}
