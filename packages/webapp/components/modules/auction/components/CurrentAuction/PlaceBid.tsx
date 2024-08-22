@@ -168,7 +168,7 @@ export const PlaceBid = ({
   return (
     <Flex
       width="100%"
-      direction={{ '@initial': 'column', '@768': 'row' }}
+      direction={'row'} // TODO: column on mobile
       justify={'flex-start'}
     >
       {bidAmount && valueToCalculateWarning ? (
@@ -205,7 +205,7 @@ export const PlaceBid = ({
             // className={bidForm}
             className={'bid-form'}
           >
-            <Box position="relative" mr={{ '@initial': 'x0', '@768': 'x2' }}>
+            <Box position="relative" mr={"5px"}>
               <input
                 placeholder={`${formattedMinBid} ETH or more`}
                 type={'number'}
@@ -228,7 +228,7 @@ export const PlaceBid = ({
               className={"auction-action-button-variants-bid"}
               handleClick={handleCreateBid}
               disabled={address && isValidChain ? !isValidBid : false}
-              mt={{ '@initial': 'x2', '@768': 'x0' }}
+              mt={"5px"}
             >
               Place bid
             </ContractButton>
@@ -249,7 +249,7 @@ export const PlaceBid = ({
                     // className={auctionActionButtonVariants['bid']}
                     className={'auction-action-button-variants-bid'}
                     ml="x2"
-                    mt={{ '@initial': 'x2', '@768': 'x0' }}
+                    mt={'5px'}
                     handleClick={async () => {
                       const network = PUBLIC_IS_TESTNET
                         ? 'https://testnet.nouns.build'

@@ -79,6 +79,8 @@ export const Auction: React.FC<AuctionControllerProps> = ({
     { revalidateOnFocus: true }
   )
 
+  console.log(`auction data: `, auction);
+
   const [currentTokenId, highestBid, highestBidder, _, endTime, settled] =
     unpackOptionalArray(auction, 6)
 
@@ -111,8 +113,8 @@ export const Auction: React.FC<AuctionControllerProps> = ({
       />
       <Flex
         direction={'column'}
-        height={{ '@initial': 'auto', '@768': '100%' }}
-        mt={{ '@initial': 'x4', '@768': 'x0' }}
+        height={'100%'}
+        mt={'20px'}
         // className={auctionWrapper}
         className='auction-wrapper'
       >

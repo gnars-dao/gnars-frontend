@@ -29,6 +29,7 @@ import { TokenWithDaoQuery } from 'subgraph-generated/base'
 // import { DaoOgMetadata } from 'src/pages/api/og/dao'
 import { AddressType, CHAIN_ID, CHAIN_IDS, Chain } from '@constants/types'
 // import { isPossibleMarkdown } from 'src/utils/helpers'
+import { Auction } from '@components/modules/auction'
 
 export type TokenWithDao = NonNullable<TokenWithDaoQuery['token']>
 
@@ -172,6 +173,12 @@ const TokenPage = ({
         {JSON.stringify(token, null, 2)}
       </Code>
 
+      <Auction
+        chain={chain}
+        auctionAddress={addresses.auction!}
+        collection={collection}
+        token={token}
+      />
 
       {/*<SectionHandler
       sections={sections}

@@ -15,7 +15,8 @@ export const AuctionSkeleton = () => {
       className={'auction-wrap-variants-post'}
     >
       <Grid
-      // className={auctionGrid}
+        // className={auctionGrid}
+        className='auction-grid'
       >
         <Box
           backgroundColor="background2"
@@ -28,11 +29,11 @@ export const AuctionSkeleton = () => {
         ></Box>
         <Flex
           direction={'column'}
-          height={{ '@initial': 'auto', '@768': '100%' }}
-          mt={{ '@initial': 'x4', '@768': 'x0' }}
+          height={"auto"}
+          mt={'5px'}
           // className={auctionWrapper}
 
-          className={'auction-skeleton'}>
+          className={'auction-wrapper'}>
           <Box
             backgroundColor="background2"
             h="x8"

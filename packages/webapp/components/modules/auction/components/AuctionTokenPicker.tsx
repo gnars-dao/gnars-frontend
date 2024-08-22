@@ -117,8 +117,8 @@ export const AuctionTokenPicker: React.FC<AuctionTokenPickerProps> = ({
           align={'center'}
           justify={'flex-start'}
           className={'primary'}
-          mt={{ '@initial': 'x4', '@768': 'x2' }}
-          mb={{ '@initial': 'x4', '@768': 'x6' }}
+          mt={"10px"}
+          mb={"10px"}
         >
           {name}
         </Flex>

@@ -55,7 +55,7 @@ export const BidHistory = ({ bids }: { bids: AuctionBidFragment[] }) => {
 }
 
 export const ActionsWrapper = ({ children }: { children: ReactNode }) => (
-  <Flex direction="column" align="center" mt={{ '@initial': 'x4', '@768': 'x6' }}>
+  <Flex direction="column" align="center" mt={"5px"}>
     {children}
   </Flex>
 )

@@ -14,7 +14,7 @@ export const AuctionDetail = ({
     <Box className={'tertiary'}>{title}</Box>
     <Box
       className={'secondary'}
-      mt={{ '@initial': 'x1', '@768': 'x2' }}
+      mt={'5px'}
     >
       {children}
     </Box>
