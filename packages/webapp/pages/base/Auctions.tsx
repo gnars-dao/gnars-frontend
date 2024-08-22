@@ -5,8 +5,6 @@ import { BaseSDK } from "@queries/resolvers";
 // import { useAddress } from ""
 import * as Sentry from '@sentry/nextjs'
 
-// import { SDK } from 'src/data/subgraph/client'
-
 import { Auction_OrderBy, OrderDirection } from "subgraph-generated/base"
 import { VStack } from "@chakra-ui/react";
 
@@ -36,11 +34,11 @@ const AuctionHistory = () => {
   // const collectionAddress = useAddress();
 
   useEffect(() => {
-
+    
   }, []);
   return (
     <VStack>
-      
+
     </VStack>
   )
 }

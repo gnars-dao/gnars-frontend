@@ -1,4 +1,4 @@
-import { Flex, VStack, Text } from '@chakra-ui/react'
+import { Flex, VStack, Box, Code, Heading } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import React, { useCallback, useMemo } from 'react'
@@ -7,12 +7,12 @@ import { useAccount } from 'wagmi'
 // import { Meta } from 'src/components/Meta'
 // import AnimatedModal from 'src/components/Modal/AnimatedModal'
 // import { SuccessModalContent } from 'src/components/Modal/SuccessModalContent'
-import { CACHE_TIMES } from '@constants/cacheTimes'
-import { PUBLIC_ALL_CHAINS, PUBLIC_DEFAULT_CHAINS } from '@constants/defaultChains'
+import { CACHE_TIMES } from 'constants/cacheTimes'
+import { PUBLIC_ALL_CHAINS, PUBLIC_DEFAULT_CHAINS } from 'constants/defaultChains'
 // import { CAST_ENABLED } from 'src/constants/farcasterEnabled'
 // import { SUCCESS_MESSAGES } from '@constants/messages'
-import { BaseSDK } from '@queries/resolvers'
-import { TokenWithDaoQuery } from '@subgraph-generated/base'
+import { BaseSDK } from 'queries/resolvers'
+import { TokenWithDaoQuery } from 'subgraph-generated/base'
 // import { useVotes } from 'src/hooks'
 // import { getDaoLayout } from 'src/layouts/DaoLayout'
 /*import {
@@ -60,7 +60,7 @@ const TokenPage = ({
   console.log(`query for [tokenId]`, query, chainId, address, pathname);
   console.log(`tokenId page props`, props)
   const chain = PUBLIC_ALL_CHAINS.find((x) => x.id === chainId) as Chain
-  console.log(`[tokenId] chain `, url, collection, token, name, addresses, chainId);
+  console.log(`[tokenId] chain `, url, collection, token, name, addresses, chainId, `\n\n`);
   /*const { hasThreshold } = useVotes({
     chainId: chainId,
     signerAddress: address,
@@ -130,7 +130,7 @@ const TokenPage = ({
   // const activeTab = query?.tab ? (query.tab as string) : 'About'
 
   return (
-    <Flex direction="column" pb="x30">
+    <Box padding={'20px'}>
       {/*<Meta
       title={name || ''}
       type={`${name}:nft`}
@@ -152,29 +152,27 @@ const TokenPage = ({
         token={token}
       />*/}
 
-      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '1800px', overflowWrap: 'normal', margin: '20px' }}>
-        {`Chain:  \n\n`}
+      <Heading fontSize={'xx-large'} color='white' textAlign={'center'} py={'20px'}>Chain</Heading>
+      <Code display="flex" whiteSpace="pre" width={'1000px'} overflow={'auto'} p="10px">
         {JSON.stringify(chain, null, 2)}
-      </pre>
+      </Code>
 
-      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '100px', overflowWrap: 'normal', margin: '20px' }}>
-        {`Collection:  \n\n`}
+      <Heading fontSize={'xx-large'} color='white' textAlign={'center'} py={'20px'}>Collection</Heading>
+      <Code display="flex" whiteSpace="pre" width={'1000px'} overflow={'auto'} p="10px">
         {collection.toString()}
-      </pre>
+      </Code>
 
-      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '100px', overflowWrap: 'normal', margin: '20px' }}>
-        {`Auction address:  \n\n`}
-        {addresses.auction.toString()}
-      </pre>
-      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '300px', overflowWrap: 'normal', margin: '20px' }}>
-        {`Addresses:  \n\n`}
+      <Heading fontSize={'xx-large'} color='white' textAlign={'center'} py={'20px'}>Addresses</Heading>
+      <Code display="flex" whiteSpace="pre" width={'1000px'} overflow={'auto'} p="10px">
         {JSON.stringify(addresses, null, 2)}
-      </pre>
+      </Code>
 
-      <pre style={{ color: '#fff', display: 'flex', width: '1000px', overflowY: 'scroll', height: '650px', overflowWrap: 'normal', margin: '20px' }}>
-        {`Token:  \n\n`}
+      <Heading fontSize={'xx-large'} color='white' bgColor='grey.50' textAlign={'center'} py={'20px'}>Token</Heading>
+      <Code display="flex" whiteSpace="pre" width={'1000px'} overflow={'auto'} p="10px">
         {JSON.stringify(token, null, 2)}
-      </pre>
+      </Code>
+
+
       {/*<SectionHandler
       sections={sections}
       activeTab={activeTab}
@@ -191,7 +189,7 @@ const TokenPage = ({
         success
       />
     </AnimatedModal>*/}
-    </Flex>
+    </Box>
   )
 }
 
@@ -209,7 +207,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const tokenId = params?.tokenId as string
   const network = params?.network
 
-  console.log(`/dao/[network]/[token]/[tokenId].tsx`, collection, network, tokenId);
+  console.log(`/dao/[network]/[token]/[tokenId].tsx`, collection, network, tokenId, `\n\n`);
   try {
     // const chain = PUBLIC_DEFAULT_CHAINS.find((x) => x.slug === network)
     const chain = CHAIN_IDS.BASE
@@ -276,14 +274,14 @@ export const getServerSideProps: GetServerSideProps = async ({
       tokenId,
       addresses,
       ogImageURL,
-      chainId: chain,
+      chainId: Number(chain) as CHAIN_ID,
     }
-    console.log(`props returned: /dao/[network]/[token]/[tokenId].tsx `, props);
+    console.log(`props returned: /dao/[network]/[token]/[tokenId].tsx `, props, `\n\n`);
     return {
       props,
     }
   } catch (e) {
-    console.log(`Error from /dao/[network]/[token]/[tokenId].tsx`, e);
+    console.error(`Error from /dao/[network]/[token]/[tokenId].tsx`, e, `\n\n`);
     return {
       notFound: true,
     }
