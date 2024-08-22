@@ -11,6 +11,7 @@ export const useIsContract = ({
 }) => {
   return useSWRImmutable(address ? [address, chainId] : undefined, async (address) => {
     const provider = getProvider(chainId);
+    // TODO: figure out this type, probably the provider
     return await provider.getBytecode({ address }).then((x) => x !== "0x");
   });
 };
