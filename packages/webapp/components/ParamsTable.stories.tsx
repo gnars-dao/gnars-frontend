@@ -1,4 +1,4 @@
-import { ParamsTable } from "./ParamsTable";
+/*import { ParamsTable } from "./ParamsTable";
 import type { Meta, StoryObj } from "@storybook/react";
 
 type Story = StoryObj<typeof ParamsTable>;
@@ -67,3 +67,4 @@ export const WithTuples: Story = {
     ]
   }
 };
+*/

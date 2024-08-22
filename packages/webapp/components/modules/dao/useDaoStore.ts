@@ -1,9 +1,9 @@
-import { AddressType } from "@constants/types";
-import { auctionAbi } from "data/contract/Auction";
-import { governorAbi } from "data/contract/Governor";
-import { metadataAbi } from "data/contract/Metadata";
-import { tokenAbi } from "data/contract/Token";
-import { treasuryAbi } from "data/contract/Treasury";
+import { AddressType } from "constants/types";
+import { auctionAbi } from "data/contract/abis";
+import { governorAbi } from "data/contract/abis";
+import { metadataAbi } from "data/contract/abis";
+import { tokenAbi } from "data/contract/abis";
+import { treasuryAbi } from "data/contract/abis";
 import { GetContractResult } from "wagmi/actions";
 import { create } from "zustand";
 

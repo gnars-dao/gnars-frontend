@@ -31,7 +31,7 @@ import { useDaoStore } from "components/modules/dao";
 import { auctionAbi } from "data/contract/abis/Auction";
 import { unpackOptionalArray } from "utils/helpers";
 import { formatCryptoVal } from "utils/numbers";
-// import useSWR, { useSWRConfig } from 'swr'
+import useSWR, { useSWRConfig } from 'swr'
 import { formatEther, parseEther } from "viem";
 import { Address, useAccount, useBalance, useContractReads, useNetwork } from "wagmi";
 import { prepareWriteContract, waitForTransaction, writeContract } from "wagmi/actions";
@@ -51,7 +51,7 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
   const { data: balance } = useBalance({ address: address, chainId: chain.id });
 
   // TODO: Use @tanstack/react-query equivalent of useSWRConfig()
-  // const { mutate } = useSWRConfig()
+  const { mutate } = useSWRConfig()
   const { addresses } = useDaoStore();
 
   const [creatingBid, setCreatingBid] = useState(false);
@@ -133,14 +133,14 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
       if (tx?.hash) await waitForTransaction({ hash: tx.hash });
 
       // TODO: replace with @tanstack/react-query mutate
-      // await mutate([USE_QUERY_KEYS.AUCTION_BIDS, chain.id, addresses.token, tokenId], () =>
-      //   getBids(chain.id, addresses.token!, tokenId)
-      // )
+      await mutate([USE_QUERY_KEYS.AUCTION_BIDS, chain.id, addresses.token, tokenId], () =>
+        getBids(chain.id, addresses.token!, tokenId)
+      )
 
       // TODO: replace with @tanstack/react-query mutate
-      // await mutate([USE_QUERY_KEYS.AVERAGE_WINNING_BID, chain.id, addresses.token], () =>
-      //   averageWinningBid(chain.id, addresses.token as Address)
-      // )
+      await mutate([USE_QUERY_KEYS.AVERAGE_WINNING_BID, chain.id, addresses.token], () =>
+        averageWinningBid(chain.id, addresses.token as Address)
+      )
     } catch (error) {
       console.error(error);
     } finally {
@@ -202,6 +202,8 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
                 placeholder={`${formattedMinBid} ETH or more`}
                 type={"number"}
                 // className={bidInput}
+                width="50px"
+                height="50px"
                 className={"bid-input"}
                 min={formattedMinBid}
                 max={balance?.formatted}

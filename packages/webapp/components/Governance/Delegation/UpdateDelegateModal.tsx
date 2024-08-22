@@ -30,7 +30,7 @@ import { normalize } from "viem/ens";
 import { useAccount } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
 
-export interface UpdateDelegateModalProps extends Omit<ModalProps, "children"> {}
+export interface UpdateDelegateModalProps extends Omit<ModalProps, "children"> { }
 
 export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...props }) => {
   const { address: userAddress } = useAccount();
@@ -52,7 +52,7 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
     } catch {
       setIsValidName.off();
     }
-  }, [accountQuery]);
+  }, [accountQuery, setIsValidName]);
   return (
     <Modal isCentered onClose={onClose} {...props}>
       <ModalOverlay />

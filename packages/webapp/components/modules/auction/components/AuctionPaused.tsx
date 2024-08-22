@@ -5,7 +5,7 @@ import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { encodeFunctionData } from 'viem'
 import { useContractRead } from 'wagmi'
-
+import useSWR from 'swr'
 // import { Icon } from 'src/components/Icon'
 
 import { auctionAbi } from 'data/contract/abis/Auction'
@@ -16,7 +16,7 @@ import {
 } from '@queries/base/requests/proposalsQuery'
 import { useDaoStore } from '@components/modules/dao/useDaoStore'
 import { useChainStore } from 'stores/useChainStore'
-import USE_QUERY_KEYS from '@constants/swrKeys'
+import { USE_QUERY_KEYS } from '@constants/queryKeys'
 
 export const AuctionPaused = () => {
   const { query, isReady } = useRouter()
@@ -32,11 +32,10 @@ export const AuctionPaused = () => {
     chainId: chain.id,
   })
   // TODO Fix queryKey, return type and Number errors
-  const { data } = // useQuery<ProposalsResponse>({
-    useQuery({
-      queryKey: (paused && isReady ? [USE_QUERY_KEYS.PROPOSALS, chain.id, query.token, query.page] : undefined),
-      queryFn: (_, chainId, token, page) => getProposals(chainId, token, LIMIT) // Number(page))
-    })
+  const { data } = useSWR<ProposalsResponse>(
+    paused && isReady ? [USE_QUERY_KEYS.PROPOSALS, chain.id, query.token, query.page] : null,
+    (_, chainId, token, page) => getProposals(chainId, token, LIMIT, Number(page))
+  )
 
   const pausedProposal = useMemo(() => {
     if (!(paused && auction)) return undefined
@@ -89,18 +88,18 @@ export const AuctionPaused = () => {
           color="text3"
           mt="x1"
           fontSize={18}
-          className={{textDecoration: 'underline' })}
+          style={{ textDecoration: 'underline' }}
         >
-           <Icon align="center" fill="text4" id="external-16" size="sm" /> 
-{pausedProposal?.proposalId ? 'See proposal here' : 'See activity tab'}
-{pausedProposal?.proposalId ? (
+          // TODO: there was an icon here
+          {pausedProposal?.proposalId ? 'See proposal here' : 'See activity tab'}
+          {pausedProposal?.proposalId ? (
 
-  <Text>Paused proposal WIP</Text>
-) : (
-  <></>
-)}
-</Box>
-</Link>
-</Stack>
-)
+            <Text>Paused proposal WIP</Text>
+          ) : (
+            <></>
+          )}
+        </Box>
+      </Link>
+    </Stack >
+  )
 }*/

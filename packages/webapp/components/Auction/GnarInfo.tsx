@@ -149,12 +149,12 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
         spacing={6}
         overflow={"visible"}
       >
-        <Auction
-          chain={CHAIN_IDS.BASE}
+        {/*<Auction
+          chain={chainId}
           auctionAddress="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
           collection="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
           token="6166"
-        />
+        />*/}
       </SimpleGrid>
       <VStack alignItems={"center"} textAlign={"center"} spacing={10} w={"full"}>
         {(isTreasuryGnar || isOg || isClaimedGnar) && (

@@ -45,6 +45,11 @@ export const CurrentAuction = ({
     functionName: "contractVersion"
   });
 
+  // TODO: remove test logging
+  React.useEffect(() => {
+    console.log(`CurrentAuction all data: \n\n `, { query, isEnded, isEnding, auctionVersion, chain, tokenId, auctionAddress, daoName, owner, endTime, bids });
+  }, [auctionVersion, query, isEnded, isEnding, chain, tokenId, auctionAddress, daoName, owner, endTime, bids]);
+
   const isEndingTimeout = isEnded ? 4000 : null;
 
   useTimeout(() => {

@@ -69,7 +69,11 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
     { revalidateOnFocus: true }
   );
 
-  console.log(`auction data: `, auction);
+  // TODO: Remove test logging
+  React.useEffect(() => {
+    console.log(`auction data: `, { auction, chain, auctionAddress, collection, token });
+  }, [auction, chain, auctionAddress, collection, token]);
+
 
   const [currentTokenId, highestBid, highestBidder, _, endTime, settled] = unpackOptionalArray(auction, 6);
 

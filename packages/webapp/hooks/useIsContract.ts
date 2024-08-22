@@ -1,10 +1,10 @@
-import { AddressType, CHAIN_ID, CHAIN_IDS } from "@constants/types";
-import { getProvider } from "@utils/provider";
+import { AddressType, CHAIN_ID, CHAIN_IDS } from "constants/types";
+import { getProvider } from "utils/provider";
 import useSWRImmutable from "swr/immutable";
 
 export const useIsContract = ({
   address,
-  chainId = CHAIN_ID.HARDHAT
+  chainId = CHAIN_ID.BASE
 }: {
   address?: AddressType;
   chainId?: CHAIN_ID;

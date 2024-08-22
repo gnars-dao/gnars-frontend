@@ -91,7 +91,7 @@ export const Settle = ({ isEnding, owner, externalAuctionAddress, compact = fals
     <Stack direction="column" align="center" width={"100%"}>
       <ContractButton
         handleClick={handleSettle}
-        className={compact ? auctionActionButtonVariants["dashSettle"] : auctionActionButtonVariants["settle"]}
+        className={'dash-settle settle'}
         variant={compact ? "outline" : "primary"}
       >
         {isWinner ? "Claim NFT" : "Start next auction"}
