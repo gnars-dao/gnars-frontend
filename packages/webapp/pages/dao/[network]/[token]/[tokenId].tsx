@@ -1,21 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { Box, Code, Flex, Heading, VStack } from "@chakra-ui/react";
-// import { isPossibleMarkdown } from 'src/utils/helpers'
 import { Auction } from "@components/modules/auction";
-// import { useVotes } from 'src/hooks'
-// import { getDaoLayout } from 'src/layouts/DaoLayout'
 
-/*import {
-  About,
-  Activity,
-  AdminForm,
-  DaoContractAddresses,
-  SectionHandler,
-  SmartContracts,
-} from 'src/modules/dao'*/
-// import { DaoTopSection } from 'components/modules/dao/components/DaoTopSection'
-// import FeedTab from 'src/modules/dao/components/Feed/Feed'
-// import { NextPageWithLayout } from 'src/pages/_app'
 // import { DaoOgMetadata } from 'src/pages/api/og/dao'
 import { AddressType, CHAIN_ID, CHAIN_IDS, Chain } from "@constants/types";
 // import { Meta } from 'src/components/Meta'
@@ -25,7 +11,7 @@ import { CACHE_TIMES } from "constants/cacheTimes";
 import { PUBLIC_ALL_CHAINS, PUBLIC_DEFAULT_CHAINS } from "constants/defaultChains";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-// import { CAST_ENABLED } from 'src/constants/farcasterEnabled'
+
 // import { SUCCESS_MESSAGES } from '@constants/messages'
 import { BaseSDK } from "queries/resolvers";
 import { TokenWithDaoQuery } from "subgraph-generated/base";
@@ -82,54 +68,6 @@ const TokenPage = ({
     );
   };
 
-  /*const sections = React.useMemo(() => {
-    const aboutSection = {
-      title: 'About',
-      component: [<About key={'about'} />],
-    }
-    const proposalsSection = {
-      title: 'Activity',
-      component: [<Activity key={'proposals'} />],
-    }
-    const adminSection = {
-      title: 'Admin',
-      component: [<AdminForm key={'admin'} collectionAddress={collection} />],
-    }
-    const smartContractsSection = {
-      title: 'Contracts',
-      component: [<SmartContracts key={'smart_contracts'} />],
-    }
-    const daoFeed = {
-      title: 'Feed',
-      component: [<FeedTab key="feed" collectionAddress={collection} />],
-    }
-
-  // const publicSections = [aboutSection, proposalsSection, smartContractsSection]
-
-  // const baseSections = hasThreshold ? [...publicSections, adminSection] : publicSections
-  return CAST_ENABLED.includes(collection)
-    ? [...baseSections.slice(0, 1), daoFeed, ...baseSections.slice(1)]
-    : baseSections
-}, [hasThreshold, collection])
-*/
-  /*const ogDescription = useMemo(() => {
-    if (!description) return ''
-    const isMarkdown = isPossibleMarkdown(description)
-  
-    // DAO descriptions are full of MD syntax and do not provide a pleasant
-    // reading experience for social embeds. For this, we'll check if the
-    // description is markdown and if so, we'll provide a generic description
-    if (isMarkdown) {
-      return `${name || 'This DAO'
-        } was created on Nouns Builder. Please click the link to see more.`
-    }
-    // remove line breaks and formatting from og description
-    const cleanDesc = description.replace(/(\r\n|\n|\r|\t|\v|\f|\\n)/gm, '')
-    return cleanDesc.length > 111 ? `${cleanDesc.slice(0, 111)}...` : cleanDesc
-  }, [description, name])*/
-
-  // const activeTab = query?.tab ? (query.tab as string) : 'About'
-
   return (
     <Box padding={"20px"}>
       {/*<Meta
@@ -146,64 +84,11 @@ const TokenPage = ({
       }}
     />*/}
 
-      {/*<DaoTopSection
-        chain={chain}
-        collection={collection}
-        auctionAddress={addresses.auction!}
-        token={token}
-      />*/}
-
-      {/*<Heading fontSize={"xx-large"} color="white" textAlign={"center"} py={"20px"}>
-        Chain
-      </Heading>
-      <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
-        {JSON.stringify(chain, null, 2)}
-      </Code>
-
-      <Heading fontSize={"xx-large"} color="white" textAlign={"center"} py={"20px"}>
-        Collection
-      </Heading>
-      <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
-        {collection.toString()}
-      </Code>
-
-      <Heading fontSize={"xx-large"} color="white" textAlign={"center"} py={"20px"}>
-        Addresses
-      </Heading>
-      <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
-        {JSON.stringify(addresses, null, 2)}
-      </Code>
-
-      <Heading fontSize={"xx-large"} color="white" bgColor="grey.50" textAlign={"center"} py={"20px"}>
-        Token
-      </Heading>
-      <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
-        {JSON.stringify(token, null, 2)}
-      </Code>*/}
-
       <Auction chain={chain} auctionAddress={addresses.auction!} collection={collection} token={token} />
 
-      {/*<SectionHandler
-      sections={sections}
-      activeTab={activeTab}
-      basePath={`/dao/${query.network}/${collection}/${token.tokenId}`}
-    />
-
-    <AnimatedModal
-      open={query?.message === SUCCESS_MESSAGES.PROPOSAL_SUBMISSION_SUCCESS}
-      close={handleCloseSuccessModal}
-    >
-      <SuccessModalContent
-        title={`Proposal submitted`}
-        subtitle={`Your Proposal has been successfully submitted. It might take a few minutes for it to appear.`}
-        success
-      />
-    </AnimatedModal>*/}
     </Box>
   );
 };
-
-// TokenPage.getLayout = getDaoLayout
 
 export default TokenPage;
 
@@ -290,19 +175,3 @@ export const getServerSideProps: GetServerSideProps = async ({ params, res, req,
     };
   }
 };
-
-/*
-const AuctionPage = (props) => {
-
-  useCallback(() => {
-    console.log(`auction page props: `, props);
-  }, [props]);
-
-  return (
-    <VStack>
-      <code>{JSON.stringify(props, null, 2)}</code>
-    </VStack>
-  )
-}
-
-export default AuctionPage*/
