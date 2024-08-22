@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import Image from 'next/legacy/image'
 import React from 'react'
 
@@ -22,16 +22,17 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
       position="relative"
       className={"token-image"}
     >
-      {/*<Image
-        priority
-        unoptimized
-        layout="fill"
-        src={imgErr ? '/ImageError.svg' : image || ''}
-        onError={() => setImgErr(true)}
-        sizes="100vw"
-        alt={name || ''}
-        className={"auction-image"}
-      />*/}
+      {imgErr ? <Text>Error loading image</Text> : (
+        <Image
+          priority
+          unoptimized
+          layout="fill"
+          src={imgErr ? '/ImageError.svg' : image || ''}
+          onError={() => setImgErr(true)}
+          sizes="100vw"
+          alt={name || ''}
+          className={"auction-image"}
+        />)}
     </Box>
   )
 }

@@ -130,7 +130,7 @@ const proposalExpiryWarningSentCacheKey = (id: number) => `${getProposalExpiryWa
  */
 export const updateProposalCache = async (proposal: Proposal) => {
   const cacheKey = proposalCacheKey(proposal.id)
-  return await redis.set(cacheKey, JSON.stringify(proposal))
+  return redis.set(cacheKey, JSON.stringify(proposal))
 }
 
 /**
