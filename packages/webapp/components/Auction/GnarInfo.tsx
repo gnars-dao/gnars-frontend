@@ -150,7 +150,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
         overflow={"visible"}
       >
         <Auction
-          chain={CHAIN_IDS.HARDHAT}
+          chain={CHAIN_IDS.BASE}
           auctionAddress="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
           collection="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
           token="6166"

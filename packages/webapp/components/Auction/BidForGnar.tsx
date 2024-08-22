@@ -27,7 +27,7 @@ export type BidForGnarProps = {
   latestBid?: string | null;
 } & StackProps;
 export const BidForGnar: FC<BidForGnarProps> = ({ gnarId, latestBid, ...props }) => {
-  const RESERVE_PRICE = parseEther("0.01"); // @TODO add this info to the subgraph so it's always up-to-date
+  const RESERVE_PRICE = parseEther("0.01"); // TODO: add this info to the subgraph so it's always up-to-date
   const currentBid = latestBid ?? "0";
   const incrementedBid = (BigInt(currentBid) * minBidIncrementPercentage) / 100n + BigInt(currentBid);
   const minBid = incrementedBid > RESERVE_PRICE ? incrementedBid : RESERVE_PRICE;

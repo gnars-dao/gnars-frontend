@@ -14,13 +14,13 @@ import { CurrentAuction } from "./CurrentAuction";
 // import { DaoMigrated } from './DaoMigrated'
 import { WinningBidder } from "./WinningBidder";
 import { Flex, Grid } from "@chakra-ui/react";
-import USE_QUERY_KEYS from "@constants/queryKeys";
-import { AddressType, Chain } from "@constants/types";
+import { USE_QUERY_KEYS } from "@constants/queryKeys";
 // TODO: Pull in L1_CHAINS
 // import { L1_CHAINS } from 'src/data/contract/chains'
 import { getBids } from "@queries/base/requests/getBids";
 import { unpackOptionalArray } from "@utils/helpers";
 import { useDaoStore } from "components/modules/dao";
+import { AddressType, Chain } from "constants/types";
 import { auctionAbi } from "data/contract/abis/Auction";
 // TODO: Pull in L2MigratedResponse
 // import { L2MigratedResponse } from 'src/pages/api/migrated'
@@ -36,7 +36,6 @@ interface AuctionControllerProps {
   auctionAddress: string;
   collection: string;
   token: TokenWithDao;
-  // viewSwitcher?: ReactNode
 }
 
 export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddress, collection, token }) => {

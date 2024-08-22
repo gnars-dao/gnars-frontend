@@ -20,7 +20,7 @@ import { Icon } from "@chakra-ui/react";
 // import { Icon } from 'src/components/Icon/Icon'
 // import AnimatedModal from 'src/components/Modal/AnimatedModal'
 import { PUBLIC_IS_TESTNET } from "@constants/defaultChains";
-import USE_QUERY_KEYS from "@constants/queryKeys";
+import { USE_QUERY_KEYS } from "@constants/queryKeys";
 import { AddressType, Chain } from "@constants/types";
 import { averageWinningBid } from "@queries/base/requests/averageWinningBid";
 import { getBids } from "@queries/base/requests/getBids";

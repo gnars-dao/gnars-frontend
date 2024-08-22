@@ -16,12 +16,14 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
   return (
     <Box
       backgroundColor="background2"
-      width={"100%"}
+      width={"250px"}
+      maxW={"100%"}
       height={"auto"}
       aspectRatio={1 / 1}
       position="relative"
       className={"token-image"}
     >
+      {/** TODO: No need for imgError */}
       {imgErr ? (
         <Text>Error loading image</Text>
       ) : (

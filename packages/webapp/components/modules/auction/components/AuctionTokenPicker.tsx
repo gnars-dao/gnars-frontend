@@ -1,11 +1,13 @@
 import React from "react";
 import { Icon } from "@chakra-ui/icons";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { HStack, Heading, Text, VStack } from "@chakra-ui/react";
 import { OptionalLink } from "@components/OptionalLink";
-import USE_QUERY_KEYS from "@constants/queryKeys";
+import { USE_QUERY_KEYS } from "@constants/queryKeys";
 import { BaseSDK } from "@queries/resolvers";
+import { RoundButton } from "components/RoundButton";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
+import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";
 // import { useLayoutStore } from 'src/stores'
 import { useChainStore } from "stores/useChainStore";
 import useSWR from "swr";
@@ -26,7 +28,7 @@ export const AuctionTokenPicker: React.FC<AuctionTokenPickerProps> = ({
   name
 }: AuctionTokenPickerProps) => {
   const { id: chainId } = useChainStore((x) => x.chain);
-  const { query, isReady } = useRouter();
+  const { query, isReady, push } = useRouter();
   // const { isMobile } = useLayoutStore()
   const disabledStyle = { opacity: 0.2 };
 
@@ -35,81 +37,69 @@ export const AuctionTokenPicker: React.FC<AuctionTokenPickerProps> = ({
     () =>
       BaseSDK.connect()
         .daoNextAndPreviousTokens({ tokenId, tokenAddress: collection.toLowerCase() })
-        .then((x) => ({
-          next: x.next.length > 0 ? parseInt(x.next[0].tokenId) : undefined,
-          prev: x.prev.length > 0 ? parseInt(x.prev[0].tokenId) : undefined,
-          latest: x.latest.length > 0 ? parseInt(x.latest[0].tokenId) : undefined
-        }))
+        .then((x) => {
+          console.log("AuctionTokenPicker x return val: ", x);
+          return {
+            next: x.next.length > 0 ? parseInt(x.next[0].tokenId) : undefined,
+            prev: x.prev.length > 0 ? parseInt(x.prev[0].tokenId) : undefined,
+            latest: x.latest.length > 0 ? parseInt(x.latest[0].tokenId) : undefined
+          };
+        })
   );
+
+  React.useEffect(() => {
+    if (data?.prev) {
+      console.log(
+        `AuctionTokenPicker data:`,
+        data,
+        "OptionalLink: ",
+        `/dao/${query.network}/${collection}/${data?.prev}`,
+        { data, collection, tokenId, mintDate, name }
+      );
+    }
+  }, [data, collection, tokenId, mintDate, name, query.network]);
 
   const hasPreviousToken = data?.prev !== undefined;
   const hasNextToken = data?.next !== undefined;
 
   return (
-    <Flex direction={"column"}>
-      <Flex align="center" direction={"row"} gap={"x2"}>
-        <OptionalLink
-          enabled={hasPreviousToken}
-          href={`/dao/${query.network}/${collection}/${data?.prev}`}
-          passHref
-          legacyBehavior
+    <VStack
+      w="full"
+      alignItems="center"
+      justifyContent="center"
+      spacing={6}
+      maxW={{ base: "xl", lg: "500px", xl: "xl" }}
+    >
+      <HStack spacing={1}>
+        <RoundButton
+          px={0}
+          isDisabled={!!hasPreviousToken}
+          onClick={() => push(`/dao/${query.network}/${collection}/${data?.next}`)}
         >
-          <Flex
-            as={hasPreviousToken ? "a" : undefined}
-            align={"center"}
-            justify={"center"}
-            // className={auctionDateNavButton}
-            className={"auctionDateNavButton"}
-          >
-            <Icon id="arrowLeft" style={hasPreviousToken ? {} : disabledStyle} />
-          </Flex>
-        </OptionalLink>
-
-        <OptionalLink
-          enabled={hasNextToken}
-          href={`/dao/${query.network}/${collection}/${data?.next}`}
-          passHref
-          legacyBehavior
+          <HiArrowNarrowLeft />
+        </RoundButton>
+        <RoundButton
+          px={0}
+          isDisabled={!!hasNextToken}
+          onClick={() => push(`/dao/${query.network}/${collection}/${data?.next}`)}
         >
-          <Flex
-            as={hasNextToken ? "a" : undefined}
-            align={"center"}
-            justify={"center"}
-            // className={auctionDateNavButton}
-            className="auction-date-nav-button"
-          >
-            <Icon id="arrowRight" style={hasNextToken ? {} : disabledStyle} />
-          </Flex>
-        </OptionalLink>
-
-        <OptionalLink
-          enabled={hasNextToken}
-          href={`/dao/${query.network}/${collection}/${data?.latest}`}
-          passHref
-          legacyBehavior
+          <HiArrowNarrowRight />
+        </RoundButton>
+        <RoundButton
+          isDisabled={!data?.latest}
+          onClick={() => push(`/dao/${query.network}/${collection}/${data?.latest}`)}
         >
-          <Flex
-            as={hasNextToken ? "a" : undefined}
-            align={"center"}
-            justify={"center"}
-            // className={auctionDateNavButton}
-            className="auction-date-nav-button"
-          >
-            <Text mx={"x3"} style={hasNextToken ? {} : disabledStyle} fontWeight={"display"}>
-              {"Latest Auction"}
-            </Text>
-          </Flex>
-        </OptionalLink>
-
-        <Box className={"tertiary"} ml={"x2"}>
+          Latest auction
+        </RoundButton>
+        <Text color="#888" ml={"10px"}>
           {!!mintDate && dayjs(mintDate).format("MMMM DD, YYYY")}
-        </Box>
-      </Flex>
+        </Text>
+      </HStack>
       {!!name && (
-        <Flex align={"center"} justify={"flex-start"} className={"primary"} mt={"10px"} mb={"10px"}>
+        <Heading size="2xl" color="white">
           {name}
-        </Flex>
+        </Heading>
       )}
-    </Flex>
+    </VStack>
   );
 };
