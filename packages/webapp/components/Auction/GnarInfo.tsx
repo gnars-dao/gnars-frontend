@@ -1,3 +1,16 @@
+import { FC, useEffect, useState } from "react";
+import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/gnarsDao";
+import { GnarData } from "../../hooks/useGnarData";
+import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback";
+import { is10thGnar, shortAddress } from "../../utils";
+import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons";
+import { AuctionStatus } from "./AuctionStatus";
+import { BidForGnar } from "./BidForGnar";
+import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo";
+import { BidsTable } from "./BidsTable";
+import { GnarNavigation } from "./GnarNavigation";
+import { GnarvingTracker } from "./GnarvingTracker";
+import { SettleAuctionButton } from "./SettleAuctionButton";
 import {
   Button,
   HStack,
@@ -9,77 +22,70 @@ import {
   StackProps,
   Text,
   VStack,
-  useDisclosure,
-} from "@chakra-ui/react"
-import { AnimatePresence, motion } from "framer-motion"
-import { Londrina_Solid } from "next/font/google"
-import { FC, useEffect, useState } from "react"
-import { FiExternalLink, FiInfo } from "react-icons/fi"
-import { HiExternalLink } from "react-icons/hi"
-import { RiAuctionLine } from "react-icons/ri"
-import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/gnarsDao"
-import { GnarData } from "../../hooks/useGnarData"
-import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback"
-import { is10thGnar, shortAddress } from "../../utils"
-import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons"
-import { AuctionStatus } from "./AuctionStatus"
-import { BidForGnar } from "./BidForGnar"
-import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo"
-import { BidsTable } from "./BidsTable"
-import { GnarNavigation } from "./GnarNavigation"
-import { GnarvingTracker } from "./GnarvingTracker"
-import { SettleAuctionButton } from "./SettleAuctionButton"
-
+  useDisclosure
+} from "@chakra-ui/react";
 // TODO: Pull in dao module from nouns-builder
-import { Auction } from "@components/modules/auction"
-import { PUBLIC_SUBGRAPH_URL } from "@constants/env"
-import { CHAIN_IDS } from "@constants/types"
+import { Auction } from "@components/modules/auction";
+import { PUBLIC_SUBGRAPH_URL } from "@constants/env";
+import { CHAIN_IDS } from "@constants/types";
+import { AnimatePresence, motion } from "framer-motion";
+import { Londrina_Solid } from "next/font/google";
+import { FiExternalLink, FiInfo } from "react-icons/fi";
+import { HiExternalLink } from "react-icons/hi";
+import { RiAuctionLine } from "react-icons/ri";
 
 const londrinaSolid = Londrina_Solid({
   weight: "400",
-  subsets: ["latin"],
-})
+  subsets: ["latin"]
+});
 
 interface GnarInfoProps extends StackProps {
-  isOg: boolean
-  gnarData: GnarData
+  isOg: boolean;
+  gnarData: GnarData;
 }
 
-const baseLink = "https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17"
+const baseLink = "https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17";
 
 export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarInfoProps) => {
   const { endTimestamp, latestBidder, latestBid, settled, bids } = {
-    ...(gnarData.gnar.auction ?? {}),
-  }
+    ...(gnarData.gnar.auction ?? {})
+  };
 
-  const { isOpen: showBids, onToggle: toggleBids } = useDisclosure()
+  const { isOpen: showBids, onToggle: toggleBids } = useDisclosure();
 
-  const { block } = gnarData
+  const { block } = gnarData;
 
-  const [blockTimestamp, setBlockTimestamp] = useState<number | null | undefined>(block?.timestamp)
+  const [blockTimestamp, setBlockTimestamp] = useState<number | null | undefined>(block?.timestamp);
 
   useEffect(() => {
     // sometimes the timestamp of new blocks is null (https://github.com/graphprotocol/support/issues/104).
     // In that case, we keep the last known timestamp. The next refetch should update it
     if (block?.timestamp) {
-      setBlockTimestamp(block.timestamp)
+      setBlockTimestamp(block.timestamp);
     }
-  }, [block?.timestamp])
+  }, [block?.timestamp]);
 
   // @TODO add slide animation when changing Gnar
   // @TODO add fake loader like https://github.com/rstacruz/nprogress
 
-  const ownerName = useNnsNameWithEnsFallback(gnarData.gnar.owner)
+  const ownerName = useNnsNameWithEnsFallback(gnarData.gnar.owner);
 
   const auctionEnded =
-    endTimestamp && blockTimestamp ? Date.now() > endTimestamp * 1000 && blockTimestamp > endTimestamp : true
+    endTimestamp && blockTimestamp ? Date.now() > endTimestamp * 1000 && blockTimestamp > endTimestamp : true;
 
-  const isTreasuryGnar = is10thGnar(parseInt(gnarData.gnar.gnarId))
-  const winner = isTreasuryGnar ? TREASURY_ADDRESS : latestBidder
-  const isBurned = !!gnarData.gnar.auction && auctionEnded && !winner
-  const isClaimedGnar = !isTreasuryGnar && !gnarData.gnar.auction
+  const isTreasuryGnar = is10thGnar(parseInt(gnarData.gnar.gnarId));
+  const winner = isTreasuryGnar ? TREASURY_ADDRESS : latestBidder;
+  const isBurned = !!gnarData.gnar.auction && auctionEnded && !winner;
+  const isClaimedGnar = !isTreasuryGnar && !gnarData.gnar.auction;
   return (
-    <VStack w="full" alignItems="center" justifyContent="center" spacing={6} maxW={{ base: "xl", lg: "500px", xl: "xl" }}  {...props}>
+    <VStack
+      w="full"
+      alignItems="center"
+      justifyContent="center"
+      spacing={6}
+      maxW={{ base: "xl", lg: "500px", xl: "xl" }}
+      {...props}
+    >
       {/*<Heading alignItems="center" justifyContent="center" marginTop={{ md: "2em" }}>Under Construction</Heading>
 
       <Heading as="h3" size={"lg"}>
@@ -96,7 +102,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
         columnGap={0}
         templateAreas={{
           base: `"gnarId" "navigation" "auction" "gnarvingTracker" `,
-          sm: `"gnarId navigation" "gnarvingTracker gnarvingTracker" "auction auction"`,
+          sm: `"gnarId navigation" "gnarvingTracker gnarvingTracker" "auction auction"`
         }}
         color={"chakra-body-text"}
         spacing={6}
@@ -118,8 +124,6 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
           {isOg && <Text position={"relative"}>OG</Text>}
           {gnarData ? <Text>Gnar {gnarData.gnar.gnarId}</Text> : <Spinner />}
         </VStack>
-
-
         <GnarNavigation gridArea={"navigation"} alignSelf={"end"} justifySelf={["center", "end"]} gnarData={gnarData} />
         <AuctionStatus
           gridArea={"auction"}
@@ -139,13 +143,15 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
         columnGap={0}
         templateAreas={{
           base: `"gnarId" "navigation" "auction" "gnarvingTracker" `,
-          sm: `"gnarId navigation" "gnarvingTracker gnarvingTracker" "auction auction"`,
+          sm: `"gnarId navigation" "gnarvingTracker gnarvingTracker" "auction auction"`
         }}
         color={"chakra-body-text"}
         spacing={6}
         overflow={"visible"}
       >
-        <Auction chain={CHAIN_IDS.HARDHAT} auctionAddress="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
+        <Auction
+          chain={CHAIN_IDS.HARDHAT}
+          auctionAddress="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
           collection="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
           token="6166"
         />
@@ -157,7 +163,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
               <FiInfo
                 style={{
                   verticalAlign: "text-bottom",
-                  display: "inline",
+                  display: "inline"
                 }}
               />{" "}
               {isTreasuryGnar && (
@@ -246,5 +252,5 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
         </VStack>
       )}
     </VStack>
-  )
-}
+  );
+};

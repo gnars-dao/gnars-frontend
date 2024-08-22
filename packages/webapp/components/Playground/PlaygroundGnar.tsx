@@ -1,3 +1,4 @@
+import { FC, useRef } from "react";
 import {
   Box,
   BoxProps,
@@ -16,28 +17,23 @@ import {
   SimpleGridProps,
   StackProps,
   Text,
-  useDisclosure,
   VStack,
-} from "@chakra-ui/react"
-import { FaInfo } from "react-icons/fa"
-import { MdFileDownload } from "react-icons/md"
-import { FC, useRef } from "react"
-import { FaSquareFull } from "react-icons/fa"
-import { Gnartwork } from "utils"
-import { GnarImage } from "components/GnarImage"
-import { GnarToolbar } from "components/GnarToolbar"
+  useDisclosure
+} from "@chakra-ui/react";
+import { GnarImage } from "components/GnarImage";
+import { GnarToolbar } from "components/GnarToolbar";
+import { FaInfo } from "react-icons/fa";
+import { FaSquareFull } from "react-icons/fa";
+import { MdFileDownload } from "react-icons/md";
+import { Gnartwork } from "utils";
 
 interface PlaygroundGnarProps extends StackProps {
-  playgroundGnarId: number
-  gnartwork: Gnartwork
+  playgroundGnarId: number;
+  gnartwork: Gnartwork;
 }
 
-const PlaygroundGnar: FC<PlaygroundGnarProps> = ({
-  playgroundGnarId,
-  gnartwork,
-  ...props
-}) => {
-  const gnarImageRef = useRef<HTMLImageElement>(null)
+const PlaygroundGnar: FC<PlaygroundGnarProps> = ({ playgroundGnarId, gnartwork, ...props }) => {
+  const gnarImageRef = useRef<HTMLImageElement>(null);
 
   return (
     <VStack {...props}>
@@ -51,6 +47,6 @@ const PlaygroundGnar: FC<PlaygroundGnarProps> = ({
         gnartwork={gnartwork}
       />
     </VStack>
-  )
-}
-export default PlaygroundGnar
+  );
+};
+export default PlaygroundGnar;

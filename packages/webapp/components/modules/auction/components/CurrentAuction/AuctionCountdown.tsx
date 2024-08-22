@@ -1,17 +1,10 @@
-import { Countdown } from 'components/Countdown'
+import { AuctionDetail } from "../AuctionDetail";
+import { Countdown } from "components/Countdown";
 
-import { AuctionDetail } from '../AuctionDetail'
-
-export const AuctionCountdown = ({
-  endTime,
-  onEnd,
-}: {
-  endTime: number
-  onEnd: () => void
-}) => {
+export const AuctionCountdown = ({ endTime, onEnd }: { endTime: number; onEnd: () => void }) => {
   return (
     <AuctionDetail title="Auction ends in">
       <Countdown end={endTime} onEnd={onEnd} />
     </AuctionDetail>
-  )
-}
+  );
+};

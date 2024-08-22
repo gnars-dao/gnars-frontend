@@ -1,22 +1,15 @@
 //
-
 // import { useConnectModal } from '@rainbow-me/rainbowkit'
 // import { Button, Flex, Text } from '@zoralabs/zord'
-import { useRouter } from 'next/router'
-import React from 'react'
-// import useSWR from 'swr'
-import { useAccount } from 'wagmi'
-
+import React from "react";
+import { VStack } from "@chakra-ui/react";
+import { PUBLIC_MANAGER_ADDRESS, contracts } from "@constants/baseAddresses";
 // import { ContractButton } from 'src/components/ContractButton'
 // import { Countdown } from 'src/components/Countdown'
 // import AnimatedModal from 'src/components/Modal/AnimatedModal'
 // import { SuccessModalContent } from 'src/components/Modal/SuccessModalContent'
 // import Pagination from 'src/components/Pagination'
-import QUERY_KEYS from '@constants/swrKeys'
-import {
-  ProposalsResponse,
-  getProposals,
-} from '@queries/base/requests/proposalsQuery'
+import QUERY_KEYS from "@constants/queryKeys";
 // import { useVotes } from 'src/hooks'
 // import { useDelayedGovernance } from 'src/hooks/useDelayedGovernance'
 // import { usePagination } from 'src/hooks/usePagination'
@@ -30,42 +23,38 @@ import {
 //   submitProposalBtn,
 // } from 'src/styles/Proposals.css'
 // import { sectionWrapperStyle } from 'src/styles/dao.css'
-import { AddressType, CHAIN_IDS } from '@constants/types'
-import { walletSnippet } from '@utils/helpers'
-
-
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { usePublicClient } from "wagmi"
-
+import { AddressType, CHAIN_IDS } from "@constants/types";
+import { ProposalsResponse, getProposals } from "@queries/base/requests/proposalsQuery";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { walletSnippet } from "@utils/helpers";
+import { useRouter } from "next/router";
+// import useSWR from 'swr'
+import { useAccount } from "wagmi";
+import { usePublicClient } from "wagmi";
 // import { useDelegate } from '../../hooks'
 // import { useDaoStore } from '../../stores'
 // import { CurrentDelegate } from './CurrentDelegate'
 // import { DelegateForm } from './DelegateForm'
 // import { MobileMenu } from './MobileMenu'
 // import { Treasury } from './Treasury'
-import { GetContractResult } from 'wagmi/actions'
-
-
-import { contracts, PUBLIC_MANAGER_ADDRESS } from '@constants/baseAddresses'
-import { VStack } from '@chakra-ui/react'
-
+import { GetContractResult } from "wagmi/actions";
 
 export const Activity: React.FC = () => {
   // const addresses = useDaoStore((state) => state.addresses)
   //const { createProposal } = useProposalStore()
-  const { address } = useAccount()
-  const { query, isReady, push } = useRouter()
+  const { address } = useAccount();
+  const { query, isReady, push } = useRouter();
   // const { isMobile } = useLayoutStore()
   // const { openConnectModal } = useConnectModal()
-  const chain = PUBLIC_MANAGER_ADDRESS[8453] //  useChainStore((x) => x.chain)
-  const LIMIT = 20
+  const chain = PUBLIC_MANAGER_ADDRESS[8453]; //  useChainStore((x) => x.chain)
+  const LIMIT = 20;
 
-  const { token } = contracts[PUBLIC_MANAGER_ADDRESS[8453]].addresses
+  const { token } = contracts[PUBLIC_MANAGER_ADDRESS[8453]].addresses;
 
   const { data, error } = useQuery({
-    queryKey: (isReady ? [QUERY_KEYS.PROPOSALS, CHAIN_IDS.HARDHAT, query.token, query.page] : null),
+    queryKey: isReady ? [QUERY_KEYS.PROPOSALS, CHAIN_IDS.HARDHAT, query.token, query.page] : null,
     queryFn: (_, chainId, token, page) => getProposals(chainId, token, LIMIT, Number(page))
-  })
+  });
 
   // const { handlePageBack, handlePageForward } = // usePagination(data?.pageInfo?.hasNextPage)
 
@@ -73,14 +62,14 @@ export const Activity: React.FC = () => {
     chainId: chain.id,
     governorAddress: addresses?.governor,
     signerAddress: address,
-    collectionAddress: query?.token as AddressType,
-  })
+    collectionAddress: query?.token as AddressType
+  });
 
   const { isGovernanceDelayed, delayedUntilTimestamp } = useDelayedGovernance({
     tokenAddress: addresses?.token,
     governorAddress: addresses?.governor,
-    chainId: chain.id,
-  })
+    chainId: chain.id
+  });
 
   /*const [
     { viewCurrentDelegate, viewDelegateForm, viewSuccessfulDelegate, newDelegate },
@@ -102,16 +91,14 @@ export const Activity: React.FC = () => {
   }*/
 
   if (!data && !error) {
-    return null
+    return null;
   }
 
   return (
     <>
-      <VStack>
-
-      </VStack>
+      <VStack></VStack>
     </>
-  )
+  );
   /**
   return (
     <>
@@ -295,4 +282,4 @@ export const Activity: React.FC = () => {
       </AnimatedModal>
     </>
   ) */
-}
+};

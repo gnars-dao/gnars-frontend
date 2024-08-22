@@ -1,33 +1,33 @@
-import { Button, Container, DarkMode, Divider, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react"
-import { useQuery } from "@tanstack/react-query"
-import { DelegateButton } from "components/Governance/Delegation/DelegateButton"
-import { UserVotes } from "components/Governance/Delegation/UserVotes"
-import { isArray, partition } from "lodash"
-import Link from "next/link"
-import { execute, ProposalsDocument } from "@subgraph-generated/layer-1"
-import { ProposalCard } from "@components/Governance/ProposalCard"
-import Menu from "@components/Menu"
-import BaseProposals from "@components/Proposal/BaseProposals"
-import { useBlock } from "hooks/useBlock"
+import { Button, Container, DarkMode, Divider, HStack, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { ProposalCard } from "@components/Governance/ProposalCard";
+import Menu from "@components/Menu";
+import BaseProposals from "@components/Proposal/BaseProposals";
+import { contracts } from "@constants/baseAddresses";
+import { CHAIN_IDS } from "@constants/types";
+import { ProposalsResponse, getProposals } from "@queries/base/requests/proposalsQuery";
+import { ProposalsDocument, execute } from "@subgraph-generated/layer-1";
+import { useQuery } from "@tanstack/react-query";
 import {
   EffectiveProposalStatus,
+  ProposalData,
   getProposalEffectiveStatus,
   getQuorumVotes,
-  isFinalized,
-  ProposalData
-} from "@utils/governanceUtils"
-import { contracts } from "@constants/baseAddresses"
-import { getProposals, ProposalsResponse } from "@queries/base/requests/proposalsQuery"
-import USE_QUERY_KEYS from "@constants/swrKeys"
-import { CHAIN_IDS } from "@constants/types"
-import { useRouter } from "next/router"
+  isFinalized
+} from "@utils/governanceUtils";
+import { DelegateButton } from "components/Governance/Delegation/DelegateButton";
+import { UserVotes } from "components/Governance/Delegation/UserVotes";
+import USE_QUERY_KEYS from "constants";
+import { useBlock } from "hooks/useBlock";
+import { isArray, partition } from "lodash";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Proposals() {
-  const tokenAddress = contracts.Token.Proxy
-  const block = useBlock()
-  const { query: baseQuery, isReady: baseQueryReady, push } = useRouter()
-  const LIMIT = 200
-  const page = baseQuery?.page ? Number(baseQuery.page) : undefined
+  const tokenAddress = contracts.Token.Proxy;
+  const block = useBlock();
+  const { query: baseQuery, isReady: baseQueryReady, push } = useRouter();
+  const LIMIT = 200;
+  const page = baseQuery?.page ? Number(baseQuery.page) : undefined;
 
   const { data: baseData, error: baseError } = useQuery(
     [USE_QUERY_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
@@ -35,9 +35,9 @@ export default function Proposals() {
     {
       enabled: baseQueryReady
     }
-  )
+  );
   if (baseError) {
-    console.error("Error getting BASE proposals data: ", baseError)
+    console.error("Error getting BASE proposals data: ", baseError);
   }
 
   const { data: ethProposals } = useQuery(
@@ -61,7 +61,7 @@ export default function Proposals() {
             ]
         ),
     { keepPreviousData: true }
-  )
+  );
   return (
     <DarkMode>
       <VStack flexGrow={1} w={"full"} color={"chakra-body-text"} spacing={6}>
@@ -172,5 +172,5 @@ export default function Proposals() {
         </Container>
       </VStack>
     </DarkMode>
-  )
+  );
 }

@@ -2,309 +2,309 @@ export const auctionAbi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_manager',
-        type: 'address',
+        internalType: "address",
+        name: "_manager",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_rewardsManager',
-        type: 'address',
+        internalType: "address",
+        name: "_rewardsManager",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_weth',
-        type: 'address',
+        internalType: "address",
+        name: "_weth",
+        type: "address"
       },
       {
-        internalType: 'uint16',
-        name: '_builderRewardsBPS',
-        type: 'uint16',
+        internalType: "uint16",
+        name: "_builderRewardsBPS",
+        type: "uint16"
       },
       {
-        internalType: 'uint16',
-        name: '_referralRewardsBPS',
-        type: 'uint16',
-      },
+        internalType: "uint16",
+        name: "_referralRewardsBPS",
+        type: "uint16"
+      }
     ],
-    stateMutability: 'payable',
-    type: 'constructor',
+    stateMutability: "payable",
+    type: "constructor"
   },
   {
     inputs: [],
-    name: 'ADDRESS_ZERO',
-    type: 'error',
+    name: "ADDRESS_ZERO",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ALREADY_INITIALIZED',
-    type: 'error',
+    name: "ALREADY_INITIALIZED",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'AUCTION_ACTIVE',
-    type: 'error',
+    name: "AUCTION_ACTIVE",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'AUCTION_CREATE_FAILED_TO_LAUNCH',
-    type: 'error',
+    name: "AUCTION_CREATE_FAILED_TO_LAUNCH",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'AUCTION_NOT_STARTED',
-    type: 'error',
+    name: "AUCTION_NOT_STARTED",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'AUCTION_OVER',
-    type: 'error',
+    name: "AUCTION_OVER",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'AUCTION_SETTLED',
-    type: 'error',
+    name: "AUCTION_SETTLED",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'CANNOT_CREATE_AUCTION',
-    type: 'error',
+    name: "CANNOT_CREATE_AUCTION",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'DELEGATE_CALL_FAILED',
-    type: 'error',
+    name: "DELEGATE_CALL_FAILED",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'FAILING_WETH_TRANSFER',
-    type: 'error',
+    name: "FAILING_WETH_TRANSFER",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'INITIALIZING',
-    type: 'error',
+    name: "INITIALIZING",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'INSOLVENT',
-    type: 'error',
+    name: "INSOLVENT",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'INVALID_REWARDS_BPS',
-    type: 'error',
+    name: "INVALID_REWARDS_BPS",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'INVALID_REWARDS_RECIPIENT',
-    type: 'error',
+    name: "INVALID_REWARDS_RECIPIENT",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'INVALID_REWARD_TOTAL',
-    type: 'error',
+    name: "INVALID_REWARD_TOTAL",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'INVALID_TARGET',
-    type: 'error',
+    name: "INVALID_TARGET",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'INVALID_TOKEN_ID',
-    type: 'error',
+    name: "INVALID_TOKEN_ID",
+    type: "error"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: 'impl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "impl",
+        type: "address"
+      }
     ],
-    name: 'INVALID_UPGRADE',
-    type: 'error',
+    name: "INVALID_UPGRADE",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'MINIMUM_BID_NOT_MET',
-    type: 'error',
+    name: "MINIMUM_BID_NOT_MET",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'MIN_BID_INCREMENT_1_PERCENT',
-    type: 'error',
+    name: "MIN_BID_INCREMENT_1_PERCENT",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'NOT_INITIALIZING',
-    type: 'error',
+    name: "NOT_INITIALIZING",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_CALL',
-    type: 'error',
+    name: "ONLY_CALL",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_DELEGATECALL',
-    type: 'error',
+    name: "ONLY_DELEGATECALL",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_MANAGER',
-    type: 'error',
+    name: "ONLY_MANAGER",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_OWNER',
-    type: 'error',
+    name: "ONLY_OWNER",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_PENDING_OWNER',
-    type: 'error',
+    name: "ONLY_PENDING_OWNER",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_PROXY',
-    type: 'error',
+    name: "ONLY_PROXY",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_UUPS',
-    type: 'error',
+    name: "ONLY_UUPS",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'PAUSED',
-    type: 'error',
+    name: "PAUSED",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'REENTRANCY',
-    type: 'error',
+    name: "REENTRANCY",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'RESERVE_PRICE_NOT_MET',
-    type: 'error',
+    name: "RESERVE_PRICE_NOT_MET",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'UNPAUSED',
-    type: 'error',
+    name: "UNPAUSED",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'UNSAFE_CAST',
-    type: 'error',
+    name: "UNSAFE_CAST",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'UNSUPPORTED_UUID',
-    type: 'error',
+    name: "UNSUPPORTED_UUID",
+    type: "error"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256"
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: 'bidder',
-        type: 'address',
+        internalType: "address",
+        name: "bidder",
+        type: "address"
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
       },
       {
         indexed: false,
-        internalType: 'bool',
-        name: 'extended',
-        type: 'bool',
+        internalType: "bool",
+        name: "extended",
+        type: "bool"
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'endTime',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "endTime",
+        type: "uint256"
+      }
     ],
-    name: 'AuctionBid',
-    type: 'event',
+    name: "AuctionBid",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256"
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'startTime',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "startTime",
+        type: "uint256"
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'endTime',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "endTime",
+        type: "uint256"
+      }
     ],
-    name: 'AuctionCreated',
-    type: 'event',
+    name: "AuctionCreated",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256"
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: 'winner',
-        type: 'address',
+        internalType: "address",
+        name: "winner",
+        type: "address"
       },
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'amount',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
     ],
-    name: 'AuctionSettled',
-    type: 'event',
+    name: "AuctionSettled",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'duration',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "duration",
+        type: "uint256"
+      }
     ],
-    name: 'DurationUpdated',
-    type: 'event',
+    name: "DurationUpdated",
+    type: "event"
   },
   {
     anonymous: false,
@@ -312,659 +312,659 @@ export const auctionAbi = [
       {
         components: [
           {
-            internalType: 'address',
-            name: 'recipient',
-            type: 'address',
+            internalType: "address",
+            name: "recipient",
+            type: "address"
           },
           {
-            internalType: 'uint16',
-            name: 'percentBps',
-            type: 'uint16',
-          },
+            internalType: "uint16",
+            name: "percentBps",
+            type: "uint16"
+          }
         ],
         indexed: false,
-        internalType: 'struct AuctionTypesV2.FounderReward',
-        name: 'reward',
-        type: 'tuple',
-      },
+        internalType: "struct AuctionTypesV2.FounderReward",
+        name: "reward",
+        type: "tuple"
+      }
     ],
-    name: 'FounderRewardUpdated',
-    type: 'event',
+    name: "FounderRewardUpdated",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'version',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "version",
+        type: "uint256"
+      }
     ],
-    name: 'Initialized',
-    type: 'event',
+    name: "Initialized",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'minBidIncrementPercentage',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "minBidIncrementPercentage",
+        type: "uint256"
+      }
     ],
-    name: 'MinBidIncrementPercentageUpdated',
-    type: 'event',
+    name: "MinBidIncrementPercentageUpdated",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
+        internalType: "address",
+        name: "owner",
+        type: "address"
       },
       {
         indexed: true,
-        internalType: 'address',
-        name: 'canceledOwner',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "canceledOwner",
+        type: "address"
+      }
     ],
-    name: 'OwnerCanceled',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'pendingOwner',
-        type: 'address',
-      },
-    ],
-    name: 'OwnerPending',
-    type: 'event',
+    name: "OwnerCanceled",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: 'address',
-        name: 'prevOwner',
-        type: 'address',
+        internalType: "address",
+        name: "owner",
+        type: "address"
       },
       {
         indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "pendingOwner",
+        type: "address"
+      }
     ],
-    name: 'OwnerUpdated',
-    type: 'event',
+    name: "OwnerPending",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "prevOwner",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address"
+      }
+    ],
+    name: "OwnerUpdated",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "user",
+        type: "address"
+      }
     ],
-    name: 'Paused',
-    type: 'event',
+    name: "Paused",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'reservePrice',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "reservePrice",
+        type: "uint256"
+      }
     ],
-    name: 'ReservePriceUpdated',
-    type: 'event',
+    name: "ReservePriceUpdated",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'timeBuffer',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "timeBuffer",
+        type: "uint256"
+      }
     ],
-    name: 'TimeBufferUpdated',
-    type: 'event',
+    name: "TimeBufferUpdated",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "user",
+        type: "address"
+      }
     ],
-    name: 'Unpaused',
-    type: 'event',
+    name: "Unpaused",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'address',
-        name: 'impl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "impl",
+        type: "address"
+      }
     ],
-    name: 'Upgraded',
-    type: 'event',
+    name: "Upgraded",
+    type: "event"
   },
   {
     inputs: [],
-    name: 'acceptOwnership',
+    name: "acceptOwnership",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'auction',
+    name: "auction",
     outputs: [
       {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256"
       },
       {
-        internalType: 'uint256',
-        name: 'highestBid',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "highestBid",
+        type: "uint256"
       },
       {
-        internalType: 'address',
-        name: 'highestBidder',
-        type: 'address',
+        internalType: "address",
+        name: "highestBidder",
+        type: "address"
       },
       {
-        internalType: 'uint40',
-        name: 'startTime',
-        type: 'uint40',
+        internalType: "uint40",
+        name: "startTime",
+        type: "uint40"
       },
       {
-        internalType: 'uint40',
-        name: 'endTime',
-        type: 'uint40',
+        internalType: "uint40",
+        name: "endTime",
+        type: "uint40"
       },
       {
-        internalType: 'bool',
-        name: 'settled',
-        type: 'bool',
-      },
+        internalType: "bool",
+        name: "settled",
+        type: "bool"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'builderRewardsBPS',
+    name: "builderRewardsBPS",
     outputs: [
       {
-        internalType: 'uint16',
-        name: '',
-        type: 'uint16',
-      },
+        internalType: "uint16",
+        name: "",
+        type: "uint16"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'cancelOwnershipTransfer',
+    name: "cancelOwnershipTransfer",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'contractVersion',
+    name: "contractVersion",
     outputs: [
       {
-        internalType: 'string',
-        name: '',
-        type: 'string',
-      },
+        internalType: "string",
+        name: "",
+        type: "string"
+      }
     ],
-    stateMutability: 'pure',
-    type: 'function',
+    stateMutability: "pure",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "_tokenId",
+        type: "uint256"
+      }
     ],
-    name: 'createBid',
+    name: "createBid",
     outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
+    stateMutability: "payable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: '_tokenId',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "_tokenId",
+        type: "uint256"
       },
       {
-        internalType: 'address',
-        name: '_referral',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_referral",
+        type: "address"
+      }
     ],
-    name: 'createBidWithReferral',
+    name: "createBidWithReferral",
     outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
+    stateMutability: "payable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'currentBidReferral',
+    name: "currentBidReferral",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'duration',
+    name: "duration",
     outputs: [
       {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'founderReward',
+    name: "founderReward",
     outputs: [
       {
-        internalType: 'address',
-        name: 'recipient',
-        type: 'address',
+        internalType: "address",
+        name: "recipient",
+        type: "address"
       },
       {
-        internalType: 'uint16',
-        name: 'percentBps',
-        type: 'uint16',
-      },
+        internalType: "uint16",
+        name: "percentBps",
+        type: "uint16"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_token',
-        type: 'address',
+        internalType: "address",
+        name: "_token",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_founder',
-        type: 'address',
+        internalType: "address",
+        name: "_founder",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_treasury',
-        type: 'address',
+        internalType: "address",
+        name: "_treasury",
+        type: "address"
       },
       {
-        internalType: 'uint256',
-        name: '_duration',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "_duration",
+        type: "uint256"
       },
       {
-        internalType: 'uint256',
-        name: '_reservePrice',
-        type: 'uint256',
+        internalType: "uint256",
+        name: "_reservePrice",
+        type: "uint256"
       },
       {
-        internalType: 'address',
-        name: '_founderRewardRecipient',
-        type: 'address',
+        internalType: "address",
+        name: "_founderRewardRecipient",
+        type: "address"
       },
       {
-        internalType: 'uint16',
-        name: '_founderRewardBps',
-        type: 'uint16',
-      },
+        internalType: "uint16",
+        name: "_founderRewardBps",
+        type: "uint16"
+      }
     ],
-    name: 'initialize',
+    name: "initialize",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'minBidIncrement',
+    name: "minBidIncrement",
     outputs: [
       {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'owner',
+    name: "owner",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'pause',
+    name: "pause",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'paused',
+    name: "paused",
     outputs: [
       {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'pendingOwner',
+    name: "pendingOwner",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'proxiableUUID',
+    name: "proxiableUUID",
     outputs: [
       {
-        internalType: 'bytes32',
-        name: '',
-        type: 'bytes32',
-      },
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'referralRewardsBPS',
+    name: "referralRewardsBPS",
     outputs: [
       {
-        internalType: 'uint16',
-        name: '',
-        type: 'uint16',
-      },
+        internalType: "uint16",
+        name: "",
+        type: "uint16"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'reservePrice',
+    name: "reservePrice",
     outputs: [
       {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newOwner',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_newOwner",
+        type: "address"
+      }
     ],
-    name: 'safeTransferOwnership',
+    name: "safeTransferOwnership",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: '_duration',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "_duration",
+        type: "uint256"
+      }
     ],
-    name: 'setDuration',
+    name: "setDuration",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
         components: [
           {
-            internalType: 'address',
-            name: 'recipient',
-            type: 'address',
+            internalType: "address",
+            name: "recipient",
+            type: "address"
           },
           {
-            internalType: 'uint16',
-            name: 'percentBps',
-            type: 'uint16',
-          },
+            internalType: "uint16",
+            name: "percentBps",
+            type: "uint16"
+          }
         ],
-        internalType: 'struct AuctionTypesV2.FounderReward',
-        name: 'reward',
-        type: 'tuple',
-      },
+        internalType: "struct AuctionTypesV2.FounderReward",
+        name: "reward",
+        type: "tuple"
+      }
     ],
-    name: 'setFounderReward',
+    name: "setFounderReward",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: '_percentage',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "_percentage",
+        type: "uint256"
+      }
     ],
-    name: 'setMinimumBidIncrement',
+    name: "setMinimumBidIncrement",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: '_reservePrice',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "_reservePrice",
+        type: "uint256"
+      }
     ],
-    name: 'setReservePrice',
+    name: "setReservePrice",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: '_timeBuffer',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "_timeBuffer",
+        type: "uint256"
+      }
     ],
-    name: 'setTimeBuffer',
+    name: "setTimeBuffer",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'settleAuction',
+    name: "settleAuction",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'settleCurrentAndCreateNewAuction',
+    name: "settleCurrentAndCreateNewAuction",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'timeBuffer',
+    name: "timeBuffer",
     outputs: [
       {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'token',
+    name: "token",
     outputs: [
       {
-        internalType: 'contract Token',
-        name: '',
-        type: 'address',
-      },
+        internalType: "contract Token",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newOwner',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_newOwner",
+        type: "address"
+      }
     ],
-    name: 'transferOwnership',
+    name: "transferOwnership",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'treasury',
+    name: "treasury",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'unpause',
+    name: "unpause",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newImpl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_newImpl",
+        type: "address"
+      }
     ],
-    name: 'upgradeTo',
+    name: "upgradeTo",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_newImpl",
+        type: "address"
       },
       {
-        internalType: 'bytes',
-        name: '_data',
-        type: 'bytes',
-      },
+        internalType: "bytes",
+        name: "_data",
+        type: "bytes"
+      }
     ],
-    name: 'upgradeToAndCall',
+    name: "upgradeToAndCall",
     outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-] as const
+    stateMutability: "payable",
+    type: "function"
+  }
+] as const;

@@ -1,31 +1,29 @@
-import { Box, Flex } from '@chakra-ui/react'
-
-import { AccountAvatar } from 'components/AccountAvatar'
-import { Icon } from '@chakra-ui/icons'
-import { NULL_ADDRESS } from '@constants/baseAddresses'
-import { ETHERSCAN_BASE_URL } from '@constants/etherscan'
-import { useEnsData } from 'hooks/useEnsData'
-import { useChainStore } from 'stores/useChainStore'
-
-import { AuctionDetail } from './AuctionDetail'
+import { AuctionDetail } from "./AuctionDetail";
+import { Icon } from "@chakra-ui/icons";
+import { Box, Flex } from "@chakra-ui/react";
+import { NULL_ADDRESS } from "@constants/baseAddresses";
+import { ETHERSCAN_BASE_URL } from "@constants/etherscan";
+import { AccountAvatar } from "components/AccountAvatar";
+import { useEnsData } from "hooks/useEnsData";
+import { useChainStore } from "stores/useChainStore";
 
 export const WinningBidder = ({ owner }: { owner?: string }) => {
-  const { displayName, ensAvatar, ensNameLoading } = useEnsData(owner)
-  const chain = useChainStore((x) => x.chain)
+  const { displayName, ensAvatar, ensNameLoading } = useEnsData(owner);
+  const chain = useChainStore((x) => x.chain);
 
   return (
     <AuctionDetail title="Held by">
       {!owner || owner === NULL_ADDRESS ? (
-        'n/a'
+        "n/a"
       ) : (
-        <Flex direction={'row'} align={'center'}>
+        <Flex direction={"row"} align={"center"}>
           <AccountAvatar address={owner} avatarImg={ensAvatar} isLoading={ensNameLoading} />
           <Box
             as="a"
             href={`${ETHERSCAN_BASE_URL[chain.id]}/address/${owner}`}
-            rel={'noopener noreferrer'}
+            rel={"noopener noreferrer"}
             target="_blank"
-            ml={'x2'}
+            ml={"x2"}
           >
             {displayName}
           </Box>
@@ -33,5 +31,5 @@ export const WinningBidder = ({ owner }: { owner?: string }) => {
         </Flex>
       )}
     </AuctionDetail>
-  )
-}
+  );
+};

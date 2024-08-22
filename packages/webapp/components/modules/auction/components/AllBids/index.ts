@@ -1,1 +1,1 @@
-export * from './AllBids'
+export * from "./AllBids";

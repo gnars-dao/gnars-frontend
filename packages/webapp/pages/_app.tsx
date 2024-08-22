@@ -1,17 +1,17 @@
-import { ChakraProvider, DarkMode, Divider, VStack } from "@chakra-ui/react"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { Analytics } from "@vercel/analytics/react"
-import Footer from "components/Footer"
-import { ConnectKitProvider, getDefaultConfig } from "connectkit"
-import type { AppProps } from "next/app"
-import { createConfig, WagmiConfig } from "wagmi"
-import { BaseAlertHeader } from "components/BaseJumpAnnouncement"
-import { alchemyApiKey, walletConnectProjectId } from "constants/env"
-import Head from "next/head"
-import { base, mainnet } from "wagmi/chains"
-import theme from "theme"
+import { ChakraProvider, DarkMode, Divider, VStack } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Analytics } from "@vercel/analytics/react";
+import { BaseAlertHeader } from "components/BaseJumpAnnouncement";
+import Footer from "components/Footer";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { alchemyApiKey, walletConnectProjectId } from "constants/env";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import theme from "theme";
+import { WagmiConfig, createConfig } from "wagmi";
+import { base, mainnet } from "wagmi/chains";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const config = createConfig({
   ...getDefaultConfig({
@@ -20,8 +20,8 @@ const config = createConfig({
     chains: [mainnet, base],
     walletConnectProjectId
   }),
-  persister: null,
-})
+  persister: null
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -45,5 +45,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </ConnectKitProvider>
       </WagmiConfig>
     </ChakraProvider>
-  )
+  );
 }

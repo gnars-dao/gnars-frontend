@@ -1,20 +1,10 @@
-import { Flex, VStack, Box, Code, Heading } from '@chakra-ui/react'
-import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
-import React, { useCallback, useMemo } from 'react'
-import { useAccount } from 'wagmi'
-
-// import { Meta } from 'src/components/Meta'
-// import AnimatedModal from 'src/components/Modal/AnimatedModal'
-// import { SuccessModalContent } from 'src/components/Modal/SuccessModalContent'
-import { CACHE_TIMES } from 'constants/cacheTimes'
-import { PUBLIC_ALL_CHAINS, PUBLIC_DEFAULT_CHAINS } from 'constants/defaultChains'
-// import { CAST_ENABLED } from 'src/constants/farcasterEnabled'
-// import { SUCCESS_MESSAGES } from '@constants/messages'
-import { BaseSDK } from 'queries/resolvers'
-import { TokenWithDaoQuery } from 'subgraph-generated/base'
+import React, { useCallback, useMemo } from "react";
+import { Box, Code, Flex, Heading, VStack } from "@chakra-ui/react";
+// import { isPossibleMarkdown } from 'src/utils/helpers'
+import { Auction } from "@components/modules/auction";
 // import { useVotes } from 'src/hooks'
 // import { getDaoLayout } from 'src/layouts/DaoLayout'
+
 /*import {
   About,
   Activity,
@@ -27,22 +17,32 @@ import { TokenWithDaoQuery } from 'subgraph-generated/base'
 // import FeedTab from 'src/modules/dao/components/Feed/Feed'
 // import { NextPageWithLayout } from 'src/pages/_app'
 // import { DaoOgMetadata } from 'src/pages/api/og/dao'
-import { AddressType, CHAIN_ID, CHAIN_IDS, Chain } from '@constants/types'
-// import { isPossibleMarkdown } from 'src/utils/helpers'
-import { Auction } from '@components/modules/auction'
+import { AddressType, CHAIN_ID, CHAIN_IDS, Chain } from "@constants/types";
+// import { Meta } from 'src/components/Meta'
+// import AnimatedModal from 'src/components/Modal/AnimatedModal'
+// import { SuccessModalContent } from 'src/components/Modal/SuccessModalContent'
+import { CACHE_TIMES } from "constants/cacheTimes";
+import { PUBLIC_ALL_CHAINS, PUBLIC_DEFAULT_CHAINS } from "constants/defaultChains";
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+// import { CAST_ENABLED } from 'src/constants/farcasterEnabled'
+// import { SUCCESS_MESSAGES } from '@constants/messages'
+import { BaseSDK } from "queries/resolvers";
+import { TokenWithDaoQuery } from "subgraph-generated/base";
+import { useAccount } from "wagmi";
 
-export type TokenWithDao = NonNullable<TokenWithDaoQuery['token']>
+export type TokenWithDao = NonNullable<TokenWithDaoQuery["token"]>;
 
 interface TokenPageProps {
-  url: string
-  collection: AddressType
-  token: TokenWithDao
-  name: string
+  url: string;
+  collection: AddressType;
+  token: TokenWithDao;
+  name: string;
   // description: string
-  tokenId: string
-  addresses: unknown // DaoContractAddresses
-  ogImageURL: string
-  chainId: CHAIN_ID
+  tokenId: string;
+  addresses: unknown; // DaoContractAddresses
+  ogImageURL: string;
+  chainId: CHAIN_ID;
 }
 
 const TokenPage = ({
@@ -56,11 +56,11 @@ const TokenPage = ({
   chainId,
   ...props
 }) => {
-  const { query, replace, pathname } = useRouter()
-  const { address } = useAccount()
+  const { query, replace, pathname } = useRouter();
+  const { address } = useAccount();
   console.log(`query for [tokenId]`, query, chainId, address, pathname);
-  console.log(`tokenId page props`, props)
-  const chain = PUBLIC_ALL_CHAINS.find((x) => x.id === chainId) as Chain
+  console.log(`tokenId page props`, props);
+  const chain = PUBLIC_ALL_CHAINS.find((x) => x.id === chainId) as Chain;
   console.log(`[tokenId] chain `, url, collection, token, name, addresses, chainId, `\n\n`);
   /*const { hasThreshold } = useVotes({
     chainId: chainId,
@@ -73,14 +73,14 @@ const TokenPage = ({
     replace(
       {
         pathname,
-        query: { token: collection, network: chain.slug, tokenId: token.tokenId },
+        query: { token: collection, network: chain.slug, tokenId: token.tokenId }
       },
       undefined,
       {
-        shallow: true,
+        shallow: true
       }
-    )
-  }
+    );
+  };
 
   /*const sections = React.useMemo(() => {
     const aboutSection = {
@@ -131,7 +131,7 @@ const TokenPage = ({
   // const activeTab = query?.tab ? (query.tab as string) : 'About'
 
   return (
-    <Box padding={'20px'}>
+    <Box padding={"20px"}>
       {/*<Meta
       title={name || ''}
       type={`${name}:nft`}
@@ -153,32 +153,35 @@ const TokenPage = ({
         token={token}
       />*/}
 
-      <Heading fontSize={'xx-large'} color='white' textAlign={'center'} py={'20px'}>Chain</Heading>
-      <Code display="flex" whiteSpace="pre" width={'1000px'} overflow={'auto'} p="10px">
+      <Heading fontSize={"xx-large"} color="white" textAlign={"center"} py={"20px"}>
+        Chain
+      </Heading>
+      <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
         {JSON.stringify(chain, null, 2)}
       </Code>
 
-      <Heading fontSize={'xx-large'} color='white' textAlign={'center'} py={'20px'}>Collection</Heading>
-      <Code display="flex" whiteSpace="pre" width={'1000px'} overflow={'auto'} p="10px">
+      <Heading fontSize={"xx-large"} color="white" textAlign={"center"} py={"20px"}>
+        Collection
+      </Heading>
+      <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
         {collection.toString()}
       </Code>
 
-      <Heading fontSize={'xx-large'} color='white' textAlign={'center'} py={'20px'}>Addresses</Heading>
-      <Code display="flex" whiteSpace="pre" width={'1000px'} overflow={'auto'} p="10px">
+      <Heading fontSize={"xx-large"} color="white" textAlign={"center"} py={"20px"}>
+        Addresses
+      </Heading>
+      <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
         {JSON.stringify(addresses, null, 2)}
       </Code>
 
-      <Heading fontSize={'xx-large'} color='white' bgColor='grey.50' textAlign={'center'} py={'20px'}>Token</Heading>
-      <Code display="flex" whiteSpace="pre" width={'1000px'} overflow={'auto'} p="10px">
+      <Heading fontSize={"xx-large"} color="white" bgColor="grey.50" textAlign={"center"} py={"20px"}>
+        Token
+      </Heading>
+      <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
         {JSON.stringify(token, null, 2)}
       </Code>
 
-      <Auction
-        chain={chain}
-        auctionAddress={addresses.auction!}
-        collection={collection}
-        token={token}
-      />
+      <Auction chain={chain} auctionAddress={addresses.auction!} collection={collection} token={token} />
 
       {/*<SectionHandler
       sections={sections}
@@ -197,40 +200,35 @@ const TokenPage = ({
       />
     </AnimatedModal>*/}
     </Box>
-  )
-}
+  );
+};
 
 // TokenPage.getLayout = getDaoLayout
 
-export default TokenPage
+export default TokenPage;
 
-export const getServerSideProps: GetServerSideProps = async ({
-  params,
-  res,
-  req,
-  resolvedUrl,
-}) => {
-  const collection = params?.token as AddressType
-  const tokenId = params?.tokenId as string
-  const network = params?.network
+export const getServerSideProps: GetServerSideProps = async ({ params, res, req, resolvedUrl }) => {
+  const collection = params?.token as AddressType;
+  const tokenId = params?.tokenId as string;
+  const network = params?.network;
 
   console.log(`/dao/[network]/[token]/[tokenId].tsx`, collection, network, tokenId, `\n\n`);
   try {
     // const chain = PUBLIC_DEFAULT_CHAINS.find((x) => x.slug === network)
-    const chain = CHAIN_IDS.BASE
-    if (!chain) throw new Error('Invalid network')
+    const chain = CHAIN_IDS.BASE;
+    if (!chain) throw new Error("Invalid network");
 
-    const env = process.env.VERCEL_ENV || 'development'
-    const protocol = env === 'development' ? 'http' : 'https'
+    const env = process.env.VERCEL_ENV || "development";
+    const protocol = env === "development" ? "http" : "https";
 
     const token = await BaseSDK.connect()
       .tokenWithDao({
-        id: `${collection.toLowerCase()}:${tokenId}`,
+        id: `${collection.toLowerCase()}:${tokenId}`
       })
-      .then((x) => x.token)
+      .then((x) => x.token);
 
     console.log(`dao/network/token.tsx token `, token);
-    if (!token) throw new Error('Token not found')
+    if (!token) throw new Error("Token not found");
 
     const {
       name,
@@ -242,35 +240,34 @@ export const getServerSideProps: GetServerSideProps = async ({
       metadataAddress,
       treasuryAddress,
       governorAddress,
-      auctionAddress,
-    } = token.dao
+      auctionAddress
+    } = token.dao;
 
     const addresses = {
       token: collection,
       metadata: metadataAddress,
       treasury: treasuryAddress,
       governor: governorAddress,
-      auction: auctionAddress,
-    } as const
+      auction: auctionAddress
+    } as const;
 
-    const daoOgMetadata = { // : DaoOgMetadata = {
+    const daoOgMetadata = {
+      // : DaoOgMetadata = {
       name,
       contractImage,
       totalSupply,
       ownerCount,
       proposalCount,
       chainId: chain,
-      treasuryAddress,
-    }
+      treasuryAddress
+    };
 
-    const ogImageURL = `${protocol}://${req.headers.host
-      }/api/og/dao?data=${encodeURIComponent(JSON.stringify(daoOgMetadata))}`
+    const ogImageURL = `${protocol}://${
+      req.headers.host
+    }/api/og/dao?data=${encodeURIComponent(JSON.stringify(daoOgMetadata))}`;
 
-    const { maxAge, swr } = CACHE_TIMES.TOKEN_INFO
-    res.setHeader(
-      'Cache-Control',
-      `public, s-maxage=${maxAge}, stale-while-revalidate=${swr}`
-    )
+    const { maxAge, swr } = CACHE_TIMES.TOKEN_INFO;
+    res.setHeader("Cache-Control", `public, s-maxage=${maxAge}, stale-while-revalidate=${swr}`);
 
     const props: TokenPageProps = {
       url: resolvedUrl,
@@ -281,19 +278,19 @@ export const getServerSideProps: GetServerSideProps = async ({
       tokenId,
       addresses,
       ogImageURL,
-      chainId: Number(chain) as CHAIN_ID,
-    }
+      chainId: Number(chain) as CHAIN_ID
+    };
     console.log(`props returned: /dao/[network]/[token]/[tokenId].tsx `, props, `\n\n`);
     return {
-      props,
-    }
+      props
+    };
   } catch (e) {
     console.error(`Error from /dao/[network]/[token]/[tokenId].tsx`, e, `\n\n`);
     return {
-      notFound: true,
-    }
+      notFound: true
+    };
   }
-}
+};
 
 /*
 const AuctionPage = (props) => {

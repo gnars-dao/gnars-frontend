@@ -1,20 +1,18 @@
-import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react"
-import React from 'react'
-
-import { AuctionBidFragment } from 'subgraph-generated/base'
-
-import { BidCard } from './BidCard'
+import React from "react";
+import { BidCard } from "./BidCard";
+import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
+import { AuctionBidFragment } from "subgraph-generated/base";
 
 interface AuctionAllBidsProps {
-  bids: AuctionBidFragment[]
+  bids: AuctionBidFragment[];
 }
 
 export const AllBids: React.FC<AuctionAllBidsProps> = ({ bids }) => {
   return (
-    <Stack direction={'column'}>
+    <Stack direction={"column"}>
       {bids.length > 0 ? (
         <>
-          <Box fontSize={20} mb={'x2'}>
+          <Box fontSize={20} mb={"x2"}>
             Bid History
           </Box>
 
@@ -28,5 +26,5 @@ export const AllBids: React.FC<AuctionAllBidsProps> = ({ bids }) => {
         <Box fontSize={20}>No bids</Box>
       )}
     </Stack>
-  )
-}
+  );
+};

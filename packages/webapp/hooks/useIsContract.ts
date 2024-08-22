@@ -1,17 +1,16 @@
-import useSWRImmutable from 'swr/immutable'
-
-import { AddressType, CHAIN_IDS, CHAIN_ID } from '@constants/types'
-import { getProvider } from '@utils/provider'
+import { AddressType, CHAIN_ID, CHAIN_IDS } from "@constants/types";
+import { getProvider } from "@utils/provider";
+import useSWRImmutable from "swr/immutable";
 
 export const useIsContract = ({
   address,
-  chainId = CHAIN_ID.HARDHAT,
+  chainId = CHAIN_ID.HARDHAT
 }: {
-  address?: AddressType
-  chainId?: CHAIN_ID
+  address?: AddressType;
+  chainId?: CHAIN_ID;
 }) => {
   return useSWRImmutable(address ? [address, chainId] : undefined, async (address) => {
-    const provider = getProvider(chainId)
-    return await provider.getBytecode({ address }).then((x) => x !== '0x')
-  })
-}
+    const provider = getProvider(chainId);
+    return await provider.getBytecode({ address }).then((x) => x !== "0x");
+  });
+};

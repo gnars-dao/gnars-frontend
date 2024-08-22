@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import {
   Button,
   Center,
@@ -12,92 +13,92 @@ import {
   TabPanels,
   Tabs,
   Text,
-  useBreakpointValue,
-  useDisclosure,
   VStack,
-} from "@chakra-ui/react"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { VoteAction } from "components/Governance/Actions/VoteAction"
-import { ProposalTimeline } from "components/Governance/ProposalTimeline"
-import { motion } from "framer-motion"
-import { useBlock } from "hooks/useBlock"
-import { useDelegationInfo } from "hooks/useDelegationInfo"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { useCallback, useState } from "react"
-import { BiCaretLeft } from "react-icons/bi"
-import { RiArrowGoBackFill } from "react-icons/ri"
+  useBreakpointValue,
+  useDisclosure
+} from "@chakra-ui/react";
+import { ProposalCard } from "@components/Governance/ProposalCard";
+import ProposalContent from "@components/Governance/ProposalContent";
+import Menu from "@components/Menu";
+import { ProposalDocument, execute } from "@subgraph-generated/layer-1";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { VoteAction } from "components/Governance/Actions/VoteAction";
+import { ProposalTimeline } from "components/Governance/ProposalTimeline";
+import { motion } from "framer-motion";
+import { useBlock } from "hooks/useBlock";
+import { useDelegationInfo } from "hooks/useDelegationInfo";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { BiCaretLeft } from "react-icons/bi";
+import { RiArrowGoBackFill } from "react-icons/ri";
 import {
   DetailedProposalData,
   EffectiveProposalStatus,
   getProposalEffectiveStatus,
   getQuorumVotes,
-  getTransactions,
-} from "utils/governanceUtils"
-import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "utils/sdk"
-import { useAccount } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
-import { execute, ProposalDocument } from "@subgraph-generated/layer-1"
-import { ProposalCard } from "@components/Governance/ProposalCard"
-import ProposalContent from "@components/Governance/ProposalContent"
-import Menu from "@components/Menu"
+  getTransactions
+} from "utils/governanceUtils";
+import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "utils/sdk";
+import { useAccount } from "wagmi";
+import { waitForTransaction } from "wagmi/actions";
 
 export default function Proposal() {
-  const { invalidateQueries } = useQueryClient()
-  const router = useRouter()
-  const block = useBlock()
-  const { address } = useAccount()
-  const { propId } = router.query as { propId: string }
+  const { invalidateQueries } = useQueryClient();
+  const router = useRouter();
+  const block = useBlock();
+  const { address } = useAccount();
+  const { propId } = router.query as { propId: string };
   const { data: proposal } = useQuery<DetailedProposalData, Error>({
     queryKey: ["proposal", propId],
     queryFn: () => execute(ProposalDocument, { id: propId }).then((r: any) => r!.data!.proposal),
     keepPreviousData: true
-  }
-  )
+  });
 
-  const effectiveStatus = proposal && getProposalEffectiveStatus(proposal, block?.number, block?.timestamp)
+  const effectiveStatus = proposal && getProposalEffectiveStatus(proposal, block?.number, block?.timestamp);
 
-  const proposer = proposal?.proposer?.id as `0x${string}`
-  const { data: delegationInfo } = useDelegationInfo(proposer)
+  const proposer = proposal?.proposer?.id as `0x${string}`;
+  const { data: delegationInfo } = useDelegationInfo(proposer);
 
   const currentProposerVotes = delegationInfo?.delegate?.delegatedVotes
     ? parseInt(delegationInfo.delegate.delegatedVotes)
-    : 0
+    : 0;
 
-  const proposalThreshold = proposal?.proposalThreshold ? parseInt(proposal.proposalThreshold) : Number.MAX_SAFE_INTEGER
-  const canQueue = proposal && address && effectiveStatus === "SUCCEEDED"
-  const canExecute = proposal && address && effectiveStatus === "EXECUTABLE"
+  const proposalThreshold = proposal?.proposalThreshold
+    ? parseInt(proposal.proposalThreshold)
+    : Number.MAX_SAFE_INTEGER;
+  const canQueue = proposal && address && effectiveStatus === "SUCCEEDED";
+  const canExecute = proposal && address && effectiveStatus === "EXECUTABLE";
   const canCancel =
     proposal &&
     (["ACTIVE", "PENDING", "QUEUED", "EXECUTABLE", "SUCCEEDED"] as EffectiveProposalStatus[]).includes(
       effectiveStatus!
     ) &&
     address &&
-    (proposer.toLowerCase() === address?.toLowerCase() || currentProposerVotes < proposalThreshold)
+    (proposer.toLowerCase() === address?.toLowerCase() || currentProposerVotes < proposalThreshold);
 
   const { writeAsync: cancelProp } = useGnarsDaoCancel({
-    args: [BigInt(propId ?? 0)],
-  })
+    args: [BigInt(propId ?? 0)]
+  });
 
   const { writeAsync: queueProp } = useGnarsDaoQueue({
-    args: [BigInt(propId ?? 0)],
-  })
+    args: [BigInt(propId ?? 0)]
+  });
 
   const { writeAsync: executeProp } = useGnarsDaoExecute({
-    args: [BigInt(propId ?? 0)],
-  })
+    args: [BigInt(propId ?? 0)]
+  });
 
   const refreshProposal = useCallback(() => {
-    invalidateQueries(["proposal", propId]) //FIXME TypeError: Cannot read properties of undefined (reading 'queryCache')
-  }, [invalidateQueries, propId])
+    invalidateQueries(["proposal", propId]); //FIXME TypeError: Cannot read properties of undefined (reading 'queryCache')
+  }, [invalidateQueries, propId]);
 
-  const quorumVotes = proposal ? getQuorumVotes(proposal) : undefined
+  const quorumVotes = proposal ? getQuorumVotes(proposal) : undefined;
 
-  const tabIndex = useBreakpointValue({ base: undefined, xl: 0 })
+  const tabIndex = useBreakpointValue({ base: undefined, xl: 0 });
   const { isOpen: showTimeline, onToggle: toggleTimeline } = useDisclosure({
-    defaultIsOpen: true,
-  })
-  const [timelineHidden, setTimelineHidden] = useState(false)
+    defaultIsOpen: true
+  });
+  const [timelineHidden, setTimelineHidden] = useState(false);
 
   return (
     <DarkMode>
@@ -119,7 +120,7 @@ export default function Proposal() {
                   <BiCaretLeft
                     style={{
                       transform: showTimeline ? "rotate(-180deg)" : undefined,
-                      transition: "transform 0.5s linear",
+                      transition: "transform 0.5s linear"
                     }}
                   />
                 }
@@ -141,7 +142,7 @@ export default function Proposal() {
                   abstainVotes: proposal.abstainVotes,
                   forVotes: proposal.forVotes,
                   againstVotes: proposal.againstVotes,
-                  totalSupply: proposal.totalSupply,
+                  totalSupply: proposal.totalSupply
                 }}
                 startBlock={proposal.startBlock}
                 endBlock={proposal.endBlock}
@@ -156,7 +157,7 @@ export default function Proposal() {
                     templateColumns={{ md: "repeat(3, 1fr)" }}
                     templateAreas={{
                       base: `"for" "abstain" "against"`,
-                      md: `"for abstain against"`,
+                      md: `"for abstain against"`
                     }}
                   >
                     <HStack spacing={2} gridArea={"for"} divider={<Text color={"governance.quorum"}>/</Text>}>
@@ -274,7 +275,7 @@ export default function Proposal() {
                   padding: showTimeline ? 12 : 0,
                   borderWidth: showTimeline ? 1 : 0,
                   opacity: showTimeline ? 1 : 0,
-                  marginLeft: showTimeline ? 8 : 0,
+                  marginLeft: showTimeline ? 8 : 0
                 }}
                 hideBelow={"lg"}
                 overflowX={"clip"}
@@ -289,5 +290,5 @@ export default function Proposal() {
         </Container>
       </VStack>
     </DarkMode>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { FetchBalanceResult, fetchBalance } from "wagmi/actions"
+import { FetchBalanceResult, fetchBalance } from "wagmi/actions";
 
 /**
  * Fetch tokens for a wallet
@@ -12,7 +12,7 @@ export function getTokensValues(
   tokens: `0x${string}`[],
   chainId?: number
 ): Promise<[FetchBalanceResult, ...FetchBalanceResult[]]> {
-  const ethBalancePromise = fetchBalance({ address: holder, chainId })
-  const balancePromises = tokens.map((token) => fetchBalance({ address: holder, token, chainId }))
-  return Promise.all([ethBalancePromise, ...balancePromises])
+  const ethBalancePromise = fetchBalance({ address: holder, chainId });
+  const balancePromises = tokens.map((token) => fetchBalance({ address: holder, token, chainId }));
+  return Promise.all([ethBalancePromise, ...balancePromises]);
 }

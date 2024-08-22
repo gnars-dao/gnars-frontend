@@ -1,15 +1,15 @@
-import { formatEther } from 'viem'
+import { formatEther } from "viem";
 
-const DEFAULT_MIN_BID_AMOUNT = 0.0001
+const DEFAULT_MIN_BID_AMOUNT = 0.0001;
 
 export const useMinBidIncrement = ({
   highestBid,
   reservePrice,
-  minBidIncrement,
+  minBidIncrement
 }: {
-  highestBid?: bigint
-  reservePrice?: bigint
-  minBidIncrement?: bigint
+  highestBid?: bigint;
+  reservePrice?: bigint;
+  minBidIncrement?: bigint;
 }) => {
   if (
     reservePrice === undefined ||
@@ -18,20 +18,20 @@ export const useMinBidIncrement = ({
     (reservePrice === BigInt(0) && highestBid === BigInt(0))
   ) {
     return {
-      minBidAmount: DEFAULT_MIN_BID_AMOUNT,
-    }
+      minBidAmount: DEFAULT_MIN_BID_AMOUNT
+    };
   }
 
   if (!highestBid || highestBid === BigInt(0)) {
     return {
-      minBidAmount: Number(formatEther(reservePrice)),
-    }
+      minBidAmount: Number(formatEther(reservePrice))
+    };
   }
 
-  const minBidRawAmount = (highestBid * minBidIncrement) / BigInt(100) + highestBid
-  const minBidFormattedAmount = Number(formatEther(minBidRawAmount))
+  const minBidRawAmount = (highestBid * minBidIncrement) / BigInt(100) + highestBid;
+  const minBidFormattedAmount = Number(formatEther(minBidRawAmount));
 
   return {
-    minBidAmount: minBidFormattedAmount,
-  }
-}
+    minBidAmount: minBidFormattedAmount
+  };
+};

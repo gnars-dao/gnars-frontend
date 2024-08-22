@@ -1,12 +1,11 @@
-import { Chain as WagmiChain } from 'wagmi'
+import { Chain as WagmiChain } from "wagmi";
 
 export interface Duration {
-  seconds?: number
-  days?: number
-  hours?: number
-  minutes?: number
+  seconds?: number;
+  days?: number;
+  hours?: number;
+  minutes?: number;
 }
-
 
 export const enum CHAIN_ID {
   ETHEREUM = 1,
@@ -22,9 +21,9 @@ export const enum CHAIN_ID {
 }
 
 export interface Chain extends WagmiChain {
-  id: CHAIN_ID
-  slug: string
-  icon: string
+  id: CHAIN_ID;
+  slug: string;
+  icon: string;
 }
 
 export const enum CHAIN_IDS {
@@ -37,11 +36,11 @@ export const enum CHAIN_IDS {
 export const ALCHEMY_RPC_URLS: Map<number, string> = new Map([
   [CHAIN_IDS.ETHEREUM, "https://eth-mainnet.g.alchemy.com/v2/"],
   [CHAIN_IDS.BASE, "https://base-mainnet.g.alchemy.com/v2/"]
-])
+]);
 
-export type AddressType = `0x${string}`
+export type AddressType = `0x${string}`;
 
-export type BytesType = `0x${string}`
+export type BytesType = `0x${string}`;
 
 export interface Dao {
   governorAddress: string;

@@ -1,15 +1,13 @@
-import { Box, Flex, Stack, Text } from '@chakra-ui/react'
-import dynamic from 'next/dynamic'
-import React from 'react'
-
-import { Icon } from '@chakra-ui/icons'
-import { ETHERSCAN_BASE_URL } from '@constants/etherscan'
-import { AuctionBidFragment } from '@subgraph-generated/base'
-import { useChainStore } from 'stores/useChainStore'
-
-import { AllBids } from '../AllBids'
+import React from "react";
+import { AllBids } from "../AllBids";
 // import { allRecentBidsButton, recentBid } from '../Auction.css'
-import { Bidder } from './Bidder'
+import { Bidder } from "./Bidder";
+import { Icon } from "@chakra-ui/icons";
+import { Box, Flex, Stack, Text } from "@chakra-ui/react";
+import { ETHERSCAN_BASE_URL } from "@constants/etherscan";
+import { AuctionBidFragment } from "@subgraph-generated/base";
+import dynamic from "next/dynamic";
+import { useChainStore } from "stores/useChainStore";
 
 // TODO: Check if AnimatedModal needs to be pulled in from nouns-builder
 // const AnimatedModal = dynamic(() => import('src/components/Modal/AnimatedModal'), {
@@ -17,11 +15,11 @@ import { Bidder } from './Bidder'
 // })
 
 interface RecentBidsProps {
-  bids: AuctionBidFragment[]
+  bids: AuctionBidFragment[];
 }
 
 export const RecentBids: React.FC<RecentBidsProps> = ({ bids }) => {
-  const chain = useChainStore((x) => x.chain)
+  const chain = useChainStore((x) => x.chain);
 
   return bids.length ? (
     <Box mt="x3">
@@ -33,7 +31,7 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids }) => {
             justify="space-between"
             key={`${bidder}_${amount}`}
             // className={recentBid}
-            className={'recent-bid'}
+            className={"recent-bid"}
           >
             <Bidder address={bidder} />
 
@@ -56,7 +54,7 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids }) => {
           align="center"
           justify="center"
           //className={recentBid}
-          className={'recent-bid'}
+          className={"recent-bid"}
         >
           {/*
           <AnimatedModal
@@ -78,5 +76,5 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids }) => {
         No bids yet
       </Text>
     </Flex>
-  )
-}
+  );
+};

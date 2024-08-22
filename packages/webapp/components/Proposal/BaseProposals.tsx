@@ -1,29 +1,24 @@
-import isArray from "lodash/isArray"
-import {
-  Heading,
-  VStack, Divider, Text, HStack, Stack, Button
-} from "@chakra-ui/react"
-import { FC } from "react"
-import Link from "next/link"
-import { getQuorumVotes, parseState } from "@utils/governanceUtils"
-import { ProposalCard } from "@components/Governance/ProposalCard.tsx"
-import { UserVotes } from "@components/Governance/Delegation/UserVotes.tsx"
-import { DelegateButton } from "@components/Governance/Delegation/DelegateButton.tsx"
-import {
-  ProposalState
-} from "@data/contract/requests/getProposalState"
-import { Proposal } from "@queries/base/requests/proposalQuery"
+import { FC } from "react";
+import { Button, Divider, HStack, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { DelegateButton } from "@components/Governance/Delegation/DelegateButton.tsx";
+import { UserVotes } from "@components/Governance/Delegation/UserVotes.tsx";
+import { ProposalCard } from "@components/Governance/ProposalCard.tsx";
+import { ProposalState } from "@data/contract/requests/getProposalState";
+import { Proposal } from "@queries/base/requests/proposalQuery";
+import { getQuorumVotes, parseState } from "@utils/governanceUtils";
+import isArray from "lodash/isArray";
+import Link from "next/link";
 
 interface BaseProposalsProps {
-  proposals: Proposal[] | undefined
+  proposals: Proposal[] | undefined;
 }
 
 const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
-  if (!isArray(proposals)) return null
+  if (!isArray(proposals)) return null;
 
-  const isFinalized = (state: ProposalState) => state !== ProposalState.Active && state !== ProposalState.Queued
-  const activeProposals = proposals?.filter(({ state }) => !isFinalized(state)) || []
-  const inactiveProposals = proposals?.filter(({ state }) => isFinalized(state)) || []
+  const isFinalized = (state: ProposalState) => state !== ProposalState.Active && state !== ProposalState.Queued;
+  const activeProposals = proposals?.filter(({ state }) => !isFinalized(state)) || [];
+  const inactiveProposals = proposals?.filter(({ state }) => isFinalized(state)) || [];
   return (
     <VStack w={"full"} spacing={4} alignItems={"center"} py={{ base: 4, lg: 10 }} px={{ base: 4, lg: 20 }}>
       <Stack
@@ -51,7 +46,7 @@ const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
           </Heading>
           <Divider />
         </HStack>
-        {activeProposals.map(prop => (
+        {activeProposals.map((prop) => (
           <Link
             key={"active-base-prop-" + prop.proposalNumber}
             href={`https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17/vote/${prop.proposalNumber}`}
@@ -76,7 +71,8 @@ const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
                 cursor: "pointer"
               }}
             />
-          </Link>))}
+          </Link>
+        ))}
         {inactiveProposals.length > 0 && (
           <>
             <HStack w="full" color={"gray.300"} py={10}>
@@ -86,7 +82,7 @@ const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
               </Heading>
               <Divider />
             </HStack>
-            {inactiveProposals.map(prop => (
+            {inactiveProposals.map((prop) => (
               <Link
                 key={"finalized-base-prop-" + prop.proposalNumber}
                 href={`https://nouns.build/dao/base/0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17/vote/${prop.proposalNumber}`}
@@ -117,7 +113,8 @@ const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
         )}
         {proposals.length === 0 && <Text>No proposals yet</Text>}
       </VStack>
-    </VStack>)
-}
+    </VStack>
+  );
+};
 
-export default BaseProposals
+export default BaseProposals;
