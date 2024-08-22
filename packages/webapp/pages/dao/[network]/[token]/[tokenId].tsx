@@ -153,7 +153,7 @@ const TokenPage = ({
         token={token}
       />*/}
 
-      <Heading fontSize={"xx-large"} color="white" textAlign={"center"} py={"20px"}>
+      {/*<Heading fontSize={"xx-large"} color="white" textAlign={"center"} py={"20px"}>
         Chain
       </Heading>
       <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
@@ -179,7 +179,7 @@ const TokenPage = ({
       </Heading>
       <Code display="flex" whiteSpace="pre" width={"1000px"} overflow={"auto"} p="10px">
         {JSON.stringify(token, null, 2)}
-      </Code>
+      </Code>*/}
 
       <Auction chain={chain} auctionAddress={addresses.auction!} collection={collection} token={token} />
 
@@ -262,9 +262,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, res, req,
       treasuryAddress
     };
 
-    const ogImageURL = `${protocol}://${
-      req.headers.host
-    }/api/og/dao?data=${encodeURIComponent(JSON.stringify(daoOgMetadata))}`;
+    const ogImageURL = `${protocol}://${req.headers.host
+      }/api/og/dao?data=${encodeURIComponent(JSON.stringify(daoOgMetadata))}`;
 
     const { maxAge, swr } = CACHE_TIMES.TOKEN_INFO;
     res.setHeader("Cache-Control", `public, s-maxage=${maxAge}, stale-while-revalidate=${swr}`);
