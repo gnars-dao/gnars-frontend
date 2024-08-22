@@ -1,13 +1,13 @@
-import { Alert, AlertIcon, Badge, Card, CardBody, CardProps, HStack } from "@chakra-ui/react"
-import { FC } from "react"
-import { ErrorBoundary } from "react-error-boundary"
-import { NounsTransactionData } from "utils/governanceUtils"
-import { Transaction } from "./Transaction"
+import { FC } from "react";
+import { Transaction } from "./Transaction";
+import { Alert, AlertIcon, Badge, Card, CardBody, CardProps, HStack } from "@chakra-ui/react";
+import { ErrorBoundary } from "react-error-boundary";
+import { NounsTransactionData } from "utils/governanceUtils";
 
 export interface TransactionCardProps extends CardProps {
-  data: NounsTransactionData
-  controls?: React.ReactNode
-  index: number
+  data: NounsTransactionData;
+  controls?: React.ReactNode;
+  index: number;
 }
 
 export const TransactionCard: FC<TransactionCardProps> = ({ index, data, controls, ...props }) => {
@@ -40,5 +40,5 @@ export const TransactionCard: FC<TransactionCardProps> = ({ index, data, control
         </ErrorBoundary>
       </CardBody>
     </Card>
-  )
-}
+  );
+};

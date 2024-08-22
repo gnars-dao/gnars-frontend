@@ -1,3 +1,8 @@
+import { FC, useMemo } from "react";
+import { AddTransactionForm } from "./AddTransactionForm";
+import { useAddTransactionFormState } from "./AddTransactionForm.state";
+import { useProposalCreationState } from "./ProposalCreationForm.state";
+import { TransactionCard } from "./TransactionCard";
 import {
   Button,
   FormControl,
@@ -13,28 +18,23 @@ import {
   StackProps,
   Text,
   Textarea,
-  useToast,
   VStack,
-} from "@chakra-ui/react"
-import { useRouter } from "next/router"
-import { FC, useMemo } from "react"
-import { FaTrashAlt } from "react-icons/fa"
-import { usePrepareGnarsDaoPropose } from "utils/sdk"
-import { useContractWrite } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
-import { AddTransactionForm } from "./AddTransactionForm"
-import { useAddTransactionFormState } from "./AddTransactionForm.state"
-import { useProposalCreationState } from "./ProposalCreationForm.state"
-import { TransactionCard } from "./TransactionCard"
+  useToast
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { FaTrashAlt } from "react-icons/fa";
+import { usePrepareGnarsDaoPropose } from "utils/sdk";
+import { useContractWrite } from "wagmi";
+import { waitForTransaction } from "wagmi/actions";
 
 export interface ProposalCreationFormProps extends StackProps {}
 
 export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }) => {
   const { title, setTitle, description, setDescription, transactions, setTransactions, clear } =
-    useProposalCreationState()
-  const { isOpen: isAddTxOpen, open: openAddTx } = useAddTransactionFormState()
-  const isInvalid = !title || !description || transactions.length === 0
-  const { push } = useRouter()
+    useProposalCreationState();
+  const { isOpen: isAddTxOpen, open: openAddTx } = useAddTransactionFormState();
+  const isInvalid = !title || !description || transactions.length === 0;
+  const { push } = useRouter();
   const { targets, values, signatures, calldatas } = useMemo(
     () =>
       isInvalid
@@ -44,26 +44,26 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
               targets: [...transactions.targets, transaction.target as `0x${string}`],
               values: [...transactions.values, transaction.value],
               signatures: [...transactions.signatures, transaction.signature],
-              calldatas: [...transactions.calldatas, transaction.calldata as `0x${string}`],
+              calldatas: [...transactions.calldatas, transaction.calldata as `0x${string}`]
             }),
             {
               targets: [] as `0x${string}`[],
               values: [] as bigint[],
               signatures: [] as string[],
-              calldatas: [] as `0x${string}`[],
+              calldatas: [] as `0x${string}`[]
             }
           ),
     [transactions, isInvalid]
-  )
-  const proposalDescription = useMemo(() => `# ${title}\n\n${description}`, [title, description])
+  );
+  const proposalDescription = useMemo(() => `# ${title}\n\n${description}`, [title, description]);
   const { config } = usePrepareGnarsDaoPropose({
     args: [targets, values, signatures, calldatas, proposalDescription],
     enabled: !isInvalid,
-    cacheTime: 2000,
-  })
+    cacheTime: 2000
+  });
 
-  const { writeAsync: propose } = useContractWrite(config)
-  const toast = useToast()
+  const { writeAsync: propose } = useContractWrite(config);
+  const toast = useToast();
 
   return (
     <VStack
@@ -165,7 +165,7 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
       </FormControl>
       <Button
         _dark={{
-          bg: "pink.700",
+          bg: "pink.700"
         }}
         isDisabled={isInvalid || !propose}
         alignSelf={"end"}
@@ -179,22 +179,22 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
                 description: "Your proposal has been submitted successfully. Redirecting to proposals page ...",
                 duration: 3000,
                 onCloseComplete: () => {
-                  clear()
-                  push("/dao")
-                },
-              })
+                  clear();
+                  push("/dao");
+                }
+              });
             })
             .catch(() => {
               toast({
                 title: "Submission failed",
                 status: "error",
-                description: "Something went wrong. Check your wallet for details.",
-              })
+                description: "Something went wrong. Check your wallet for details."
+              });
             })
         }
       >
         Submit proposal
       </Button>
     </VStack>
-  )
-}
+  );
+};

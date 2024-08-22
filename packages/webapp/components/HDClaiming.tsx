@@ -1,3 +1,8 @@
+import { useEffect, useState } from "react";
+import { useGnarsHdAssertOwnership } from "../utils/sdk";
+import { ContractActionButton } from "./ContractActionButton";
+import { GnarHDImage } from "./GnarHDImage";
+import { WalletButton } from "./WalletButton";
 import {
   Alert,
   AlertIcon,
@@ -8,42 +13,37 @@ import {
   Spinner,
   Tag,
   Text,
-  useBreakpointValue,
   VStack,
   Wrap,
   WrapItem,
-} from "@chakra-ui/react"
-import { useQueryClient } from "@tanstack/react-query"
-import { useWalletHDGnars, walletHDGnarsQueryKey } from "hooks/useWalletHDGnars"
-import { useEffect, useState } from "react"
-import { useAccount } from "wagmi"
-import { waitForTransaction } from "wagmi/actions"
-import { useGnarsHdAssertOwnership } from "../utils/sdk"
-import { ContractActionButton } from "./ContractActionButton"
-import { GnarHDImage } from "./GnarHDImage"
-import { WalletButton } from "./WalletButton"
+  useBreakpointValue
+} from "@chakra-ui/react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useWalletHDGnars, walletHDGnarsQueryKey } from "hooks/useWalletHDGnars";
+import { useAccount } from "wagmi";
+import { waitForTransaction } from "wagmi/actions";
 
 export const HDClaiming = () => {
-  const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" })
-  const { invalidateQueries } = useQueryClient()
-  const { isDisconnected, address } = useAccount()
-  const [isClaiming, setIsClaiming] = useState(false)
-  const [selectedHDGnars, setSelectedHDGnars] = useState<string[]>([])
+  const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" });
+  const { invalidateQueries } = useQueryClient();
+  const { isDisconnected, address } = useAccount();
+  const [isClaiming, setIsClaiming] = useState(false);
+  const [selectedHDGnars, setSelectedHDGnars] = useState<string[]>([]);
   useEffect(() => {
-    setSelectedHDGnars([])
-  }, [address])
+    setSelectedHDGnars([]);
+  }, [address]);
 
-  const selectHD = (id: string) => setSelectedHDGnars([...selectedHDGnars, id])
-  const deselectHD = (id: string) => setSelectedHDGnars(selectedHDGnars.filter((s) => s !== id))
+  const selectHD = (id: string) => setSelectedHDGnars([...selectedHDGnars, id]);
+  const deselectHD = (id: string) => setSelectedHDGnars(selectedHDGnars.filter((s) => s !== id));
 
-  const { isLoading, data: hdGnars } = useWalletHDGnars(address)
+  const { isLoading, data: hdGnars } = useWalletHDGnars(address);
 
   const { writeAsync: claimGnars } = useGnarsHdAssertOwnership({
-    args: [selectedHDGnars.map((id) => BigInt(id))],
-  })
+    args: [selectedHDGnars.map((id) => BigInt(id))]
+  });
 
   if (isDisconnected) {
-    return <WalletButton alignSelf={"center"} />
+    return <WalletButton alignSelf={"center"} />;
   }
 
   if (isLoading || !hdGnars) {
@@ -51,7 +51,7 @@ export const HDClaiming = () => {
       <Center flexGrow={1}>
         <Spinner size={"xl"} />
       </Center>
-    )
+    );
   }
 
   if (hdGnars.length === 0) {
@@ -60,10 +60,10 @@ export const HDClaiming = () => {
         <AlertIcon />
         You hold no Gnars 🥲
       </Alert>
-    )
+    );
   }
 
-  const amountClaimableHdGnars = hdGnars.filter((hd) => !hd.wasClaimed).length
+  const amountClaimableHdGnars = hdGnars.filter((hd) => !hd.wasClaimed).length;
 
   return (
     <VStack
@@ -111,14 +111,14 @@ export const HDClaiming = () => {
               isLoading={isClaiming}
               loadingText={"Claiming"}
               onClick={() => {
-                setIsClaiming(true)
+                setIsClaiming(true);
                 claimGnars()
                   .then((tx) => waitForTransaction({ hash: tx.hash }))
                   .then(() => invalidateQueries({ queryKey: [walletHDGnarsQueryKey] }))
                   .catch(console.error)
                   .finally(() => {
-                    setIsClaiming(false)
-                  })
+                    setIsClaiming(false);
+                  });
               }}
             >
               Claim selected
@@ -136,7 +136,7 @@ export const HDClaiming = () => {
           overflow={"visible"}
         >
           {hdGnars.map((hdGnar) => {
-            const isSelected = selectedHDGnars.includes(hdGnar.id)
+            const isSelected = selectedHDGnars.includes(hdGnar.id);
 
             return (
               <Button
@@ -167,10 +167,10 @@ export const HDClaiming = () => {
                   </SimpleGrid>
                 </VStack>
               </Button>
-            )
+            );
           })}
         </SimpleGrid>
       </Box>
     </VStack>
-  )
-}
+  );
+};

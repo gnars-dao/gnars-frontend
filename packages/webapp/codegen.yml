@@ -1,4 +1,4 @@
-schema: './subgraph-generated/base/graphql.schema.json'
+schema: ./base.schema.graphql
 documents: './queries/base/**/*.graphql'
 generates:
   subgraph-generated/base/index.ts:

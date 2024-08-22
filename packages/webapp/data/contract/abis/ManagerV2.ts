@@ -2,865 +2,865 @@ export const managerV2Abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_tokenImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_tokenImpl",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_metadataImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_metadataImpl",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_auctionImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_auctionImpl",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_treasuryImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_treasuryImpl",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_governorImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_governorImpl",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_builderRewardsRecipient',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_builderRewardsRecipient",
+        type: "address"
+      }
     ],
-    stateMutability: 'payable',
-    type: 'constructor',
+    stateMutability: "payable",
+    type: "constructor"
   },
   {
     inputs: [],
-    name: 'ADDRESS_ZERO',
-    type: 'error',
+    name: "ADDRESS_ZERO",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ALREADY_INITIALIZED',
-    type: 'error',
+    name: "ALREADY_INITIALIZED",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'DELEGATE_CALL_FAILED',
-    type: 'error',
+    name: "DELEGATE_CALL_FAILED",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'FOUNDER_REQUIRED',
-    type: 'error',
+    name: "FOUNDER_REQUIRED",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'INITIALIZING',
-    type: 'error',
+    name: "INITIALIZING",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'INVALID_TARGET',
-    type: 'error',
+    name: "INVALID_TARGET",
+    type: "error"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: 'impl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "impl",
+        type: "address"
+      }
     ],
-    name: 'INVALID_UPGRADE',
-    type: 'error',
+    name: "INVALID_UPGRADE",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'NOT_INITIALIZING',
-    type: 'error',
+    name: "NOT_INITIALIZING",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_CALL',
-    type: 'error',
+    name: "ONLY_CALL",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_DELEGATECALL',
-    type: 'error',
+    name: "ONLY_DELEGATECALL",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_OWNER',
-    type: 'error',
+    name: "ONLY_OWNER",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_PENDING_OWNER',
-    type: 'error',
+    name: "ONLY_PENDING_OWNER",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_PROXY',
-    type: 'error',
+    name: "ONLY_PROXY",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_TOKEN_OWNER',
-    type: 'error',
+    name: "ONLY_TOKEN_OWNER",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'ONLY_UUPS',
-    type: 'error',
+    name: "ONLY_UUPS",
+    type: "error"
   },
   {
     inputs: [],
-    name: 'UNSUPPORTED_UUID',
-    type: 'error',
+    name: "UNSUPPORTED_UUID",
+    type: "error"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'address',
-        name: 'token',
-        type: 'address',
+        internalType: "address",
+        name: "token",
+        type: "address"
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: 'metadata',
-        type: 'address',
+        internalType: "address",
+        name: "metadata",
+        type: "address"
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: 'auction',
-        type: 'address',
+        internalType: "address",
+        name: "auction",
+        type: "address"
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: 'treasury',
-        type: 'address',
+        internalType: "address",
+        name: "treasury",
+        type: "address"
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: 'governor',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "governor",
+        type: "address"
+      }
     ],
-    name: 'DAODeployed',
-    type: 'event',
+    name: "DAODeployed",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'version',
-        type: 'uint256',
-      },
+        internalType: "uint256",
+        name: "version",
+        type: "uint256"
+      }
     ],
-    name: 'Initialized',
-    type: 'event',
+    name: "Initialized",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'address',
-        name: 'sender',
-        type: 'address',
+        internalType: "address",
+        name: "sender",
+        type: "address"
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: 'renderer',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "renderer",
+        type: "address"
+      }
     ],
-    name: 'MetadataRendererUpdated',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'canceledOwner',
-        type: 'address',
-      },
-    ],
-    name: 'OwnerCanceled',
-    type: 'event',
+    name: "MetadataRendererUpdated",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
+        internalType: "address",
+        name: "owner",
+        type: "address"
       },
       {
         indexed: true,
-        internalType: 'address',
-        name: 'pendingOwner',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "canceledOwner",
+        type: "address"
+      }
     ],
-    name: 'OwnerPending',
-    type: 'event',
+    name: "OwnerCanceled",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: 'address',
-        name: 'prevOwner',
-        type: 'address',
+        internalType: "address",
+        name: "owner",
+        type: "address"
       },
       {
         indexed: true,
-        internalType: 'address',
-        name: 'newOwner',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "pendingOwner",
+        type: "address"
+      }
     ],
-    name: 'OwnerUpdated',
-    type: 'event',
+    name: "OwnerPending",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "prevOwner",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address"
+      }
+    ],
+    name: "OwnerUpdated",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'address',
-        name: 'baseImpl',
-        type: 'address',
+        internalType: "address",
+        name: "baseImpl",
+        type: "address"
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: 'upgradeImpl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "upgradeImpl",
+        type: "address"
+      }
     ],
-    name: 'UpgradeRegistered',
-    type: 'event',
+    name: "UpgradeRegistered",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'address',
-        name: 'baseImpl',
-        type: 'address',
+        internalType: "address",
+        name: "baseImpl",
+        type: "address"
       },
       {
         indexed: false,
-        internalType: 'address',
-        name: 'upgradeImpl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "upgradeImpl",
+        type: "address"
+      }
     ],
-    name: 'UpgradeRemoved',
-    type: 'event',
+    name: "UpgradeRemoved",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: 'address',
-        name: 'impl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "impl",
+        type: "address"
+      }
     ],
-    name: 'Upgraded',
-    type: 'event',
+    name: "Upgraded",
+    type: "event"
   },
   {
     inputs: [],
-    name: 'acceptOwnership',
+    name: "acceptOwnership",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'auctionImpl',
+    name: "auctionImpl",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'builderRewardsRecipient',
+    name: "builderRewardsRecipient",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'cancelOwnershipTransfer',
+    name: "cancelOwnershipTransfer",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'contractVersion',
+    name: "contractVersion",
     outputs: [
       {
-        internalType: 'string',
-        name: '',
-        type: 'string',
-      },
+        internalType: "string",
+        name: "",
+        type: "string"
+      }
     ],
-    stateMutability: 'pure',
-    type: 'function',
+    stateMutability: "pure",
+    type: "function"
   },
   {
     inputs: [
       {
         components: [
           {
-            internalType: 'address',
-            name: 'wallet',
-            type: 'address',
+            internalType: "address",
+            name: "wallet",
+            type: "address"
           },
           {
-            internalType: 'uint256',
-            name: 'ownershipPct',
-            type: 'uint256',
+            internalType: "uint256",
+            name: "ownershipPct",
+            type: "uint256"
           },
           {
-            internalType: 'uint256',
-            name: 'vestExpiry',
-            type: 'uint256',
-          },
+            internalType: "uint256",
+            name: "vestExpiry",
+            type: "uint256"
+          }
         ],
-        internalType: 'struct IManager.FounderParams[]',
-        name: '_founderParams',
-        type: 'tuple[]',
+        internalType: "struct IManager.FounderParams[]",
+        name: "_founderParams",
+        type: "tuple[]"
       },
       {
         components: [
           {
-            internalType: 'bytes',
-            name: 'initStrings',
-            type: 'bytes',
+            internalType: "bytes",
+            name: "initStrings",
+            type: "bytes"
           },
           {
-            internalType: 'address',
-            name: 'metadataRenderer',
-            type: 'address',
+            internalType: "address",
+            name: "metadataRenderer",
+            type: "address"
           },
           {
-            internalType: 'uint256',
-            name: 'reservedUntilTokenId',
-            type: 'uint256',
-          },
+            internalType: "uint256",
+            name: "reservedUntilTokenId",
+            type: "uint256"
+          }
         ],
-        internalType: 'struct IManager.TokenParams',
-        name: '_tokenParams',
-        type: 'tuple',
+        internalType: "struct IManager.TokenParams",
+        name: "_tokenParams",
+        type: "tuple"
       },
       {
         components: [
           {
-            internalType: 'uint256',
-            name: 'reservePrice',
-            type: 'uint256',
+            internalType: "uint256",
+            name: "reservePrice",
+            type: "uint256"
           },
           {
-            internalType: 'uint256',
-            name: 'duration',
-            type: 'uint256',
+            internalType: "uint256",
+            name: "duration",
+            type: "uint256"
           },
           {
-            internalType: 'address',
-            name: 'founderRewardRecipent',
-            type: 'address',
+            internalType: "address",
+            name: "founderRewardRecipent",
+            type: "address"
           },
           {
-            internalType: 'uint16',
-            name: 'founderRewardBps',
-            type: 'uint16',
-          },
+            internalType: "uint16",
+            name: "founderRewardBps",
+            type: "uint16"
+          }
         ],
-        internalType: 'struct IManager.AuctionParams',
-        name: '_auctionParams',
-        type: 'tuple',
+        internalType: "struct IManager.AuctionParams",
+        name: "_auctionParams",
+        type: "tuple"
       },
       {
         components: [
           {
-            internalType: 'uint256',
-            name: 'timelockDelay',
-            type: 'uint256',
+            internalType: "uint256",
+            name: "timelockDelay",
+            type: "uint256"
           },
           {
-            internalType: 'uint256',
-            name: 'votingDelay',
-            type: 'uint256',
+            internalType: "uint256",
+            name: "votingDelay",
+            type: "uint256"
           },
           {
-            internalType: 'uint256',
-            name: 'votingPeriod',
-            type: 'uint256',
+            internalType: "uint256",
+            name: "votingPeriod",
+            type: "uint256"
           },
           {
-            internalType: 'uint256',
-            name: 'proposalThresholdBps',
-            type: 'uint256',
+            internalType: "uint256",
+            name: "proposalThresholdBps",
+            type: "uint256"
           },
           {
-            internalType: 'uint256',
-            name: 'quorumThresholdBps',
-            type: 'uint256',
+            internalType: "uint256",
+            name: "quorumThresholdBps",
+            type: "uint256"
           },
           {
-            internalType: 'address',
-            name: 'vetoer',
-            type: 'address',
-          },
+            internalType: "address",
+            name: "vetoer",
+            type: "address"
+          }
         ],
-        internalType: 'struct IManager.GovParams',
-        name: '_govParams',
-        type: 'tuple',
-      },
+        internalType: "struct IManager.GovParams",
+        name: "_govParams",
+        type: "tuple"
+      }
     ],
-    name: 'deploy',
+    name: "deploy",
     outputs: [
       {
-        internalType: 'address',
-        name: 'token',
-        type: 'address',
+        internalType: "address",
+        name: "token",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: 'metadata',
-        type: 'address',
+        internalType: "address",
+        name: "metadata",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: 'auction',
-        type: 'address',
+        internalType: "address",
+        name: "auction",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: 'treasury',
-        type: 'address',
+        internalType: "address",
+        name: "treasury",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: 'governor',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "governor",
+        type: "address"
+      }
     ],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_token',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_token",
+        type: "address"
+      }
     ],
-    name: 'getAddresses',
+    name: "getAddresses",
     outputs: [
       {
-        internalType: 'address',
-        name: 'metadata',
-        type: 'address',
+        internalType: "address",
+        name: "metadata",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: 'auction',
-        type: 'address',
+        internalType: "address",
+        name: "auction",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: 'treasury',
-        type: 'address',
+        internalType: "address",
+        name: "treasury",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: 'governor',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "governor",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: 'token',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "token",
+        type: "address"
+      }
     ],
-    name: 'getDAOVersions',
+    name: "getDAOVersions",
     outputs: [
       {
         components: [
           {
-            internalType: 'string',
-            name: 'token',
-            type: 'string',
+            internalType: "string",
+            name: "token",
+            type: "string"
           },
           {
-            internalType: 'string',
-            name: 'metadata',
-            type: 'string',
+            internalType: "string",
+            name: "metadata",
+            type: "string"
           },
           {
-            internalType: 'string',
-            name: 'auction',
-            type: 'string',
+            internalType: "string",
+            name: "auction",
+            type: "string"
           },
           {
-            internalType: 'string',
-            name: 'treasury',
-            type: 'string',
+            internalType: "string",
+            name: "treasury",
+            type: "string"
           },
           {
-            internalType: 'string',
-            name: 'governor',
-            type: 'string',
-          },
+            internalType: "string",
+            name: "governor",
+            type: "string"
+          }
         ],
-        internalType: 'struct IManager.DAOVersionInfo',
-        name: '',
-        type: 'tuple',
-      },
+        internalType: "struct IManager.DAOVersionInfo",
+        name: "",
+        type: "tuple"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'getLatestVersions',
+    name: "getLatestVersions",
     outputs: [
       {
         components: [
           {
-            internalType: 'string',
-            name: 'token',
-            type: 'string',
+            internalType: "string",
+            name: "token",
+            type: "string"
           },
           {
-            internalType: 'string',
-            name: 'metadata',
-            type: 'string',
+            internalType: "string",
+            name: "metadata",
+            type: "string"
           },
           {
-            internalType: 'string',
-            name: 'auction',
-            type: 'string',
+            internalType: "string",
+            name: "auction",
+            type: "string"
           },
           {
-            internalType: 'string',
-            name: 'treasury',
-            type: 'string',
+            internalType: "string",
+            name: "treasury",
+            type: "string"
           },
           {
-            internalType: 'string',
-            name: 'governor',
-            type: 'string',
-          },
+            internalType: "string",
+            name: "governor",
+            type: "string"
+          }
         ],
-        internalType: 'struct IManager.DAOVersionInfo',
-        name: '',
-        type: 'tuple',
-      },
+        internalType: "struct IManager.DAOVersionInfo",
+        name: "",
+        type: "tuple"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'governorImpl',
+    name: "governorImpl",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newOwner',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_newOwner",
+        type: "address"
+      }
     ],
-    name: 'initialize',
+    name: "initialize",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_baseImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_baseImpl",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_upgradeImpl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_upgradeImpl",
+        type: "address"
+      }
     ],
-    name: 'isRegisteredUpgrade',
+    name: "isRegisteredUpgrade",
     outputs: [
       {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'metadataImpl',
+    name: "metadataImpl",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'owner',
+    name: "owner",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'pendingOwner',
+    name: "pendingOwner",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'proxiableUUID',
+    name: "proxiableUUID",
     outputs: [
       {
-        internalType: 'bytes32',
-        name: '',
-        type: 'bytes32',
-      },
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_baseImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_baseImpl",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_upgradeImpl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_upgradeImpl",
+        type: "address"
+      }
     ],
-    name: 'registerUpgrade',
+    name: "registerUpgrade",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_baseImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_baseImpl",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_upgradeImpl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_upgradeImpl",
+        type: "address"
+      }
     ],
-    name: 'removeUpgrade',
+    name: "removeUpgrade",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newOwner',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_newOwner",
+        type: "address"
+      }
     ],
-    name: 'safeTransferOwnership',
+    name: "safeTransferOwnership",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_token',
-        type: 'address',
+        internalType: "address",
+        name: "_token",
+        type: "address"
       },
       {
-        internalType: 'address',
-        name: '_newRendererImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_newRendererImpl",
+        type: "address"
       },
       {
-        internalType: 'bytes',
-        name: '_setupRenderer',
-        type: 'bytes',
-      },
+        internalType: "bytes",
+        name: "_setupRenderer",
+        type: "bytes"
+      }
     ],
-    name: 'setMetadataRenderer',
+    name: "setMetadataRenderer",
     outputs: [
       {
-        internalType: 'address',
-        name: 'metadata',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "metadata",
+        type: "address"
+      }
     ],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'tokenImpl',
+    name: "tokenImpl",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newOwner',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_newOwner",
+        type: "address"
+      }
     ],
-    name: 'transferOwnership',
+    name: "transferOwnership",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [],
-    name: 'treasuryImpl',
+    name: "treasuryImpl",
     outputs: [
       {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "",
+        type: "address"
+      }
     ],
-    stateMutability: 'view',
-    type: 'function',
+    stateMutability: "view",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newImpl',
-        type: 'address',
-      },
+        internalType: "address",
+        name: "_newImpl",
+        type: "address"
+      }
     ],
-    name: 'upgradeTo',
+    name: "upgradeTo",
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newImpl',
-        type: 'address',
+        internalType: "address",
+        name: "_newImpl",
+        type: "address"
       },
       {
-        internalType: 'bytes',
-        name: '_data',
-        type: 'bytes',
-      },
+        internalType: "bytes",
+        name: "_data",
+        type: "bytes"
+      }
     ],
-    name: 'upgradeToAndCall',
+    name: "upgradeToAndCall",
     outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-] as const
+    stateMutability: "payable",
+    type: "function"
+  }
+] as const;
