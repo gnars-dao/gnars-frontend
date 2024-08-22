@@ -1,10 +1,11 @@
 import { ChakraProvider, DarkMode, Divider, VStack } from "@chakra-ui/react";
+import { CHAIN_IDS } from "@constants/types";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
 import { BaseAlertHeader } from "components/BaseJumpAnnouncement";
 import Footer from "components/Footer";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
-import { alchemyApiKey, walletConnectProjectId } from "constants/env";
+import { alchemyApiKey, walletConnectProjectId } from "env/client";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import theme from "theme";
@@ -27,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
       <WagmiConfig config={config}>
-        <ConnectKitProvider theme={"midnight"} options={{ enforceSupportedChains: false, initialChainId: 1 }}>
+        <ConnectKitProvider theme={"midnight"} options={{ enforceSupportedChains: false, initialChainId: CHAIN_IDS.BASE }}>
           <QueryClientProvider client={queryClient}>
             <DarkMode>
               <VStack minH={"full"} spacing={10}>

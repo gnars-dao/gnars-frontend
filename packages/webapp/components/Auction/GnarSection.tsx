@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { V2_START_ID } from "../../constants/gnarsDao";
-import useGnarData, { GnarData } from "../../hooks/useGnarData";
+import { V2_START_ID } from "constants/gnarsDao";
+import useGnarData, { GnarData } from "hooks/useGnarData";
 import Gnar from "../Gnar";
 import Menu from "../Menu";
 import { GnarInfo } from "./GnarInfo";

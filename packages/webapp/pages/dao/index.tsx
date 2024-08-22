@@ -6,7 +6,7 @@ import { contracts } from "@constants/baseAddresses";
 import { CHAIN_IDS } from "@constants/types";
 import { ProposalsResponse, getProposals } from "@queries/base/requests/proposalsQuery";
 import { ProposalsDocument, execute } from "@subgraph-generated/layer-1";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import {
   EffectiveProposalStatus,
   ProposalData,

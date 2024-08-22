@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback";
-// @ts-ignore
+import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback";
 import { AccountAddress } from "./AccountAddress";
 import { AccountWithAvatar, AccountWithAvatarProps } from "./AccountWithAvatar";
 import { Text } from "@chakra-ui/react";

@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
-import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/gnarsDao";
-import { GnarData } from "../../hooks/useGnarData";
-import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback";
-import { is10thGnar, shortAddress } from "../../utils";
+import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "constants/gnarsDao";
+import { GnarData } from "hooks/useGnarData";
+import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback";
+import { is10thGnar, shortAddress } from "utils";
 import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons";
 import { AuctionStatus } from "./AuctionStatus";
 import { BidForGnar } from "./BidForGnar";
@@ -25,9 +25,9 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 // TODO: Pull in dao module from nouns-builder
-import { Auction } from "@components/modules/auction";
-import { PUBLIC_SUBGRAPH_URL } from "@constants/env";
-import { CHAIN_IDS } from "@constants/types";
+import { Auction } from "components/modules/auction";
+import { PUBLIC_SUBGRAPH_URL } from "constants/env";
+import { CHAIN_IDS } from "constants/types";
 import { AnimatePresence, motion } from "framer-motion";
 import { Londrina_Solid } from "next/font/google";
 import { FiExternalLink, FiInfo } from "react-icons/fi";
@@ -90,7 +90,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
 
       <Heading as="h3" size={"lg"}>
         Use{" "}
-        <Link href="https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17" color={"#fce464"} isExternal>
+        <Link href={`${baseLink}`} color={"#fce464"} isExternal>
           Nouns Builder
         </Link>{" "}
         in the mean time

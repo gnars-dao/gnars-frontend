@@ -1,5 +1,4 @@
 import { FC } from "react";
-// @ts-ignore
 import { AccountAvatar } from "./AccountAvatar";
 import { HStack, StackProps, VStack } from "@chakra-ui/react";
 
