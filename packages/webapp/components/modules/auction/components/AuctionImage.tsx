@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import Image from "next/legacy/image";
 
 // import { auctionImg, tokenImage } from './Auction.css'
@@ -14,7 +14,7 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
   const [imgErr, setImgErr] = React.useState<boolean>(false);
 
   return (
-    <Box
+    <Flex
       backgroundColor="background2"
       width={"250px"}
       maxW={"100%"}
@@ -22,7 +22,7 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
       aspectRatio={1 / 1}
       position="relative"
       className={"token-image"}
-      display={'inline-flex'}
+      display={'inline-flex !important'}
       marginRight={'20px'}
       marginTop={'20px'}
     >
@@ -41,6 +41,6 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
           className={"auction-image"}
         />
       )}
-    </Box>
+    </Flex>
   );
 };
