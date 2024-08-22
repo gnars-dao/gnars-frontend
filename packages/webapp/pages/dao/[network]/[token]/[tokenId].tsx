@@ -48,12 +48,6 @@ const TokenPage = ({
   console.log(`tokenId page props`, props);
   const chain = PUBLIC_ALL_CHAINS.find((x) => x.id === chainId) as Chain;
   console.log(`[tokenId] chain `, url, collection, token, name, addresses, chainId, `\n\n`);
-  /*const { hasThreshold } = useVotes({
-    chainId: chainId,
-    signerAddress: address,
-    collectionAddress: collection,
-    governorAddress: addresses?.governor,
-  })*/
 
   const handleCloseSuccessModal = () => {
     replace(
