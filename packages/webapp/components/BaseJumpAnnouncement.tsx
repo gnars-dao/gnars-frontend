@@ -88,25 +88,27 @@ export const BaseAlertHeader = () => {
   useDisclosure({ defaultIsOpen: true });
 
   return (
-    <Alert variant="solid" style={{ marginBottom: "-40px", flexGrow: 1, alignItems: "center", background: "#FFE762" }}>
+    <Alert variant="solid" style={{ marginBottom: "-40px", flexGrow: 1, alignItems: "center", background: "#FFE762", maxHeight: '150px' }} flexFlow={{ base: 'column', md: 'row' }}>
       <Box flexGrow={1} alignContent={"center"}>
-        <AlertTitle textAlign={"center"} textStyle={"h2"} py={2}>
+        <AlertTitle textAlign={{ base: "center", md: 'center' }} textStyle={"h2"} py={2}>
           Gnars have BASE JUMPED!
         </AlertTitle>
         <AlertDescription textAlign={"center"}>
           <Text>We&#39;re currently updating this site to be fully operation on Base. Stay tuned. ⌐◨-◨\m/</Text>
         </AlertDescription>
       </Box>
-      <ExternalLink isExternal href={baseLink} rel="noopener noreferrer">
-        <Button
-          w={"fit-content"}
-          variant={"outline"}
-          style={{ borderColor: "#1A202C", color: "#1A202C" }}
-          rightIcon={<FiExternalLink />}
-        >
-          BASE JUMP!
-        </Button>
-      </ExternalLink>
+      <Box flexGrow={1} alignContent={{ base: "center", md: "flex-end" }}>
+        <ExternalLink isExternal href={baseLink} rel="noopener noreferrer" flexGrow={{ base: 1 }}>
+          <Button
+            w={"fit-content"}
+            variant={"outline"}
+            style={{ borderColor: "#1A202C", color: "#1A202C" }}
+            rightIcon={<FiExternalLink />}
+          >
+            BASE JUMP!
+          </Button>
+        </ExternalLink>
+      </Box>
     </Alert>
   );
 };
