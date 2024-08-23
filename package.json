@@ -8,12 +8,13 @@
   },
   "devDependencies": {
     "prettier": "^2.8.8",
-    "turbo": "^1.13.2"
+    "turbo": "^2.0.14"
   },
   "engines": {
     "node": "18"
   },
   "peerDependencies": {
     "utf-8-validate": "^5.0.2"
-  }
+  },
+  "packageManager": "pnpm@9.8.0"
 }

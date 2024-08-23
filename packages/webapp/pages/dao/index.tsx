@@ -16,7 +16,7 @@ import {
 } from "@utils/governanceUtils";
 import { DelegateButton } from "components/Governance/Delegation/DelegateButton";
 import { UserVotes } from "components/Governance/Delegation/UserVotes";
-import USE_QUERY_KEYS from "constants";
+import { USE_QUERY_KEYS } from "constants/queryKeys";
 import { useBlock } from "hooks/useBlock";
 import { isArray, partition } from "lodash";
 import Link from "next/link";
