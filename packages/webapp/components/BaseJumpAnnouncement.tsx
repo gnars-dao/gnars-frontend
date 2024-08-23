@@ -97,7 +97,7 @@ export const BaseAlertHeader = () => {
           <Text>We&#39;re currently updating this site to be fully operation on Base. Stay tuned. ⌐◨-◨\m/</Text>
         </AlertDescription>
       </Box>
-      <Box flexGrow={1} alignContent={{ base: "center", md: "flex-end" }} >
+      <Box flexGrow={1} alignContent={{ base: "center", md: "flex-end" }}>
         <ExternalLink isExternal href={baseLink} rel="noopener noreferrer" flexGrow={{ base: 1 }}>
           <Button
             w={"fit-content"}
