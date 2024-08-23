@@ -1,5 +1,5 @@
-import { PUBLIC_SUBGRAPH_URL } from "@constants/env.ts";
-import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "@constants/types.ts";
+import { PUBLIC_SUBGRAPH_URL } from "constants/env";
+import { ALCHEMY_RPC_URLS, CHAIN_IDS } from "constants/types";
 import { GraphQLClient } from "graphql-request";
 import { getSdk } from "subgraph-generated/base";
 import { Resolvers } from "subgraph-generated/layer-1";
