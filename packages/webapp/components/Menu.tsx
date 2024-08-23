@@ -3,9 +3,9 @@ import { GnarsLogo } from "./GnarsLogo";
 import { ShredIcon } from "./Icons";
 import { TreasuryBalance } from "./TreasuryBalance";
 import { WalletButton } from "./WalletButton";
-import { Button, Center, CenterProps, Link as ExternalLink, HStack, IconButton, Stack } from "@chakra-ui/react";
+import { Button, Center, CenterProps, Link as ExternalLink, HStack, IconButton, Stack, ButtonGroup } from "@chakra-ui/react";
 import Link from "next/link";
-import { FaBars, FaBookOpen, FaPlay, FaUsers } from "react-icons/fa";
+import { FaBars, FaBookOpen, FaPlay, FaUsers, FaDiscord } from "react-icons/fa";
 
 export type MenuProps = CenterProps;
 
@@ -65,11 +65,18 @@ export default function Menu(props: MenuProps) {
           </ExternalLink>
           <Link href="/playground">
             <Button w={"full"} variant={"outline"} leftIcon={<FaPlay />}>
-              Playground
+              {showMenu ? "Playground" : "Play"}
             </Button>
           </Link>
+          <ExternalLink href="https://discord.gg/gnars" isExternal rel="noopener noreferrer" aria-label="Discord">
+            <Button w={"full"} variant={"outline"} leftIcon={<FaDiscord fontSize="1.25rem" />}>
+              Discord
+            </Button>
+          </ExternalLink>
           <WalletButton hideFrom={"lg"} w="full" />
+
         </Stack>
+
         <WalletButton hideBelow={"lg"} />
       </Stack>
     </Center>

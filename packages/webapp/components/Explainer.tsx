@@ -27,7 +27,7 @@ const londrinaSolid = Londrina_Solid({
 export default function Explainer() {
   return (
     <Box color={"chakra-body-text"} bgColor={"chakra-body-bg"}>
-      <VStack px={[2, 6]} py={{ base: 10, sm: 32 }} spacing={{ base: 10, sm: 32 }} w={"full"} justifyContent={"center"}>
+      <VStack px={[2, 6]} py={{ base: 10, sm: 5, md: 32 }} spacing={{ base: 10, sm: 32 }} w={"full"} justifyContent={"center"}>
         <Stack
           px={0}
           w={"full"}
@@ -42,6 +42,9 @@ export default function Explainer() {
               base: "calc(60px + (128 - 60) * ((100vw - 375px) / (1280 - 375)))",
               xl: "8xl"
             }}
+            textAlign={{ base: "center", md: 'left' }}
+            alignSelf={{ base: 'center', md: 'inherit' }}
+            marginTop={{ xsm: -15, base: 10, sm: 32 }}
           >
             ONE GNAR,
             <br />
