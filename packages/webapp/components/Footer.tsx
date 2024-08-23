@@ -129,7 +129,7 @@ export default function Footer() {
               <IconButton
                 as="a"
                 rel="external noopener"
-                href="https://discord.gg/XBeZuMxmst"
+                href="https://discord.com/invite/hasfzNpj"
                 aria-label="Discord"
                 icon={<FaDiscord fontSize="1.25rem" />}
               />
