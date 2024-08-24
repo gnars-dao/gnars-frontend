@@ -81,3 +81,34 @@ You might need to add a ETHERSCAN_API_KEY for it to work, like so:
 ```bash
 ETHERSCAN_API_KEY=<key-here> pnpm wagmi generate
 ```
+
+---
+
+### Base Sepolia Test Network
+
+
+> Network Name - Base Sepolia Test Netwok
+> 
+> RPC URL - `https://base-sepolia.gateway.tenderly.co/${TENDERLY_API_KEY}`
+> 
+> Chain ID - `11155111`
+> 
+> Currency Symbol - `SepoliaETH`
+> 
+> Block Explorer URL - `https://sepolia.etherscan.io/`
+
+
+---
+
+### Hardhat Local Test Network
+
+> Network Name - Hardhat Test Netwok
+> 
+> RPC URL - `http://eth-sepolia.g.alchemy.com/v2/[YOUR-API-KEY]`
+> 
+> Chain ID - `11155111`
+> 
+> Currency Symbol - `SepoliaETH`
+> 
+> Block Explorer URL - `https://sepolia.etherscan.io/`
+
