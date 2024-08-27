@@ -29,20 +29,19 @@ export default function Proposals() {
   const LIMIT = 200;
   const page = baseQuery?.page ? Number(baseQuery.page) : undefined;
 
-  const { data: baseData, error: baseError } = useQuery(
-    [USE_QUERY_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
-    () => getProposals(CHAIN_IDS.BASE, tokenAddress, LIMIT),
-    {
-      enabled: baseQueryReady
-    }
-  );
+  const { data: baseData, error: baseError } = useQuery({
+    queryKey: [USE_QUERY_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
+    queryFn: () => getProposals(CHAIN_IDS.BASE, tokenAddress, LIMIT),
+    enabled: baseQueryReady
+  });
+
   if (baseError) {
     console.error("Error getting BASE proposals data: ", baseError);
   }
 
-  const { data: ethProposals } = useQuery(
-    [USE_QUERY_KEYS.PROPOSALS, block?.number?.toString()],
-    () =>
+  const { data: ethProposals } = useQuery({
+    queryKey: [USE_QUERY_KEYS.PROPOSALS, block?.number?.toString()],
+    queryFn: () =>
       execute(ProposalsDocument, {})
         .then((r: { data: { proposals: ProposalData[] } }) =>
           r.data.proposals.map((p: ProposalData) => ({
@@ -60,8 +59,9 @@ export default function Proposals() {
               ProposalData & { effectiveStatus: EffectiveProposalStatus }[]
             ]
         ),
-    { keepPreviousData: true }
-  );
+    keepPreviousData: true
+  });
+
   return (
     <DarkMode>
       <VStack flexGrow={1} w={"full"} color={"chakra-body-text"} spacing={6}>

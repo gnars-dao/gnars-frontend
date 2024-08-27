@@ -45,6 +45,7 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
   const { writeAsync: delegate, isLoading: isDelegating } = useGnarsV2TokenDelegate({
     args: [address!]
   });
+
   useEffect(() => {
     try {
       normalize(accountQuery);
@@ -53,6 +54,7 @@ export const UpdateDelegateModal: FC<UpdateDelegateModalProps> = ({ onClose, ...
       setIsValidName.off();
     }
   }, [accountQuery, setIsValidName]);
+
   return (
     <Modal isCentered onClose={onClose} {...props}>
       <ModalOverlay />

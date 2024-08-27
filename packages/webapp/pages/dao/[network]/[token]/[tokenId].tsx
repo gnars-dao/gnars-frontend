@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { Box, Code, Flex, Heading, VStack } from "@chakra-ui/react";
 import { Auction } from "@components/modules/auction";
 
@@ -44,10 +44,12 @@ const TokenPage = ({
 }) => {
   const { query, replace, pathname } = useRouter();
   const { address } = useAccount();
-  console.log(`query for [tokenId]`, query, chainId, address, pathname);
-  console.log(`tokenId page props`, props);
+
   const chain = PUBLIC_ALL_CHAINS.find((x) => x.id === chainId) as Chain;
-  console.log(`[tokenId] chain `, url, collection, token, name, addresses, chainId, `\n\n`);
+
+  useEffect(() => {
+    console.log(`Auction Page: data: `, { query, replace, pathname, chainId, address, chain, url, collection, token, name, addresses });
+  }, [query, replace, pathname, chainId, address, chain, url, collection, token, name, addresses, props]);
 
   const handleCloseSuccessModal = () => {
     replace(

@@ -1,6 +1,7 @@
 // TODO: Replace axios
 // import axios from 'axios'
 import React, { Fragment, ReactNode } from "react";
+import { Text } from '@chakra-ui/react'
 import { useAuctionEvents } from "../hooks";
 // TODO: Fix styles for auctionGrid and auctionWrapper
 // import { auctionGrid, auctionWrapper } from './Auction.css'
@@ -125,6 +126,7 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
               <WinningBidder owner={tokenOwner ?? undefined} />
             </AuctionDetails>
             <ActionsWrapper>
+              <Text>Bid History</Text>
               <BidHistory bids={bids || []} />
             </ActionsWrapper>
             {/** TODO: Determine if DaoMigrated is necessary */}

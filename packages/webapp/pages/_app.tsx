@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ChakraProvider, DarkMode, Divider, VStack } from "@chakra-ui/react";
 import { CHAIN_IDS } from "@constants/types";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,8 +13,6 @@ import theme from "theme";
 import { WagmiConfig, createConfig } from "wagmi";
 import { base, mainnet } from "wagmi/chains";
 
-const queryClient = new QueryClient();
-
 const config = createConfig({
   ...getDefaultConfig({
     appName: "Gnars",
@@ -25,6 +24,19 @@ const config = createConfig({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            // With SSR, we usually want to set some default staleTime
+            // above 0 to avoid refetching immediately on the client side
+            staleTime: 30 * 1000 // 30 seconds
+          }
+        }
+      })
+  );
   return (
     <ChakraProvider theme={theme}>
       <WagmiConfig config={config}>
