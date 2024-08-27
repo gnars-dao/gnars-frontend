@@ -53,7 +53,7 @@ export const WarningModal: React.FC<WarningModalProps> = ({
           </Button>
         </Box>
 
-        <Box style={{ width: "50%" }} pl="x2">
+        <Box style={{ width: "50%" }} paddingLeft="10px">
           <Button w="100%" variant="outline" onClick={onCancel}>
             Cancel
           </Button>

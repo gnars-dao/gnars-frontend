@@ -1,4 +1,3 @@
-
 schema: ./base.schema.graphql
 documents: './queries/base/**/*.graphql'
 generates:

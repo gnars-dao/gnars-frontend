@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { Box, Code, Flex, Heading, VStack } from "@chakra-ui/react";
+import { Box, Text, Code, Flex, Heading, Stack, VStack } from "@chakra-ui/react";
 import { Auction } from "@components/modules/auction";
 
 // import { DaoOgMetadata } from 'src/pages/api/og/dao'
-import { AddressType, CHAIN_ID, CHAIN_IDS, Chain } from "@constants/types";
+import { AddressType, CHAIN_ID, CHAIN_IDS, Chain } from "constants/types";
 // import { Meta } from 'src/components/Meta'
 // import AnimatedModal from 'src/components/Modal/AnimatedModal'
 // import { SuccessModalContent } from 'src/components/Modal/SuccessModalContent'
@@ -11,11 +11,19 @@ import { CACHE_TIMES } from "constants/cacheTimes";
 import { PUBLIC_ALL_CHAINS, PUBLIC_DEFAULT_CHAINS } from "constants/defaultChains";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-
+import { useQuery } from "@tanstack/react-query";
 // import { SUCCESS_MESSAGES } from '@constants/messages'
 import { BaseSDK } from "queries/resolvers";
 import { TokenWithDaoQuery } from "subgraph-generated/base";
 import { useAccount } from "wagmi";
+import { USE_QUERY_KEYS } from "constants/queryKeys";
+import { CurrentAuction } from "components/modules/auction/components/CurrentAuction";
+import { auctionHistoryRequest } from "queries/base/requests/auctionHistory";
+import { BidHistory } from "components/modules/auction/components/BidHistory";
+import { getBids } from "queries/base/requests/getBids";
+import { RecentBids } from "components/modules/auction/components/CurrentAuction/RecentBids";
+import { averageWinningBid } from "queries/base/requests/averageWinningBid";
+import { useEtherscanContractInfo } from "hooks/useEtherscanContractInfo";
 
 export type TokenWithDao = NonNullable<TokenWithDaoQuery["token"]>;
 
@@ -33,7 +41,7 @@ interface TokenPageProps {
 
 const TokenPage = ({
   url,
-  collection = "0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17",
+  collection = "0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17" as AddressType,
   token,
   // description,
   name,
@@ -51,18 +59,30 @@ const TokenPage = ({
     console.log(`Auction Page: data: `, { query, replace, pathname, chainId, address, chain, url, collection, token, name, addresses });
   }, [query, replace, pathname, chainId, address, chain, url, collection, token, name, addresses, props]);
 
-  const handleCloseSuccessModal = () => {
-    replace(
-      {
-        pathname,
-        query: { token: collection, network: chain.slug, tokenId: token.tokenId }
-      },
-      undefined,
-      {
-        shallow: true
-      }
-    );
-  };
+  const { data: auctionBids, error: auctionBidsError } = useQuery({
+    queryKey: ['auctionBids', chainId, collection, token.tokenId],
+    queryFn: async () => {
+      const bids = await getBids(chainId, collection, token.tokenId);
+      console.log(`Token Page getBids: `, bids);
+      return bids;
+    }
+  });
+
+  const { data: avgWinningBid, error: avgWinningBidError } = useQuery({
+    queryKey: ['averageWinningBid', chainId, collection],
+    queryFn: async () => {
+      const avgWinningBid = await averageWinningBid(chainId, collection);
+      console.log(`Token Page averageWinningBid: `, avgWinningBid);
+      return avgWinningBid;
+    }
+  });
+
+  const etherscanContractInfo = useEtherscanContractInfo(addresses.address);
+
+
+  if (auctionBidsError) {
+    console.log('Auction Token Page auctionBidsError: ', { auctionBids, auctionBidsError });
+  }
 
   return (
     <Box padding={"20px"}>
@@ -79,9 +99,20 @@ const TokenPage = ({
         image: token.image || undefined,
       }}
     />*/}
-
-      <Auction chain={chain} auctionAddress={addresses.auction!} collection={collection} token={token} />
-
+      <Stack border={'red'}></Stack>
+      <Auction
+        chain={chain}
+        // auctionAddress={addresses.auction!}
+        auctionAddress="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
+        collection={collection}
+        token={token}
+      />
+      <Text color='white'>Recent Bids</Text>
+      <RecentBids bids={auctionBids!} />
+      <Stack border={'red'}>
+        {/*<CurrentAuction chain={chain} tokenId={token.tokenId} auctionAddress={token.dao.auctionAddress} daoName={token.daoName} bids={auctionBids!} />*/}
+        <pre style={{ color: 'white', width: '800px', height: '1000px' }}>{JSON.stringify(etherscanContractInfo, null, 2)}</pre>
+      </Stack>
     </Box>
   );
 };

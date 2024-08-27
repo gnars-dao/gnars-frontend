@@ -40,7 +40,7 @@ const fetchContractInfo = async (
       `https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${etherscanApiKey}`,
       { signal }
     ).then((res) => res.json());
-
+    console.log(`hooks/useEtherscanContractInfo.ts fetchContractInfo: `, contractInfo);
     if (contractInfo.status !== "1") return null;
 
     const isProxy = contractInfo.result[0].Proxy === "1";

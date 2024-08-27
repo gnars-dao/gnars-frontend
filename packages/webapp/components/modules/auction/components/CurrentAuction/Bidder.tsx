@@ -13,8 +13,8 @@ export const Bidder: React.FC<BidderProps> = ({ address }) => {
   const { displayName, ensAvatar, ensNameLoading } = useEnsData(address);
 
   return (
-    <Flex align="center">
-      <Box mr="x2">
+    <Flex align="center" >
+      <Box marginRight={'20px'}>
         <AccountAvatar address={address} avatarImg={ensAvatar ?? ""} isLoading={ensNameLoading} />
       </Box>
       <Text

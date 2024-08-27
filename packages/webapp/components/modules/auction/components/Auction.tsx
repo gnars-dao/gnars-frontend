@@ -40,6 +40,8 @@ interface AuctionControllerProps {
 }
 
 export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddress, collection, token }) => {
+
+  console.log('Auction.tsx props passed through: ', { chain, auctionAddress, collection, token });
   const { mintedAt, name, image, owner: tokenOwner, tokenId: queriedTokenId } = token;
   const mintDate = mintedAt * 1000;
   const bidAmount = token.auction?.winningBid?.amount;
@@ -58,21 +60,25 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
         .then((x) => x.data)
   )*/
 
-  const { data: auction } = useSWR(
+  const { data: auction, error: auctionError, isLoading: auctionIsLoading } = useSWR(
     [USE_QUERY_KEYS.AUCTION, chain.id, auctionAddress],
-    (_, chainId, auctionAddress) =>
-      readContract({
-        abi: auctionAbi,
-        address: auctionAddress as AddressType,
-        functionName: "auction",
-        chainId
-      }),
+    (_, chainId, auctionAddress) => {
+      console.log(`Auction.tsx useSWR main auction query: `, USE_QUERY_KEYS.AUCTION, chainId, auctionAddress);
+      if (auctionAddress) {
+        return readContract({
+          abi: auctionAbi,
+          address: auctionAddress as AddressType,
+          functionName: "auction",
+          chainId
+        })
+      }
+    },
     { revalidateOnFocus: true }
   );
 
   // TODO: Remove test logging
   React.useEffect(() => {
-    console.log(`auction data: `, { auction, chain, auctionAddress, collection, token });
+    console.log(`Auction.tsx from module data: `, { auction, chain, auctionAddress, collection, token });
   }, [auction, chain, auctionAddress, collection, token]);
 
 
@@ -80,12 +86,12 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
 
   const isTokenActiveAuction = !settled && currentTokenId !== undefined && currentTokenId.toString() == queriedTokenId;
 
-  useAuctionEvents({
+  /*useAuctionEvents({
     chainId: chain.id,
     collection,
     isTokenActiveAuction,
     tokenId: queriedTokenId
-  });
+  });*/
 
   const { data: bids } = useSWR([USE_QUERY_KEYS.AUCTION_BIDS, chain.id, collection, queriedTokenId], () =>
     getBids(chain.id, collection, queriedTokenId)
@@ -107,16 +113,19 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
         <AuctionTokenPicker mintDate={mintDate} name={name} collection={collection} tokenId={Number(queriedTokenId)} />
 
         {isTokenActiveAuction && !!auction && (
-          <CurrentAuction
-            chain={chain}
-            tokenId={queriedTokenId}
-            auctionAddress={auctionAddress as AddressType}
-            daoName={token.dao.name}
-            bid={highestBid}
-            owner={highestBidder}
-            endTime={endTime}
-            bids={bids || []}
-          />
+          <>
+            <Text color="white">Current Auction Here</Text>
+            <CurrentAuction
+              chain={chain}
+              tokenId={queriedTokenId}
+              auctionAddress={auctionAddress as AddressType}
+              daoName={token.dao.name}
+              bid={highestBid}
+              owner={highestBidder}
+              endTime={endTime}
+              bids={bids || []}
+            />
+          </>
         )}
 
         {!isTokenActiveAuction && !!auction && (
@@ -126,7 +135,7 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
               <WinningBidder owner={tokenOwner ?? undefined} />
             </AuctionDetails>
             <ActionsWrapper>
-              <Text>Bid History</Text>
+              <Text color="white">Bid History</Text>
               <BidHistory bids={bids || []} />
             </ActionsWrapper>
             {/** TODO: Determine if DaoMigrated is necessary */}

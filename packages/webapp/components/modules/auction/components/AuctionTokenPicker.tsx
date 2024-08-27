@@ -74,7 +74,7 @@ export const AuctionTokenPicker: React.FC<AuctionTokenPickerProps> = ({
         <RoundButton
           px={0}
           isDisabled={!hasPreviousToken}
-          onClick={() => push(`/dao/${query.network}/${collection}/${data?.next}`)}
+          onClick={() => push(`/dao/${query.network}/${collection}/${data?.prev}`)}
         >
           <HiArrowNarrowLeft />
         </RoundButton>
