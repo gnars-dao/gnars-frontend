@@ -23,7 +23,6 @@ import { BidHistory } from "components/modules/auction/components/BidHistory";
 import { getBids } from "queries/base/requests/getBids";
 import { RecentBids } from "components/modules/auction/components/CurrentAuction/RecentBids";
 import { averageWinningBid } from "queries/base/requests/averageWinningBid";
-import { useEtherscanContractInfo } from "hooks/useEtherscanContractInfo";
 
 export type TokenWithDao = NonNullable<TokenWithDaoQuery["token"]>;
 
@@ -68,17 +67,15 @@ const TokenPage = ({
     }
   });
 
-  const { data: avgWinningBid, error: avgWinningBidError } = useQuery({
+  /** Commenting out to reduce requests, this was a test */
+  /*const { data: avgWinningBid, error: avgWinningBidError } = useQuery({
     queryKey: ['averageWinningBid', chainId, collection],
     queryFn: async () => {
       const avgWinningBid = await averageWinningBid(chainId, collection);
       console.log(`Token Page averageWinningBid: `, avgWinningBid);
       return avgWinningBid;
     }
-  });
-
-  const etherscanContractInfo = useEtherscanContractInfo(addresses.address);
-
+  });*/
 
   if (auctionBidsError) {
     console.log('Auction Token Page auctionBidsError: ', { auctionBids, auctionBidsError });
@@ -89,17 +86,12 @@ const TokenPage = ({
       <Stack border={'red'}></Stack>
       <Auction
         chain={chain}
-        // auctionAddress={addresses.auction!}
-        auctionAddress="0x880fb3cf5c6cc2d7dfc13a993e839a9411200c17"
+        auctionAddress={addresses.auction!}
         collection={collection}
         token={token}
       />
       <Text color='white'>Recent Bids</Text>
       <RecentBids bids={auctionBids!} />
-      <Stack border={'red'}>
-        {/*<CurrentAuction chain={chain} tokenId={token.tokenId} auctionAddress={token.dao.auctionAddress} daoName={token.daoName} bids={auctionBids!} />*/}
-        <pre style={{ color: 'white', width: '800px', height: '1000px' }}>{JSON.stringify(etherscanContractInfo, null, 2)}</pre>
-      </Stack>
     </Box>
   );
 };
