@@ -8,8 +8,6 @@ import { useChainStore } from "stores/useChainStore";
 import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
 
-// import { auctionActionButtonVariants } from '../Auction.css'
-
 interface SettleProps {
   isEnding: boolean;
   collectionAddress?: string;

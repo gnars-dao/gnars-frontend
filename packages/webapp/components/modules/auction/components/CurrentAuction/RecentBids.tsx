@@ -67,7 +67,6 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids = exampleBids }) =>
           mt="x4"
           align="center"
           justify="center"
-          //className={recentBid}
           className={"recent-bid"}
         >
           {/*

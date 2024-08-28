@@ -47,19 +47,6 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
   const bidAmount = token.auction?.winningBid?.amount;
   const tokenPrice = bidAmount ? formatEther(bidAmount) : undefined;
 
-  const { treasury } = useDaoStore((x) => x.addresses);
-
-  // TODO: Likely don't need migrated base, just customize for gnars
-  /*const { data: migratedRes } = useSWR(
-    L1_CHAINS.find((x) => x === chain.id) && treasury
-      ? [USE_QUERY_KEYS.DAO_MIGRATED, treasury]
-      : null,
-    (_, treasury) =>
-      axios
-        .get<L2MigratedResponse>(`/api/migrated?l1Treasury=${treasury}`)
-        .then((x) => x.data)
-  )*/
-
   const { data: auction, error: auctionError, isLoading: auctionIsLoading } = useSWR(
     [USE_QUERY_KEYS.AUCTION, chain.id, auctionAddress],
     (_, chainId, auctionAddress) => {
