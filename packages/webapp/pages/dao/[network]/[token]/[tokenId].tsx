@@ -86,19 +86,6 @@ const TokenPage = ({
 
   return (
     <Box padding={"20px"}>
-      {/*<Meta
-      title={name || ''}
-      type={`${name}:nft`}
-      image={ogImageURL}
-      slug={url}
-      description={ogDescription}
-      farcaster={{
-        name,
-        contractAddress: collection,
-        chain,
-        image: token.image || undefined,
-      }}
-    />*/}
       <Stack border={'red'}></Stack>
       <Auction
         chain={chain}
