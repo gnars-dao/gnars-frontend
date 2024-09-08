@@ -4,7 +4,7 @@ import { AllBids } from "../AllBids";
 import { Bidder } from "./Bidder";
 import { Icon } from "@chakra-ui/icons";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
-import { ETHERSCAN_BASE_URL } from "@constants/etherscan";
+import { ETHERSCAN_BASE_URL } from "constants/";
 import { AuctionBidFragment } from "@subgraph-generated/base";
 import dynamic from "next/dynamic";
 import { useChainStore } from "stores/useChainStore";

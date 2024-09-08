@@ -11,15 +11,20 @@ export type AccountAddress = {
   truncate?: boolean;
 } & StackProps;
 
+
+
 export const AccountAddress: FC<AccountAddress> = ({ address, nnsOrEnsName, truncate = false, ...props }) => {
   const { isOpen: isCopiedTooltipOpen, onClose: hideCopiedTooltip, onOpen: showCopiedTooltip } = useDisclosure();
   return (
     <HStack spacing={1} p={0} {...props}>
       <Tooltip isDisabled={!truncate} hasArrow placement="bottom" label={address} maxW={"fit-content"}>
+
         <Text whiteSpace={"nowrap"}>
+
           {nnsOrEnsName ? nnsOrEnsName : truncate ? shortAddress(address) : getAddress(address)}
         </Text>
       </Tooltip>
+
       <Tooltip hasArrow isOpen={isCopiedTooltipOpen} label={"Copied!"} placement={"bottom"}>
         <IconButton
           color={"chakra-body-text"}
@@ -30,6 +35,9 @@ export const AccountAddress: FC<AccountAddress> = ({ address, nnsOrEnsName, trun
           minW={"12px"}
           icon={<FiCopy size={"12px"} />}
           onClick={() => {
+            navigator.clipboard.writeText(address);
+            showCopiedTooltip();
+            setTimeout(hideCopiedTooltip, 2500);
             navigator.clipboard.writeText(address);
             showCopiedTooltip();
             setTimeout(hideCopiedTooltip, 2500);
@@ -53,3 +61,4 @@ export const AccountAddress: FC<AccountAddress> = ({ address, nnsOrEnsName, trun
     </HStack>
   );
 };
+

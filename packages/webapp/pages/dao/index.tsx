@@ -2,10 +2,12 @@ import { Button, Container, DarkMode, Divider, HStack, Heading, Stack, Text, VSt
 import { ProposalCard } from "@components/Governance/ProposalCard";
 import Menu from "@components/Menu";
 import BaseProposals from "@components/Proposal/BaseProposals";
-import { contracts } from "@constants/baseAddresses";
-import { CHAIN_IDS } from "@constants/types";
+import { contracts } from "@constants";
+import { USE_QUERY_KEYS } from "@constants";
+import { CHAIN_IDS } from "@constants";
+import { graphQLClient } from "@graphql/ssr.client";
 import { ProposalsResponse, getProposals } from "@queries/base/requests/proposalsQuery";
-import { ProposalsDocument, execute } from "@subgraph-generated/layer-1";
+import { ProposalsDocument } from "@subgraph-generated/layer-1";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import {
   EffectiveProposalStatus,
@@ -14,53 +16,30 @@ import {
   getQuorumVotes,
   isFinalized
 } from "@utils/governanceUtils";
+import { getLatestEthereumBlock } from "@utils/web3";
 import { DelegateButton } from "components/Governance/Delegation/DelegateButton";
 import { UserVotes } from "components/Governance/Delegation/UserVotes";
-import { USE_QUERY_KEYS } from "constants/queryKeys";
-import { useBlock } from "hooks/useBlock";
 import { isArray, partition } from "lodash";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Block } from "viem";
 
-export default function Proposals() {
+export default function Proposals({ ethProposals }) {
   const tokenAddress = contracts.Token.Proxy;
-  const block = useBlock();
   const { query: baseQuery, isReady: baseQueryReady, push } = useRouter();
   const LIMIT = 200;
   const page = baseQuery?.page ? Number(baseQuery.page) : undefined;
-
-  const { data: baseData, error: baseError } = useQuery({
-    queryKey: [USE_QUERY_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
-    queryFn: () => getProposals(CHAIN_IDS.BASE, tokenAddress, LIMIT),
-    enabled: baseQueryReady
-  });
+  const { data: baseData, error: baseError } = useQuery(
+    [USE_QUERY_KEYS.PROPOSALS, CHAIN_IDS.BASE, tokenAddress, page],
+    () => getProposals(CHAIN_IDS.BASE, tokenAddress, LIMIT),
+    {
+      enabled: baseQueryReady
+    }
+  );
 
   if (baseError) {
     console.error("Error getting BASE proposals data: ", baseError);
   }
-
-  const { data: ethProposals } = useQuery({
-    queryKey: [USE_QUERY_KEYS.PROPOSALS, block?.number?.toString()],
-    queryFn: () =>
-      execute(ProposalsDocument, {})
-        .then((r: { data: { proposals: ProposalData[] } }) =>
-          r.data.proposals.map((p: ProposalData) => ({
-            ...p,
-            effectiveStatus: getProposalEffectiveStatus(p, block?.number ?? undefined, block?.timestamp ?? undefined)
-          }))
-        )
-        .then(
-          (p: ProposalData & { effectiveStatus: EffectiveProposalStatus }) =>
-            partition<ProposalData & { effectiveStatus: EffectiveProposalStatus }>(
-              p,
-              (p) => !isFinalized(p.effectiveStatus)
-            ) as [
-              ProposalData & { effectiveStatus: EffectiveProposalStatus }[],
-              ProposalData & { effectiveStatus: EffectiveProposalStatus }[]
-            ]
-        ),
-    keepPreviousData: true
-  });
 
   return (
     <DarkMode>
@@ -173,4 +152,53 @@ export default function Proposals() {
       </VStack>
     </DarkMode>
   );
+}
+
+export async function getServerSideProps() {
+  const block: Block | undefined = await getLatestEthereumBlock();
+  try {
+    const ethProposals = await fetchEthProposals(block);
+    return {
+      props: {
+        ethProposals
+      }
+    };
+  } catch (err) {
+    console.error("Error getting Ethereum Proposals from subgraph", err);
+    return {
+      props: {
+        ethProposals: [[], []]
+      }
+    };
+  }
+}
+
+// Ethereum proposals only
+async function fetchProposalsData(queryClient: QueryClient, block?: Block): Promise<any> {
+  return queryClient.fetchQuery([USE_QUERY_KEYS.PROPOSALS, block?.number?.toString()], fetchProposals);
+}
+
+// Ethereum proposals only
+async function fetchProposals({ queryKey }) {
+  const [_key] = queryKey;
+  return graphQLClient.request(ProposalsDocument, {});
+}
+
+// Ethereum proposals only
+function mapProposals(data: any, block?: Block) {
+  return (
+    data?.proposals?.map((p) => ({
+      ...p,
+      effectiveStatus: getProposalEffectiveStatus(p, block?.number, block?.timestamp)
+    })) || []
+  );
+}
+
+async function fetchEthProposals(block?: Block): Promise<any[]> {
+  const queryClient = new QueryClient();
+  const proposalsData = await fetchProposalsData(queryClient, block);
+  const proposals = mapProposals(proposalsData, block);
+  const [activeProposals, finalizedProposals] = partition(proposals, (p) => !isFinalized(p.effectiveStatus));
+
+  return [activeProposals, finalizedProposals];
 }

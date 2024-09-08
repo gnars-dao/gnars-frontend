@@ -1,4 +1,4 @@
-import nextJest from "next/jest.js"
+import nextJest from "next/jest"
 import { TextEncoder } from "util"
 
 const createJestConfig = nextJest({

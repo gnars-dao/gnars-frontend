@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { usePlaygroundState } from "../../hooks/usePlaygroundState";
 import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "../Icons";
 import { PartPicker } from "./PartPicker";
 import { Button, CenterProps, VStack, Wrap, WrapItem } from "@chakra-ui/react";
+import { usePlaygroundState } from "@hooks/usePlaygroundState";
 import { FaSquareFull } from "react-icons/fa";
 
 export type GeneratorProps = {

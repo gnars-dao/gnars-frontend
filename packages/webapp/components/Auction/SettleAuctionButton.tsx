@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction } from "utils/sdk";
+import { useGnarsV2AuctionHouseSettleCurrentAndCreateNewAuction } from "../../utils/sdk";
 import { ContractActionButton } from "../ContractActionButton";
 import { ButtonProps } from "@chakra-ui/react";
 

@@ -1,4 +1,5 @@
-import { AddressType, CHAIN_IDS } from "@constants/types";
+import { AddressType } from "@constants";
+import { CHAIN_IDS } from "@constants";
 import { metadataAbi } from "@data/contract/abis";
 import { readContract, readContracts } from "wagmi/actions";
 

@@ -1,11 +1,9 @@
 import { FC } from "react";
 import { Button, Divider, HStack, Heading, Stack, Text, VStack } from "@chakra-ui/react";
-import { DelegateButton } from "@components/Governance/Delegation/DelegateButton.tsx";
-import { UserVotes } from "@components/Governance/Delegation/UserVotes.tsx";
 import { ProposalCard } from "@components/Governance/ProposalCard.tsx";
 import { ProposalState } from "@data/contract/requests/getProposalState";
 import { Proposal } from "@queries/base/requests/proposalQuery";
-import { getQuorumVotes, parseState } from "@utils/governanceUtils";
+import { parseState } from "@utils/governanceUtils";
 import isArray from "lodash/isArray";
 import Link from "next/link";
 
@@ -16,7 +14,8 @@ interface BaseProposalsProps {
 const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
   if (!isArray(proposals)) return null;
 
-  const isFinalized = (state: ProposalState) => state !== ProposalState.Active && state !== ProposalState.Queued;
+  const isFinalized = (state: ProposalState) =>
+    state !== ProposalState.Active && state !== ProposalState.Queued && state !== ProposalState.Pending;
   const activeProposals = proposals?.filter(({ state }) => !isFinalized(state)) || [];
   const inactiveProposals = proposals?.filter(({ state }) => isFinalized(state)) || [];
   return (
@@ -89,7 +88,7 @@ const BaseProposals: FC<BaseProposalsProps> = ({ proposals }) => {
                 style={{ width: "100%" }}
               >
                 <ProposalCard
-                  id={prop.proposalNumber.toString()}
+                  id={prop.proposalNumber?.toString()}
                   title={prop.title as string}
                   titleProps={{ noOfLines: 2 }}
                   status={parseState(prop.state).toUpperCase()}

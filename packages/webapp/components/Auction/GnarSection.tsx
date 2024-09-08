@@ -21,6 +21,8 @@ import { getGnarBgColor, isBgDark } from "utils";
 interface AuctionProps {
   desiredGnarId?: number;
   initialGnarData?: GnarData;
+  desiredGnarId?: number;
+  initialGnarData?: GnarData;
 }
 
 const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarData }) => {
@@ -29,9 +31,16 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarData }) => {
   const fallbackBg = "#d5d7e1";
   const gnarBgColor = getGnarBgColor(isOg, fallbackBg, gnarData);
   const hasDarkBg = isBgDark(gnarBgColor);
+  const gnarData = useGnarData(desiredGnarId, initialGnarData).data;
+  const isOg = !!desiredGnarId && desiredGnarId < V2_START_ID;
+  const fallbackBg = "#d5d7e1";
+  const gnarBgColor = getGnarBgColor(isOg, fallbackBg, gnarData);
+  const hasDarkBg = isBgDark(gnarBgColor);
   const gnarInfoColorMode =
     useBreakpointValue<ColorMode>({
       base: "dark",
+      lg: hasDarkBg ? "dark" : "light"
+    }) ?? "dark";
       lg: hasDarkBg ? "dark" : "light"
     }) ?? "dark";
 
@@ -66,6 +75,9 @@ const GnarSection: FC<AuctionProps> = ({ desiredGnarId, initialGnarData }) => {
         </Stack>
       </Box>
     </ColorModeProvider>
+  );
+};
+export default GnarSection;
   );
 };
 export default GnarSection;

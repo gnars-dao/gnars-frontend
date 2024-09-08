@@ -1,4 +1,4 @@
-import { CHAIN_IDS } from "@constants/types";
+import { CHAIN_IDS } from "@constants";
 import { ProposalState, getProposalState } from "@data/contract/requests/getProposalState.ts";
 import { BaseSDK } from "@queries/resolvers.ts";
 import * as Sentry from "@sentry/nextjs";
@@ -13,7 +13,7 @@ export interface Proposal extends Omit<ProposalFragment, "executableFrom" | "exp
 }
 
 export const formatAndFetchState = async (chainId: CHAIN_IDS, data: ProposalFragment) => {
-  const { executableFrom, expiresAt, calldatas, ...proposal } = data;
+  const { executableFrom, expiresAt, calldatas, ...proposal } = data;;
 
   const baseProposal = {
     ...proposal,
@@ -38,11 +38,11 @@ export const getProposal = async (chainId: CHAIN_IDS, proposalId: string): Promi
       proposalId
     });
 
-    return await formatAndFetchState(chainId, data.proposal!);
+    return formatAndFetchState(chainId, data.proposal!);
   } catch (e) {
     console.log("err", e);
     Sentry.captureException(e);
     await Sentry.flush(2000);
     return;
   }
-};
+};;

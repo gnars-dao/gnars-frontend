@@ -15,7 +15,7 @@ import { CurrentAuction } from "./CurrentAuction";
 // import { DaoMigrated } from './DaoMigrated'
 import { WinningBidder } from "./WinningBidder";
 import { Flex, Grid } from "@chakra-ui/react";
-import { USE_QUERY_KEYS } from "@constants/queryKeys";
+import { USE_QUERY_KEYS } from "constants/queryKeys";
 // TODO: Pull in L1_CHAINS
 // import { L1_CHAINS } from 'src/data/contract/chains'
 import { getBids } from "@queries/base/requests/getBids";
