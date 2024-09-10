@@ -12,4 +12,3 @@ export const ALCHEMY_RPC_URLS = {
   [CHAIN_IDS.ETHEREUM]: "https://eth-mainnet.g.alchemy.com/v2/",
   [CHAIN_IDS.BASE]: "https://base-mainnet.g.alchemy.com/v2/"
 };
-

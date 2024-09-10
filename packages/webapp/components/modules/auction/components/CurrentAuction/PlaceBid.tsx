@@ -1,5 +1,4 @@
 import React, { Fragment, memo, useEffect, useState } from "react";
-import { useMinBidIncrement } from "@hooks";
 // import { auctionActionButtonVariants, bidForm, bidInput } from '../Auction.css'
 import { WarningModal } from "./WarningModal";
 import {
@@ -17,21 +16,22 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/react";
+// @TODO Pull in contract btn from nouns-base
+import { ContractButton } from "@components/ContractButton";
+import { useDaoStore } from "@components/modules/dao";
 // import { Icon } from 'src/components/Icon/Icon'
 // import AnimatedModal from 'src/components/Modal/AnimatedModal'
 import { PUBLIC_IS_TESTNET } from "@constants/defaultChains";
 import { USE_QUERY_KEYS } from "@constants/queryKeys";
 import { AddressType, Chain } from "@constants/types";
+import { useMinBidIncrement } from "@hooks";
 import { averageWinningBid } from "@queries/base/requests/averageWinningBid";
 import { getBids } from "@queries/base/requests/getBids";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-// @TODO Pull in contract btn from nouns-base
-import { ContractButton } from "@components/ContractButton";
-import { useDaoStore } from "@components/modules/dao";
-import { auctionAbi } from "data/contract/abis/Auction";
 import { unpackOptionalArray } from "@utils/helpers";
 import { formatCryptoVal } from "@utils/numbers";
-import useSWR, { useSWRConfig } from 'swr'
+import { auctionAbi } from "data/contract/abis/Auction";
+import useSWR, { useSWRConfig } from "swr";
 import { formatEther, parseEther } from "viem";
 import { Address, useAccount, useBalance, useContractReads, useNetwork } from "wagmi";
 import { prepareWriteContract, waitForTransaction, writeContract } from "wagmi/actions";
@@ -51,7 +51,7 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
   const { data: balance } = useBalance({ address: address, chainId: chain.id });
 
   // @TODO Use @tanstack/react-query equivalent of useSWRConfig()
-  const { mutate } = useSWRConfig()
+  const { mutate } = useSWRConfig();
   const { addresses } = useDaoStore();
 
   const [creatingBid, setCreatingBid] = useState(false);
@@ -135,12 +135,12 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
       // @TODO replace with @tanstack/react-query mutate
       await mutate([USE_QUERY_KEYS.AUCTION_BIDS, chain.id, addresses.token, tokenId], () =>
         getBids(chain.id, addresses.token!, tokenId)
-      )
+      );
 
       // @TODO replace with @tanstack/react-query mutate
       await mutate([USE_QUERY_KEYS.AVERAGE_WINNING_BID, chain.id, addresses.token], () =>
         averageWinningBid(chain.id, addresses.token as Address)
-      )
+      );
     } catch (error) {
       console.error(error);
     } finally {

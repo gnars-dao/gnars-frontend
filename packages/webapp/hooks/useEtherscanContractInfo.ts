@@ -55,7 +55,6 @@ const fetchContractInfo = async (
         implementationAddress,
         implementation: await fetchContractInfo(implementationAddress, client, signal)
       };
-        
     }
 
     return {
@@ -76,11 +75,11 @@ export const getProxyAndImplementations = (contractInfo: ContractInfo): Contract
     return [contractInfo, ...getProxyAndImplementations(contractInfo.implementation)];
   }
 
-  return [contractInfo]
-}
+  return [contractInfo];
+};
 
 export const getEffectiveAbi = (contractInfo: ContractInfo): Abi =>
   getProxyAndImplementations(contractInfo).reduce(
     (effectiveAbi, currentContract) => [...currentContract.abi, ...effectiveAbi],
     [] as Abi
-  )
+  );

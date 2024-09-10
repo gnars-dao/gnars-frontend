@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import { useWalletOgGnars } from "@hooks/useWalletOgGnars";
-import { getGnartwork } from "@utils";
-import { usePrepareGnarsV2AuctionHouseClaimGnars } from "@utils/sdk";
 import { ContractActionButton } from "./ContractActionButton";
 import { GnarImage } from "./GnarImage";
 import { WalletButton } from "./WalletButton";
@@ -20,6 +17,9 @@ import {
   WrapItem,
   useBreakpointValue
 } from "@chakra-ui/react";
+import { useWalletOgGnars } from "@hooks/useWalletOgGnars";
+import { getGnartwork } from "@utils";
+import { usePrepareGnarsV2AuctionHouseClaimGnars } from "@utils/sdk";
 import { useAccount, useContractWrite } from "wagmi";
 import { mainnet } from "wagmi/chains";
 

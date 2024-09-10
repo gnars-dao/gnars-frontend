@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, Stack } from "@chakra-ui/react";
+import { ContractButton } from "@components/ContractButton";
 import { useDaoStore } from "@components/modules/dao";
 import { AddressType } from "@constants/types";
 import { auctionAbi } from "@data/contract/abis/Auction";
-import { ContractButton } from "@components/ContractButton";
 import { useChainStore } from "stores/useChainStore";
 import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
@@ -89,7 +89,7 @@ export const Settle = ({ isEnding, owner, externalAuctionAddress, compact = fals
     <Stack direction="column" align="center" width={"100%"}>
       <ContractButton
         handleClick={handleSettle}
-        className={'dash-settle settle'}
+        className={"dash-settle settle"}
         variant={compact ? "outline" : "primary"}
       >
         {isWinner ? "Claim NFT" : "Start next auction"}

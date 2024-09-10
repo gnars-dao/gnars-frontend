@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import loadingOg from "@assets/images/loadingOgGnar.gif";
 import loadingV2 from "@assets/images/loadingV2Gnar.gif";
+import { Image as ChakraImage, ImageProps, forwardRef } from "@chakra-ui/react";
 import gnarDataV2 from "@data/image-data-V2.json";
 import ogGnarData from "@data/image-data.json";
 import { Gnartwork } from "@utils";
 import buildSvg from "@utils/buildSvg";
-import { Image as ChakraImage, ImageProps, forwardRef } from "@chakra-ui/react";
 
 interface GnarImageProps extends ImageProps {
   isOg: boolean;

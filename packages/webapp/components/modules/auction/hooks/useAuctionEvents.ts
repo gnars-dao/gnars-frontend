@@ -1,9 +1,9 @@
+import { useDaoStore } from "@components/modules/dao";
 import { USE_QUERY_KEYS } from "@constants/queryKeys";
 import { AddressType, CHAIN_ID } from "@constants/types";
 import { auctionAbi } from "data/contract/abis/Auction";
-import { getBids } from "queries/base/requests/getBids";
-import { useDaoStore } from "@components/modules/dao";
 import { useRouter } from "next/router";
+import { getBids } from "queries/base/requests/getBids";
 import { useSWRConfig } from "swr";
 import { useContractEvent } from "wagmi";
 import { readContract } from "wagmi/actions";

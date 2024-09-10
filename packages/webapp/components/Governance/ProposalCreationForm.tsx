@@ -21,13 +21,13 @@ import {
   VStack,
   useToast
 } from "@chakra-ui/react";
+import { usePrepareGnarsDaoPropose } from "@utils/sdk";
 import { useRouter } from "next/router";
 import { FaTrashAlt } from "react-icons/fa";
-import { usePrepareGnarsDaoPropose } from "@utils/sdk";
 import { useContractWrite } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
 
-export interface ProposalCreationFormProps extends StackProps { }
+export interface ProposalCreationFormProps extends StackProps {}
 
 export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }) => {
   const { title, setTitle, description, setDescription, transactions, setTransactions, clear } =
@@ -40,19 +40,19 @@ export const ProposalCreationForm: FC<ProposalCreationFormProps> = ({ ...props }
       isInvalid
         ? { targets: [], values: [], signatures: [], calldatas: [] }
         : transactions.reduce(
-          (transactions, transaction) => ({
-            targets: [...transactions.targets, transaction.target as `0x${string}`],
-            values: [...transactions.values, transaction.value],
-            signatures: [...transactions.signatures, transaction.signature],
-            calldatas: [...transactions.calldatas, transaction.calldata as `0x${string}`]
-          }),
-          {
-            targets: [] as `0x${string}`[],
-            values: [] as bigint[],
-            signatures: [] as string[],
-            calldatas: [] as `0x${string}`[]
-          }
-        ),
+            (transactions, transaction) => ({
+              targets: [...transactions.targets, transaction.target as `0x${string}`],
+              values: [...transactions.values, transaction.value],
+              signatures: [...transactions.signatures, transaction.signature],
+              calldatas: [...transactions.calldatas, transaction.calldata as `0x${string}`]
+            }),
+            {
+              targets: [] as `0x${string}`[],
+              values: [] as bigint[],
+              signatures: [] as string[],
+              calldatas: [] as `0x${string}`[]
+            }
+          ),
     [transactions, isInvalid]
   );
   const proposalDescription = useMemo(() => `# ${title}\n\n${description}`, [title, description]);

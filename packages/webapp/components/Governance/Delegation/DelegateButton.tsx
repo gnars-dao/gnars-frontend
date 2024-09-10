@@ -5,7 +5,7 @@ import { useDelegationInfo } from "@hooks/useDelegationInfo";
 import dynamic from "next/dynamic";
 import { useAccount } from "wagmi";
 
-export interface DelegateButtonProps extends ButtonProps { }
+export interface DelegateButtonProps extends ButtonProps {}
 
 const InnerDelegateButton: FC<DelegateButtonProps> = ({ ...props }) => {
   const { address } = useAccount();

@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import { useGnarsV2AuctionHouseCreateBid } from "@utils/sdk";
 import { ContractActionButton } from "../ContractActionButton";
 import {
   ButtonGroup,
@@ -17,6 +16,7 @@ import {
   Text,
   useNumberInput
 } from "@chakra-ui/react";
+import { useGnarsV2AuctionHouseCreateBid } from "@utils/sdk";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { formatEther, parseEther } from "viem";
 

@@ -4,9 +4,9 @@ import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
 import { AccountAvatar } from "@components/AccountAvatar";
 import { ETHERSCAN_BASE_URL } from "@constants/etherscan";
 import { useEnsData } from "@hooks/useEnsData";
+import { formatCryptoVal } from "@utils/numbers";
 import { useChainStore } from "stores/useChainStore";
 import { AuctionBidFragment } from "subgraph-generated/base";
-import { formatCryptoVal } from "@utils/numbers";
 
 export const BidCard = ({ bid }: { bid: AuctionBidFragment }) => {
   const { displayName, ensAvatar } = useEnsData(bid?.bidder);

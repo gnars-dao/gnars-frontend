@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
+import { Avatar, AvatarProps, Box, HStack, Image, Link, PropsOf, Spinner, StackProps, Text } from "@chakra-ui/react";
 import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
 import { shortAddress } from "@utils";
-import { Avatar, AvatarProps, Box, HStack, Image, Link, PropsOf, Spinner, StackProps, Text } from "@chakra-ui/react";
 import { HiExternalLink } from "react-icons/hi";
 import { useEnsAvatar } from "wagmi";
 

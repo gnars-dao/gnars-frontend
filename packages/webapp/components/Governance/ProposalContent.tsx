@@ -3,10 +3,10 @@ import styles from "./ProposalContent.module.css";
 import { TransactionCard } from "./TransactionCard";
 import { Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import { AvatarWallet } from "@components/AvatarWallet";
+import { NounsTransactionData } from "@utils/governanceUtils";
 import { Inter } from "next/font/google";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { NounsTransactionData } from "@utils/governanceUtils";
 
 const inter = Inter({ subsets: ["latin"] });
 

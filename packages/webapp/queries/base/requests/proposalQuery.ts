@@ -13,7 +13,7 @@ export interface Proposal extends Omit<ProposalFragment, "executableFrom" | "exp
 }
 
 export const formatAndFetchState = async (chainId: CHAIN_IDS, data: ProposalFragment) => {
-  const { executableFrom, expiresAt, calldatas, ...proposal } = data;;
+  const { executableFrom, expiresAt, calldatas, ...proposal } = data;
 
   const baseProposal = {
     ...proposal,
@@ -45,4 +45,4 @@ export const getProposal = async (chainId: CHAIN_IDS, proposalId: string): Promi
     await Sentry.flush(2000);
     return;
   }
-};;
+};

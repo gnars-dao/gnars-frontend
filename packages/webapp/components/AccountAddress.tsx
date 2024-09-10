@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { shortAddress } from "@utils";
 import { HStack, IconButton, StackProps, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
+import { shortAddress } from "@utils";
 // @ts-ignore
 import { FiCopy, FiExternalLink } from "react-icons/fi";
 import { getAddress } from "viem";
@@ -11,16 +11,12 @@ export type AccountAddress = {
   truncate?: boolean;
 } & StackProps;
 
-
-
 export const AccountAddress: FC<AccountAddress> = ({ address, nnsOrEnsName, truncate = false, ...props }) => {
   const { isOpen: isCopiedTooltipOpen, onClose: hideCopiedTooltip, onOpen: showCopiedTooltip } = useDisclosure();
   return (
     <HStack spacing={1} p={0} {...props}>
       <Tooltip isDisabled={!truncate} hasArrow placement="bottom" label={address} maxW={"fit-content"}>
-
         <Text whiteSpace={"nowrap"}>
-
           {nnsOrEnsName ? nnsOrEnsName : truncate ? shortAddress(address) : getAddress(address)}
         </Text>
       </Tooltip>
@@ -58,4 +54,3 @@ export const AccountAddress: FC<AccountAddress> = ({ address, nnsOrEnsName, trun
     </HStack>
   );
 };
-

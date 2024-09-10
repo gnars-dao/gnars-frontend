@@ -18,7 +18,7 @@ export const enum CHAIN_ID {
   ZORA_SEPOLIA = 999999999,
   FOUNDRY = 31337,
   HARDHAT = 31337,
-  TENDERLY_BASE_VIRTUAL_TESTNET = 73571, // Tenderly custom virtual testnet chain id
+  TENDERLY_BASE_VIRTUAL_TESTNET = 73571 // Tenderly custom virtual testnet chain id
 }
 
 export interface Chain extends WagmiChain {
@@ -26,7 +26,6 @@ export interface Chain extends WagmiChain {
   slug: string;
   icon: string;
 }
-
 
 export const VIRTUAL_TESTNET_RPC_URLS = {
   [CHAIN_ID.TENDERLY_BASE_VIRTUAL_TESTNET]: {

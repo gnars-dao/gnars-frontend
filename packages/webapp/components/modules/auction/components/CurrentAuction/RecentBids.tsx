@@ -18,15 +18,14 @@ interface RecentBidsProps {
   bids: AuctionBidFragment[];
 }
 
-// @TODO defaultBids is from 
-const exampleBids =
-  [
-    {
-      "id": "0x99f67a24562044fcbacc1a0434c87172994167ef676e6c87ab1707679a26308d:25",
-      "amount": "10000000000000000",
-      "bidder": "0x7093c7ee24c49ab814165b129bc7b5ff0993b3ba"
-    }
-  ];
+// @TODO defaultBids is from
+const exampleBids = [
+  {
+    id: "0x99f67a24562044fcbacc1a0434c87172994167ef676e6c87ab1707679a26308d:25",
+    amount: "10000000000000000",
+    bidder: "0x7093c7ee24c49ab814165b129bc7b5ff0993b3ba"
+  }
+];
 
 export const RecentBids: React.FC<RecentBidsProps> = ({ bids = exampleBids }) => {
   const chain = useChainStore((x) => x.chain);
@@ -38,13 +37,12 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids = exampleBids }) =>
           <Flex
             align="center"
             py="x2"
-            marginTop={'20px'}
+            marginTop={"20px"}
             justify="space-between"
             key={`${bidder}_${amount}`}
             // className={recentBid}
             className={"recent-bid"}
             color="white"
-
           >
             <Bidder address={bidder} />
 
@@ -56,19 +54,14 @@ export const RecentBids: React.FC<RecentBidsProps> = ({ bids = exampleBids }) =>
               rel="noopener noreferrer"
               color="white"
             >
-              <Text marginRight={'20px'} variant="paragraph-md" color="white">
+              <Text marginRight={"20px"} variant="paragraph-md" color="white">
                 {amount} ETH
               </Text>
               <Icon id="external-16" fill="text4" />
             </Flex>
           </Flex>
         ))}
-        <Flex
-          mt="x4"
-          align="center"
-          justify="center"
-          className={"recent-bid"}
-        >
+        <Flex mt="x4" align="center" justify="center" className={"recent-bid"}>
           {/*
           <AnimatedModal
             trigger={

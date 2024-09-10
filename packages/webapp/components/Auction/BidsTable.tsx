@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { Bid } from "@hooks/hooks/useGnarData";
 import { AvatarWallet } from "../AvatarWallet";
 import {
   Link,
@@ -11,6 +10,7 @@ import {
   useBreakpointValue,
   useColorMode
 } from "@chakra-ui/react";
+import { Bid } from "@hooks/hooks/useGnarData";
 import { HiExternalLink } from "react-icons/hi";
 import { formatEther } from "viem";
 

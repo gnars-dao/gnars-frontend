@@ -22,9 +22,9 @@ export const AuctionImage = ({ image, name }: AucitonImageProps) => {
       aspectRatio={1 / 1}
       position="relative"
       className={"token-image"}
-      display={'inline-flex !important'}
-      marginRight={'20px'}
-      marginTop={'20px'}
+      display={"inline-flex !important"}
+      marginRight={"20px"}
+      marginTop={"20px"}
     >
       {/** TODO: No need for imgError */}
       {imgErr ? (

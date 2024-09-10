@@ -23,7 +23,15 @@ export const BidHistory = ({ bids }: { bids: AuctionBidFragment[] }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button fontSize={18} width={"100%"} variant="secondary" color={'white'} borderRadius="curved" h="x14" onClick={onOpen}>
+      <Button
+        fontSize={18}
+        width={"100%"}
+        variant="secondary"
+        color={"white"}
+        borderRadius="curved"
+        h="x14"
+        onClick={onOpen}
+      >
         Bid history
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>

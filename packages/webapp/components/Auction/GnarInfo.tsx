@@ -1,8 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "@constants/gnarsDao";
-import { GnarData } from "@hooks/useGnarData";
-import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
-import { is10thGnar, shortAddress } from "@utils";
 import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons";
 import { AuctionStatus } from "./AuctionStatus";
 import { BidForGnar } from "./BidForGnar";
@@ -27,7 +23,11 @@ import {
 // @TODO Pull in dao module from nouns-builder
 import { Auction } from "@components/modules/auction";
 import { PUBLIC_SUBGRAPH_URL } from "@constants/env";
+import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "@constants/gnarsDao";
 import { CHAIN_IDS } from "@constants/types";
+import { GnarData } from "@hooks/useGnarData";
+import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
+import { is10thGnar, shortAddress } from "@utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Londrina_Solid } from "next/font/google";
 import { FiExternalLink, FiInfo } from "react-icons/fi";

@@ -1,5 +1,4 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { formatSuffixedBalance } from "@utils/formatBalance";
 import { ShredIcon } from "./Icons";
 import { Link } from "@chakra-ui/next-js";
 import {
@@ -23,6 +22,7 @@ import {
   BASE_USDC_TOKEN_ADDRESS,
   BASE_V2_GNAR_ADDRESS
 } from "@constants/gnarsDao";
+import { formatSuffixedBalance } from "@utils/formatBalance";
 import { useGnarsV2TokenBalanceOf } from "@utils/sdk";
 import { getTokensValues } from "@utils/web3";
 import { base } from "wagmi/chains";
@@ -193,31 +193,31 @@ export const TreasuryBalance = () => {
             <Text fontSize={"sm"}>Multisig</Text>
             {multisigBalance.length
               ? multisigBalance.map((token) =>
-                token.value > 1 ? (
-                  <Tooltip key={token.label} label={token.label}>
-                    <Button size={"sm"} w={"100%"} variant={"outline"}>
-                      <Link href={token.url} target="_blank" whiteSpace={"nowrap"}>
-                        {token.icon} {token.formatted}
-                      </Link>
-                    </Button>
-                  </Tooltip>
-                ) : null
-              )
+                  token.value > 1 ? (
+                    <Tooltip key={token.label} label={token.label}>
+                      <Button size={"sm"} w={"100%"} variant={"outline"}>
+                        <Link href={token.url} target="_blank" whiteSpace={"nowrap"}>
+                          {token.icon} {token.formatted}
+                        </Link>
+                      </Button>
+                    </Tooltip>
+                  ) : null
+                )
               : null}
             <Divider />
             <Text fontSize={"sm"}>Treasury</Text>
             {treasuryBalance.length
               ? treasuryBalance.map((token) =>
-                token.value > 1 ? (
-                  <Tooltip key={token.label} label={token.label}>
-                    <Button size={"sm"} w={"100%"} variant={"outline"}>
-                      <Link href={token.url} target="_blank" whiteSpace={"nowrap"}>
-                        {token.icon} {token.formatted}
-                      </Link>
-                    </Button>
-                  </Tooltip>
-                ) : null
-              )
+                  token.value > 1 ? (
+                    <Tooltip key={token.label} label={token.label}>
+                      <Button size={"sm"} w={"100%"} variant={"outline"}>
+                        <Link href={token.url} target="_blank" whiteSpace={"nowrap"}>
+                          {token.icon} {token.formatted}
+                        </Link>
+                      </Button>
+                    </Tooltip>
+                  ) : null
+                )
               : null}
             <Divider />
           </VStack>

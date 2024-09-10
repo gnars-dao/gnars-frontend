@@ -1,7 +1,6 @@
 // @TODO Replace axios
 // import axios from 'axios'
 import React, { Fragment, ReactNode } from "react";
-import { Text } from '@chakra-ui/react'
 import { useAuctionEvents } from "../hooks";
 // @TODO Fix styles for auctionGrid and auctionWrapper
 // import { auctionGrid, auctionWrapper } from './Auction.css'
@@ -14,14 +13,15 @@ import { ActionsWrapper, BidHistory } from "./BidHistory";
 import { CurrentAuction } from "./CurrentAuction";
 // import { DaoMigrated } from './DaoMigrated'
 import { WinningBidder } from "./WinningBidder";
+import { Text } from "@chakra-ui/react";
 import { Flex, Grid } from "@chakra-ui/react";
+import { useDaoStore } from "@components/modules/dao";
 import { USE_QUERY_KEYS } from "@constants/queryKeys";
+import { AddressType, Chain } from "@constants/types";
 // @TODO Pull in L1_CHAINS
 // import { L1_CHAINS } from 'src/data/contract/chains'
 import { getBids } from "@queries/base/requests/getBids";
 import { unpackOptionalArray } from "@utils/helpers";
-import { useDaoStore } from "@components/modules/dao";
-import { AddressType, Chain } from "@constants/types";
 import { auctionAbi } from "data/contract/abis/Auction";
 // @TODO Pull in L2MigratedResponse
 // import { L2MigratedResponse } from 'src/pages/api/migrated'
@@ -40,14 +40,17 @@ interface AuctionControllerProps {
 }
 
 export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddress, collection, token }) => {
-
-  console.log('Auction.tsx props passed through: ', { chain, auctionAddress, collection, token });
+  console.log("Auction.tsx props passed through: ", { chain, auctionAddress, collection, token });
   const { mintedAt, name, image, owner: tokenOwner, tokenId: queriedTokenId } = token;
   const mintDate = mintedAt * 1000;
   const bidAmount = token.auction?.winningBid?.amount;
   const tokenPrice = bidAmount ? formatEther(bidAmount) : undefined;
 
-  const { data: auction, error: auctionError, isLoading: auctionIsLoading } = useSWR(
+  const {
+    data: auction,
+    error: auctionError,
+    isLoading: auctionIsLoading
+  } = useSWR(
     [USE_QUERY_KEYS.AUCTION, chain.id, auctionAddress],
     (_, chainId, auctionAddress) => {
       console.log(`Auction.tsx useSWR main auction query: `, USE_QUERY_KEYS.AUCTION, chainId, auctionAddress);
@@ -57,7 +60,7 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
           address: auctionAddress as AddressType,
           functionName: "auction",
           chainId
-        })
+        });
       }
     },
     { revalidateOnFocus: true }
@@ -67,7 +70,6 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
   React.useEffect(() => {
     console.log(`Auction.tsx from module data: `, { auction, chain, auctionAddress, collection, token });
   }, [auction, chain, auctionAddress, collection, token]);
-
 
   const [currentTokenId, highestBid, highestBidder, _, endTime, settled] = unpackOptionalArray(auction, 6);
 
@@ -85,10 +87,7 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
   );
 
   return (
-    <Grid
-      display={"inline-flex"}
-      className="auction-grid"
-    >
+    <Grid display={"inline-flex"} className="auction-grid">
       <AuctionImage key={`auction-${collection}-image-${queriedTokenId}`} image={image || ""} isLoading={!auction} />
       <Flex
         display={"inline-flex"}
