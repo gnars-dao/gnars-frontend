@@ -38,3 +38,6 @@ yarn-error.log*
 .turbo
 
 dist/
+
+# Ignore test hardhat config for now
+./hardhat.config.ts
