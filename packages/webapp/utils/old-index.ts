@@ -9,6 +9,8 @@ import { formatEther } from "viem";
 
 export const queryClient = new QueryClient();
 
+export type AuctionStatus = "live" | "burned" | "won" | "treasury";
+
 export const nFormatter = (num: number, digits: number = 2) => {
   if (num < 10000) return num.toFixed(2);
   const lookup = [

@@ -1,6 +1,6 @@
-import { PUBLIC_IS_TESTNET } from "constants/defaultChains";
-import { RPC_URL } from "constants/rpc";
-import { CHAIN_ID } from "constants/types";
+import { PUBLIC_IS_TESTNET } from "@constants/defaultChains";
+import { RPC_URL } from "@constants/rpc";
+import { CHAIN_ID } from "@constants/types";
 import { configureChains } from "wagmi";
 import { base, baseSepolia, mainnet, sepolia, zora, zoraSepolia } from "wagmi/chains";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";

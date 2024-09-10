@@ -1,4 +1,4 @@
-/*import { AddressType, CHAIN_ID, CHAIN_IDS } from "constants/types";
+/*import { AddressType, CHAIN_ID, CHAIN_IDS } from "@constants/types";
 import { getProvider } from "utils/provider";
 import useSWRImmutable from "swr/immutable";
 

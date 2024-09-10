@@ -2,17 +2,17 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { Box, Code, Flex, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import { Auction } from "@components/modules/auction";
 import { useQuery } from "@tanstack/react-query";
-import { BidHistory } from "components/modules/auction/components/BidHistory";
-import { CurrentAuction } from "components/modules/auction/components/CurrentAuction";
-import { RecentBids } from "components/modules/auction/components/CurrentAuction/RecentBids";
+import { BidHistory } from "@components/modules/auction/components/BidHistory";
+import { CurrentAuction } from "@components/modules/auction/components/CurrentAuction";
+import { RecentBids } from "@components/modules/auction/components/CurrentAuction/RecentBids";
 // import { Meta } from 'src/components/Meta'
 // import AnimatedModal from 'src/components/Modal/AnimatedModal'
 // import { SuccessModalContent } from 'src/components/Modal/SuccessModalContent'
-import { CACHE_TIMES } from "constants/cacheTimes";
-import { PUBLIC_ALL_CHAINS, PUBLIC_DEFAULT_CHAINS } from "constants/defaultChains";
-import { USE_QUERY_KEYS } from "constants/queryKeys";
+import { CACHE_TIMES } from "@constants/";
+import { PUBLIC_ALL_CHAINS, PUBLIC_DEFAULT_CHAINS } from "@constants/defaultChains";
+import { USE_QUERY_KEYS } from "@constants/queryKeys";
 // import { DaoOgMetadata } from 'src/pages/api/og/dao'
-import { AddressType, CHAIN_ID, CHAIN_IDS, Chain } from "constants/types";
+import { AddressType, CHAIN_ID, CHAIN_IDS, Chain } from "@constants/types";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { auctionHistoryRequest } from "queries/base/requests/auctionHistory";
@@ -159,9 +159,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params, res, req,
       treasuryAddress
     };
 
-    const ogImageURL = `${protocol}://${
-      req.headers.host
-    }/api/og/dao?data=${encodeURIComponent(JSON.stringify(daoOgMetadata))}`;
+    const ogImageURL = `${protocol}://${req.headers.host
+      }/api/og/dao?data=${encodeURIComponent(JSON.stringify(daoOgMetadata))}`;
 
     const { maxAge, swr } = CACHE_TIMES.TOKEN_INFO;
     res.setHeader("Cache-Control", `public, s-maxage=${maxAge}, stale-while-revalidate=${swr}`);

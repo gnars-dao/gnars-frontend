@@ -1,6 +1,6 @@
-import { PUBLIC_ALL_CHAINS } from "constants/defaultChains";
-import { RPC_URL } from "constants/rpc";
-import { CHAIN_ID } from "constants/types";
+import { PUBLIC_ALL_CHAINS } from "@constants/defaultChains";
+import { RPC_URL } from "@constants/rpc";
+import { CHAIN_ID } from "@constants/types";
 import { PublicClient, createPublicClient, http } from "viem";
 
 let providerMap: Map<CHAIN_ID, PublicClient>;

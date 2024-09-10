@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/nextjs";
-import { CHAIN_ID } from "constants/types";
-import { BaseSDK } from "queries/resolvers";
+import { CHAIN_ID } from "@constants/types";
+import { BaseSDK } from "@queries/resolvers";
 import { DaoTokenOwner_OrderBy, OrderDirection } from "subgraph-generated/base";
 
 export type DaoMember = {

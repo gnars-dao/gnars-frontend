@@ -6,7 +6,7 @@ export * from "./ercs";
 export * from "./etherscan";
 export * from "./gnarsDao";
 export * from "./gnarsHD";
+export * from "./networkConfig";
 export * from "./rpc";
 export * from "./queryKeys";
 export * from "./types";
-export * from "./networkConfig";

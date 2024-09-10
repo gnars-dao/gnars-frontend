@@ -1,4 +1,4 @@
-import { CHAIN_ID } from "constants/types";
+import { CHAIN_ID } from "@constants/types";
 
 // URLs should not include a trailing forward slash
 export const ETHERSCAN_BASE_URL = {

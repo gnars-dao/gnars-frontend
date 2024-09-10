@@ -26,7 +26,7 @@ import { auctionAbi } from "data/contract/abis/Auction";
 // @TODO Pull in L2MigratedResponse
 // import { L2MigratedResponse } from 'src/pages/api/migrated'
 // @TODO Fix the page URLs (queries, params, etc.)
-import { TokenWithDao } from "pages/dao/[network]/[token]/[tokenId]";
+import { TokenWithDao } from "@pages/dao/[network]/[token]/[tokenId]";
 // @TODO Replace useSWR
 import useSWR from "swr";
 import { formatEther } from "viem";

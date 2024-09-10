@@ -1,8 +1,8 @@
-import Menu from "../components/Menu";
-import { Generator } from "../components/Playground/Generator";
-import { usePlaygroundState } from "../hooks/usePlaygroundState";
+import Menu from "@components/Menu";
+import { Generator } from "@components/Playground/Generator";
+import { usePlaygroundState } from "@hooks/usePlaygroundState";
 import { Box, DarkMode, Heading, SimpleGrid, VStack, useBreakpointValue } from "@chakra-ui/react";
-import PlaygroundGnar from "components/Playground/PlaygroundGnar";
+import PlaygroundGnar from "@components/Playground/PlaygroundGnar";
 
 export default function Playground() {
   const gnarSize = useBreakpointValue({ base: "96px", lg: "128px" }) ?? "96px";
