@@ -39,7 +39,7 @@
         "components/*"
       ],
       "@constants": [
-        "constants"
+        "constants/*"
       ],
       "@data/*": [
         "data/*"

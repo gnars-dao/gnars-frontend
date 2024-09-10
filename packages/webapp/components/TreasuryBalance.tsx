@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { formatSuffixedBalance } from "../utils/formatBalance";
+import { formatSuffixedBalance } from "@utils/formatBalance";
 import { ShredIcon } from "./Icons";
 import { Link } from "@chakra-ui/next-js";
 import {

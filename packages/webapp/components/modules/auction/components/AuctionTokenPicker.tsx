@@ -4,7 +4,7 @@ import { HStack, Heading, Text, VStack } from "@chakra-ui/react";
 import { OptionalLink } from "@components/OptionalLink";
 import { USE_QUERY_KEYS } from "@constants/queryKeys";
 import { BaseSDK } from "@queries/resolvers";
-import { RoundButton } from "components/RoundButton";
+import { RoundButton } from "@components/RoundButton";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from "react-icons/hi";

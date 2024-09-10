@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { truncatedAmount } from "../../utils";
+import { truncatedAmount } from "@hooks/utils";
 import { AvatarWallet } from "../AvatarWallet";
 import { Countdown } from "./Countdown";
 import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react";

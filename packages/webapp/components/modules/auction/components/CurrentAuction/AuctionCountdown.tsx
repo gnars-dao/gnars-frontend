@@ -1,5 +1,5 @@
 import { AuctionDetail } from "../AuctionDetail";
-import { Countdown } from "components/Countdown";
+import { Countdown } from "@components/Countdown";
 
 export const AuctionCountdown = ({ endTime, onEnd }: { endTime: number; onEnd: () => void }) => {
   return (

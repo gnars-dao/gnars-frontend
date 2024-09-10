@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { GnarData } from "../../hooks/useGnarData";
+import { GnarData } from "@hooks/hooks/useGnarData";
 import { RoundButton } from "../RoundButton";
 import { HStack, StackProps } from "@chakra-ui/react";
 import { useRouter } from "next/router";

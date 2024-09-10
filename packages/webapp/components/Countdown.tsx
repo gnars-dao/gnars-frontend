@@ -1,5 +1,5 @@
-import { useCountdown } from "../hooks/useCountdown";
-import { useIsMounted } from "../hooks/useIsMounted";
+import { useCountdown } from "@hooks/useCountdown";
+import { useIsMounted } from "@hooks/useIsMounted";
 
 interface CountdownProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   end: number;

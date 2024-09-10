@@ -3,8 +3,8 @@ import { Icon } from "@chakra-ui/icons";
 import { Box, Flex } from "@chakra-ui/react";
 import { NULL_ADDRESS } from "@constants/baseAddresses";
 import { ETHERSCAN_BASE_URL } from "@constants/etherscan";
-import { AccountAvatar } from "components/AccountAvatar";
-import { useEnsData } from "hooks/useEnsData";
+import { AccountAvatar } from "@components/AccountAvatar";
+import { useEnsData } from "@hooks/useEnsData";
 import { useChainStore } from "stores/useChainStore";
 
 export const WinningBidder = ({ owner }: { owner?: string }) => {

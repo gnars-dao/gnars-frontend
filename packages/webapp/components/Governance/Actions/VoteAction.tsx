@@ -28,7 +28,7 @@ import {
   useDisclosure,
   useToast
 } from "@chakra-ui/react";
-import { AvatarWallet } from "components/AvatarWallet";
+import { AvatarWallet } from "@components/AvatarWallet";
 import { find } from "lodash";
 import { BiCommentDetail } from "react-icons/bi";
 import { DetailedProposalData, Support } from "@utils/governanceUtils";

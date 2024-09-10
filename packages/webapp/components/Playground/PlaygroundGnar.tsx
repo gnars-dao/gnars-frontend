@@ -20,8 +20,8 @@ import {
   VStack,
   useDisclosure
 } from "@chakra-ui/react";
-import { GnarImage } from "components/GnarImage";
-import { GnarToolbar } from "components/GnarToolbar";
+import { GnarImage } from "@components/GnarImage";
+import { GnarToolbar } from "@components/GnarToolbar";
 import { FaInfo } from "react-icons/fa";
 import { FaSquareFull } from "react-icons/fa";
 import { MdFileDownload } from "react-icons/md";

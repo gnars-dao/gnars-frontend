@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Bid } from "../../hooks/useGnarData";
+import { Bid } from "@hooks/hooks/useGnarData";
 import { AvatarWallet } from "../AvatarWallet";
 import {
   Link,

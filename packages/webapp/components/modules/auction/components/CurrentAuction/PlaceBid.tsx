@@ -1,5 +1,5 @@
 import React, { Fragment, memo, useEffect, useState } from "react";
-import { useMinBidIncrement } from "../../hooks";
+import { useMinBidIncrement } from "@hooks";
 // import { auctionActionButtonVariants, bidForm, bidInput } from '../Auction.css'
 import { WarningModal } from "./WarningModal";
 import {
@@ -26,8 +26,8 @@ import { averageWinningBid } from "@queries/base/requests/averageWinningBid";
 import { getBids } from "@queries/base/requests/getBids";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 // @TODO Pull in contract btn from nouns-base
-import { ContractButton } from "components/ContractButton";
-import { useDaoStore } from "components/modules/dao";
+import { ContractButton } from "@components/ContractButton";
+import { useDaoStore } from "@components/modules/dao";
 import { auctionAbi } from "data/contract/abis/Auction";
 import { unpackOptionalArray } from "@utils/helpers";
 import { formatCryptoVal } from "@utils/numbers";

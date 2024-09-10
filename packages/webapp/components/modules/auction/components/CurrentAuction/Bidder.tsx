@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { AccountAvatar } from "components/AccountAvatar";
-import { useEnsData } from "hooks/useEnsData";
+import { AccountAvatar } from "@components/AccountAvatar";
+import { useEnsData } from "@hooks/useEnsData";
 
 interface BidderProps {
   address: string;

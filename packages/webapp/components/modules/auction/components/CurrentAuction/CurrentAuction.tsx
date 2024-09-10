@@ -11,7 +11,7 @@ import { AddressType, Chain } from "@constants/types";
 import { AuctionBidFragment } from "@subgraph-generated/base";
 import { auctionAbi } from "data/contract/abis";
 import dayjs from "dayjs";
-import { useTimeout } from "hooks/useTimeout";
+import { useTimeout } from "@hooks/useTimeout";
 import { useRouter } from "next/router";
 import { formatEther } from "viem";
 import { useContractRead } from "wagmi";

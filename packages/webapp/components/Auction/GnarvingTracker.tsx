@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Link, Progress, SimpleGrid, SimpleGridProps, type SystemProps, Text, TypographyProps } from "@chakra-ui/react";
-import { GnarvingData } from "hooks/useGnarData";
+import { GnarvingData } from "@hooks/useGnarData";
 import { formatConciseDurationInDays } from "@utils/dateTimeFormat";
 
 export interface GnarvingTrackerProps extends SimpleGridProps {

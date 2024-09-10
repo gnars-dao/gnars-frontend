@@ -1,9 +1,9 @@
 import React from "react";
 import { Icon } from "@chakra-ui/icons";
 import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
-import { AccountAvatar } from "components/AccountAvatar";
+import { AccountAvatar } from "@components/AccountAvatar";
 import { ETHERSCAN_BASE_URL } from "@constants/etherscan";
-import { useEnsData } from "hooks/useEnsData";
+import { useEnsData } from "@hooks/useEnsData";
 import { useChainStore } from "stores/useChainStore";
 import { AuctionBidFragment } from "subgraph-generated/base";
 import { formatCryptoVal } from "@utils/numbers";

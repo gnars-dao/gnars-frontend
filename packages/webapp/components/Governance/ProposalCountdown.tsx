@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { useBlock } from "../../hooks/useBlock";
-import { EffectiveProposalStatus } from "../../utils/governanceUtils";
+import { useBlock } from "@hooks/hooks/useBlock";
+import { EffectiveProposalStatus } from "@hooks/utils/governanceUtils";
 import { HStack, Spinner, Text, Tooltip } from "@chakra-ui/react";
 import { RiTimeFill } from "react-icons/ri";
 

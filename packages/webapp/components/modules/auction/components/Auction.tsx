@@ -20,7 +20,7 @@ import { USE_QUERY_KEYS } from "@constants/queryKeys";
 // import { L1_CHAINS } from 'src/data/contract/chains'
 import { getBids } from "@queries/base/requests/getBids";
 import { unpackOptionalArray } from "@utils/helpers";
-import { useDaoStore } from "components/modules/dao";
+import { useDaoStore } from "@components/modules/dao";
 import { AddressType, Chain } from "@constants/types";
 import { auctionAbi } from "data/contract/abis/Auction";
 // @TODO Pull in L2MigratedResponse

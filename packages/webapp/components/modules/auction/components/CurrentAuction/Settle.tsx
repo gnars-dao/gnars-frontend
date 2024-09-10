@@ -3,7 +3,7 @@ import { Button, Stack } from "@chakra-ui/react";
 import { useDaoStore } from "@components/modules/dao";
 import { AddressType } from "@constants/types";
 import { auctionAbi } from "@data/contract/abis/Auction";
-import { ContractButton } from "components/ContractButton";
+import { ContractButton } from "@components/ContractButton";
 import { useChainStore } from "stores/useChainStore";
 import { useAccount, useContractRead, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
