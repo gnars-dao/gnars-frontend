@@ -1,5 +1,5 @@
 import { CHAIN_ID } from "@constants/types";
-import { BaseSDK } from "@queries/resolvers.ts";
+import { BaseSDK } from "@queries/resolvers";
 import { Address } from "viem";
 
 export const averageWinningBid = async (chainId: CHAIN_ID, tokenAddress: Address) => {

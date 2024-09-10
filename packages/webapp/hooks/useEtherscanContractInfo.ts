@@ -1,4 +1,4 @@
-import { etherscanApiKey } from "@env/client.ts";
+import { etherscanApiKey } from "@env/client";
 import { useQuery } from "@tanstack/react-query";
 import { Abi } from "abitype";
 import { isAddress } from "viem";

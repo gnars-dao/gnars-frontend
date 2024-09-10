@@ -24,7 +24,7 @@ import {
 import { Auction } from "@components/modules/auction";
 import { PUBLIC_SUBGRAPH_URL } from "@constants/env";
 import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "@constants/gnarsDao";
-import { CHAIN_IDS } from "@constants/types";
+import { CHAIN_IDS } from "@constants/networkConfig";
 import { GnarData } from "@hooks/useGnarData";
 import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
 import { is10thGnar, shortAddress } from "@utils";
