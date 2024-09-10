@@ -30,12 +30,12 @@ const getPartMapping = ({
   glasses: number;
   head: number;
 }): [string, number][] => [
-    ["BACKGROUND", background],
-    ["BODY", body],
-    ["ACESSORY", accessory],
-    ["HEADS", head],
-    ["NOGGLES", glasses]
-  ];
+  ["BACKGROUND", background],
+  ["BODY", body],
+  ["ACESSORY", accessory],
+  ["HEADS", head],
+  ["NOGGLES", glasses]
+];
 
 const getPartQuery = ([partFolder, seed]: [string, number]) =>
   `&images=${encodeURI(`${GNARS_HD_IPFS_FOLDER}/${partFolder}/${seed}.PNG`)}`;

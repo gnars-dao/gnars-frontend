@@ -1,4 +1,6 @@
 import { Button, Container, DarkMode, Divider, HStack, Heading, Stack, Text, VStack } from "@chakra-ui/react";
+import { DelegateButton } from "@components/Governance/Delegation/DelegateButton";
+import { UserVotes } from "@components/Governance/Delegation/UserVotes";
 import { ProposalCard } from "@components/Governance/ProposalCard";
 import Menu from "@components/Menu";
 import BaseProposals from "@components/Proposal/BaseProposals";
@@ -17,8 +19,6 @@ import {
   isFinalized
 } from "@utils/governanceUtils";
 import { getLatestEthereumBlock } from "@utils/web3";
-import { DelegateButton } from "@components/Governance/Delegation/DelegateButton";
-import { UserVotes } from "@components/Governance/Delegation/UserVotes";
 import { isArray, partition } from "lodash";
 import Link from "next/link";
 import { useRouter } from "next/router";

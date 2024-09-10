@@ -1,9 +1,9 @@
 import { Container, DarkMode, Stack, VStack } from "@chakra-ui/react";
 import { ProposalCard } from "@components/Governance/ProposalCard.tsx";
 import ProposalContent from "@components/Governance/ProposalContent";
-import Menu from "@components/Menu";
 import { ProposalCreationForm } from "@components/Governance/ProposalCreationForm";
 import { useProposalCreationState } from "@components/Governance/ProposalCreationForm.state";
+import Menu from "@components/Menu";
 import dynamic from "next/dynamic";
 import { zeroAddress } from "viem";
 import { useAccount } from "wagmi";

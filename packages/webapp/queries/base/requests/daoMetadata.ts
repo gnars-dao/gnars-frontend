@@ -1,7 +1,7 @@
-import { AddressType, CHAIN_ID } from "constants/types";
 import { metadataAbi } from "@data/contract/abis";
 import { L1_CHAINS } from "@data/contract/chains";
 import { BaseSDK } from "@queries/resolvers";
+import { AddressType, CHAIN_ID } from "constants/types";
 import { encodeFunctionData } from "viem";
 
 export const encodedDaoMetadataRequest = async (tokenAddress: AddressType, chain?: CHAIN_ID) => {

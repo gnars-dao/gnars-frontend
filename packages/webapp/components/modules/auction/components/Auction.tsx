@@ -18,15 +18,15 @@ import { Flex, Grid } from "@chakra-ui/react";
 import { useDaoStore } from "@components/modules/dao";
 import { USE_QUERY_KEYS } from "@constants/queryKeys";
 import { AddressType, Chain } from "@constants/types";
+// @TODO Pull in L2MigratedResponse
+// import { L2MigratedResponse } from 'src/pages/api/migrated'
+// @TODO Fix the page URLs (queries, params, etc.)
+import { TokenWithDao } from "@pages/dao/[network]/[token]/[tokenId]";
 // @TODO Pull in L1_CHAINS
 // import { L1_CHAINS } from 'src/data/contract/chains'
 import { getBids } from "@queries/base/requests/getBids";
 import { unpackOptionalArray } from "@utils/helpers";
 import { auctionAbi } from "data/contract/abis/Auction";
-// @TODO Pull in L2MigratedResponse
-// import { L2MigratedResponse } from 'src/pages/api/migrated'
-// @TODO Fix the page URLs (queries, params, etc.)
-import { TokenWithDao } from "@pages/dao/[network]/[token]/[tokenId]";
 // @TODO Replace useSWR
 import useSWR from "swr";
 import { formatEther } from "viem";
