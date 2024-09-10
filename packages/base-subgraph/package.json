@@ -4,9 +4,15 @@
   "license": "UNLICENSED",
   "scripts": {
     "clean": "rm -rf ./node_modules ./generated ./build subgraph.yaml",
+    "local-node": "docker-compose up",
     "codegen": "graph codegen",
     "build": "graph build",
-    "prepare": "mustache config/base.json subgraph.yaml.mustache > subgraph.yaml"
+    "prepare": "mustache config/base.json subgraph.yaml.mustache > subgraph.yaml",
+    "prepare:base": "mustache config/base.json subgraph.yaml.mustache > subgraph.yaml",
+    "prepare:base-sepolia": "mustache config/base-sepolia.json subgraph.yaml.mustache > subgraph.yaml",
+    "create:local": "graph create --node http://localhost:8020/ gnars-base",
+    "remove:local": "graph remove --node http://localhost:8020/ gnars-base",
+    "deploy:local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 --network sepolia gnars-base"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.50.1",
