@@ -4,7 +4,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "api:build": "turbo run build --filter=api"
+    "api:build": "turbo run build --filter=api",
+    "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
     "prettier": "^2.8.8",
