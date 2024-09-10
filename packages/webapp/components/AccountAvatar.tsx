@@ -28,4 +28,3 @@ export const AccountAvatar: FC<AccountAvatarProps> = ({ address, avatarImg, isLo
       boxSize={"36px"}
     />
   );
-  );

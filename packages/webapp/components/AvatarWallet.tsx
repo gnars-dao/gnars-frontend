@@ -26,7 +26,6 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
       <AccountAddress truncate address={address as `0x${string}`} />
     </AccountWithAvatar>
   );
-  );
 
   // const content = (
   //   <HStack {...props}>
@@ -66,4 +65,4 @@ export const AvatarWallet: FC<AvatarWalletProps> = ({ address, ...props }) => {
   //   content
   // )
 };
-};
+
