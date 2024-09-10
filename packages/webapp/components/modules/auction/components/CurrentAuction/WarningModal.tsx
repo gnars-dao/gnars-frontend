@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Heading, Spinner, Stack, Text } from "@chakra-ui/react";
-import { formatCryptoVal } from "utils/numbers";
+import { formatCryptoVal } from "@utils/numbers";
 
 export interface WarningModalProps {
   daoName: string;

@@ -4,12 +4,12 @@ import { AllBids } from "../AllBids";
 import { Bidder } from "./Bidder";
 import { Icon } from "@chakra-ui/icons";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
-import { ETHERSCAN_BASE_URL } from "constants/";
+import { ETHERSCAN_BASE_URL } from "@constants/";
 import { AuctionBidFragment } from "@subgraph-generated/base";
 import dynamic from "next/dynamic";
 import { useChainStore } from "stores/useChainStore";
 
-// TODO: Check if AnimatedModal needs to be pulled in from nouns-builder
+// @TODO Check if AnimatedModal needs to be pulled in from nouns-builder
 // const AnimatedModal = dynamic(() => import('src/components/Modal/AnimatedModal'), {
 //   ssr: false,
 // })
@@ -18,7 +18,7 @@ interface RecentBidsProps {
   bids: AuctionBidFragment[];
 }
 
-// TODO: defaultBids is from 
+// @TODO defaultBids is from 
 const exampleBids =
   [
     {

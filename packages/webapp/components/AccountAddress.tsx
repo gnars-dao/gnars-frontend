@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { shortAddress } from "utils";
+import { shortAddress } from "@utils";
 import { HStack, IconButton, StackProps, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
 // @ts-ignore
 import { FiCopy, FiExternalLink } from "react-icons/fi";
@@ -35,9 +35,6 @@ export const AccountAddress: FC<AccountAddress> = ({ address, nnsOrEnsName, trun
           minW={"12px"}
           icon={<FiCopy size={"12px"} />}
           onClick={() => {
-            navigator.clipboard.writeText(address);
-            showCopiedTooltip();
-            setTimeout(hideCopiedTooltip, 2500);
             navigator.clipboard.writeText(address);
             showCopiedTooltip();
             setTimeout(hideCopiedTooltip, 2500);

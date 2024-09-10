@@ -7,7 +7,7 @@ import { ContractBreadcrumbs } from "components/ContractBreadcrumbs";
 import { ParamSpec, ParamsTable } from "components/ParamsTable";
 import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo";
 import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback";
-import { NounsTransactionData } from "utils/governanceUtils";
+import { NounsTransactionData } from "@utils/governanceUtils";
 import { decodeFunctionData, formatEther, getAbiItem, getFunctionSelector, parseAbiItem } from "viem";
 import { useEnsAvatar } from "wagmi";
 
@@ -35,9 +35,9 @@ export const Transaction: FC<TransactionProps> = ({ data: { calldata, signature,
     () =>
       partialFunc
         ? decodeFunctionData({
-            abi: [partialFunc],
-            data: (getFunctionSelector(signature) + calldata.substring(2)) as `0x${string}`
-          })
+          abi: [partialFunc],
+          data: (getFunctionSelector(signature) + calldata.substring(2)) as `0x${string}`
+        })
         : undefined,
     [partialFunc, calldata, signature]
   );

@@ -90,7 +90,7 @@ export const AuctionPaused = () => {
           fontSize={18}
           style={{ textDecoration: 'underline' }}
         >
-          // TODO: there was an icon here
+          // @TODO there was an icon here
           {pausedProposal?.proposalId ? 'See proposal here' : 'See activity tab'}
           {pausedProposal?.proposalId ? (
 

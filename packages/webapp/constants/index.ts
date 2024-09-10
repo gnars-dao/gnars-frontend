@@ -9,3 +9,4 @@ export * from "./gnarsHD";
 export * from "./rpc";
 export * from "./queryKeys";
 export * from "./types";
+export * from "./networkConfig";

@@ -3,7 +3,7 @@ import { EventTime } from "./EventTime";
 import { Box, Button, HStack, Square, StackDivider, StackProps, Text, VStack } from "@chakra-ui/react";
 import { AvatarWallet } from "components/AvatarWallet";
 import { HiExternalLink } from "react-icons/hi";
-import { DetailedProposalData, Support } from "utils/governanceUtils";
+import { DetailedProposalData, Support } from "@utils/governanceUtils";
 
 export interface ProposalTimelineProps extends StackProps {
   proposal: DetailedProposalData;

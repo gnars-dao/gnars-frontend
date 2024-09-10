@@ -6,7 +6,7 @@ import { AvatarWallet } from "components/AvatarWallet";
 import { Inter } from "next/font/google";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { NounsTransactionData } from "utils/governanceUtils";
+import { NounsTransactionData } from "@utils/governanceUtils";
 
 const inter = Inter({ subsets: ["latin"] });
 

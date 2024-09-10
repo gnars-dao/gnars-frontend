@@ -31,8 +31,8 @@ import {
 import { AvatarWallet } from "components/AvatarWallet";
 import { find } from "lodash";
 import { BiCommentDetail } from "react-icons/bi";
-import { DetailedProposalData, Support } from "utils/governanceUtils";
-import { useGnarsDaoCastVote, useGnarsDaoCastVoteWithReason, useGnarsV2TokenGetPriorVotes } from "utils/sdk";
+import { DetailedProposalData, Support } from "@utils/governanceUtils";
+import { useGnarsDaoCastVote, useGnarsDaoCastVoteWithReason, useGnarsV2TokenGetPriorVotes } from "@utils/sdk";
 import { useAccount } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
 
@@ -73,11 +73,11 @@ export const VoteAction: FC<VoteActionProps> = ({ proposal, ...props }) => {
       return (
         reason.length > 0
           ? voteWithReason({
-              args: [propId, support, reason]
-            })
+            args: [propId, support, reason]
+          })
           : voteWithoutReason({
-              args: [propId, support]
-            })
+            args: [propId, support]
+          })
       )
         .then((tx) => waitForTransaction({ hash: tx.hash }))
         .then(() => {

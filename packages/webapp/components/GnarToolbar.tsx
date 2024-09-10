@@ -19,7 +19,7 @@ import {
 import { FaInfo, FaSquareFull } from "react-icons/fa";
 import { MdFileDownload } from "react-icons/md";
 import { useHover } from "usehooks-ts";
-import { Gnartwork } from "utils";
+import { Gnartwork } from "@utils";
 
 export interface GnarToolbarProps extends StackProps {
   isOg: boolean;

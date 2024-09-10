@@ -15,10 +15,10 @@ import {
   VStack,
   useDisclosure
 } from "@chakra-ui/react";
-import { ShredIcon } from "components/Icons";
+import { ShredIcon } from "@components/Icons";
 import { FaInfoCircle } from "react-icons/fa";
 
-interface BiddingAndSettlingInfoProps extends StackProps {}
+interface BiddingAndSettlingInfoProps extends StackProps { }
 
 export const BiddingAndSettlingInfo: FC<BiddingAndSettlingInfoProps> = ({ ...props }) => {
   const { isOpen, onClose, getButtonProps } = useDisclosure();

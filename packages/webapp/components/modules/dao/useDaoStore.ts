@@ -1,4 +1,4 @@
-import { AddressType } from "constants/types";
+import { AddressType } from "@constants/types";
 import { auctionAbi } from "data/contract/abis";
 import { governorAbi } from "data/contract/abis";
 import { metadataAbi } from "data/contract/abis";

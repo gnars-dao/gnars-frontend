@@ -25,7 +25,7 @@ import { AvatarWallet } from "components/AvatarWallet";
 import { useAccountQuery } from "hooks/useAccountQuery";
 import { delegationInfoQueryKey, useDelegationInfo } from "hooks/useDelegationInfo";
 import { useDebounceValue } from "usehooks-ts";
-import { useGnarsV2TokenDelegate } from "utils/sdk";
+import { useGnarsV2TokenDelegate } from "@utils/sdk";
 import { normalize } from "viem/ens";
 import { useAccount } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";

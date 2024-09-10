@@ -1,4 +1,4 @@
-import { CHAIN_ID, Chain } from "@constants/types";
+import { CHAIN_ID, Chain } from "./types";
 import { base, baseSepolia, mainnet, optimism, optimismSepolia, sepolia, zora, zoraSepolia } from "wagmi/chains";
 
 const MAINNET_CHAINS: Chain[] = [

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { V2_START_ID } from "constants/gnarsDao";
+import { V2_START_ID } from "@constants/gnarsDao";
 import useGnarData, { GnarData } from "hooks/useGnarData";
 import Gnar from "../Gnar";
 import Menu from "../Menu";
@@ -16,7 +16,7 @@ import {
   VStack,
   useBreakpointValue
 } from "@chakra-ui/react";
-import { getGnarBgColor, isBgDark } from "utils";
+import { getGnarBgColor, isBgDark } from "@utils";
 
 interface AuctionProps {
   desiredGnarId?: number;

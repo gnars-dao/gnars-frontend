@@ -25,12 +25,12 @@ import { AddressType, Chain } from "@constants/types";
 import { averageWinningBid } from "@queries/base/requests/averageWinningBid";
 import { getBids } from "@queries/base/requests/getBids";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-// TODO: Pull in contract btn from nouns-base
+// @TODO Pull in contract btn from nouns-base
 import { ContractButton } from "components/ContractButton";
 import { useDaoStore } from "components/modules/dao";
 import { auctionAbi } from "data/contract/abis/Auction";
-import { unpackOptionalArray } from "utils/helpers";
-import { formatCryptoVal } from "utils/numbers";
+import { unpackOptionalArray } from "@utils/helpers";
+import { formatCryptoVal } from "@utils/numbers";
 import useSWR, { useSWRConfig } from 'swr'
 import { formatEther, parseEther } from "viem";
 import { Address, useAccount, useBalance, useContractReads, useNetwork } from "wagmi";
@@ -50,7 +50,7 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
   const { chain: wagmiChain } = useNetwork();
   const { data: balance } = useBalance({ address: address, chainId: chain.id });
 
-  // TODO: Use @tanstack/react-query equivalent of useSWRConfig()
+  // @TODO Use @tanstack/react-query equivalent of useSWRConfig()
   const { mutate } = useSWRConfig()
   const { addresses } = useDaoStore();
 
@@ -132,12 +132,12 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
       const tx = await writeContract(config);
       if (tx?.hash) await waitForTransaction({ hash: tx.hash });
 
-      // TODO: replace with @tanstack/react-query mutate
+      // @TODO replace with @tanstack/react-query mutate
       await mutate([USE_QUERY_KEYS.AUCTION_BIDS, chain.id, addresses.token, tokenId], () =>
         getBids(chain.id, addresses.token!, tokenId)
       )
 
-      // TODO: replace with @tanstack/react-query mutate
+      // @TODO replace with @tanstack/react-query mutate
       await mutate([USE_QUERY_KEYS.AVERAGE_WINNING_BID, chain.id, addresses.token], () =>
         averageWinningBid(chain.id, addresses.token as Address)
       )
@@ -161,7 +161,7 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
   return (
     <Flex
       width="100%"
-      direction={"row"} // TODO: column on mobile
+      direction={"row"} // @TODO column on mobile
       justify={"flex-start"}
     >
       {bidAmount && valueToCalculateWarning ? (

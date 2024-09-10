@@ -7,7 +7,7 @@ import { AuctionCountdown } from "./AuctionCountdown";
 import { MemoizedPlaceBid } from "./PlaceBid";
 import { RecentBids } from "./RecentBids";
 import { Settle } from "./Settle";
-import { AddressType, Chain } from "constants/types";
+import { AddressType, Chain } from "@constants/types";
 import { AuctionBidFragment } from "@subgraph-generated/base";
 import { auctionAbi } from "data/contract/abis";
 import dayjs from "dayjs";
@@ -45,7 +45,7 @@ export const CurrentAuction = ({
     functionName: "contractVersion"
   });
 
-  // TODO: remove test logging
+  // @TODO remove test logging
   React.useEffect(() => {
     console.log(`CurrentAuction all data: \n\n `, { query, isEnded, isEnding, auctionVersion, chain, tokenId, auctionAddress, daoName, owner, endTime, bids });
   }, [auctionVersion, query, isEnded, isEnding, chain, tokenId, auctionAddress, daoName, owner, endTime, bids]);

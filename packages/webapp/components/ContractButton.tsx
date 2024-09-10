@@ -1,4 +1,4 @@
-// TODO: Replace rainbowkit modal
+// @TODO Replace rainbowkit modal
 // import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { Button, ButtonProps } from "@chakra-ui/react";
 // import { useBridgeModal } from '@hooks/useBridgeModal'

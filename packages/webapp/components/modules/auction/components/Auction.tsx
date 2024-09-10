@@ -1,9 +1,9 @@
-// TODO: Replace axios
+// @TODO Replace axios
 // import axios from 'axios'
 import React, { Fragment, ReactNode } from "react";
 import { Text } from '@chakra-ui/react'
 import { useAuctionEvents } from "../hooks";
-// TODO: Fix styles for auctionGrid and auctionWrapper
+// @TODO Fix styles for auctionGrid and auctionWrapper
 // import { auctionGrid, auctionWrapper } from './Auction.css'
 import { AuctionDetails } from "./AuctionDetails";
 import { AuctionImage } from "./AuctionImage";
@@ -15,19 +15,19 @@ import { CurrentAuction } from "./CurrentAuction";
 // import { DaoMigrated } from './DaoMigrated'
 import { WinningBidder } from "./WinningBidder";
 import { Flex, Grid } from "@chakra-ui/react";
-import { USE_QUERY_KEYS } from "constants/queryKeys";
-// TODO: Pull in L1_CHAINS
+import { USE_QUERY_KEYS } from "@constants/queryKeys";
+// @TODO Pull in L1_CHAINS
 // import { L1_CHAINS } from 'src/data/contract/chains'
 import { getBids } from "@queries/base/requests/getBids";
 import { unpackOptionalArray } from "@utils/helpers";
 import { useDaoStore } from "components/modules/dao";
-import { AddressType, Chain } from "constants/types";
+import { AddressType, Chain } from "@constants/types";
 import { auctionAbi } from "data/contract/abis/Auction";
-// TODO: Pull in L2MigratedResponse
+// @TODO Pull in L2MigratedResponse
 // import { L2MigratedResponse } from 'src/pages/api/migrated'
-// TODO: Fix the page URLs (queries, params, etc.)
+// @TODO Fix the page URLs (queries, params, etc.)
 import { TokenWithDao } from "pages/dao/[network]/[token]/[tokenId]";
-// TODO: Replace useSWR
+// @TODO Replace useSWR
 import useSWR from "swr";
 import { formatEther } from "viem";
 import { readContract } from "wagmi/actions";
@@ -63,7 +63,7 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
     { revalidateOnFocus: true }
   );
 
-  // TODO: Remove test logging
+  // @TODO Remove test logging
   React.useEffect(() => {
     console.log(`Auction.tsx from module data: `, { auction, chain, auctionAddress, collection, token });
   }, [auction, chain, auctionAddress, collection, token]);

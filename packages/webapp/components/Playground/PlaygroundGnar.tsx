@@ -25,7 +25,7 @@ import { GnarToolbar } from "components/GnarToolbar";
 import { FaInfo } from "react-icons/fa";
 import { FaSquareFull } from "react-icons/fa";
 import { MdFileDownload } from "react-icons/md";
-import { Gnartwork } from "utils";
+import { Gnartwork } from "@utils";
 
 interface PlaygroundGnarProps extends StackProps {
   playgroundGnarId: number;

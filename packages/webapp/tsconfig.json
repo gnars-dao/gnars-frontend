@@ -29,17 +29,42 @@
     "allowImportingTsExtensions": true,
     "noImplicitAny": false,
     "paths": {
-      "@abis/*": ["abis/*"],
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@constants": ["constants/*"],
-      "@data/*": ["data/*"],
-      "@env/*": ["env/*"],
-      "@graphql/*": ["graphql/*"],
-      "@pages/*": ["pages/*"],
-      "@queries/*": ["queries/*"],
-      "@subgraph-generated/*": ["subgraph-generated/*"],
-      "@utils/*": ["utils/*"]
+      "@abis/*": [
+        "abis/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@constants": [
+        "constants"
+      ],
+      "@data/*": [
+        "data/*"
+      ],
+      "@env/*": [
+        "env/*"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
+      "@graphql/*": [
+        "graphql/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@queries/*": [
+        "queries/*"
+      ],
+      "@subgraph-generated/*": [
+        "subgraph-generated/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
     },
     "plugins": [
       {
