@@ -12,7 +12,7 @@
     "prepare:base-sepolia": "mustache config/base-sepolia.json subgraph.yaml.mustache > subgraph.yaml",
     "create:local": "graph create --node http://localhost:8020/ gnars-base",
     "remove:local": "graph remove --node http://localhost:8020/ gnars-base",
-    "deploy:local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 --network sepolia gnars-base"
+    "deploy:local": "prepare && graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 --network base gnars-base"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.50.1",
