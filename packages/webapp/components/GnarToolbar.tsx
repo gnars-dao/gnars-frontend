@@ -16,7 +16,7 @@ import {
   Text,
   useDisclosure
 } from "@chakra-ui/react";
-import { Gnartwork } from "@utils";
+import { Gnartwork } from "@utils/old-index";
 import { FaInfo, FaSquareFull } from "react-icons/fa";
 import { MdFileDownload } from "react-icons/md";
 import { useHover } from "usehooks-ts";

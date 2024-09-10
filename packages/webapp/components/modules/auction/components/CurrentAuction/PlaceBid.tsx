@@ -24,7 +24,7 @@ import { useDaoStore } from "@components/modules/dao";
 import { PUBLIC_IS_TESTNET } from "@constants/defaultChains";
 import { USE_QUERY_KEYS } from "@constants/queryKeys";
 import { AddressType, Chain } from "@constants/types";
-import { useMinBidIncrement } from "@hooks";
+import { useMinBidIncrement } from "@components/modules/auction/hooks/useMinBidIncrement";
 import { averageWinningBid } from "@queries/base/requests/averageWinningBid";
 import { getBids } from "@queries/base/requests/getBids";
 import { useQuery, useQueryClient } from "@tanstack/react-query";

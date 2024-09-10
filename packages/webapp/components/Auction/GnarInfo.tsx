@@ -27,7 +27,7 @@ import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "@constants/g
 import { CHAIN_IDS } from "@constants/networkConfig";
 import { GnarData } from "@hooks/useGnarData";
 import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
-import { is10thGnar, shortAddress } from "@utils";
+import { is10thGnar, shortAddress } from "@utils/old-index";
 import { AnimatePresence, motion } from "framer-motion";
 import { Londrina_Solid } from "next/font/google";
 import { FiExternalLink, FiInfo } from "react-icons/fi";

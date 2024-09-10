@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { V2_START_ID } from "@constants/gnarsDao";
 import useGnarData, { GnarData } from "@hooks/useGnarData";
-import { getGnarBgColor, isBgDark } from "@utils";
+import { getGnarBgColor, isBgDark } from "@utils/old-index";
 
 interface AuctionProps {
   desiredGnarId?: number;

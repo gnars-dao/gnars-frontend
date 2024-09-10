@@ -14,5 +14,5 @@ export const useIsContract = ({
     // TODO: figure out this type, probably the provider
     return await provider.getBytecode({ address }).then((x) => x !== "0x");
   });
-};
+}; 
 */

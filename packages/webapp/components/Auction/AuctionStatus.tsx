@@ -2,7 +2,7 @@ import { FC } from "react";
 import { AvatarWallet } from "../AvatarWallet";
 import { Countdown } from "./Countdown";
 import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
-import { truncatedAmount } from "@hooks/utils";
+import { truncatedAmount } from "@utils/old-index";
 
 interface AuctionStatusProps extends StackProps {
   endTimestamp?: number;

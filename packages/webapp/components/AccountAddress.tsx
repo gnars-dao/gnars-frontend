@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { HStack, IconButton, StackProps, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
-import { shortAddress } from "@utils";
-// @ts-ignore
+import { shortAddress } from "@utils/old-index";
 import { FiCopy, FiExternalLink } from "react-icons/fi";
 import { getAddress } from "viem";
 

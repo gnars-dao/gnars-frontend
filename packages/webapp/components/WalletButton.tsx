@@ -1,7 +1,7 @@
 import { AccountAvatar } from "./AccountAvatar";
 import { Button, ButtonProps, HStack, Text } from "@chakra-ui/react";
 import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
-import { shortAddress } from "@utils";
+import { shortAddress } from "@utils/old-index";
 import { ConnectKitButton, useModal } from "connectkit";
 import { useAccount, useEnsAvatar } from "wagmi";
 

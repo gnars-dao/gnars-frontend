@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { GnarImage } from "@components/GnarImage";
 import { GnarToolbar } from "@components/GnarToolbar";
-import { Gnartwork } from "@utils";
+import { Gnartwork } from "@utils/old-index";
 import { FaInfo } from "react-icons/fa";
 import { FaSquareFull } from "react-icons/fa";
 import { MdFileDownload } from "react-icons/md";

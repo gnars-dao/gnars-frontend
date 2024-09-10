@@ -18,7 +18,7 @@ import {
   useBreakpointValue
 } from "@chakra-ui/react";
 import { useWalletOgGnars } from "@hooks/useWalletOgGnars";
-import { getGnartwork } from "@utils";
+import { getGnartwork } from "@utils/old-index";
 import { usePrepareGnarsV2AuctionHouseClaimGnars } from "@utils/sdk";
 import { useAccount, useContractWrite } from "wagmi";
 import { mainnet } from "wagmi/chains";

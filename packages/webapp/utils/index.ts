@@ -11,5 +11,5 @@ export * from "./parseArrayParameter";
 export * from "./provider";
 export * from "./sdk";
 export * from "./web3";
-// @TODO: Move these to different file
+// @TODO: Move old-index to it's own file
 export * from "./old-index";
