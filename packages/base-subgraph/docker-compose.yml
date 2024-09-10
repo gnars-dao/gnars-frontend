@@ -17,8 +17,8 @@ services:
       postgres_db: graph-node
       ipfs: "ipfs:5001"
       ethereum: "base:https://mainnet.base.org"
-      ETHEREUM_POLLING_INTERVAL: "50"
-      GRAPH_LOG: info # warn debug
+      # ETHEREUM_POLLING_INTERVAL: "50"
+      GRAPH_LOG: debug # warn debug
   ipfs:
     image: ipfs/go-ipfs:v0.10.0
     ports:
