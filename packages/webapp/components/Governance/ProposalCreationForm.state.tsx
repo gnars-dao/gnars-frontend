@@ -1,7 +1,7 @@
 import { AbiFunction } from "abitype";
 import superjson from "superjson";
-import { getSignature } from "utils/functionUtils";
-import { NounsTransactionData } from "utils/governanceUtils";
+import { getSignature } from "@utils/functionUtils";
+import { NounsTransactionData } from "@utils/governanceUtils";
 import { encodeFunctionData } from "viem";
 import { create } from "zustand";
 import { PersistStorage, persist } from "zustand/middleware";

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Text } from "@chakra-ui/react";
-import { useSecondsUntil } from "hooks/useSecondsUntil";
-import { formatConciseDurationInDays } from "utils/dateTimeFormat";
+import { useSecondsUntil } from "@hooks/useSecondsUntil";
+import { formatConciseDurationInDays } from "@utils/dateTimeFormat";
 
 export type CountdownProps = {
   timestamp: number;

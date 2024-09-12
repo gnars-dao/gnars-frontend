@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Text, TextProps } from "@chakra-ui/react";
-import { useDelegationInfo } from "hooks/useDelegationInfo";
+import { useDelegationInfo } from "@hooks/useDelegationInfo";
 import dynamic from "next/dynamic";
 import { useAccount } from "wagmi";
 

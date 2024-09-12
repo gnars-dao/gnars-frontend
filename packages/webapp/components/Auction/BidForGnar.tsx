@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { useGnarsV2AuctionHouseCreateBid } from "../../utils/sdk";
-import { ContractActionButton } from "../ContractActionButton";
+import { useGnarsV2AuctionHouseCreateBid } from "@utils/sdk";
+import { ContractActionButton } from "@components/ContractActionButton";
 import {
   ButtonGroup,
   HStack,

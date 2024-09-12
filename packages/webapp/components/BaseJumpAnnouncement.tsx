@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TextLink from "./TextLink";
+import TextLink from "@components/TextLink";
 import {
   Alert,
   AlertDescription,

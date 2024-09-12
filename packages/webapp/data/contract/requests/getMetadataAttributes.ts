@@ -1,4 +1,4 @@
-import { metadataAbi } from "../../contract/abis";
+import { metadataAbi } from "@data/contract/abis";
 import { CHAIN_IDS } from "@constants";
 import { Address } from "viem";
 import { readContracts } from "wagmi/actions";

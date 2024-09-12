@@ -1,5 +1,5 @@
-import { CHAIN_IDS } from "./networkConfig";
-import { AddressType } from "./types";
+import { CHAIN_IDS } from "constants/networkConfig";
+import { AddressType } from "constants/types";
 
 export type ContractInfo = {
   Proxy: string;

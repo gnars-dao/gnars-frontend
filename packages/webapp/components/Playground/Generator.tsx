@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "../Icons";
-import { PartPicker } from "./PartPicker";
+import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "@components/Icons";
+import { PartPicker } from "@components/Playground/PartPicker";
 import { Button, CenterProps, VStack, Wrap, WrapItem } from "@chakra-ui/react";
 import { usePlaygroundState } from "@hooks/usePlaygroundState";
 import { FaSquareFull } from "react-icons/fa";

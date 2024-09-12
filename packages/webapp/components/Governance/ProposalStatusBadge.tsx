@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ShredIcon } from "../Icons";
+import { ShredIcon } from "@components/Icons";
 import { Badge, BadgeProps } from "@chakra-ui/react";
 import { EffectiveProposalStatus, isFinalized } from "@utils/governanceUtils";
 

@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Bid } from "../../hooks/useGnarData";
-import { AvatarWallet } from "../AvatarWallet";
+import { Bid } from "@hooks/useGnarData";
+import { AvatarWallet } from "@components/AvatarWallet";
 import {
   Link,
   SimpleGrid,

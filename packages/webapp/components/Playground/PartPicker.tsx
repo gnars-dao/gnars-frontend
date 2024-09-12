@@ -1,8 +1,8 @@
 import { FC, useMemo } from "react";
-import gnarDataV2 from "../../data/image-data-V2.json";
-import { usePlaygroundState } from "../../hooks/usePlaygroundState";
-import { GnarPart, PartKind } from "../../utils";
-import buildSvg from "../../utils/buildSvg";
+import gnarDataV2 from "@data/image-data-V2.json";
+import { usePlaygroundState } from "@hooks/usePlaygroundState";
+import { GnarPart, PartKind } from "utils";
+import buildSvg from "@utils/buildSvg";
 import {
   Button,
   Center,
