@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { EventTime } from "@components/EventTime";
+import { EventTime } from "@components/Governance/EventTime";
 import { Box, Button, HStack, Square, StackDivider, StackProps, Text, VStack } from "@chakra-ui/react";
 import { AvatarWallet } from "@components/AvatarWallet";
 import { HiExternalLink } from "react-icons/hi";
