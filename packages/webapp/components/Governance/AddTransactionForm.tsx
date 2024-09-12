@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo } from "react";
-import { ParameterValue, getFuncParam, useAddTransactionFormState } from "@components/AddTransactionForm.state";
-import { useProposalCreationState } from "@components/ProposalCreationForm.state";
+import { ParameterValue, getFuncParam, useAddTransactionFormState } from "@components/Governance/AddTransactionForm.state";
+import { useProposalCreationState } from "@components/Governance/ProposalCreationForm.state";
 import {
   Button,
   Card,
