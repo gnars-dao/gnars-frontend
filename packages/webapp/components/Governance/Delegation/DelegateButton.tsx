@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { UpdateDelegateModal } from "@components/UpdateDelegateModal";
+import { UpdateDelegateModal } from "@components/Governance/Delegation/UpdateDelegateModal";
 import { Button, ButtonProps, useDisclosure } from "@chakra-ui/react";
 import { useDelegationInfo } from "@hooks/useDelegationInfo";
 import dynamic from "next/dynamic";
