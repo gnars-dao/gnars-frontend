@@ -1,6 +1,6 @@
 import { GnarData, fetchGnarData } from "../../hooks/useGnarData";
-import GnarSection from "components/Auction/GnarSection";
-import Explainer from "components/Explainer";
+import GnarSection from "@components/Auction/GnarSection";
+import Explainer from "@components/Explainer";
 import { GetStaticProps } from "next";
 
 export default function GnarPage({ gnarInfo, gnarId }: { gnarInfo: GnarData; gnarId: number }) {

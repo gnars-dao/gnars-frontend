@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useNnsNameWithEnsFallback } from "../hooks/useNnsNameWithEnsFallback";
+import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
 // @ts-ignore
 import { AccountAddress } from "./AccountAddress";
 import { AccountWithAvatar, AccountWithAvatarProps } from "./AccountWithAvatar";

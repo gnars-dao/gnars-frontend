@@ -17,8 +17,8 @@ import {
   isFinalized
 } from "@utils/governanceUtils";
 import { getLatestEthereumBlock } from "@utils/web3";
-import { DelegateButton } from "components/Governance/Delegation/DelegateButton";
-import { UserVotes } from "components/Governance/Delegation/UserVotes";
+import { DelegateButton } from "@components/Governance/Delegation/DelegateButton";
+import { UserVotes } from "@components/Governance/Delegation/UserVotes";
 import { isArray, partition } from "lodash";
 import Link from "next/link";
 import { useRouter } from "next/router";

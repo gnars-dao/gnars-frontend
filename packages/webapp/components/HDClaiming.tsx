@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGnarsHdAssertOwnership } from "../utils/sdk";
+import { useGnarsHdAssertOwnership } from "@utils/sdk";
 import { ContractActionButton } from "./ContractActionButton";
 import { GnarHDImage } from "./GnarHDImage";
 import { WalletButton } from "./WalletButton";
@@ -19,7 +19,7 @@ import {
   useBreakpointValue
 } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useWalletHDGnars, walletHDGnarsQueryKey } from "hooks/useWalletHDGnars";
+import { useWalletHDGnars, walletHDGnarsQueryKey } from "@hooks/useWalletHDGnars";
 import { useAccount } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
 

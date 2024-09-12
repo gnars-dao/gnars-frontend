@@ -1,7 +1,7 @@
 import { CHAIN_IDS } from "@constants";
 import { Resolvers } from "@subgraph-generated/layer-1";
 import { GraphQLClient } from "graphql-request";
-import { getSdk } from "subgraph-generated/base";
+import { getSdk } from "@subgraph-generated/base";
 
 export const resolvers: Resolvers = {
   Query: {

@@ -1,4 +1,4 @@
-import { V2_START_ID } from "../constants/gnarsDao";
+import { V2_START_ID } from "@constants/gnarsDao";
 import { GnarQuery, getBuiltGraphSDK } from "@subgraph-generated/layer-1";
 import { UseQueryResult, useQuery } from "@tanstack/react-query";
 

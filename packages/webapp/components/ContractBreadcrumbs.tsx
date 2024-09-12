@@ -1,5 +1,5 @@
 import { Badge, HStack, Link, StackProps, Text, forwardRef } from "@chakra-ui/react";
-import { ContractInfo, getProxyAndImplementations, isProxy } from "hooks/useEtherscanContractInfo";
+import { ContractInfo, getProxyAndImplementations, isProxy } from "@hooks/useEtherscanContractInfo";
 
 export interface ContractBreadcrumbsProps extends StackProps {
   contractInfo: ContractInfo;

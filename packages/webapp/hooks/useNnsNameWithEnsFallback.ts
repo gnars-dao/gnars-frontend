@@ -1,4 +1,4 @@
-import { useNnsensReverseResolverResolve } from "utils/sdk";
+import { useNnsensReverseResolverResolve } from "@utils/sdk";
 
 export const useNnsNameWithEnsFallback = (address?: string): any => {
   return useNnsensReverseResolverResolve({

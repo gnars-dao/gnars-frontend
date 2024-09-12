@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { FaTrashAlt } from "react-icons/fa";
-import { usePrepareGnarsDaoPropose } from "utils/sdk";
+import { usePrepareGnarsDaoPropose } from "@utils/sdk";
 import { useContractWrite } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
 
