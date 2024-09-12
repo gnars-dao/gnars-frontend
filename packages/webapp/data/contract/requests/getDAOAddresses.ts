@@ -1,5 +1,7 @@
 import { managerAbi } from "../abis";
-import { AddressType, CHAIN_IDS, NULL_ADDRESS, PUBLIC_MANAGER_ADDRESS } from "@constants";
+import { NULL_ADDRESS, PUBLIC_MANAGER_ADDRESS } from "@constants/baseAddresses";
+import { CHAIN_IDS } from "@constants/networkConfig";
+import { AddressType } from "@constants/types";
 import { unpackOptionalArray } from "@utils/helpers";
 import { readContract } from "wagmi/actions";
 

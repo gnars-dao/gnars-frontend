@@ -4,7 +4,7 @@ import { BaseAlertHeader } from "@components/BaseJumpAnnouncement";
 import Footer from "@components/Footer";
 import { CHAIN_IDS } from "@constants/networkConfig";
 import { alchemyApiKey, walletConnectProjectId } from "@env/client.ts";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { AppProps } from "next/app";
@@ -12,6 +12,7 @@ import Head from "next/head";
 import theme from "theme";
 import { WagmiConfig, createConfig } from "wagmi";
 import { base, mainnet } from "wagmi/chains";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const config = createConfig({
   ...getDefaultConfig({
@@ -51,11 +52,14 @@ export default function App({ Component, pageProps }: AppProps) {
                   <title>Gnars DAO</title>
                 </Head>
                 <BaseAlertHeader />
-                <Component {...pageProps} />
+                <Hydrate state={pageProps.dehydratedState}>
+                  <Component {...pageProps} />
+                </Hydrate>
                 <Divider />
                 <Footer />
               </VStack>
               <Analytics debug={false} />
+              <ReactQueryDevtools initialIsOpen={false} />
             </DarkMode>
           </QueryClientProvider>
         </ConnectKitProvider>

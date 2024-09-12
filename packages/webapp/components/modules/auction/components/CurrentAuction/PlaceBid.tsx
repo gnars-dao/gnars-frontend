@@ -1,5 +1,4 @@
 import React, { Fragment, memo, useEffect, useState } from "react";
-// import { auctionActionButtonVariants, bidForm, bidInput } from '../Auction.css'
 import { WarningModal } from "./WarningModal";
 import {
   Box,
@@ -13,7 +12,11 @@ import {
   ModalHeader,
   Popover,
   Text,
-  useDisclosure
+  useNumberInput,
+  useDisclosure,
+  NumberInputField,
+  Input,
+  FormControl
 } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/react";
 // @TODO Pull in contract btn from nouns-base
@@ -193,21 +196,23 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
 
       {!creatingBid ? (
         <Flex wrap="wrap">
-          <form
+          <FormControl
             // className={bidForm}
             className={"bid-form"}
           >
             <Box position="relative" mr={"5px"}>
-              <input
+              <Input
                 placeholder={`${formattedMinBid} ETH or more`}
                 type={"number"}
                 // className={bidInput}
-                width="50px"
+                width="200px"
                 height="50px"
                 className={"bid-input"}
                 min={formattedMinBid}
                 max={balance?.formatted}
                 onChange={(event) => setBidAmount(event.target.value)}
+                backgroundColor="white"
+                margin={'10px'}
               />
               <Box position="absolute" style={{ top: 0, right: 0, bottom: 0 }}>
                 <Flex align={"center"} height={"100%"} pr={"x4"} fontWeight={"display"}>
@@ -215,7 +220,7 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
                 </Flex>
               </Box>
             </Box>
-          </form>
+          </FormControl>
           <Flex w="100%" wrap="wrap" mt="x2">
             <ContractButton
               // className={auctionActionButtonVariants['bid']}

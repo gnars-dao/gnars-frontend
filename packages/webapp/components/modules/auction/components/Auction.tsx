@@ -28,7 +28,7 @@ import { getBids } from "@queries/base/requests/getBids";
 import { unpackOptionalArray } from "@utils/helpers";
 import { auctionAbi } from "data/contract/abis/Auction";
 // @TODO Replace useSWR
-import useSWR from "swr";
+import { useQuery } from "@tanstack/react-query";
 import { formatEther } from "viem";
 import { readContract } from "wagmi/actions";
 
@@ -50,41 +50,43 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
     data: auction,
     error: auctionError,
     isLoading: auctionIsLoading
-  } = useSWR(
+  } = useQuery(
     [USE_QUERY_KEYS.AUCTION, chain.id, auctionAddress],
-    (_, chainId, auctionAddress) => {
-      console.log(`Auction.tsx useSWR main auction query: `, USE_QUERY_KEYS.AUCTION, chainId, auctionAddress);
+    () => {
+      console.log(`Auction.tsx main auction query: `, { auction: USE_QUERY_KEYS.AUCTION, chainId: chain.id, auctionAddress });
       if (auctionAddress) {
         return readContract({
           abi: auctionAbi,
           address: auctionAddress as AddressType,
           functionName: "auction",
-          chainId
+          chainId: chain.id
         });
       }
     },
-    { revalidateOnFocus: true }
+    //revalidateOnFocus: true
   );
 
   // @TODO Remove test logging
   React.useEffect(() => {
-    console.log(`Auction.tsx from module data: `, { auction, chain, auctionAddress, collection, token });
-  }, [auction, chain, auctionAddress, collection, token]);
+    console.log(`Auction.tsx from module data: `, { auction, chain, auctionAddress, collection, token, auctionIsLoading, auctionError });
+  }, [auction, chain, auctionAddress, collection, token, auctionIsLoading, auctionError]);
+
 
   const [currentTokenId, highestBid, highestBidder, _, endTime, settled] = unpackOptionalArray(auction, 6);
 
   const isTokenActiveAuction = !settled && currentTokenId !== undefined && currentTokenId.toString() == queriedTokenId;
 
-  /*useAuctionEvents({
+  useAuctionEvents({
     chainId: chain.id,
     collection,
     isTokenActiveAuction,
     tokenId: queriedTokenId
-  });*/
+  });
 
-  const { data: bids } = useSWR([USE_QUERY_KEYS.AUCTION_BIDS, chain.id, collection, queriedTokenId], () =>
-    getBids(chain.id, collection, queriedTokenId)
-  );
+  const { data: bids } = useQuery({
+    queryKey: [USE_QUERY_KEYS.AUCTION_BIDS, chain.id, collection, queriedTokenId], queryFn: () =>
+      getBids(chain.id, collection, queriedTokenId)
+  });
 
   return (
     <Grid display={"inline-flex"} className="auction-grid">
@@ -99,19 +101,16 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
         <AuctionTokenPicker mintDate={mintDate} name={name} collection={collection} tokenId={Number(queriedTokenId)} />
 
         {isTokenActiveAuction && !!auction && (
-          <>
-            <Text color="white">Current Auction Here</Text>
-            <CurrentAuction
-              chain={chain}
-              tokenId={queriedTokenId}
-              auctionAddress={auctionAddress as AddressType}
-              daoName={token.dao.name}
-              bid={highestBid}
-              owner={highestBidder}
-              endTime={endTime}
-              bids={bids || []}
-            />
-          </>
+          <CurrentAuction
+            chain={chain}
+            tokenId={queriedTokenId}
+            auctionAddress={auctionAddress as AddressType}
+            daoName={token.dao.name}
+            bid={highestBid}
+            owner={highestBidder}
+            endTime={endTime}
+            bids={bids || []}
+          />
         )}
 
         {!isTokenActiveAuction && !!auction && (
@@ -121,19 +120,10 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
               <WinningBidder owner={tokenOwner ?? undefined} />
             </AuctionDetails>
             <ActionsWrapper>
-              <Text color="white">Bid History</Text>
               <BidHistory bids={bids || []} />
             </ActionsWrapper>
-            {/** TODO: Determine if DaoMigrated is necessary */}
-            {/*migratedRes?.migrated ? (
-              <DaoMigrated
-                l2ChainId={migratedRes.migrated.chainId}
-                l2TokenAddress={migratedRes.migrated.l2TokenAddress}
-              />
-            ) : (
-              <AuctionPaused />
-            )
-            */}
+            {/** @TODO: Add conditional for AuctionPaused during certain proposal changes */}
+            {/*<AuctionPaused />*/}
           </Fragment>
         )}
       </Flex>

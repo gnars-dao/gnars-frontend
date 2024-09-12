@@ -5,6 +5,7 @@ import { auctionAbi } from "data/contract/abis/Auction";
 import { useRouter } from "next/router";
 import { getBids } from "queries/base/requests/getBids";
 import { useSWRConfig } from "swr";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useContractEvent } from "wagmi";
 import { readContract } from "wagmi/actions";
 
@@ -21,7 +22,28 @@ export const useAuctionEvents = ({
 }) => {
   const router = useRouter();
   const { mutate } = useSWRConfig();
+  const queryClient = useQueryClient();
   const { auction } = useDaoStore((state) => state.addresses);
+
+  const updateAuctionMutation = useMutation({
+    mutationFn: () => readContract({
+      abi: auctionAbi,
+      address: auction as AddressType,
+      chainId,
+      functionName: "auction"
+    }),
+    onSuccess: (data) => {
+      queryClient.setQueryData([USE_QUERY_KEYS.AUCTION, chainId, auction], data);
+    },
+  });
+
+  // 
+  const updateBidsMutation = useMutation({
+    mutationFn: (tokenId: string) => getBids(chainId, collection, tokenId),
+    onSuccess: (data, tokenId) => {
+      queryClient.setQueryData([USE_QUERY_KEYS.AUCTION_BIDS, chainId, auction, tokenId], data);
+    },
+  });
 
   useContractEvent({
     address: isTokenActiveAuction ? auction : undefined,
@@ -29,20 +51,12 @@ export const useAuctionEvents = ({
     eventName: "AuctionCreated",
     chainId,
     listener: async (logs) => {
-      await mutate([USE_QUERY_KEYS.AUCTION, chainId, auction], () =>
-        readContract({
-          abi: auctionAbi,
-          address: auction as AddressType,
-          chainId,
-          functionName: "auction"
-        })
-      );
+
+      await updateAuctionMutation.mutateAsync();
 
       const tokenId = logs[0].args.tokenId as bigint;
 
-      await mutate([USE_QUERY_KEYS.AUCTION_BIDS, chainId, auction, tokenId], () =>
-        getBids(chainId, collection, tokenId.toString())
-      );
+      await updateBidsMutation.mutateAsync(tokenId.toString());
 
       await router.push(`/dao/${router.query.network}/${collection}/${tokenId}`);
     }

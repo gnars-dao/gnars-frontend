@@ -1,11 +1,10 @@
-/*import { Box, Stack, Text } from '@chakra-ui/react'
+import { Box, Stack, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { encodeFunctionData } from 'viem'
 import { useContractRead } from 'wagmi'
-import useSWR from 'swr'
 // import { Icon } from 'src/components/Icon'
 
 import { auctionAbi } from 'data/contract/abis/Auction'
@@ -31,11 +30,15 @@ export const AuctionPaused = () => {
     functionName: 'paused',
     chainId: chain.id,
   })
-  // TODO Fix queryKey, return type and Number errors
-  const { data } = useSWR<ProposalsResponse>(
-    paused && isReady ? [USE_QUERY_KEYS.PROPOSALS, chain.id, query.token, query.page] : null,
-    (_, chainId, token, page) => getProposals(chainId, token, LIMIT, Number(page))
-  )
+
+  const { data } = useQuery<ProposalsResponse>({
+    queryKey: paused && isReady ? [USE_QUERY_KEYS.PROPOSALS, chain.id, query.token, query.page] : undefined,
+    queryFn: ({ queryKey }) => {
+      const [, chainId, token] = queryKey as [string, number, string, number];
+      return getProposals(chainId, token, LIMIT);
+    },
+    enabled: paused && isReady,
+  });
 
   const pausedProposal = useMemo(() => {
     if (!(paused && auction)) return undefined
@@ -66,7 +69,7 @@ export const AuctionPaused = () => {
 
       if (isPausing && !isUnpausing) return proposal
     })
-  }, [paused, data?.proposals])
+  }, [paused, data?.proposals, auction])
 
   if (!paused) return null
 
@@ -90,7 +93,7 @@ export const AuctionPaused = () => {
           fontSize={18}
           style={{ textDecoration: 'underline' }}
         >
-          // @TODO there was an icon here
+          {/* @TODO there was an icon here */}
           {pausedProposal?.proposalId ? 'See proposal here' : 'See activity tab'}
           {pausedProposal?.proposalId ? (
 
@@ -102,4 +105,4 @@ export const AuctionPaused = () => {
       </Link>
     </Stack >
   )
-}*/
+}

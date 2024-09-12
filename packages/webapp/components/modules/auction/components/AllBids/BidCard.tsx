@@ -7,9 +7,12 @@ import { useEnsData } from "@hooks/useEnsData";
 import { formatCryptoVal } from "@utils/numbers";
 import { useChainStore } from "stores/useChainStore";
 import { AuctionBidFragment } from "subgraph-generated/base";
+import { HiExternalLink } from "react-icons/hi";
+import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
 
 export const BidCard = ({ bid }: { bid: AuctionBidFragment }) => {
-  const { displayName, ensAvatar } = useEnsData(bid?.bidder);
+  const { displayName, ensAvatar } = useNnsNameWithEnsFallback(bid?.bidder)
+  //const { displayName, ensAvatar } = useEnsData(bid?.bidder);
   const chain = useChainStore((x) => x.chain);
 
   return (
