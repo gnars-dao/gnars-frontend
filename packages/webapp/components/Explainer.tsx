@@ -1,5 +1,5 @@
 import { FC } from "react";
-import TextLink from "./TextLink";
+import TextLink from "@components/TextLink";
 import {
   AspectRatio,
   Box,

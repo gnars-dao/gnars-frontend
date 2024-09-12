@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { GnarsLogo } from "./GnarsLogo";
-import { ShredIcon } from "./Icons";
-import { TreasuryBalance } from "./TreasuryBalance";
-import { WalletButton } from "./WalletButton";
+import { GnarsLogo } from "@components/GnarsLogo";
+import { ShredIcon } from "@components/Icons";
+import { TreasuryBalance } from "@components/TreasuryBalance";
+import { WalletButton } from "@components/WalletButton";
 import { Button, Center, CenterProps, Link as ExternalLink, HStack, IconButton, Stack, ButtonGroup } from "@chakra-ui/react";
 import Link from "next/link";
 import { FaBars, FaBookOpen, FaPlay, FaUsers, FaDiscord } from "react-icons/fa";

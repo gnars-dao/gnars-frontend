@@ -1,4 +1,4 @@
-import { Proposal } from "./proposalQuery";
+import { Proposal } from "@queries/base/requests/proposalQuery";
 import { getProposalState } from "@data/contract/requests/getProposalState";
 import { BaseSDK } from "@queries/resolvers.ts";
 import * as Sentry from "@sentry/nextjs";

@@ -1,4 +1,4 @@
-import { GnarData, fetchGnarData } from "../../hooks/useGnarData";
+import { GnarData, fetchGnarData } from "@hooks/useGnarData";
 import GnarSection from "@components/Auction/GnarSection";
 import Explainer from "@components/Explainer";
 import { GetStaticProps } from "next";

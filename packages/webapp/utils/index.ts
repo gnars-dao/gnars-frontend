@@ -1,4 +1,4 @@
-import { V2_START_ID } from "@constants/gnarsDao";
+import { V2_START_ID } from "constants/gnarsDao";
 import type { GnarData } from "@hooks/useGnarData.ts";
 import gnarDataV2 from "@data/image-data-V2.json";
 import ogGnarData from "@data/image-data.json";

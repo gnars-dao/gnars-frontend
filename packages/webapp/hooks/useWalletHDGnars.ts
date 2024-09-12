@@ -1,4 +1,4 @@
-import { getBuiltGraphSDK } from "../subgraph-generated/layer-1";
+import { getBuiltGraphSDK } from "@subgraph-generated/layer-1";
 import { useQuery } from "@tanstack/react-query";
 
 export const walletHDGnarsQueryKey = "hdGnarsClaimStatus";

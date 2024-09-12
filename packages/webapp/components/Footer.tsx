@@ -1,4 +1,4 @@
-import { GnarsLogo } from "./GnarsLogo";
+import { GnarsLogo } from "@components/GnarsLogo";
 import { Link } from "@chakra-ui/next-js";
 import { ButtonGroup, Container, HStack, IconButton, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react";
 import {
@@ -8,8 +8,8 @@ import {
   TREASURY_ADDRESS,
   V2_AUCTION_ADDRESS,
   V2_GNAR_ADDRESS
-} from "@constants/gnarsDao";
-import { GNARS_HD_ADDRESS } from "@constants/gnarsHD";
+} from "constants/gnarsDao";
+import { GNARS_HD_ADDRESS } from "constants/gnarsHD";
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa";
 
 const links = [

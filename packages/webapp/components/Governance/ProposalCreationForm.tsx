@@ -1,8 +1,8 @@
 import { FC, useMemo } from "react";
-import { AddTransactionForm } from "./AddTransactionForm";
-import { useAddTransactionFormState } from "./AddTransactionForm.state";
-import { useProposalCreationState } from "./ProposalCreationForm.state";
-import { TransactionCard } from "./TransactionCard";
+import { AddTransactionForm } from "@components/AddTransactionForm";
+import { useAddTransactionFormState } from "@components/AddTransactionForm.state";
+import { useProposalCreationState } from "@components/ProposalCreationForm.state";
+import { TransactionCard } from "@components/TransactionCard";
 import {
   Button,
   FormControl,

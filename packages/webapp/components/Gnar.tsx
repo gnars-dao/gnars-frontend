@@ -1,10 +1,10 @@
 import { FC, useMemo, useRef } from "react";
 import { GnarData } from "@hooks/useGnarData";
-import { getGnartwork } from "@utils";
-import { useGnarState } from "./Gnar.state";
-import { GnarHDImage } from "./GnarHDImage";
-import { GnarImage } from "./GnarImage";
-import { GnarToolbar } from "./GnarToolbar";
+import { getGnartwork } from "utils";
+import { useGnarState } from "@components/Gnar.state";
+import { GnarHDImage } from "@components/GnarHDImage";
+import { GnarImage } from "@components/GnarImage";
+import { GnarToolbar } from "@components/GnarToolbar";
 import { Box, BoxProps, DarkMode, HStack, Icon, Switch, keyframes } from "@chakra-ui/react";
 import { BsBadgeHd } from "react-icons/bs";
 

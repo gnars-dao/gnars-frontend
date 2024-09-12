@@ -1,4 +1,4 @@
-import { GnarPart } from "./index";
+import { GnarPart } from "utils/index";
 
 const decodeImage = (image: string) => {
   const data = image.replace(/^0x/, "");

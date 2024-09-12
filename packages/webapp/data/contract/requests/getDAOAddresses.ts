@@ -1,4 +1,4 @@
-import { managerAbi } from "../abis";
+import { managerAbi } from "@data/contract/abis";
 import { NULL_ADDRESS, PUBLIC_MANAGER_ADDRESS } from "@constants";
 import { AddressType } from "@constants";
 import { CHAIN_IDS } from "@constants";

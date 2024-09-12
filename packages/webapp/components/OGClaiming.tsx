@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useWalletOgGnars } from "@hooks/useWalletOgGnars";
-import { getGnartwork } from "@utils";
+import { getGnartwork } from "utils";
 import { usePrepareGnarsV2AuctionHouseClaimGnars } from "@utils/sdk";
-import { ContractActionButton } from "./ContractActionButton";
-import { GnarImage } from "./GnarImage";
-import { WalletButton } from "./WalletButton";
+import { ContractActionButton } from "@components/ContractActionButton";
+import { GnarImage } from "@components/GnarImage";
+import { WalletButton } from "@components/WalletButton";
 import {
   Alert,
   AlertIcon,

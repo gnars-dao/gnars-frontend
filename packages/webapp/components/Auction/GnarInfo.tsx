@@ -1,16 +1,16 @@
 import { FC, useEffect, useState } from "react";
-import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "../../constants/gnarsDao";
-import { GnarData } from "../../hooks/useGnarData";
-import { useNnsNameWithEnsFallback } from "../../hooks/useNnsNameWithEnsFallback";
-import { is10thGnar, shortAddress } from "@utils";
-import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "../Icons";
-import { AuctionStatus } from "./AuctionStatus";
-import { BidForGnar } from "./BidForGnar";
-import { BiddingAndSettlingInfo } from "./BiddingAndSettlingInfo";
-import { BidsTable } from "./BidsTable";
-import { GnarNavigation } from "./GnarNavigation";
-import { GnarvingTracker } from "./GnarvingTracker";
-import { SettleAuctionButton } from "./SettleAuctionButton";
+import { OG_GNAR_ADDRESS, TREASURY_ADDRESS, V2_GNAR_ADDRESS } from "constants/gnarsDao";
+import { GnarData } from "@hooks/useGnarData";
+import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
+import { is10thGnar, shortAddress } from "utils";
+import { EtherscanIcon, OGNogglesIcon, ShredIcon } from "@components/Icons";
+import { AuctionStatus } from "@components/Auction/AuctionStatus";
+import { BidForGnar } from "@components/Auction/BidForGnar";
+import { BiddingAndSettlingInfo } from "@components/Auction/BiddingAndSettlingInfo";
+import { BidsTable } from "@components/Auction/BidsTable";
+import { GnarNavigation } from "@components/Auction/GnarNavigation";
+import { GnarvingTracker } from "@components/Auction/GnarvingTracker";
+import { SettleAuctionButton } from "@components/Auction/SettleAuctionButton";
 import {
   Button,
   HStack,

@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { ProposalCountdown } from "./ProposalCountdown";
-import { ProposalStatusBadge } from "./ProposalStatusBadge";
+import { ProposalCountdown } from "@components/ProposalCountdown";
+import { ProposalStatusBadge } from "@components/ProposalStatusBadge";
 import { Badge, Box, HStack, StackProps, Text, TextProps, Tooltip, VStack } from "@chakra-ui/react";
 import { EffectiveProposalStatus, QuorumVotes, Votes, isFinalized } from "@utils/governanceUtils";
 
