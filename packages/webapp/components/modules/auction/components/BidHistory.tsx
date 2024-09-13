@@ -29,6 +29,8 @@ export const BidHistory = ({ bids }: { bids: AuctionBidFragment[] }) => {
         variant="secondary"
         color={"white"}
         borderRadius="curved"
+        border={'2px solid white'}
+        padding={'10px 20px'}
         h="x14"
         onClick={onOpen}
       >
