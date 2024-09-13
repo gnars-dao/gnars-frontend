@@ -4,30 +4,30 @@ import {
   Box,
   Button,
   Flex,
+  FormControl,
+  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
+  NumberInputField,
   Popover,
   Text,
-  useNumberInput,
   useDisclosure,
-  NumberInputField,
-  Input,
-  FormControl
+  useNumberInput
 } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/react";
 // @TODO Pull in contract btn from nouns-base
 import { ContractButton } from "@components/ContractButton";
+import { useMinBidIncrement } from "@components/modules/auction/hooks/useMinBidIncrement";
 import { useDaoStore } from "@components/modules/dao";
 // import { Icon } from 'src/components/Icon/Icon'
 // import AnimatedModal from 'src/components/Modal/AnimatedModal'
 import { PUBLIC_IS_TESTNET } from "@constants/defaultChains";
 import { USE_QUERY_KEYS } from "@constants/queryKeys";
 import { AddressType, Chain } from "@constants/types";
-import { useMinBidIncrement } from "@components/modules/auction/hooks/useMinBidIncrement";
 import { averageWinningBid } from "@queries/base/requests/averageWinningBid";
 import { getBids } from "@queries/base/requests/getBids";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -212,7 +212,7 @@ export const PlaceBid = ({ chain, highestBid, referral, tokenId, daoName }: Plac
                 max={balance?.formatted}
                 onChange={(event) => setBidAmount(event.target.value)}
                 backgroundColor="white"
-                margin={'10px'}
+                margin={"10px"}
               />
               <Box position="absolute" style={{ top: 0, right: 0, bottom: 0 }}>
                 <Flex align={"center"} height={"100%"} pr={"x4"} fontWeight={"display"}>

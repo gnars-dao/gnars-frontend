@@ -5,15 +5,15 @@ import { Box, Flex } from "@chakra-ui/react";
 import { AccountAvatar } from "@components/AccountAvatar";
 import { NULL_ADDRESS } from "@constants/baseAddresses";
 import { ETHERSCAN_BASE_URL } from "@constants/etherscan";
-import { useChainStore } from "stores/useChainStore";
 import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
+import { useChainStore } from "stores/useChainStore";
 
 export const WinningBidder = ({ owner }: { owner?: string }) => {
-  const { displayName, ensAvatar, ensNameLoading } = useNnsNameWithEnsFallback(owner)
+  const { displayName, ensAvatar, ensNameLoading } = useNnsNameWithEnsFallback(owner);
   const chain = useChainStore((x) => x.chain);
 
   useEffect(() => {
-    console.log(`/modules/auction/components/WinningBidder`, { displayName, ensAvatar, ensNameLoading, chain, });
+    console.log(`/modules/auction/components/WinningBidder`, { displayName, ensAvatar, ensNameLoading, chain });
   }, [displayName, ensAvatar, ensNameLoading, chain]);
 
   return (

@@ -1,5 +1,5 @@
-import { Chain } from "@constants/types";
 import { PUBLIC_DEFAULT_CHAINS } from "@constants/defaultChains";
+import { Chain } from "@constants/types";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 

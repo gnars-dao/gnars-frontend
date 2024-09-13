@@ -1,6 +1,6 @@
 import { governorAbi } from "../abis";
-import { AddressType, BytesType } from "@constants/types";
 import { CHAIN_IDS } from "@constants/networkConfig";
+import { AddressType, BytesType } from "@constants/types";
 import { readContract } from "wagmi/actions";
 
 export enum ProposalState {

@@ -1,14 +1,13 @@
-import { omit } from 'lodash'
-import { useRouter } from 'next/router'
-import { useAccount } from 'wagmi'
-
-import { useIsContract } from './useIsContract'
+import { useIsContract } from "./useIsContract";
+import { omit } from "lodash";
+import { useRouter } from "next/router";
+import { useAccount } from "wagmi";
 
 export const useBridgeModal = () => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const { address } = useAccount()
-  const { data: isContractWallet } = useIsContract({ address })
+  const { address } = useAccount();
+  const { data: isContractWallet } = useIsContract({ address });
 
   const openBridgeModal = () => {
     router.push(
@@ -16,28 +15,28 @@ export const useBridgeModal = () => {
         pathname: router.pathname,
         query: {
           ...router.query,
-          bridge: true,
-        },
+          bridge: true
+        }
       },
       undefined,
       { shallow: true }
-    )
-  }
+    );
+  };
 
   const closeBridgeModal = () => {
     router.push(
       {
         pathname: router.pathname,
-        query: omit(router.query, 'bridge'),
+        query: omit(router.query, "bridge")
       },
       undefined,
       { shallow: true }
-    )
-  }
+    );
+  };
 
   return {
     canUserBridge: !isContractWallet,
     openBridgeModal,
-    closeBridgeModal,
-  }
-}
+    closeBridgeModal
+  };
+};

@@ -18,8 +18,8 @@ import {
 } from "@chakra-ui/react";
 import gnarDataV2 from "@data/image-data-V2.json";
 import { usePlaygroundState } from "@hooks/usePlaygroundState";
-import { GnarPart, PartKind } from "@utils/old-index";
 import buildSvg from "@utils/buildSvg";
+import { GnarPart, PartKind } from "@utils/old-index";
 import { memoize, some } from "lodash";
 import { FaRandom } from "react-icons/fa";
 

@@ -4,14 +4,14 @@ import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
 import { AccountAvatar } from "@components/AccountAvatar";
 import { ETHERSCAN_BASE_URL } from "@constants/etherscan";
 import { useEnsData } from "@hooks/useEnsData";
+import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
 import { formatCryptoVal } from "@utils/numbers";
+import { HiExternalLink } from "react-icons/hi";
 import { useChainStore } from "stores/useChainStore";
 import { AuctionBidFragment } from "subgraph-generated/base";
-import { HiExternalLink } from "react-icons/hi";
-import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
 
 export const BidCard = ({ bid }: { bid: AuctionBidFragment }) => {
-  const { displayName, ensAvatar } = useNnsNameWithEnsFallback(bid?.bidder)
+  const { displayName, ensAvatar } = useNnsNameWithEnsFallback(bid?.bidder);
   //const { displayName, ensAvatar } = useEnsData(bid?.bidder);
   const chain = useChainStore((x) => x.chain);
 

@@ -5,6 +5,7 @@ import Footer from "@components/Footer";
 import { CHAIN_IDS } from "@constants/networkConfig";
 import { alchemyApiKey, walletConnectProjectId } from "@env/client.ts";
 import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Analytics } from "@vercel/analytics/react";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { AppProps } from "next/app";
@@ -12,7 +13,6 @@ import Head from "next/head";
 import theme from "theme";
 import { WagmiConfig, createConfig } from "wagmi";
 import { base, mainnet } from "wagmi/chains";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const config = createConfig({
   ...getDefaultConfig({

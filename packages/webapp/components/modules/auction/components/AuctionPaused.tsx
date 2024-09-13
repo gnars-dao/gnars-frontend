@@ -1,35 +1,31 @@
-import { Box, Stack, Text } from '@chakra-ui/react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { encodeFunctionData } from 'viem'
-import { useContractRead } from 'wagmi'
+import { useMemo } from "react";
+import { Box, Stack, Text } from "@chakra-ui/react";
+import { useDaoStore } from "@components/modules/dao/useDaoStore";
+import { USE_QUERY_KEYS } from "@constants/queryKeys";
+import { ProposalsResponse, getProposals } from "@queries/base/requests/proposalsQuery";
+import { useQuery } from "@tanstack/react-query";
 // import { Icon } from 'src/components/Icon'
-
-import { auctionAbi } from 'data/contract/abis/Auction'
-import { ProposalState } from 'data/contract/requests/getProposalState'
-import {
-  ProposalsResponse,
-  getProposals,
-} from '@queries/base/requests/proposalsQuery'
-import { useDaoStore } from '@components/modules/dao/useDaoStore'
-import { useChainStore } from 'stores/useChainStore'
-import { USE_QUERY_KEYS } from '@constants/queryKeys'
+import { auctionAbi } from "data/contract/abis/Auction";
+import { ProposalState } from "data/contract/requests/getProposalState";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useChainStore } from "stores/useChainStore";
+import { encodeFunctionData } from "viem";
+import { useContractRead } from "wagmi";
 
 export const AuctionPaused = () => {
-  const { query, isReady } = useRouter()
-  const chain = useChainStore((x) => x.chain)
-  const LIMIT = 20
+  const { query, isReady } = useRouter();
+  const chain = useChainStore((x) => x.chain);
+  const LIMIT = 20;
 
-  const { auction } = useDaoStore((x) => x.addresses)
+  const { auction } = useDaoStore((x) => x.addresses);
 
   const { data: paused } = useContractRead({
     abi: auctionAbi,
     address: auction,
-    functionName: 'paused',
-    chainId: chain.id,
-  })
+    functionName: "paused",
+    chainId: chain.id
+  });
 
   const { data } = useQuery<ProposalsResponse>({
     queryKey: paused && isReady ? [USE_QUERY_KEYS.PROPOSALS, chain.id, query.token, query.page] : undefined,
@@ -37,44 +33,39 @@ export const AuctionPaused = () => {
       const [, chainId, token] = queryKey as [string, number, string, number];
       return getProposals(chainId, token, LIMIT);
     },
-    enabled: paused && isReady,
+    enabled: paused && isReady
   });
 
   const pausedProposal = useMemo(() => {
-    if (!(paused && auction)) return undefined
+    if (!(paused && auction)) return undefined;
 
     const pauseCalldata = encodeFunctionData({
       abi: auctionAbi,
-      functionName: 'pause',
-    })
+      functionName: "pause"
+    });
 
     const unpauseCalldata = encodeFunctionData({
       abi: auctionAbi,
-      functionName: 'unpause',
-    })
+      functionName: "unpause"
+    });
 
     return data?.proposals.find((proposal) => {
-      if (proposal.state !== ProposalState.Executed) return false
+      if (proposal.state !== ProposalState.Executed) return false;
 
-      const pauseIndex = proposal.calldatas.findIndex(
-        (calldata) => calldata === pauseCalldata
-      )
-      const unpauseIndex = proposal.calldatas.findIndex(
-        (calldata) => calldata === unpauseCalldata
-      )
+      const pauseIndex = proposal.calldatas.findIndex((calldata) => calldata === pauseCalldata);
+      const unpauseIndex = proposal.calldatas.findIndex((calldata) => calldata === unpauseCalldata);
 
-      const isPausing = pauseIndex >= 0 ? proposal.targets[pauseIndex] !== auction : false
-      const isUnpausing =
-        unpauseIndex >= 0 ? proposal.targets[unpauseIndex] === auction : false
+      const isPausing = pauseIndex >= 0 ? proposal.targets[pauseIndex] !== auction : false;
+      const isUnpausing = unpauseIndex >= 0 ? proposal.targets[unpauseIndex] === auction : false;
 
-      if (isPausing && !isUnpausing) return proposal
-    })
-  }, [paused, data?.proposals, auction])
+      if (isPausing && !isUnpausing) return proposal;
+    });
+  }, [paused, data?.proposals, auction]);
 
-  if (!paused) return null
+  if (!paused) return null;
 
   return (
-    <Stack align={'center'} w="100%" mt="x7">
+    <Stack align={"center"} w="100%" mt="x7">
       <Box color="text3" fontSize={18}>
         Auctions have been paused.
       </Box>
@@ -86,23 +77,12 @@ export const AuctionPaused = () => {
             : `/dao/${query.network}/${query.token}?tab=activity`
         }
       >
-        <Box
-          display={'inline-flex'}
-          color="text3"
-          mt="x1"
-          fontSize={18}
-          style={{ textDecoration: 'underline' }}
-        >
+        <Box display={"inline-flex"} color="text3" mt="x1" fontSize={18} style={{ textDecoration: "underline" }}>
           {/* @TODO there was an icon here */}
-          {pausedProposal?.proposalId ? 'See proposal here' : 'See activity tab'}
-          {pausedProposal?.proposalId ? (
-
-            <Text>Paused proposal WIP</Text>
-          ) : (
-            <></>
-          )}
+          {pausedProposal?.proposalId ? "See proposal here" : "See activity tab"}
+          {pausedProposal?.proposalId ? <Text>Paused proposal WIP</Text> : <></>}
         </Box>
       </Link>
-    </Stack >
-  )
-}
+    </Stack>
+  );
+};

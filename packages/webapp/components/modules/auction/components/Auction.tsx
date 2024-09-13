@@ -25,10 +25,10 @@ import { TokenWithDao } from "@pages/dao/[network]/[token]/[tokenId]";
 // @TODO Pull in L1_CHAINS
 // import { L1_CHAINS } from 'src/data/contract/chains'
 import { getBids } from "@queries/base/requests/getBids";
-import { unpackOptionalArray } from "@utils/helpers";
-import { auctionAbi } from "data/contract/abis/Auction";
 // @TODO Replace useSWR
 import { useQuery } from "@tanstack/react-query";
+import { unpackOptionalArray } from "@utils/helpers";
+import { auctionAbi } from "data/contract/abis/Auction";
 import { formatEther } from "viem";
 import { readContract } from "wagmi/actions";
 
@@ -53,7 +53,11 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
   } = useQuery(
     [USE_QUERY_KEYS.AUCTION, chain.id, auctionAddress],
     () => {
-      console.log(`Auction.tsx main auction query: `, { auction: USE_QUERY_KEYS.AUCTION, chainId: chain.id, auctionAddress });
+      console.log(`Auction.tsx main auction query: `, {
+        auction: USE_QUERY_KEYS.AUCTION,
+        chainId: chain.id,
+        auctionAddress
+      });
       if (auctionAddress) {
         return readContract({
           abi: auctionAbi,
@@ -62,15 +66,22 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
           chainId: chain.id
         });
       }
-    },
+    }
     //revalidateOnFocus: true
   );
 
   // @TODO Remove test logging
   React.useEffect(() => {
-    console.log(`Auction.tsx from module data: `, { auction, chain, auctionAddress, collection, token, auctionIsLoading, auctionError });
+    console.log(`Auction.tsx from module data: `, {
+      auction,
+      chain,
+      auctionAddress,
+      collection,
+      token,
+      auctionIsLoading,
+      auctionError
+    });
   }, [auction, chain, auctionAddress, collection, token, auctionIsLoading, auctionError]);
-
 
   const [currentTokenId, highestBid, highestBidder, _, endTime, settled] = unpackOptionalArray(auction, 6);
 
@@ -84,8 +95,8 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
   });
 
   const { data: bids } = useQuery({
-    queryKey: [USE_QUERY_KEYS.AUCTION_BIDS, chain.id, collection, queriedTokenId], queryFn: () =>
-      getBids(chain.id, collection, queriedTokenId)
+    queryKey: [USE_QUERY_KEYS.AUCTION_BIDS, chain.id, collection, queriedTokenId],
+    queryFn: () => getBids(chain.id, collection, queriedTokenId)
   });
 
   return (
@@ -93,7 +104,7 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
       <AuctionImage key={`auction-${collection}-image-${queriedTokenId}`} image={image || ""} isLoading={!auction} />
       <Flex
         display={"flex"}
-        flexDirection={'column'}
+        flexDirection={"column"}
         height={"100%"}
         mt={"20px"}
         // className={auctionWrapper}
