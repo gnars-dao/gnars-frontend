@@ -1,4 +1,5 @@
-/*import { AddressType, CHAIN_ID, CHAIN_IDS } from "@constants/types";
+import { AddressType, CHAIN_ID } from "@constants/types";
+import { CHAIN_IDS } from "@constants/networkConfig";
 import { getProvider } from "utils/provider";
 import useSWRImmutable from "swr/immutable";
 
@@ -14,5 +15,5 @@ export const useIsContract = ({
     // TODO: figure out this type, probably the provider
     return await provider.getBytecode({ address }).then((x) => x !== "0x");
   });
-}; 
-*/
+};
+

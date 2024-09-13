@@ -92,14 +92,14 @@ export const Auction: React.FC<AuctionControllerProps> = ({ chain, auctionAddres
     <Grid display={"inline-flex"} className="auction-grid">
       <AuctionImage key={`auction-${collection}-image-${queriedTokenId}`} image={image || ""} isLoading={!auction} />
       <Flex
-        display={"inline-flex"}
+        display={"flex"}
+        flexDirection={'column'}
         height={"100%"}
         mt={"20px"}
         // className={auctionWrapper}
         className="auction-wrapper"
       >
         <AuctionTokenPicker mintDate={mintDate} name={name} collection={collection} tokenId={Number(queriedTokenId)} />
-
         {isTokenActiveAuction && !!auction && (
           <CurrentAuction
             chain={chain}

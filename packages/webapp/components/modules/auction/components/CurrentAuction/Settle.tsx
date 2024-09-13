@@ -70,15 +70,7 @@ export const Settle = ({ isEnding, owner, externalAuctionAddress, compact = fals
   if (settling) {
     return (
       <Stack direction="column" align="center" width={"100%"}>
-        <Button
-          disabled
-          className={
-            compact
-              ? "auction-action-button-variante-dash-settle" // auctionActionButtonVariants['dashSettle']
-              : "auction-action-button-variante-dash-settling" // auctionActionButtonVariants['settling']
-          }
-          variant={compact ? "outline" : "primary"}
-        >
+        <Button w={"fit-content"} variant={"outline"} color={'white'} style={{ color: 'white !important', background: '#888 !important' }}>
           Settling
         </Button>
       </Stack>
@@ -91,6 +83,11 @@ export const Settle = ({ isEnding, owner, externalAuctionAddress, compact = fals
         handleClick={handleSettle}
         className={"dash-settle settle"}
         variant={compact ? "outline" : "primary"}
+        color={'white'}
+        outline='2px solid#fff'
+        border={'2px solid white'}
+        padding={'20px 80px'}
+        display={'flex'}
       >
         {isWinner ? "Claim NFT" : "Start next auction"}
       </ContractButton>
