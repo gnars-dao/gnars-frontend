@@ -8,7 +8,7 @@ export interface ChainStoreProps {
   setChain: (chain: Chain) => void;
 }
 
-export const CHAIN_STORE_IDENTIFIER = `nouns-builder-chain-${process.env.NEXT_PUBLIC_NETWORK_TYPE}`;
+export const CHAIN_STORE_IDENTIFIER = `gnars-chain-${process.env.NEXT_PUBLIC_NETWORK_TYPE}`;
 
 export const useChainStore = create(
   persist<ChainStoreProps>(
