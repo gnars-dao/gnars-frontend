@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { ChakraProvider, DarkMode, Divider, VStack } from "@chakra-ui/react";
-import { BaseAlertHeader } from "@components/BaseJumpAnnouncement";
-import Footer from "@components/Footer";
 import { CHAIN_IDS } from "@constants/networkConfig";
 import { alchemyApiKey, walletConnectProjectId } from "@env/client.ts";
 import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Analytics } from "@vercel/analytics/react";
+import { BaseAlertHeader } from "@components/BaseJumpAnnouncement";
+import Footer from "@components/Footer";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { AppProps } from "next/app";
 import Head from "next/head";

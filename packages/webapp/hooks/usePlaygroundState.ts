@@ -1,5 +1,5 @@
-import gnarDataV2 from "../data/image-data-V2.json";
-import { GnarPart, Gnartwork, PartKind } from "../utils/old-index";
+import gnarDataV2 from "@data/image-data-V2.json";
+import { GnarPart, Gnartwork, PartKind } from "utils";
 import { parseInt, sample } from "lodash";
 import { create } from "zustand";
 

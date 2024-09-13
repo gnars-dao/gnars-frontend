@@ -1,4 +1,4 @@
-import { GnarsLogo } from "./GnarsLogo";
+import { GnarsLogo } from "@components/GnarsLogo";
 import { Link } from "@chakra-ui/next-js";
 import { ButtonGroup, Container, HStack, IconButton, SimpleGrid, Stack, Text, VStack } from "@chakra-ui/react";
 import {
@@ -129,7 +129,7 @@ export default function Footer() {
               <IconButton
                 as="a"
                 rel="external noopener"
-                href="https://discord.gg/XBeZuMxmst"
+                href="https://discord.gg/gnars"
                 aria-label="Discord"
                 icon={<FaDiscord fontSize="1.25rem" />}
               />

@@ -1,4 +1,4 @@
-import { getSignature } from "./functionUtils";
+import { getSignature } from "utils/functionUtils";
 import { AbiFunction } from "abitype";
 
 describe("getSignature", () => {

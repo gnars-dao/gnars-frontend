@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { AccountAvatar } from "./AccountAvatar";
+import { AccountAvatar } from "@components/AccountAvatar";
 import { HStack, StackProps, VStack } from "@chakra-ui/react";
 
 export interface AccountWithAvatarProps extends StackProps {

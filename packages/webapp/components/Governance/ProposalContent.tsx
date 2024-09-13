@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
-import styles from "./ProposalContent.module.css";
-import { TransactionCard } from "./TransactionCard";
+import styles from "@components/Governance/ProposalContent.module.css";
+import { TransactionCard } from "@components/Governance/TransactionCard";
 import { Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import { AvatarWallet } from "@components/AvatarWallet";
 import { NounsTransactionData } from "@utils/governanceUtils";

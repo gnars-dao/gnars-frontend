@@ -4,6 +4,8 @@ import ProposalContent from "@components/Governance/ProposalContent";
 import { ProposalCreationForm } from "@components/Governance/ProposalCreationForm";
 import { useProposalCreationState } from "@components/Governance/ProposalCreationForm.state";
 import Menu from "@components/Menu";
+import { ProposalCreationForm } from "components/Governance/ProposalCreationForm";
+import { useProposalCreationState } from "components/Governance/ProposalCreationForm.state";
 import dynamic from "next/dynamic";
 import { zeroAddress } from "viem";
 import { useAccount } from "wagmi";

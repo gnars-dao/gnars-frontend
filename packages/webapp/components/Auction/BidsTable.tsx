@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { AvatarWallet } from "../AvatarWallet";
+import { AvatarWallet } from "@components/AvatarWallet";
 import {
   Link,
   SimpleGrid,

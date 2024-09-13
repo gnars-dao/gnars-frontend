@@ -17,16 +17,16 @@ import {
   useBreakpointValue,
   useDisclosure
 } from "@chakra-ui/react";
-import { VoteAction } from "@components/Governance/Actions/VoteAction";
 import { ProposalCard } from "@components/Governance/ProposalCard";
 import ProposalContent from "@components/Governance/ProposalContent";
-import { ProposalTimeline } from "@components/Governance/ProposalTimeline";
 import Menu from "@components/Menu";
-import { useBlock } from "@hooks/useBlock";
-import { useDelegationInfo } from "@hooks/useDelegationInfo";
 import { ProposalDocument, execute } from "@subgraph-generated/layer-1";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { VoteAction } from "@components/Governance/Actions/VoteAction";
+import { ProposalTimeline } from "@components/Governance/ProposalTimeline";
 import { motion } from "framer-motion";
+import { useBlock } from "@hooks/useBlock";
+import { useDelegationInfo } from "@hooks/useDelegationInfo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BiCaretLeft } from "react-icons/bi";
@@ -37,8 +37,8 @@ import {
   getProposalEffectiveStatus,
   getQuorumVotes,
   getTransactions
-} from "utils/governanceUtils";
-import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "utils/sdk";
+} from "@utils/governanceUtils";
+import { useGnarsDaoCancel, useGnarsDaoExecute, useGnarsDaoQueue } from "@utils/sdk";
 import { useAccount } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
 

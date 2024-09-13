@@ -1,6 +1,6 @@
-import { useNnsNameWithEnsFallback } from "./useNnsNameWithEnsFallback";
-import { isValidName } from "@utils/ensUtils";
+import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
 import { Address } from "abitype";
+import { isValidName } from "@utils/ensUtils";
 import { isAddress } from "viem";
 import { useEnsAddress, useEnsAvatar } from "wagmi";
 

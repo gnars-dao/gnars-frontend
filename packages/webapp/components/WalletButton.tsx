@@ -1,4 +1,4 @@
-import { AccountAvatar } from "./AccountAvatar";
+import { AccountAvatar } from "@components/AccountAvatar";
 import { Button, ButtonProps, HStack, Text } from "@chakra-ui/react";
 import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
 import { shortAddress } from "@utils/old-index";

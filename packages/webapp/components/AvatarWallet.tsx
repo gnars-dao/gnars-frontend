@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { AccountAddress } from "./AccountAddress";
-import { AccountWithAvatar, AccountWithAvatarProps } from "./AccountWithAvatar";
-import { Text } from "@chakra-ui/react";
 import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
+import { AccountAddress } from "@components/AccountAddress";
+import { AccountWithAvatar, AccountWithAvatarProps } from "@components/AccountWithAvatar";
+import { Text } from "@chakra-ui/react";
 import { useEnsAvatar } from "wagmi";
 
 export type AvatarWalletProps = {

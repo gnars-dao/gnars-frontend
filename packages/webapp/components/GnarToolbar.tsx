@@ -1,5 +1,5 @@
 import { FC, RefObject, useEffect } from "react";
-import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "./Icons";
+import { AccessoryIcon, BodyIcon, HeadIcon, NogglesIcon } from "@components/Icons";
 import {
   Button,
   ButtonProps,

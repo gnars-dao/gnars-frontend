@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AbiParameter } from "abitype";
-import { parseArrayParameter } from "utils/parseArrayParameter";
+import { parseArrayParameter } from "@utils/parseArrayParameter";
 import { BaseError, encodeAbiParameters } from "viem";
 
 export const useParameterValidation = (param: AbiParameter, value: string) => {

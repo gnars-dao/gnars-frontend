@@ -1,4 +1,4 @@
-import { isValidName } from "./ensUtils";
+import { isValidName } from "utils/ensUtils";
 
 describe("ensUtils", () => {
   test.each(["dev.volky.eth", "volky.eth", "gnars.com"])("recognized valid ens name %s", (name) =>

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Transaction } from "./Transaction";
+import { Transaction } from "@components/Governance/Transaction";
 import { Alert, AlertIcon, Badge, Card, CardBody, CardProps, HStack } from "@chakra-ui/react";
 import { NounsTransactionData } from "@utils/governanceUtils";
 import { ErrorBoundary } from "react-error-boundary";
