@@ -6,7 +6,8 @@
 This frontend repository powers the web interface that allows users to interact with the Gnars ecosystem, including voting on proposals, viewing Gnars NFTs, and participating in DAO activities.
 
 ![Gnars DAO](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExaG0xcnU5Z2FwZjZncDBsd3ZwdmlnNHc4OHl0bGZ4eHI0Zm1zOWM0cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t5jgYlyYqOBD8CqHWn/giphy.webp)
-
+Born on Ethereum Layer 1, reborn on Base Layer 2 🤘  
+ 
 ## Table of Contents
 
 - [Introduction](#introduction)
