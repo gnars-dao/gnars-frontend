@@ -15,7 +15,7 @@ import {
   VStack,
   useDisclosure
 } from "@chakra-ui/react";
-import { ShredIcon } from "components/Icons";
+import { ShredIcon } from "@components/Icons";
 import { FaInfoCircle } from "react-icons/fa";
 
 interface BiddingAndSettlingInfoProps extends StackProps {}

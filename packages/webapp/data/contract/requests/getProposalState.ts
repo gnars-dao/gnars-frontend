@@ -1,4 +1,4 @@
-import { governorAbi } from "../abis";
+import { governorAbi } from "@data/contract/abis";
 import { AddressType, BytesType } from "@constants";
 import { CHAIN_IDS } from "@constants";
 import { readContract } from "wagmi/actions";

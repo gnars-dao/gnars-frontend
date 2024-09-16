@@ -1,13 +1,13 @@
 import { FC, useMemo } from "react";
 import { StackProps, Text, VStack, useBreakpointValue } from "@chakra-ui/react";
 import { AbiFunction, AbiParameter } from "abitype";
-import { AccountAddress } from "components/AccountAddress";
-import { AccountWithAvatar } from "components/AccountWithAvatar";
-import { ContractBreadcrumbs } from "components/ContractBreadcrumbs";
-import { ParamSpec, ParamsTable } from "components/ParamsTable";
-import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo";
-import { useNnsNameWithEnsFallback } from "hooks/useNnsNameWithEnsFallback";
-import { NounsTransactionData } from "utils/governanceUtils";
+import { AccountAddress } from "@components/AccountAddress";
+import { AccountWithAvatar } from "@components/AccountWithAvatar";
+import { ContractBreadcrumbs } from "@components/ContractBreadcrumbs";
+import { ParamSpec, ParamsTable } from "@components/ParamsTable";
+import { getEffectiveAbi, useEtherscanContractInfo } from "@hooks/useEtherscanContractInfo";
+import { useNnsNameWithEnsFallback } from "@hooks/useNnsNameWithEnsFallback";
+import { NounsTransactionData } from "@utils/governanceUtils";
 import { decodeFunctionData, formatEther, getAbiItem, getFunctionSelector, parseAbiItem } from "viem";
 import { useEnsAvatar } from "wagmi";
 

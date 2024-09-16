@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo } from "react";
-import { ParameterValue, getFuncParam, useAddTransactionFormState } from "./AddTransactionForm.state";
-import { useProposalCreationState } from "./ProposalCreationForm.state";
+import { ParameterValue, getFuncParam, useAddTransactionFormState } from "@components/Governance/AddTransactionForm.state";
+import { useProposalCreationState } from "@components/Governance/ProposalCreationForm.state";
 import {
   Button,
   Card,
@@ -26,19 +26,19 @@ import {
   forwardRef
 } from "@chakra-ui/react";
 import { AbiParameter } from "abitype";
-import { AccountAddress } from "components/AccountAddress";
-import { AccountWithAvatar } from "components/AccountWithAvatar";
-import { ContractBreadcrumbs } from "components/ContractBreadcrumbs";
-import { ParamSpec, ParamsTable } from "components/ParamsTable";
-import { useAccountQuery } from "hooks/useAccountQuery";
-import { getEffectiveAbi, useEtherscanContractInfo } from "hooks/useEtherscanContractInfo";
-import { useFunctions } from "hooks/useFunctions";
-import { useParameterValidation } from "hooks/useParameterValidation";
+import { AccountAddress } from "@components/AccountAddress";
+import { AccountWithAvatar } from "@components/AccountWithAvatar";
+import { ContractBreadcrumbs } from "@components/ContractBreadcrumbs";
+import { ParamSpec, ParamsTable } from "@components/ParamsTable";
+import { useAccountQuery } from "@hooks/useAccountQuery";
+import { getEffectiveAbi, useEtherscanContractInfo } from "@hooks/useEtherscanContractInfo";
+import { useFunctions } from "@hooks/useFunctions";
+import { useParameterValidation } from "@hooks/useParameterValidation";
 import { useDebounceValue } from "usehooks-ts";
-import { isValidName } from "utils/ensUtils";
-import { getSignature } from "utils/functionUtils";
-import { NounsTransactionData } from "utils/governanceUtils";
-import { parseArrayParameter } from "utils/parseArrayParameter";
+import { isValidName } from "@utils/ensUtils";
+import { getSignature } from "@utils/functionUtils";
+import { NounsTransactionData } from "@utils/governanceUtils";
+import { parseArrayParameter } from "@utils/parseArrayParameter";
 import { encodeFunctionData, getAbiItem, parseEther } from "viem";
 
 export interface AddTransactionFormProps extends CardProps {

@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { truncatedAmount } from "../../utils";
-import { AvatarWallet } from "../AvatarWallet";
-import { Countdown } from "./Countdown";
+import { truncatedAmount } from "utils";
+import { AvatarWallet } from "@components/AvatarWallet";
+import { Countdown } from "@components/Auction/Countdown";
 import { Box, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
 
 interface AuctionStatusProps extends StackProps {

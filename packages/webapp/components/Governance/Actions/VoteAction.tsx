@@ -28,11 +28,11 @@ import {
   useDisclosure,
   useToast
 } from "@chakra-ui/react";
-import { AvatarWallet } from "components/AvatarWallet";
+import { AvatarWallet } from "@components/AvatarWallet";
 import { find } from "lodash";
 import { BiCommentDetail } from "react-icons/bi";
-import { DetailedProposalData, Support } from "utils/governanceUtils";
-import { useGnarsDaoCastVote, useGnarsDaoCastVoteWithReason, useGnarsV2TokenGetPriorVotes } from "utils/sdk";
+import { DetailedProposalData, Support } from "@utils/governanceUtils";
+import { useGnarsDaoCastVote, useGnarsDaoCastVoteWithReason, useGnarsV2TokenGetPriorVotes } from "@utils/sdk";
 import { useAccount } from "wagmi";
 import { waitForTransaction } from "wagmi/actions";
 
