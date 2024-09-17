@@ -83,7 +83,7 @@ export const GnarInfo: FC<GnarInfoProps> = ({ isOg, gnarData, ...props }: GnarIn
       {...props}
     >
       <Heading alignItems="center" justifyContent="center" marginTop={{ md: "2em" }}>
-        Under Construction
+        Coming soon!
       </Heading>
 
       <Heading as="h3" size={"lg"}>
