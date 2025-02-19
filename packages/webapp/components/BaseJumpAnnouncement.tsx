@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { FiExternalLink } from "react-icons/fi";
 
-const baseLink = "https://nouns.build/dao/base/0x880Fb3Cf5c6Cc2d7DFC13a993E839a9411200C17";
+const baseLink = "https://gnars.com";
 
 export const BaseAnnouncementModal = ({ ...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -58,8 +58,7 @@ export const BaseAnnouncementModal = ({ ...props }) => {
           <VStack spacing={10}>
             <VStack alignItems={"start"} spacing={0} alignSelf={"start"}>
               <Text>
-                We&#39;re currently updating this site to be fully operational on Base. In the meantime, auctions and
-                governance are live on Base <TextLink href={baseLink}>here</TextLink>.
+                The new site is live! Check it out at <TextLink href={baseLink}>Gnars.com</TextLink>.
               </Text>
               <br />
               <Text>
@@ -94,7 +93,7 @@ export const BaseAlertHeader = () => {
           Gnars have BASE JUMPED!
         </AlertTitle>
         <AlertDescription textAlign={"center"}>
-          <Text>We&#39;re currently updating this site to be fully operation on Base. Stay tuned. ⌐◨-◨\m/</Text>
+          <Text>The new site is live! Check it out at <ExternalLink href={baseLink} isExternal rel="noopener noreferrer">Gnars.com</ExternalLink>.</Text>
         </AlertDescription>
       </Box>
       <Box flexGrow={1} alignContent={{ base: "center", md: "flex-end" }}>
